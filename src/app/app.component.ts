@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TransportTableService } from './services/transport-table.service';
+import {
+  CostTable,
+  TransportTableService,
+} from './services/transport-table.service';
+
+type ResultValue = { table: CostTable; epsilon: number } | null;
 
 @Component({
   selector: 'app-root',
@@ -8,6 +13,7 @@ import { TransportTableService } from './services/transport-table.service';
 })
 export class AppComponent implements OnInit {
   resultShouldBe: number = 0;
+  currentResult: ResultValue = null;
 
   constructor(private transportTableService: TransportTableService) {}
 
@@ -52,13 +58,15 @@ export class AppComponent implements OnInit {
       if (!this.transportTableService.isFilled()) {
         throw new Error('Table has no values.');
       }
-      const result = this.transportTableService.northWest();
+      this.currentResult = this.transportTableService.northWest();
       console.log('------------------- RESULT -------------------');
-      console.table(result.table);
-      console.log('EPSILON', result.epsilon);
+      console.table(this.currentResult.table);
+      console.log('EPSILON', this.currentResult.epsilon);
       console.log(
         `ESILON: ${
-          this.resultShouldBe === result.epsilon ? 'Correct ✅' : 'Wrong ❌'
+          this.resultShouldBe === this.currentResult.epsilon
+            ? 'Correct ✅'
+            : 'Wrong ❌'
         }`
       );
     } catch (err: any) {
