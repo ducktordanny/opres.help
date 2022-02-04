@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TransportTableService } from './transport-table.service';
+import {TransportTableService} from './transport-table.service';
 
 describe('TransportTableService', () => {
   let service: TransportTableService;
