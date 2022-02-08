@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+
 import {
   CostTable,
   TransportTableService,
@@ -11,13 +12,11 @@ type ResultValue = {table: CostTable; epsilon: number} | null;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  resultShouldBe: number = 0;
+export class AppComponent {
+  resultShouldBe = 0;
   currentResult: ResultValue = null;
 
   constructor(private transportTableService: TransportTableService) {}
-
-  ngOnInit(): void {}
 
   test1(): void {
     // TEST 1 (Epsilon should be 458)

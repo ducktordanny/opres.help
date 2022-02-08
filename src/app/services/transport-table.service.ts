@@ -14,8 +14,8 @@ export class TransportTableService {
   private isInitialized = false;
 
   constructor(
-    @Inject('storageSize') @Optional() storageSize: number = 4,
-    @Inject('shopSize') @Optional() shopSize: number = 4,
+    @Inject('storageSize') @Optional() storageSize = 4,
+    @Inject('shopSize') @Optional() shopSize = 4,
   ) {
     this.storages = new Array(storageSize);
     this.shops = new Array(shopSize);
@@ -99,7 +99,7 @@ export class TransportTableService {
       throw new Error('The stock quantity is not equal to the demand.');
 
     // TODO: we shouldn't change the original values...
-    let {storages, shops} = this;
+    const {storages, shops} = this;
     const result = this.getResultTable();
 
     let i = 0,
