@@ -1,23 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+
 import {
   CostTable,
   TransportTableService,
 } from './services/transport-table.service';
 
-type ResultValue = { table: CostTable; epsilon: number } | null;
+type ResultValue = {table: CostTable; epsilon: number} | null;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  resultShouldBe: number = 0;
+export class AppComponent {
+  resultShouldBe = 0;
   currentResult: ResultValue = null;
 
   constructor(private transportTableService: TransportTableService) {}
-
-  ngOnInit(): void {}
 
   test1(): void {
     // TEST 1 (Epsilon should be 458)
@@ -29,7 +28,7 @@ export class AppComponent implements OnInit {
         [1, 4, 2, 5],
         [2, 3, 4, 7],
         [1, 1, 4, 4],
-      ]
+      ],
     );
     this.resultShouldBe = 458;
     console.log('------------------- FILL -------------------');
@@ -46,7 +45,7 @@ export class AppComponent implements OnInit {
         [7, 5, 2, 3],
         [1, 3, 4, 5],
         [2, 2, 8, 1],
-      ]
+      ],
     );
     this.resultShouldBe = 125;
     console.log('------------------- FILL -------------------');
@@ -67,7 +66,7 @@ export class AppComponent implements OnInit {
           this.resultShouldBe === this.currentResult.epsilon
             ? 'Correct ✅'
             : 'Wrong ❌'
-        }`
+        }`,
       );
     } catch (err: any) {
       console.error(err.message);

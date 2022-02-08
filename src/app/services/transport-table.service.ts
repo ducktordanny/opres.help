@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import {Inject, Injectable, Optional} from '@angular/core';
 
 export type Storage = Array<number>;
 export type Shop = Array<number>;
@@ -14,8 +14,8 @@ export class TransportTableService {
   private isInitialized = false;
 
   constructor(
-    @Inject('storageSize') @Optional() storageSize: number = 4,
-    @Inject('shopSize') @Optional() shopSize: number = 4
+    @Inject('storageSize') @Optional() storageSize = 4,
+    @Inject('shopSize') @Optional() shopSize = 4,
   ) {
     this.storages = new Array(storageSize);
     this.shops = new Array(shopSize);
@@ -69,7 +69,7 @@ export class TransportTableService {
     return epsilon;
   }
 
-  getMinimumCost(array: any[][]): { row: number; column: number } {
+  getMinimumCost(array: any[][]): {row: number; column: number} {
     let minimumCost = 0;
     const indexes = {
       row: -1,
@@ -94,12 +94,12 @@ export class TransportTableService {
   // ####################
 
   /** always starts from northwest */
-  northWest(): { table: CostTable; epsilon: number } {
+  northWest(): {table: CostTable; epsilon: number} {
     if (!this.verifySolvability())
       throw new Error('The stock quantity is not equal to the demand.');
 
     // TODO: we shouldn't change the original values...
-    let { storages, shops } = this;
+    const {storages, shops} = this;
     const result = this.getResultTable();
 
     let i = 0,
