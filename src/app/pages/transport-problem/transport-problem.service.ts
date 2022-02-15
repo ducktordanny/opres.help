@@ -4,10 +4,8 @@ export type Storage = Array<number>;
 export type Shop = Array<number>;
 export type CostTable = Array<Array<number>>;
 
-@Injectable({
-  providedIn: 'root',
-})
-export class TransportTableService {
+@Injectable()
+export class TransportProblemService {
   private storages: Storage;
   private shops: Shop;
   private costs: CostTable;

@@ -1,22 +1,23 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import {NavbarModule} from './components/navbar/navbar.module';
+import {HomeModule} from './pages/home/home.module';
+import {TransportProblemModule} from './pages/transport-problem/transport-problem.module';
 import {AppComponent} from './app.component';
-import {AppRoutingModule} from './app-routing.module';
+import {RoutingModule} from './routing.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatTableModule,
+    HomeModule,
+    NavbarModule,
+    RoutingModule,
+    TransportProblemModule,
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
