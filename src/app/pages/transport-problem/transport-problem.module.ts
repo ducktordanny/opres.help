@@ -1,3 +1,4 @@
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
@@ -9,7 +10,7 @@ import {TransportProblemService} from './transport-problem.service';
 
 @NgModule({
   declarations: [TransportProblemComponent, TransportTableComponent],
-  imports: [MatButtonModule, MatTableModule],
+  imports: [CommonModule, MatButtonModule, MatTableModule],
   providers: [TransportProblemService],
 })
 export class TransportProblemModule {}

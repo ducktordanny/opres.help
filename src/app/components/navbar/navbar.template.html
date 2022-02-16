@@ -1,25 +1,18 @@
 <mat-toolbar color="primary">
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
   <span>Opres</span>
   <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
+  <a
+    mat-button
+    routerLink="home"
+    routerLinkActive="navbar-header-item-selected"
   >
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
+    Home
+  </a>
+  <a
+    mat-button
+    routerLink="transport-problem"
+    routerLinkActive="navbar-header-item-selected"
   >
-    <mat-icon>share</mat-icon>
-  </button>
+    Transport problem
+  </a>
 </mat-toolbar>
