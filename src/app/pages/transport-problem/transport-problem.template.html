@@ -1,10 +1,9 @@
-<h1>Transplems</h1>
 <button mat-raised-button color="primary" (click)="test1()">Test fill 1</button>
 <button mat-raised-button color="primary" (click)="test2()">Test fill 2</button>
 <button mat-raised-button color="primary" (click)="calc()">Calculate</button>
 <h2>Results:</h2>
 <div *ngIf="currentResult !== null; else noResult">
-  <p>ε = {{ currentResult.epsilon }}</p>
+  <p>ε = {{ currentResult?.epsilon }}</p>
   <p>Result table:</p>
   <table style="border: 1px solid black">
     <tr *ngFor="let row of currentResult.table" style="border: 1px solid black">
@@ -17,3 +16,4 @@
 <ng-template #noResult>
   <p>You have no available result yet.</p>
 </ng-template>
+<transport-table></transport-table>
