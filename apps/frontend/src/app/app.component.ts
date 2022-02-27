@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'opres-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-root',
+  templateUrl: './app.template.html',
+  styleUrls: ['./app.style.scss'],
 })
-export class AppComponent {
-  title = 'frontend';
-}
+export class AppComponent {}
