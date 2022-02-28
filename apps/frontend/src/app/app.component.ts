@@ -1,8 +1,13 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
+
+import {Message} from '@opres/api-interfaces';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.template.html',
-  styleUrls: ['./app.style.scss'],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(private http: HttpClient) {}
+}

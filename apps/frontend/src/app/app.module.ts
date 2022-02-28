@@ -14,15 +14,16 @@ import {RoutingModule} from './routing.module';
 @NgModule({
   declarations: [AppComponent, LayoutComponent],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     CommonModule,
-    HttpClientModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     HomeModule,
+    HttpClientModule,
     NavbarModule,
     RoutingModule,
     TransportProblemModule,
   ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
