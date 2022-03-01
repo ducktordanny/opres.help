@@ -27,8 +27,10 @@
       "rules": {
         "indent": ["error", 2],
         "linebreak-style": ["error", "unix"],
+        "no-console": "warn",
+        "prefer-const": "error",
+        "prefer-arrow-callback": "error",
         "semi": ["error", "always"],
-        "no-console": ["warn"],
         "simple-import-sort/imports": [
           "error",
           {
