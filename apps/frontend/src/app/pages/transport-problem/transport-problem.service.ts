@@ -15,11 +15,11 @@ export class TransportProblemService {
     @Inject('storageSize') @Optional() storageSize = 4,
     @Inject('shopSize') @Optional() shopSize = 4,
   ) {
-    this.storages = new Array(storageSize);
-    this.shops = new Array(shopSize);
-    this.costs = new Array(storageSize);
+    this.storages = Array.from({length: storageSize});
+    this.shops = Array.from({length: shopSize});
+    this.costs = Array.from({length: storageSize});
     this.costs = this.costs.map(() => {
-      return new Array(shopSize);
+      return Array.from({length: shopSize});
     });
   }
 
@@ -44,26 +44,24 @@ export class TransportProblemService {
   private verifySolvability(): boolean {
     let stock = 0,
       demand = 0;
-    this.storages.forEach((storageStock) => (stock += storageStock));
-    this.shops.forEach((shopDemand) => (demand += shopDemand));
+    for (const storageStock of this.storages) stock += storageStock;
+    for (const shopDemand of this.shops) demand += shopDemand;
     return stock === demand;
   }
 
   getResultTable(): CostTable {
     const result: CostTable = [];
     for (let i = 0; i < this.storages.length; i++) {
-      result.push(new Array(this.shops.length));
+      result.push(Array.from({length: this.shops.length}));
     }
     return result;
   }
 
   calculateEpsilon(resultTable: CostTable): number {
     let epsilon = 0;
-    this.costs.forEach((row, i) => {
-      row.forEach((cost, j) => {
+    for (const [i, row] of this.costs.entries())
+      for (const [j, cost] of row.entries())
         epsilon += cost * (resultTable[i][j] || 0);
-      });
-    });
     return epsilon;
   }
 
@@ -74,15 +72,15 @@ export class TransportProblemService {
       column: -1,
     };
 
-    array.forEach((row, i) => {
-      row.forEach((element, j) => {
+    for (const [i, row] of array.entries()) {
+      for (const [j, element] of row.entries()) {
         if (element < minimumCost) {
           minimumCost = element;
           indexes.row = i;
           indexes.column = j;
         }
-      });
-    });
+      }
+    }
 
     return indexes;
   }
