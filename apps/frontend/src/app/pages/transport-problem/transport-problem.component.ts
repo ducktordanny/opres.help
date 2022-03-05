@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 import {CostTable, TransportProblemService} from './transport-problem.service';
 
@@ -8,6 +8,7 @@ type ResultValue = {table: CostTable; epsilon: number} | null;
   selector: 'transport-problem-page',
   templateUrl: './transport-problem.template.html',
   styleUrls: ['./transport-problem.style.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
   resultShouldBe = 0;

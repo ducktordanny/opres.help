@@ -1,12 +1,11 @@
 import {HttpClient} from '@angular/common/http';
-import {Component} from '@angular/core';
-
-import {Message} from '@opres/api-interfaces';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   constructor(private http: HttpClient) {}
