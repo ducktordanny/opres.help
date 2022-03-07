@@ -1,19 +1,19 @@
-<button mat-raised-button color="primary" (click)="test1()">Test fill 1</button>
-<button mat-raised-button color="primary" (click)="test2()">Test fill 2</button>
-<button mat-raised-button color="primary" (click)="calc()">Calculate</button>
-<h2>Results:</h2>
-<div *ngIf="currentResult !== null; else noResult">
-  <p>ε = {{ currentResult?.epsilon }}</p>
-  <p>Result table:</p>
-  <table style="border: 1px solid black">
-    <tr *ngFor="let row of currentResult.table" style="border: 1px solid black">
-      <td *ngFor="let element of row" style="border: 1px solid black">
-        {{ element ?? '' }}
-      </td>
-    </tr>
-  </table>
-</div>
-<ng-template #noResult>
-  <p>You have no available result yet.</p>
-</ng-template>
+<mat-form-field appearance="outline">
+  <mat-label>Shops</mat-label>
+  <mat-select matNativeControl required (selectionChange)="change($event)">
+    <mat-option value="3">3</mat-option>
+    <mat-option value="4">4</mat-option>
+    <mat-option value="5">5</mat-option>
+    <mat-option value="6">6</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="outline">
+  <mat-label>Storages</mat-label>
+  <mat-select matNativeControl required>
+    <mat-option value="3">3</mat-option>
+    <mat-option value="4">4</mat-option>
+    <mat-option value="5">5</mat-option>
+    <mat-option value="6">6</mat-option>
+  </mat-select>
+</mat-form-field>
 <transport-table></transport-table>

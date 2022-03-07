@@ -1,22 +1,19 @@
-<p>transport-table-works</p>
 <table
-  *ngIf="dataSource | async"
+  *ngIf="costSource | async"
   mat-table
   class="mat-elevation-z8"
-  [dataSource]="dataSource"
+  [dataSource]="costSource"
 >
   <ng-container
-    *ngFor="let header of rowDefinitions | async"
+    *ngFor="let header of costRowDefinitions | async"
     [matColumnDef]="header"
   >
     <th mat-header-cell *matHeaderCellDef>{{header}}</th>
     <td mat-cell *matCellDef="let element">
       <mat-form-field appearance="standard" style="padding: 0 5px; width: 50px">
-        <input matInput type="number" min="1" />
+        <input matInput type="number" min="0" />
       </mat-form-field>
     </td>
   </ng-container>
-
-  <tr mat-header *matNoDataRow></tr>
-  <tr mat-row *matRowDef="let row; columns: rowDefinitions | async"></tr>
+  <tr mat-row *matRowDef="let row; columns: costRowDefinitions | async"></tr>
 </table>

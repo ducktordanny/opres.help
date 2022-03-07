@@ -16,6 +16,10 @@ export class TransportProblemComponent {
 
   constructor(private transportTableService: TransportProblemService) {}
 
+  change(e: any) {
+    console.log(e);
+  }
+
   test1(): void {
     // TEST 1 (Epsilon should be 458)
     this.transportTableService.fill(
