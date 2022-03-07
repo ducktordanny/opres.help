@@ -1,19 +1,9 @@
-<table
-  *ngIf="costSource | async"
-  mat-table
-  class="mat-elevation-z8"
-  [dataSource]="costSource"
->
-  <ng-container
-    *ngFor="let header of costRowDefinitions | async"
-    [matColumnDef]="header"
-  >
-    <th mat-header-cell *matHeaderCellDef>{{header}}</th>
-    <td mat-cell *matCellDef="let element">
-      <mat-form-field appearance="standard" style="padding: 0 5px; width: 50px">
-        <input matInput type="number" min="0" />
-      </mat-form-field>
-    </td>
-  </ng-container>
-  <tr mat-row *matRowDef="let row; columns: costRowDefinitions | async"></tr>
-</table>
+<div class="input-table-wrapper">
+  <input-table
+    [rows]="storages | async"
+    [columns]="shops | async"
+  ></input-table>
+  <input-table [rows]="storages | async"></input-table>
+  <input-table [columns]="shops | async"></input-table>
+  <button mat-flat-button color="primary">Clear</button>
+</div>

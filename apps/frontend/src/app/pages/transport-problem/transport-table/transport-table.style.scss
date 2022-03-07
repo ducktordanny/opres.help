@@ -1,0 +1,8 @@
+.input-table-wrapper {
+  width: auto;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  gap: 16px;
+  justify-content: start;
+}
