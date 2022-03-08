@@ -22,10 +22,10 @@ export class TransportProblemComponent {
   ) {}
 
   public onShopsCountChange(change: MatSelectChange): void {
-    this.transportTableService.setShops(change.value);
+    this.transportTableService.shops.next(+change.value);
   }
 
   public onStoragesCountChange(change: MatSelectChange): void {
-    this.transportTableService.setStorages(change.value);
+    this.transportTableService.storages.next(+change.value);
   }
 }

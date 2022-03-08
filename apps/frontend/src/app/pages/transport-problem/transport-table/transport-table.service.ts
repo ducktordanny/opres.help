@@ -7,15 +7,10 @@ export type TableSize = {shops: number; storages: number};
 
 @Injectable()
 export class TransportTableService {
-  private shops = new BehaviorSubject<number>(4);
-  private storages = new BehaviorSubject<number>(4);
-
-  /**
-   * One shop is the equivalent of a column and a storage is the equivalent of a row.
-   * */
-  public readonly sizeChanges = combineLatest([this.shops, this.storages]).pipe(
-    map(([shops, storages]) => ({shops, storages})),
-  );
+  /** A shop is the equivalent of a column. */
+  public shops = new BehaviorSubject<number>(4);
+  /** A storage is the equivalent of a row. */
+  public storages = new BehaviorSubject<number>(4);
 
   /** Changes the number of shops (columns). */
   public setShops(count: number): void {

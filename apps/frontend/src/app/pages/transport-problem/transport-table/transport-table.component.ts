@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
-import {tap} from 'rxjs/operators';
 
 import {TransportTableService} from './transport-table.service';
 
@@ -12,13 +11,8 @@ import {TransportTableService} from './transport-table.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportTableComponent {
-  public readonly shops = new BehaviorSubject<number>(4);
-  public readonly storages = new BehaviorSubject<number>(4);
+  public readonly shops = this.transportTableService.shops;
+  public readonly storages = this.transportTableService.storages;
 
-  constructor(private transportTableService: TransportTableService) {
-    this.transportTableService.sizeChanges.subscribe(({shops, storages}) => {
-      this.shops.next(shops);
-      this.storages.next(storages);
-    });
-  }
+  constructor(private transportTableService: TransportTableService) {}
 }

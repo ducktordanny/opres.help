@@ -1,9 +1,12 @@
-<div class="input-table-wrapper">
-  <input-table
-    [rows]="storages | async"
-    [columns]="shops | async"
-  ></input-table>
-  <input-table [rows]="storages | async"></input-table>
-  <input-table [columns]="shops | async"></input-table>
-  <button mat-flat-button color="primary">Clear</button>
-</div>
+<form>
+  <div class="input-table-wrapper">
+    <input-table
+      [rows]="storages | async"
+      [columns]="shops | async"
+    ></input-table>
+    <input-table [rows]="storages | async"></input-table>
+    <input-table [columns]="shops | async"></input-table>
+    <button mat-flat-button color="primary" type="button">Clear</button>
+  </div>
+  <button mat-flat-button color="primary" type="submit">Calculate</button>
+</form>

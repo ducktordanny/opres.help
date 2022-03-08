@@ -38,9 +38,13 @@ export class InputTableComponent {
     );
   }
 
+  public onTableElementChange(event: any, column: any, row: any): void {
+    console.log(event?.target?.value, column, row);
+  }
+
   private tableSourceFrom(rows: number, rowDefinitions: Array<string>): Table {
     const rowContent = rowDefinitions.reduce(
-      (acc, curr) => ({...acc, [curr]: undefined}),
+      (acc, curr) => ({...acc, [curr]: null}),
       {},
     );
     return Array.from({length: rows}, () => rowContent);
