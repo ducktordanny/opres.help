@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx", "simple-import-sort", "unicorn"],
+  "plugins": ["@nrwl/nx", "rxjs-angular", "simple-import-sort", "unicorn"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -30,6 +30,13 @@
         "no-console": "warn",
         "prefer-const": "error",
         "prefer-arrow-callback": "error",
+        "rxjs-angular/prefer-takeuntil": [
+          "error",
+          {
+            "alias": ["untilDestroyed"],
+            "checkDecorators": ["Component"]
+          }
+        ],
         "semi": ["error", "always"],
         "simple-import-sort/imports": [
           "error",
