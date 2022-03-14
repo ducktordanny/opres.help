@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
-import {BehaviorSubject} from 'rxjs';
+import {Table} from '../../../components/input-table/input-table.component';
 
 import {TransportTableService} from './transport-table.service';
 
@@ -16,7 +16,7 @@ export class TransportTableComponent {
 
   constructor(private transportTableService: TransportTableService) {}
 
-  test(event: any) {
+  public test(event: Table): void {
     console.log(event);
   }
 }

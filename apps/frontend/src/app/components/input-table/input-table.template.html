@@ -1,11 +1,11 @@
 <table
   mat-table
   class="mat-elevation-z4"
-  *ngIf="tableSource | async"
-  [dataSource]="tableSource"
+  *ngIf="tableSource$ | async"
+  [dataSource]="tableSource$"
 >
   <ng-container
-    *ngFor="let header of rowDefinitions | async"
+    *ngFor="let header of rowDefinitions$ | async"
     [matColumnDef]="header"
   >
     <th mat-header-cell *matHeaderCellDef>{{header}}</th>
@@ -22,5 +22,5 @@
       </mat-form-field>
     </td>
   </ng-container>
-  <tr mat-row *matRowDef="let row; columns: rowDefinitions | async"></tr>
+  <tr mat-row *matRowDef="let row; columns: rowDefinitions$ | async"></tr>
 </table>

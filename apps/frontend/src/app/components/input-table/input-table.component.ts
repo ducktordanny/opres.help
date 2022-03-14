@@ -23,8 +23,8 @@ type RowDefs = Array<string>;
 export class InputTableComponent {
   public readonly rows$ = new BehaviorSubject<number>(1);
   public readonly columns$ = new BehaviorSubject<number>(1);
-  public readonly rowDefinitions = new BehaviorSubject<RowDefs>([]);
-  public tableSource = new BehaviorSubject<Table>([]);
+  public readonly rowDefinitions$ = new BehaviorSubject<RowDefs>([]);
+  public readonly tableSource$ = new BehaviorSubject<Table>([]);
   @Output() tableChange = new EventEmitter<Table>();
 
   @Input() set rows(value: number | null) {
@@ -43,19 +43,19 @@ export class InputTableComponent {
           rows,
         })),
         map(({rowDefinitions, rows}) => {
-          this.rowDefinitions.next(rowDefinitions);
+          this.rowDefinitions$.next(rowDefinitions);
           return this.tableSourceFrom(rows, rowDefinitions);
         }),
-        tap((tableSource) => this.tableSource.next(tableSource)),
+        tap((tableSource) => this.tableSource$.next(tableSource)),
         untilDestroyed(this),
       )
       .subscribe();
   }
 
   public onTableElementChange(event: Event, column: number, row: number): void {
-    const currentTable = this.tableSource.getValue();
+    const currentTable = this.tableSource$.getValue();
     currentTable[row][column] = +(<HTMLInputElement>event?.target)?.value;
-    this.tableSource.next(currentTable);
+    this.tableSource$.next(currentTable);
     this.tableChange.emit(currentTable);
   }
 
