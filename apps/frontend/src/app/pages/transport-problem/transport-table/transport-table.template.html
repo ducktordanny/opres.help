@@ -3,6 +3,7 @@
     <input-table
       [rows]="storages | async"
       [columns]="shops | async"
+      (tableChange)="test($event)"
     ></input-table>
     <input-table [rows]="storages | async"></input-table>
     <input-table [columns]="shops | async"></input-table>

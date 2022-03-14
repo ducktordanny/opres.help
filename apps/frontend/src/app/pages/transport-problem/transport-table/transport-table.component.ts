@@ -15,4 +15,8 @@ export class TransportTableComponent {
   public readonly storages = this.transportTableService.storages;
 
   constructor(private transportTableService: TransportTableService) {}
+
+  test(event: any) {
+    console.log(event);
+  }
 }

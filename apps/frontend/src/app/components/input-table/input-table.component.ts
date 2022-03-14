@@ -1,10 +1,19 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {BehaviorSubject, combineLatest} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 
 export type Table = Array<{[key: string]: number | undefined}>;
+type RowDefs = Array<string>;
 
+@UntilDestroy()
 @Component({
   selector: 'input-table',
   templateUrl: './input-table.template.html',
@@ -14,8 +23,9 @@ export type Table = Array<{[key: string]: number | undefined}>;
 export class InputTableComponent {
   public readonly rows$ = new BehaviorSubject<number>(1);
   public readonly columns$ = new BehaviorSubject<number>(1);
-  public readonly rowDefinitions = new BehaviorSubject<Array<string>>([]);
-  public dataSource: Observable<Table>;
+  public readonly rowDefinitions = new BehaviorSubject<RowDefs>([]);
+  public tableSource = new BehaviorSubject<Table>([]);
+  @Output() tableChange = new EventEmitter<Table>();
 
   @Input() set rows(value: number | null) {
     if (value) this.rows$.next(value);
@@ -26,30 +36,38 @@ export class InputTableComponent {
   }
 
   constructor() {
-    this.dataSource = combineLatest([this.rows$, this.columns$]).pipe(
-      map(([rows, columns]) => ({
-        rowDefinitions: this.rowDefinitionsFrom(columns || 4),
-        rows,
-      })),
-      map(({rowDefinitions, rows}) => {
-        this.rowDefinitions.next(rowDefinitions);
-        return this.tableSourceFrom(rows || 4, rowDefinitions);
-      }),
-    );
+    combineLatest([this.rows$, this.columns$])
+      .pipe(
+        map(([rows, columns]) => ({
+          rowDefinitions: this.rowDefinitionsFrom(columns),
+          rows,
+        })),
+        map(({rowDefinitions, rows}) => {
+          this.rowDefinitions.next(rowDefinitions);
+          return this.tableSourceFrom(rows, rowDefinitions);
+        }),
+        tap((tableSource) => this.tableSource.next(tableSource)),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
-  public onTableElementChange(event: any, column: any, row: any): void {
-    console.log(event?.target?.value, column, row);
+  public onTableElementChange(event: Event, column: number, row: number): void {
+    const currentTable = this.tableSource.getValue();
+    currentTable[row][column] = +(<HTMLInputElement>event?.target)?.value;
+    this.tableSource.next(currentTable);
+    this.tableChange.emit(currentTable);
   }
 
-  private tableSourceFrom(rows: number, rowDefinitions: Array<string>): Table {
+  private tableSourceFrom(rows: number, rowDefinitions: RowDefs): Table {
     const rowContent = rowDefinitions.reduce(
       (acc, curr) => ({...acc, [curr]: null}),
       {},
     );
-    return Array.from({length: rows}, () => rowContent);
+    // the spreading is necessary to not create reference between rows
+    return Array.from({length: rows}, () => ({...rowContent}));
   }
 
-  private rowDefinitionsFrom = (columns: number): Array<string> =>
+  private rowDefinitionsFrom = (columns: number): RowDefs =>
     Array.from({length: columns}, (_, index) => `${index}`);
 }
