@@ -8,6 +8,11 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "ecmaVersion": 2019,
+        "project": "./tsconfig.base.json",
+        "sourceType": "module"
+      },
       "rules": {}
     },
     {
