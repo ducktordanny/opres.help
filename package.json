@@ -11,6 +11,7 @@
     "format": "nx format:write --files=apps/frontend/src,apps/frontend-e2e/src,apps/api/src",
     "format:staged": "pretty-quick --staged",
     "lint": "nx affected:lint --files=apps/frontend/src,apps/frontend-e2e/src,apps/api/src",
+    "lint:all": "nx run-many --target=lint --projects=frontend,backend,frontend-e2e --parallel=3",
     "prepare": "husky install"
   },
   "private": true,

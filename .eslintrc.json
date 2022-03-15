@@ -42,9 +42,10 @@
           "error",
           {
             "groups": [
-              ["^@angular"],
+              ["^@angular", "^@nestjs"],
+              ["^@"],
               // Internal packages
-              ["^(@|@prisma|src)(/.*|$)", "^@?\\w"],
+              ["^(@components|@shared|@opres|src)(/.*|$)", "^@?\\w"],
               // Side effect imports.
               ["^\\u0000"],
               // Parent imports. Put `..` last.
