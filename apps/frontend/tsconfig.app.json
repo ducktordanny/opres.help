@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./src",
     "outDir": "../../dist/out-tsc",
+    "paths": {
+      "@components/*": ["app/components/*"],
+      "@shared/*": ["app/shared/*"]
+    },
     "types": [],
     "target": "ES2017"
   },
