@@ -27,6 +27,7 @@ export class InputTableComponent {
   public readonly columns$ = new BehaviorSubject<number>(1);
   public readonly rowDefinitions$ = new BehaviorSubject<RowDefs>([]);
   public readonly tableSource$ = new BehaviorSubject<Table>([]);
+  private hasValues = new BehaviorSubject<boolean>(false);
 
   @Input() set rows(value: number | null) {
     if (value) this.rows$.next(value);
@@ -53,6 +54,7 @@ export class InputTableComponent {
       .subscribe();
     this.inputTableService.clear$
       .pipe(
+        filter(() => this.hasValues.getValue()),
         filter((keys) => keys.some((key) => key === this.key)),
         map(() =>
           this.tableSourceFrom(
@@ -60,7 +62,10 @@ export class InputTableComponent {
             this.rowDefinitions$.getValue(),
           ),
         ),
-        tap((newTableSource) => this.tableSource$.next(newTableSource)),
+        tap((newTableSource) => {
+          this.tableSource$.next(newTableSource);
+          this.hasValues.next(false);
+        }),
         untilDestroyed(this),
       )
       .subscribe();
@@ -71,6 +76,7 @@ export class InputTableComponent {
     currentTable[row][column] = +(<HTMLInputElement>event?.target)?.value;
     this.tableSource$.next(currentTable);
     this.tableChange.emit(currentTable);
+    this.hasValues.next(true);
   }
 
   private tableSourceFrom(rows: number, rowDefinitions: RowDefs): Table {
