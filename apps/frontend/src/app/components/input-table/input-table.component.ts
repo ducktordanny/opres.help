@@ -6,26 +6,27 @@ import {
   Output,
 } from '@angular/core';
 
+import {InputTableService} from '@components/input-table/input-table.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import {filter, map, tap} from 'rxjs/operators';
 
 export type Table = Array<{[key: string]: number | undefined}>;
 type RowDefs = Array<string>;
 
 @UntilDestroy()
 @Component({
-  selector: 'input-table',
+  selector: 'input-table[key]',
   templateUrl: './input-table.template.html',
-  styleUrls: ['./input-table.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTableComponent {
+  @Input() key = '';
+  @Output() tableChange = new EventEmitter<Table>();
   public readonly rows$ = new BehaviorSubject<number>(1);
   public readonly columns$ = new BehaviorSubject<number>(1);
   public readonly rowDefinitions$ = new BehaviorSubject<RowDefs>([]);
   public readonly tableSource$ = new BehaviorSubject<Table>([]);
-  @Output() tableChange = new EventEmitter<Table>();
 
   @Input() set rows(value: number | null) {
     if (value) this.rows$.next(value);
@@ -35,7 +36,7 @@ export class InputTableComponent {
     if (value) this.columns$.next(value);
   }
 
-  constructor() {
+  constructor(private inputTableService: InputTableService) {
     combineLatest([this.rows$, this.columns$])
       .pipe(
         map(([rows, columns]) => ({
@@ -47,6 +48,19 @@ export class InputTableComponent {
           return this.tableSourceFrom(rows, rowDefinitions);
         }),
         tap((tableSource) => this.tableSource$.next(tableSource)),
+        untilDestroyed(this),
+      )
+      .subscribe();
+    this.inputTableService.clear$
+      .pipe(
+        filter((keys) => keys.some((key) => key === this.key)),
+        map(() =>
+          this.tableSourceFrom(
+            this.rows$.getValue(),
+            this.rowDefinitions$.getValue(),
+          ),
+        ),
+        tap((newTableSource) => this.tableSource$.next(newTableSource)),
         untilDestroyed(this),
       )
       .subscribe();

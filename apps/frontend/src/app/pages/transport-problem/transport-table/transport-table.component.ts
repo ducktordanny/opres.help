@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
-import {Table} from '../../../components/input-table/input-table.component';
+import {Table} from '@components/input-table/input-table.component';
+import {InputTableService} from '@components/input-table/input-table.service';
 
 import {TransportTableService} from './transport-table.service';
 
@@ -11,12 +12,19 @@ import {TransportTableService} from './transport-table.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportTableComponent {
-  public readonly shops = this.transportTableService.shops;
-  public readonly storages = this.transportTableService.storages;
+  public readonly shops$ = this.transportTableService.shops;
+  public readonly storages$ = this.transportTableService.storages;
 
-  constructor(private transportTableService: TransportTableService) {}
+  constructor(
+    private transportTableService: TransportTableService,
+    private inputTableService: InputTableService,
+  ) {}
 
   public test(event: Table): void {
-    console.log(event);
+    // calculation will be called here...
+  }
+
+  public clearTable(): void {
+    this.inputTableService.clear(['costs', 'storageStocks', 'shopDemands']);
   }
 }
