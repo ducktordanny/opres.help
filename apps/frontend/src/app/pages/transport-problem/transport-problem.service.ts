@@ -5,21 +5,13 @@ import {createRowFrom, rowDefinitionsFrom} from '@shared/helpers/table.helper';
 import {Table} from '@shared/types/table.types';
 import {BehaviorSubject} from 'rxjs';
 
-export type Stocks = Array<number | null>;
-export type Demands = Array<number | null>;
-export type TPMethods = 'north-west' | 'table-min' | 'vogel-korda';
-
-/** Stands for transportation problem data what contains the costs, the demand of shops and the stock of storages. */
-export interface TPData {
-  costs: Table;
-  shopDemands: Demands;
-  storageStocks: Stocks;
-}
-
-export interface Result {
-  epsilon: number;
-  table: Table;
-}
+import {
+  Demands,
+  Result,
+  Stocks,
+  TPData,
+  TPMethods,
+} from './transport-table.types';
 
 @Injectable()
 export class TransportProblemService {
@@ -62,11 +54,9 @@ export class TransportProblemService {
     const {costs} = this.tpData$.getValue();
     let epsilon = 0;
 
-    for (const [rowIndex, row] of costs.entries()) {
-      for (const [columnIndex, cost] of Object.entries(row)) {
+    for (const [rowIndex, row] of costs.entries())
+      for (const [columnIndex, cost] of Object.entries(row))
         epsilon += (cost || 0) * (resultTable[rowIndex][columnIndex] || 0);
-      }
-    }
 
     return epsilon;
   }

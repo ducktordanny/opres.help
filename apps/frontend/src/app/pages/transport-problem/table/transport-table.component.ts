@@ -1,28 +1,30 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 import {InputTableService} from '@components/input-table/input-table.service';
 import {Table} from '@shared/types/table.types';
 
-import {
-  Demands,
-  Stocks,
-  TPData,
-  TransportProblemService,
-} from '../transport-problem.service';
+import {TransportProblemService} from '../transport-problem.service';
+import {Demands, Stocks} from '../transport-table.types';
 
 @Component({
   selector: 'transport-table',
   templateUrl: './transport-table.template.html',
-  styleUrls: ['./transport-table.style.scss'],
+  styles: [
+    `
+      .input-table-wrapper {
+        padding: 8px;
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: auto auto;
+        gap: 16px;
+        justify-content: start;
+        overflow-x: auto;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportTableComponent {
-  @Output() tableChange = new EventEmitter<TPData>();
   public readonly shops$ = this.transportProblemService.shops$;
   public readonly storages$ = this.transportProblemService.storages$;
 
