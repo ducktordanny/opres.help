@@ -1,31 +1,50 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
 
-import {TransportTableService} from './transport-table/transport-table.service';
-import {CostTable, TransportProblemService} from './transport-problem.service';
-
-type ResultValue = {table: CostTable; epsilon: number} | null;
+import {TransportProblemService} from './transport-problem.service';
+import {TPMethods} from './transport-table.types';
 
 @Component({
   selector: 'transport-problem-page',
   templateUrl: './transport-problem.template.html',
-  styleUrls: ['./transport-problem.style.scss'],
+  styles: [
+    `
+      mat-form-field {
+        margin: 8px;
+      }
+
+      mat-hint {
+        display: block;
+        max-width: 500px;
+        margin: 8px;
+      }
+
+      button[type='submit'] {
+        margin: 8px;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
-  resultShouldBe = 0;
-  currentResult: ResultValue = null;
+  public readonly selectedMethod$ = this.transportProblemService.method$;
 
-  constructor(
-    private transportTableService: TransportTableService,
-    private transportProblemService: TransportProblemService,
-  ) {}
+  constructor(private transportProblemService: TransportProblemService) {}
 
   public onShopsCountChange(change: MatSelectChange): void {
-    this.transportTableService.shops.next(+change.value);
+    this.transportProblemService.shops$.next(+change.value);
   }
 
   public onStoragesCountChange(change: MatSelectChange): void {
-    this.transportTableService.storages.next(+change.value);
+    this.transportProblemService.storages$.next(+change.value);
+  }
+
+  public onMethodSelect(change: MatSelectChange): void {
+    this.transportProblemService.method$.next(<TPMethods>change.value);
+  }
+
+  public onCalculate(event: Event): void {
+    event.preventDefault();
+    this.transportProblemService.calculate();
   }
 }

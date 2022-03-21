@@ -1,29 +1,61 @@
-<mat-form-field appearance="outline">
-  <mat-label>Shops</mat-label>
-  <mat-select
-    matNativeControl
-    required
-    value="4"
-    (selectionChange)="onShopsCountChange($event)"
+<form>
+  <mat-form-field appearance="outline">
+    <mat-label>Shops</mat-label>
+    <mat-select
+      matNativeControl
+      required
+      value="4"
+      (selectionChange)="onShopsCountChange($event)"
+    >
+      <mat-option value="3">3</mat-option>
+      <mat-option value="4">4</mat-option>
+      <mat-option value="5">5</mat-option>
+      <mat-option value="6">6</mat-option>
+      <mat-option value="6">7</mat-option>
+      <mat-option value="6">8</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Storages</mat-label>
+    <mat-select
+      matNativeControl
+      required
+      value="4"
+      (selectionChange)="onStoragesCountChange($event)"
+    >
+      <mat-option value="3">3</mat-option>
+      <mat-option value="4">4</mat-option>
+      <mat-option value="5">5</mat-option>
+      <mat-option value="6">6</mat-option>
+      <mat-option value="6">7</mat-option>
+      <mat-option value="6">8</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Method</mat-label>
+    <mat-select
+      matNativeControl
+      required
+      [value]="selectedMethod$ | async"
+      (selectionChange)="onMethodSelect($event)"
+    >
+      <mat-option value="north-west">North-West</mat-option>
+      <mat-option value="table-min">Table minimum</mat-option>
+      <mat-option value="vogel-korda">Vogel-Korda</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-hint>
+    The table in the top left corner represents the costs, next to it on the
+    right it's the stocks of storages and under them can be found the demands of
+    the shops.
+  </mat-hint>
+  <transport-table></transport-table>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    (click)="onCalculate($event)"
   >
-    <mat-option value="3">3</mat-option>
-    <mat-option value="4">4</mat-option>
-    <mat-option value="5">5</mat-option>
-    <mat-option value="6">6</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field appearance="outline">
-  <mat-label>Storages</mat-label>
-  <mat-select
-    matNativeControl
-    required
-    value="4"
-    (selectionChange)="onStoragesCountChange($event)"
-  >
-    <mat-option value="3">3</mat-option>
-    <mat-option value="4">4</mat-option>
-    <mat-option value="5">5</mat-option>
-    <mat-option value="6">6</mat-option>
-  </mat-select>
-</mat-form-field>
-<transport-table></transport-table>
+    Calculate
+  </button>
+</form>
