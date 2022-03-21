@@ -1,10 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
 
-import {TransportTableService} from './transport-table/transport-table.service';
-import {CostTable, TransportProblemService} from './transport-problem.service';
-
-type ResultValue = {table: CostTable; epsilon: number} | null;
+import {TransportProblemService} from './transport-problem.service';
 
 @Component({
   selector: 'transport-problem-page',
@@ -13,19 +10,13 @@ type ResultValue = {table: CostTable; epsilon: number} | null;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
-  resultShouldBe = 0;
-  currentResult: ResultValue = null;
-
-  constructor(
-    private transportTableService: TransportTableService,
-    private transportProblemService: TransportProblemService,
-  ) {}
+  constructor(private transportProblemService: TransportProblemService) {}
 
   public onShopsCountChange(change: MatSelectChange): void {
-    this.transportTableService.shops.next(+change.value);
+    this.transportProblemService.shops$.next(+change.value);
   }
 
   public onStoragesCountChange(change: MatSelectChange): void {
-    this.transportTableService.storages.next(+change.value);
+    this.transportProblemService.storages$.next(+change.value);
   }
 }

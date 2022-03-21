@@ -1,139 +1,41 @@
-import {Inject, Injectable, Optional} from '@angular/core';
+import {Injectable} from '@angular/core';
 
-export type Storage = Array<number>;
-export type Shop = Array<number>;
-export type CostTable = Array<Array<number>>;
+import {sum} from '@shared/helpers/array.helper';
+import {Table} from '@shared/types/table.types';
+import {BehaviorSubject} from 'rxjs';
+
+export type Stocks = Array<number | null>;
+export type Demands = Array<number | null>;
+export type TPMethods = 'north-west' | 'table-min' | 'vogel-korda';
+
+/** Stands for transportation problem data what contains the costs, the demand of shops and the stock of storages. */
+export interface TPData {
+  costs: Table;
+  shopDemands: Demands;
+  storageStocks: Stocks;
+}
 
 @Injectable()
 export class TransportProblemService {
-  private storages: Storage;
-  private shops: Shop;
-  private costs: CostTable;
-  private isInitialized = false;
+  /** A shop is the equivalent of a column. */
+  public shops$ = new BehaviorSubject<number>(4);
+  /** A storage is the equivalent of a row. */
+  public storages$ = new BehaviorSubject<number>(4);
 
-  constructor(
-    @Inject('storageSize') @Optional() storageSize = 4,
-    @Inject('shopSize') @Optional() shopSize = 4,
-  ) {
-    this.storages = Array.from({length: storageSize});
-    this.shops = Array.from({length: shopSize});
-    this.costs = Array.from({length: storageSize});
-    this.costs = this.costs.map(() => {
-      return Array.from({length: shopSize});
-    });
+  public calculate(method: TPMethods, data: TPData): void {
+    if (method === 'north-west') this.northWest(data);
   }
 
-  /** This is required before any other function call. */
-  fill(storages: number[], shops: number[], costs: number[][]): void {
-    this.isInitialized = true;
-    this.storages = storages;
-    this.shops = shops;
-    this.costs = costs;
+  private northWest(data: TPData): void {
+    const {costs, shopDemands, storageStocks} = data;
+    if (!this.canBeSolved(shopDemands, storageStocks))
+      throw new Error('The given problem is not solvable!');
+    console.log(costs);
   }
 
-  isFilled(): boolean {
-    return this.isInitialized;
-  }
-
-  log(): void {
-    console.log(`Storages: ${this.storages}`);
-    console.log(`Shops: ${this.shops}`);
-    console.table(this.costs);
-  }
-
-  private verifySolvability(): boolean {
-    let stock = 0,
-      demand = 0;
-    for (const storageStock of this.storages) stock += storageStock;
-    for (const shopDemand of this.shops) demand += shopDemand;
-    return stock === demand;
-  }
-
-  getResultTable(): CostTable {
-    const result: CostTable = [];
-    for (let i = 0; i < this.storages.length; i++) {
-      result.push(Array.from({length: this.shops.length}));
-    }
-    return result;
-  }
-
-  calculateEpsilon(resultTable: CostTable): number {
-    let epsilon = 0;
-    for (const [i, row] of this.costs.entries())
-      for (const [j, cost] of row.entries())
-        epsilon += cost * (resultTable[i][j] || 0);
-    return epsilon;
-  }
-
-  getMinimumCost(array: any[][]): {row: number; column: number} {
-    let minimumCost = 0;
-    const indexes = {
-      row: -1,
-      column: -1,
-    };
-
-    for (const [i, row] of array.entries()) {
-      for (const [j, element] of row.entries()) {
-        if (element < minimumCost) {
-          minimumCost = element;
-          indexes.row = i;
-          indexes.column = j;
-        }
-      }
-    }
-
-    return indexes;
-  }
-
-  // ####################
-  // ###### First Phase ######
-  // ####################
-
-  /** always starts from northwest */
-  northWest(): {table: CostTable; epsilon: number} {
-    if (!this.verifySolvability())
-      throw new Error('The stock quantity is not equal to the demand.');
-
-    // TODO: we shouldn't change the original values...
-    const {storages, shops} = this;
-    const result = this.getResultTable();
-
-    let i = 0,
-      j = 0;
-
-    while (i < storages.length && j < shops.length) {
-      const stock = storages[i],
-        demand = shops[j];
-      const transport = stock > demand ? demand : stock;
-
-      result[i][j] = transport;
-      storages[i] -= transport;
-      shops[j] -= transport;
-
-      if (transport == stock) {
-        i += 1;
-      } else {
-        j += 1;
-      }
-    }
-
-    return {
-      table: result,
-      epsilon: this.calculateEpsilon(result),
-    };
-  }
-
-  /** always starts with the smallest cost */
-  tableMin(): void {
-    if (!this.verifySolvability())
-      throw new Error('The stock quantity is not equal to the demand.');
-
-    // TODO: we have to find one of the smallest cost in the costs table
-    // TODO: find out a stop condition for iteration
-  }
-
-  vogelKorda(): void {
-    if (!this.verifySolvability())
-      throw new Error('The stock quantity is not equal to the demand.');
+  private canBeSolved(shopDemands: Demands, storageStocks: Stocks): boolean {
+    const shopDemandSum = sum(shopDemands);
+    const storageStockSum = sum(storageStocks);
+    return shopDemandSum === storageStockSum;
   }
 }

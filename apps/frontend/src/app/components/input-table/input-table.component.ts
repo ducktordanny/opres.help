@@ -11,7 +11,7 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
 
-export type Table = Array<{[key: string]: number | undefined}>;
+export type Table = Array<{[key: string]: number | null}>;
 type RowDefs = Array<string>;
 
 @UntilDestroy()

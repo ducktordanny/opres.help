@@ -1,0 +1,36 @@
+<form>
+  <div class="input-table-wrapper">
+    <input-table
+      key="costs"
+      [rows]="storages$ | async"
+      [columns]="shops$ | async"
+      (tableChange)="onCostChange($event)"
+    ></input-table>
+    <input-table
+      key="storageStocks"
+      [rows]="storages$ | async"
+      (tableChange)="onStorageChange($event)"
+    ></input-table>
+    <input-table
+      key="shopDemands"
+      [columns]="shops$ | async"
+      (tableChange)="onShopChange($event)"
+    ></input-table>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="clearTables()"
+    >
+      Clear
+    </button>
+  </div>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    (click)="calculate($event)"
+  >
+    Calculate
+  </button>
+</form>
