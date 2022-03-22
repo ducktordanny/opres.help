@@ -40,15 +40,17 @@ export class TransportProblemService {
     this.tpData$.next({...this.tpData$.getValue(), storageStocks});
   }
 
-  public calculate(): void {
+  public calculate(): Result {
     if (!this.checkSolvability())
       throw new Error('The given problem is not solvable!');
+    const mockResult = {epsilon: 0, table: []};
 
     // select method
     const method = this.method$.getValue();
-    if (method === 'north-west') console.log(this.northWest());
-    else if (method === 'table-min') return;
-    else if (method === 'vogel-korda') return;
+    if (method === 'north-west') return this.northWest();
+    else if (method === 'table-min') return mockResult;
+    else if (method === 'vogel-korda') return mockResult;
+    return mockResult;
   }
 
   private getEpsilon(resultTable: TransportTable): number {

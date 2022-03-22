@@ -1,8 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
 
+import {BehaviorSubject} from 'rxjs';
+
 import {TransportProblemService} from './transport-problem.service';
-import {TPMethods} from './transport-problem.types';
+import {TPMethods, TransportTable} from './transport-problem.types';
 
 @Component({
   selector: 'transport-problem-page',
@@ -27,6 +29,12 @@ import {TPMethods} from './transport-problem.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
+  public readonly resultTable$ = new BehaviorSubject<
+    TransportTable | undefined
+  >(undefined);
+  public readonly resultEpsilon$ = new BehaviorSubject<number | undefined>(
+    undefined,
+  );
   public readonly selectedMethod$ = this.transportProblemService.method$;
 
   constructor(private transportProblemService: TransportProblemService) {}
@@ -45,6 +53,8 @@ export class TransportProblemComponent {
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    this.transportProblemService.calculate();
+    const result = this.transportProblemService.calculate();
+    this.resultTable$.next(result.table);
+    this.resultEpsilon$.next(result.epsilon);
   }
 }

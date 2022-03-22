@@ -59,3 +59,10 @@
     Calculate
   </button>
 </form>
+<p *ngIf="resultEpsilon$ | async">
+  Epsilon value: {{(resultEpsilon$ | async)}}
+</p>
+<badged-table
+  *ngIf="resultTable$ | async"
+  [tableSource]="(resultTable$ | async) || []"
+></badged-table>
