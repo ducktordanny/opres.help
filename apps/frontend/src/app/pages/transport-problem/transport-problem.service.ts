@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 
 import {sum} from '@shared/helpers/array.helper';
-import {createRowFrom, rowDefinitionsFrom} from '@shared/helpers/table.helper';
-import {Table} from '@shared/types/table.types';
+import {Row, Table} from '@shared/types/table.types';
 import {BehaviorSubject} from 'rxjs';
 
 import {
@@ -11,7 +10,9 @@ import {
   Stocks,
   TPData,
   TPMethods,
-} from './transport-table.types';
+  TransportRow,
+  TransportTable,
+} from './transport-problem.types';
 
 @Injectable()
 export class TransportProblemService {
@@ -50,21 +51,25 @@ export class TransportProblemService {
     else if (method === 'vogel-korda') return;
   }
 
-  private getEpsilon(resultTable: Table): number {
+  private getEpsilon(resultTable: TransportTable): number {
     const {costs} = this.tpData$.getValue();
     let epsilon = 0;
 
     for (const [rowIndex, row] of costs.entries())
       for (const [columnIndex, cost] of Object.entries(row))
-        epsilon += (cost || 0) * (resultTable[rowIndex][columnIndex] || 0);
+        epsilon +=
+          (cost || 0) * (resultTable[rowIndex][columnIndex].transported || 0);
 
     return epsilon;
   }
 
   private northWest(): Result {
-    const {shopDemands: demands, storageStocks: stocks} =
-      this.tpData$.getValue();
-    const resultTable: Table = [this.createNewResultRow(demands.length)];
+    const {
+      costs,
+      shopDemands: demands,
+      storageStocks: stocks,
+    } = this.tpData$.getValue();
+    const resultTable: TransportTable = [this.createNewResultRow(costs[0])];
     let stockIndex = 0,
       demandIndex = 0;
 
@@ -74,7 +79,7 @@ export class TransportProblemService {
       const transported =
         currentDemand < currentStock ? currentDemand : currentStock;
 
-      resultTable[stockIndex][demandIndex] = transported;
+      resultTable[stockIndex][demandIndex].transported = transported;
       demands[demandIndex] = currentDemand - transported;
       stocks[stockIndex] = currentStock - transported;
 
@@ -82,7 +87,7 @@ export class TransportProblemService {
       else {
         stockIndex++;
         if (stockIndex < stocks.length)
-          resultTable.push(this.createNewResultRow(demands.length));
+          resultTable.push(this.createNewResultRow(costs[stockIndex]));
       }
     }
 
@@ -92,9 +97,11 @@ export class TransportProblemService {
     };
   }
 
-  private createNewResultRow = (length: number) => ({
-    ...createRowFrom(rowDefinitionsFrom(length)),
-  });
+  private createNewResultRow = (costRow: Row): TransportRow =>
+    Object.keys(costRow).reduce((result: TransportRow, key) => {
+      result[key] = {cost: costRow[key]};
+      return result;
+    }, {});
 
   private checkSolvability(): boolean {
     const {shopDemands, storageStocks} = this.tpData$.getValue();

@@ -11,7 +11,15 @@ export interface TPData {
   storageStocks: Stocks;
 }
 
+export interface Cell {
+  cost: number | null;
+  transported?: number;
+}
+
+export type TransportRow = Record<string, Cell>;
+export type TransportTable = Array<TransportRow>;
+
 export interface Result {
   epsilon: number;
-  table: Table;
+  table: TransportTable;
 }

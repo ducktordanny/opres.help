@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
 
 import {TransportProblemService} from './transport-problem.service';
-import {TPMethods} from './transport-table.types';
+import {TPMethods} from './transport-problem.types';
 
 @Component({
   selector: 'transport-problem-page',

@@ -4,7 +4,7 @@ import {InputTableService} from '@components/input-table/input-table.service';
 import {Table} from '@shared/types/table.types';
 
 import {TransportProblemService} from '../transport-problem.service';
-import {Demands, Stocks} from '../transport-table.types';
+import {Demands, Stocks} from '../transport-problem.types';
 
 @Component({
   selector: 'transport-table',
