@@ -1,2 +1,19 @@
-<p>assignment-problem-page works!</p>
-<input-table key="alma" [rows]="4" [columns]="4"></input-table>
+<p>assignment problem page</p>
+<form>
+  <mat-form-field appearance="outline">
+    <mat-label>Table size</mat-label>
+    <mat-select>
+      <mat-option [value]="1">1</mat-option>
+      <mat-option [value]="2">2</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <input-table key="assignment" [rows]="4" [columns]="4"></input-table>
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="onAssignmentTableClear()"
+  >
+    Clear
+  </button>
+</form>
