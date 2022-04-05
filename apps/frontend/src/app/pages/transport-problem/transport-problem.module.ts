@@ -6,6 +6,7 @@ import {MatSelectModule} from '@angular/material/select';
 
 import {BadgedTableModule} from '@components/badged-table/badged-table.module';
 
+import {ResultTableModule} from './+result-table/result-table.module';
 import {TransportTableModule} from './+table/transport-table.module';
 import {TransportProblemComponent} from './transport-problem.component';
 import {TransportProblemService} from './transport-problem.service';
@@ -18,6 +19,7 @@ import {TransportProblemService} from './transport-problem.service';
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
+    ResultTableModule,
     TransportTableModule,
   ],
   providers: [TransportProblemService],

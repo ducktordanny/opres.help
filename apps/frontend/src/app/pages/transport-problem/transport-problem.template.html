@@ -49,7 +49,7 @@
     right it's the stocks of storages and under them can be found the demands of
     the shops.
   </mat-hint>
-  <transport-table></transport-table>
+  <transport-table (tableClear)="reset()"></transport-table>
   <button
     mat-flat-button
     color="primary"
@@ -62,7 +62,8 @@
 <p *ngIf="resultEpsilon$ | async">
   Epsilon value: {{(resultEpsilon$ | async)}}
 </p>
-<badged-table
-  *ngIf="resultTable$ | async"
-  [tableSource]="(resultTable$ | async) || []"
-></badged-table>
+<result-table
+  *ngFor="let resultSource of (results | async); let i = index"
+  [title]="i + 1 + '. step'"
+  [result]="resultSource"
+></result-table>

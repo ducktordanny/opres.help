@@ -5,6 +5,7 @@ import {Row, Table} from '@shared/types/table.types';
 import {BehaviorSubject} from 'rxjs';
 
 import {
+  CalculationProcess,
   Demands,
   Result,
   Stocks,
@@ -21,12 +22,21 @@ export class TransportProblemService {
   /** A storage is the equivalent of a row. */
   public storages$ = new BehaviorSubject<number>(4);
   public method$ = new BehaviorSubject<TPMethods>('north-west');
+  private calculationProcess$ = new BehaviorSubject<CalculationProcess>({
+    transportation: [],
+    demands: [],
+    stocks: [],
+  });
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>({
     costs: [],
     shopDemands: [],
     storageStocks: [],
   });
+
+  public get calculationProcess() {
+    return this.calculationProcess$.asObservable();
+  }
 
   public setCosts(costs: Table): void {
     this.tpData$.next({...this.tpData$.getValue(), costs});
@@ -71,7 +81,7 @@ export class TransportProblemService {
       shopDemands: demands,
       storageStocks: stocks,
     } = this.tpData$.getValue();
-    const resultTable: TransportTable = [this.createNewResultRow(costs[0])];
+    const resultTable: TransportTable = this.createResultTableFrom(costs);
     let stockIndex = 0,
       demandIndex = 0;
 
@@ -88,15 +98,25 @@ export class TransportProblemService {
       if (currentDemand < currentStock) demandIndex++;
       else {
         stockIndex++;
-        if (stockIndex < stocks.length)
-          resultTable.push(this.createNewResultRow(costs[stockIndex]));
       }
+
+      this.calculationProcess$.next({
+        transportation: JSON.parse(
+          JSON.stringify(resultTable),
+        ) as TransportTable,
+        demands: [...demands],
+        stocks: [...stocks],
+      });
     }
 
     return {
       epsilon: this.getEpsilon(resultTable),
       table: resultTable,
     };
+  }
+
+  private createResultTableFrom(costTable: Table): TransportTable {
+    return costTable.map((row: Row) => this.createNewResultRow(row));
   }
 
   private createNewResultRow = (costRow: Row): TransportRow =>

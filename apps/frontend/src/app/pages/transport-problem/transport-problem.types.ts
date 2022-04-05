@@ -19,6 +19,12 @@ export interface Cell {
 export type TransportRow = Record<string, Cell>;
 export type TransportTable = Array<TransportRow>;
 
+export interface CalculationProcess {
+  transportation: TransportTable;
+  demands: Demands;
+  stocks: Stocks;
+}
+
 export interface Result {
   epsilon: number;
   table: TransportTable;
