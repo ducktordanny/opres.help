@@ -5,6 +5,7 @@
       <span
         [matBadge]="element[header]['cost']"
         matBadgeOverlap="false"
+        matBadgeSize="small"
         [ngClass]="{'hidden-transport': !element[header]['transported']}"
       >
         {{element[header]['transported'] || 0}}
