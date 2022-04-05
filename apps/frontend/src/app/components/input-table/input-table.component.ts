@@ -31,6 +31,16 @@ export class InputTableComponent {
   public readonly tableSource$ = new BehaviorSubject<Table>([]);
   private hasValues$ = new BehaviorSubject<boolean>(false);
 
+  @Input() set tableSource(value: Table | null) {
+    if (!value || value.length < 1) return;
+    this.rows$.next(value.length);
+    this.columns$.next(Object.values(value[0]).length);
+    this.rowDefinitions$.next(Object.keys(value[0]));
+    this.tableSource$.next(value);
+    this.tableChange.emit(value);
+    this.hasValues$.next(true);
+  }
+
   @Input() set rows(value: number | null) {
     if (value) this.rows$.next(value);
   }
