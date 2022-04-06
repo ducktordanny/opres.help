@@ -16,23 +16,7 @@ import {
 @Component({
   selector: 'transport-problem-page',
   templateUrl: './transport-problem.template.html',
-  styles: [
-    `
-      mat-form-field {
-        margin: 8px;
-      }
-
-      mat-hint {
-        display: block;
-        max-width: 500px;
-        margin: 8px;
-      }
-
-      button[type='submit'] {
-        margin: 8px;
-      }
-    `,
-  ],
+  styleUrls: ['./transport-problem.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
