@@ -133,7 +133,13 @@ export class TransportProblemService {
     }, {});
 
   private checkSolvability(): boolean {
-    const {shopDemands, storageStocks} = this.tpData$.getValue();
+    const {costs, shopDemands, storageStocks} = this.tpData$.getValue();
+    if (
+      costs.length === 0 ||
+      shopDemands.length === 0 ||
+      storageStocks.length === 0
+    )
+      return false;
     const shopDemandSum = sum(shopDemands);
     const storageStockSum = sum(storageStocks);
     return shopDemandSum === storageStockSum;

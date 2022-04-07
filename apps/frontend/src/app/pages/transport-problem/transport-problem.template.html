@@ -55,6 +55,7 @@
     soon. Stay tuned!
   </mat-hint>
   <transport-table (tableClear)="reset()"></transport-table>
+  <mat-error *ngIf="error | async as err">{{err}}</mat-error>
   <button
     mat-flat-button
     color="primary"
@@ -64,9 +65,7 @@
     Calculate
   </button>
 </form>
-<p *ngIf="resultEpsilon$ | async">
-  Epsilon value: {{(resultEpsilon$ | async)}}
-</p>
+<p *ngIf="resultEpsilon$ | async as epsilon">Epsilon value: {{epsilon}}</p>
 <result-table
   *ngFor="let resultSource of (results | async); let i = index"
   [title]="i + 1 + '. step'"

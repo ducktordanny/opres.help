@@ -2,7 +2,8 @@ mat-form-field {
   margin: 8px;
 }
 
-mat-hint {
+mat-hint,
+mat-error {
   display: block;
   max-width: 500px;
   margin: 8px;

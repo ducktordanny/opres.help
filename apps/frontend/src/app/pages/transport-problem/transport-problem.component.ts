@@ -16,10 +16,9 @@ import {CalculationProcess, TPMethods} from './transport-problem.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
-  public readonly resultEpsilon$ = new BehaviorSubject<number | undefined>(
-    undefined,
-  );
+  public readonly resultEpsilon$ = new BehaviorSubject<number | null>(null);
   public readonly selectedMethod$ = this.transportProblemService.method$;
+  public error = new BehaviorSubject<string | null>(null);
   public results = new BehaviorSubject<Array<CalculationProcess>>([]);
 
   constructor(private transportProblemService: TransportProblemService) {
@@ -47,13 +46,19 @@ export class TransportProblemComponent {
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    this.results.next([]);
-    const result = this.transportProblemService.calculate();
-    this.resultEpsilon$.next(result.epsilon);
+    try {
+      this.error.next(null);
+      this.results.next([]);
+      const result = this.transportProblemService.calculate();
+      this.resultEpsilon$.next(result.epsilon);
+    } catch (error) {
+      this.error.next((<Error>error).message);
+    }
   }
 
   public reset(): void {
+    this.error.next(null);
     this.results.next([]);
-    this.resultEpsilon$.next(undefined); // eslint-disable-line unicorn/no-useless-undefined
+    this.resultEpsilon$.next(null);
   }
 }
