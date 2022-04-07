@@ -1,35 +1,36 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
 
-import {TransportProblemService} from './transport-problem.service';
-import {TPMethods} from './transport-table.types';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {BehaviorSubject} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
+import {TransportProblemService} from './transport-problem.service';
+import {CalculationProcess, TPMethods} from './transport-problem.types';
+
+@UntilDestroy()
 @Component({
   selector: 'transport-problem-page',
   templateUrl: './transport-problem.template.html',
-  styles: [
-    `
-      mat-form-field {
-        margin: 8px;
-      }
-
-      mat-hint {
-        display: block;
-        max-width: 500px;
-        margin: 8px;
-      }
-
-      button[type='submit'] {
-        margin: 8px;
-      }
-    `,
-  ],
+  styleUrls: ['./transport-problem.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
+  public readonly resultEpsilon$ = new BehaviorSubject<number | null>(null);
   public readonly selectedMethod$ = this.transportProblemService.method$;
+  public error = new BehaviorSubject<string | null>(null);
+  public results = new BehaviorSubject<Array<CalculationProcess>>([]);
 
-  constructor(private transportProblemService: TransportProblemService) {}
+  constructor(private transportProblemService: TransportProblemService) {
+    this.transportProblemService.calculationProcess
+      .pipe(
+        tap((result) =>
+          this.results.next([...this.results.getValue(), result]),
+        ),
+        untilDestroyed(this),
+      )
+      .subscribe();
+  }
 
   public onShopsCountChange(change: MatSelectChange): void {
     this.transportProblemService.shops$.next(+change.value);
@@ -45,6 +46,19 @@ export class TransportProblemComponent {
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    this.transportProblemService.calculate();
+    try {
+      this.error.next(null);
+      this.results.next([]);
+      const result = this.transportProblemService.calculate();
+      this.resultEpsilon$.next(result.epsilon);
+    } catch (error) {
+      this.error.next((<Error>error).message);
+    }
+  }
+
+  public reset(): void {
+    this.error.next(null);
+    this.results.next([]);
+    this.resultEpsilon$.next(null);
   }
 }

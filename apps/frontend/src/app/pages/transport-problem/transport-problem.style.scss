@@ -1,0 +1,19 @@
+mat-form-field {
+  margin: 8px;
+}
+
+mat-hint,
+mat-error {
+  display: block;
+  max-width: 500px;
+  margin: 8px;
+}
+
+button[type='submit'] {
+  margin: 8px;
+}
+
+.info {
+  // TODO: change after having a color palette
+  color: #8f7209;
+}
