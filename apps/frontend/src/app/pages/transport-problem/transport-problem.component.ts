@@ -6,11 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
 import {TransportProblemService} from './transport-problem.service';
-import {
-  CalculationProcess,
-  TPMethods,
-  TransportTable,
-} from './transport-problem.types';
+import {CalculationProcess, TPMethods} from './transport-problem.types';
 
 @UntilDestroy()
 @Component({
@@ -20,9 +16,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemComponent {
-  public readonly resultTable$ = new BehaviorSubject<
-    TransportTable | undefined
-  >(undefined);
   public readonly resultEpsilon$ = new BehaviorSubject<number | undefined>(
     undefined,
   );
@@ -56,13 +49,11 @@ export class TransportProblemComponent {
     event.preventDefault();
     this.results.next([]);
     const result = this.transportProblemService.calculate();
-    this.resultTable$.next(result.table);
     this.resultEpsilon$.next(result.epsilon);
   }
 
   public reset(): void {
     this.results.next([]);
-    this.resultTable$.next(undefined); // eslint-disable-line unicorn/no-useless-undefined
     this.resultEpsilon$.next(undefined); // eslint-disable-line unicorn/no-useless-undefined
   }
 }

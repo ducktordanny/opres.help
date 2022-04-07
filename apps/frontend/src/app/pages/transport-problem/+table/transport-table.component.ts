@@ -50,6 +50,7 @@ export class TransportTableComponent {
 
   public clearTables(): void {
     this.inputTableService.clear(['costs', 'storageStocks', 'shopDemands']);
+    this.transportProblemService.clear();
     this.tableClear.emit();
   }
 

@@ -50,6 +50,14 @@ export class TransportProblemService {
     this.tpData$.next({...this.tpData$.getValue(), storageStocks});
   }
 
+  public clear(): void {
+    this.tpData$.next({
+      costs: [],
+      shopDemands: [],
+      storageStocks: [],
+    });
+  }
+
   public calculate(): Result {
     if (!this.checkSolvability())
       throw new Error('The given problem is not solvable!');
@@ -76,11 +84,10 @@ export class TransportProblemService {
   }
 
   private northWest(): Result {
-    const {
-      costs,
-      shopDemands: demands,
-      storageStocks: stocks,
-    } = this.tpData$.getValue();
+    const tpData = this.tpData$.getValue();
+    const {costs} = tpData;
+    const stocks = [...tpData.storageStocks];
+    const demands = [...tpData.shopDemands];
     const resultTable: TransportTable = this.createResultTableFrom(costs);
     let stockIndex = 0,
       demandIndex = 0;
