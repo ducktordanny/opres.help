@@ -9,6 +9,7 @@ import {BadgedTableModule} from '@components/badged-table/badged-table.module';
 import {ResultTableModule} from './+result-table/result-table.module';
 import {TransportTableModule} from './+table/transport-table.module';
 import {TransportProblemComponent} from './transport-problem.component';
+import {TransportProblemRoutingModule} from './transport-problem.routing.module';
 import {TransportProblemService} from './transport-problem.service';
 
 @NgModule({
@@ -20,6 +21,7 @@ import {TransportProblemService} from './transport-problem.service';
     MatInputModule,
     MatSelectModule,
     ResultTableModule,
+    TransportProblemRoutingModule,
     TransportTableModule,
   ],
   providers: [TransportProblemService],
