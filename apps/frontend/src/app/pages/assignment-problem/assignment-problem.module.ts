@@ -10,7 +10,12 @@ import {AssignmentProblemService} from './assignment-problem.service';
 
 @NgModule({
   declarations: [AssignmentProblemPageComponent],
-  imports: [AssignmentProblemRouting, InputTableModule, MatButtonModule, MatSelectModule],
+  imports: [
+    AssignmentProblemRouting,
+    InputTableModule,
+    MatButtonModule,
+    MatSelectModule
+  ],
   providers: [AssignmentProblemService],
 })
 export class AssignmentProblemModule {}
