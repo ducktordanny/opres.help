@@ -1697,10 +1697,10 @@
     optional "0.1.4"
     tslib "2.3.1"
 
-"@ngneat/until-destroy@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-9.0.0.tgz#62f478beb625a051bb72ddb677e90593da575bbc"
-  integrity sha512-6NJNJJIIr9qo3fTDI6yeLAKmyvbS1gV0PynIT0ofktq5L4BehlGGxCextcfh2uIltx+fhj9TYpC7ndwnD/3RPA==
+"@ngneat/until-destroy@^9.0.1":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-9.0.2.tgz#0c39bb071b5e09de148e6f5b98d8c62df8c9fc5b"
+  integrity sha512-/vq7Nx556SZJ7eExT9FG/fHbvhVgf2CmZgI6FNCIXVoEasUkWQd9xVC/azwP6xkYY0i2DrbXEKutAZa+6lqrEg==
   dependencies:
     tslib "^2.3.0"
 
