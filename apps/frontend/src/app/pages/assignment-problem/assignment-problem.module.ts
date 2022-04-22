@@ -14,7 +14,7 @@ import {AssignmentProblemService} from './assignment-problem.service';
     AssignmentProblemRouting,
     InputTableModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   providers: [AssignmentProblemService],
 })

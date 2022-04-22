@@ -2,7 +2,7 @@
 <form>
   <mat-form-field appearance="outline">
     <mat-label>Table size</mat-label>
-    <mat-select [value]="4" #tableSize>
+    <mat-select [value]="6" #tableSize>
       <mat-option [value]="3">3</mat-option>
       <mat-option [value]="4">4</mat-option>
       <mat-option [value]="5">5</mat-option>
@@ -13,6 +13,7 @@
     key="assignment"
     [rows]="tableSize.value"
     [columns]="tableSize.value"
+    [tableSource]="mockedAssignment"
     (tableChange)="onTableChange($event)"
   ></input-table>
   <button
