@@ -5,6 +5,10 @@ import {Row, Table} from '@shared/types/table.types';
 import {BehaviorSubject} from 'rxjs';
 
 import {
+  EMPTY_CALCULATION_PROCESS,
+  EMPTY_TP_DATA,
+} from './transport-problem.constant';
+import {
   CalculationProcess,
   Demands,
   Result,
@@ -22,17 +26,11 @@ export class TransportProblemService {
   /** A storage is the equivalent of a row. */
   public storages$ = new BehaviorSubject<number>(4);
   public method$ = new BehaviorSubject<TPMethods>('north-west');
-  private calculationProcess$ = new BehaviorSubject<CalculationProcess>({
-    transportation: [],
-    demands: [],
-    stocks: [],
-  });
+  private calculationProcess$ = new BehaviorSubject<CalculationProcess>(
+    EMPTY_CALCULATION_PROCESS,
+  );
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
-  private tpData$ = new BehaviorSubject<TPData>({
-    costs: [],
-    shopDemands: [],
-    storageStocks: [],
-  });
+  private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
 
   public get calculationProcess() {
     return this.calculationProcess$.asObservable();
@@ -51,11 +49,7 @@ export class TransportProblemService {
   }
 
   public clear(): void {
-    this.tpData$.next({
-      costs: [],
-      shopDemands: [],
-      storageStocks: [],
-    });
+    this.tpData$.next(EMPTY_TP_DATA);
   }
 
   public calculate(): Result {
@@ -69,6 +63,10 @@ export class TransportProblemService {
     else if (method === 'table-min') return mockResult;
     else if (method === 'vogel-korda') return mockResult;
     return mockResult;
+  }
+
+  public reset(): void {
+    this.calculationProcess$.next(EMPTY_CALCULATION_PROCESS);
   }
 
   private getEpsilon(resultTable: TransportTable): number {
