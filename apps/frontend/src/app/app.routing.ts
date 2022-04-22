@@ -1,6 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
+import {NotFoundModule} from './pages/not-found/not-found.module';
+import {NotFoundPageComponent} from './pages/not-found/not-found.page';
+
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {
@@ -15,10 +18,12 @@ const routes: Routes = [
         (module) => module.TransportProblemModule,
       ),
   },
+  {path: '404', component: NotFoundPageComponent},
+  {path: '**', redirectTo: '404'},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  imports: [NotFoundModule, RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule],
 })
 export class AppRouting {}
