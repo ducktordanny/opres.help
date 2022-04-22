@@ -7,7 +7,7 @@ import {LayoutComponent} from '@components/layout/layout.component';
 import {NavbarModule} from '@components/navbar/navbar.module';
 
 import {AppComponent} from './app.component';
-import {AppRoutingModule} from './app.routing.module';
+import {AppRouting} from './app.routing';
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent],
@@ -16,7 +16,7 @@ import {AppRoutingModule} from './app.routing.module';
     BrowserModule,
     HttpClientModule,
     NavbarModule,
-    AppRoutingModule,
+    AppRouting,
   ],
   bootstrap: [AppComponent],
 })

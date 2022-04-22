@@ -15,7 +15,7 @@ import {CalculationProcess, TPMethods} from './transport-problem.types';
   styleUrls: ['./transport-problem.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TransportProblemComponent {
+export class TransportProblemPageComponent {
   public readonly resultEpsilon$ = new BehaviorSubject<number | null>(null);
   public readonly selectedMethod$ = this.transportProblemService.method$;
   public error = new BehaviorSubject<string | null>(null);
