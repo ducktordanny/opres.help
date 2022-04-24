@@ -1,3 +1,5 @@
+@import '../../styles/colors';
+
 mat-form-field {
   margin: 8px;
 }
@@ -14,6 +16,5 @@ button[type='submit'] {
 }
 
 .info {
-  // TODO: change after having a color palette
-  color: #8f7209;
+  color: $accent;
 }

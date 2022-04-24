@@ -1,4 +1,4 @@
-$primary: #3f51b5;
+@import '../../styles/colors';
 
 .layout-wrapper {
   display: flex;
@@ -9,17 +9,16 @@ $primary: #3f51b5;
   left: 0;
   right: 0;
 
-  mat-toolbar {
-    display: flex;
-    justify-content: space-between;
+  mat-toolbar > .toolbar-spacer {
+    flex: 1 1 auto;
   }
 
   mat-sidenav-container {
     flex: 1;
 
     .selected-nav-list-element {
-      color: $primary;
-      background-color: rgba($primary, 0.1);
+      color: $primary-light;
+      background-color: $primary-shade;
     }
 
     .main-content {
