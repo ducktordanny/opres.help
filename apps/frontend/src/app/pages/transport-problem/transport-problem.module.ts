@@ -8,12 +8,12 @@ import {BadgedTableModule} from '@components/badged-table/badged-table.module';
 
 import {ResultTableModule} from './+result-table/result-table.module';
 import {TransportTableModule} from './+table/transport-table.module';
-import {TransportProblemComponent} from './transport-problem.component';
-import {TransportProblemRoutingModule} from './transport-problem.routing.module';
+import {TransportProblemPageComponent} from './transport-problem.page';
+import {TransportProblemRouting} from './transport-problem.routing';
 import {TransportProblemService} from './transport-problem.service';
 
 @NgModule({
-  declarations: [TransportProblemComponent],
+  declarations: [TransportProblemPageComponent],
   imports: [
     BadgedTableModule,
     CommonModule,
@@ -21,7 +21,7 @@ import {TransportProblemService} from './transport-problem.service';
     MatInputModule,
     MatSelectModule,
     ResultTableModule,
-    TransportProblemRoutingModule,
+    TransportProblemRouting,
     TransportTableModule,
   ],
   providers: [TransportProblemService],
