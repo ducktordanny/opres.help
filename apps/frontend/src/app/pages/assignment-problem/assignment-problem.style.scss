@@ -1,0 +1,19 @@
+@import '../../styles/colors';
+
+form {
+  padding: 8px;
+
+  mat-hint {
+    display: block;
+    max-width: 500px;
+    margin-bottom: 8px;
+
+    &.info {
+      color: $accent;
+    }
+  }
+}
+
+button[type='submit'] {
+  margin: 16px 8px 0 0;
+}
