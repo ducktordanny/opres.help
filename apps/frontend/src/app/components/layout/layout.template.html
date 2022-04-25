@@ -1,6 +1,11 @@
 <div class="layout-wrapper">
   <mat-toolbar color="primary">
-    <span>Opres</span>
+    <img
+      src="../../../assets/icons/white-logo.icon.svg"
+      alt="Opres"
+      class="opres-logo"
+      (click)="onLogoRedirect()"
+    />
     <span class="toolbar-spacer"></span>
     <button
       *ngIf="mobileQuery.matches"

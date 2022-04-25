@@ -5,6 +5,7 @@ import {
   Component,
   OnDestroy,
 } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'layout',
@@ -24,6 +25,7 @@ export class LayoutComponent implements OnDestroy {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
+    private router: Router,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -32,5 +34,9 @@ export class LayoutComponent implements OnDestroy {
 
   public ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+  }
+
+  public async onLogoRedirect(): Promise<void> {
+    await this.router.navigate(['/home']);
   }
 }
