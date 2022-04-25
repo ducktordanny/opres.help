@@ -10,7 +10,7 @@ import {TransportTable} from '../../pages/transport-problem/transport-problem.ty
   styles: [
     `
       td {
-        width: 50px;
+        min-width: 50px;
         text-align: center;
       }
 
