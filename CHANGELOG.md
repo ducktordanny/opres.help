@@ -2,6 +2,14 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2022-04-25
+
+- First phase of assignment problem
+- Theme & layout improvements
+- Fix transportation result after switching between pages
+- Apply lazy loading for pages
+- Upgrade package version
+
 ## [0.1.1] - 2022-04-07
 
 - Fix visiting specific site leads to 404 issue
