@@ -14,6 +14,11 @@ import {
 })
 export class LayoutComponent implements OnDestroy {
   public mobileQuery: MediaQueryList;
+  public readonly ROUTES = [
+    {path: '/home', title: 'Home'},
+    {path: '/transport-problem', title: 'Transportation problem'},
+    {path: '/assignment-problem', title: 'Assignment problem'},
+  ];
   private readonly _mobileQueryListener: () => void;
 
   constructor(

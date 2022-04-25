@@ -19,22 +19,12 @@
     >
       <mat-nav-list>
         <a
+          *ngFor="let route of ROUTES"
           mat-list-item
           routerLinkActive="selected-nav-list-element"
-          routerLink="/home"
-          >Home</a
-        >
-        <a
-          mat-list-item
-          routerLinkActive="selected-nav-list-element"
-          routerLink="/transport-problem"
-          >Transportation problem</a
-        >
-        <a
-          mat-list-item
-          routerLinkActive="selected-nav-list-element"
-          routerLink="/assignment-problem"
-          >Assignment problem</a
+          [routerLink]="route.path"
+          (click)="mobileQuery.matches && sidenav.toggle()"
+          >{{route.title}}</a
         >
       </mat-nav-list>
     </mat-sidenav>
