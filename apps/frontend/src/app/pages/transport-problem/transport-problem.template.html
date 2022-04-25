@@ -65,9 +65,11 @@
     Calculate
   </button>
 </form>
-<p *ngIf="resultEpsilon$ | async as epsilon">Epsilon value: {{epsilon}}</p>
-<result-table
-  *ngFor="let resultSource of (results | async); let i = index"
-  [title]="i + 1 + '. step'"
-  [result]="resultSource"
-></result-table>
+<div class="result-wrapper">
+  <p *ngIf="resultEpsilon$ | async as epsilon">Epsilon value: {{epsilon}}</p>
+  <result-table
+    *ngFor="let resultSource of (results | async); let i = index"
+    [title]="i + 1 + '. step'"
+    [result]="resultSource"
+  ></result-table>
+</div>
