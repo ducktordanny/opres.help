@@ -18,6 +18,13 @@ const routes: Routes = [
         (module) => module.TransportProblemModule,
       ),
   },
+  {
+    path: 'assignment-problem',
+    loadChildren: () =>
+      import('./pages/assignment-problem/assignment-problem.module').then(
+        (module) => module.AssignmentProblemModule,
+      ),
+  },
   {path: '404', component: NotFoundPageComponent},
   {path: '**', redirectTo: '404'},
 ];
