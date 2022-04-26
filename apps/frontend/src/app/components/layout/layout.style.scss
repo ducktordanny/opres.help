@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@import '../../styles/variables/colors';
 
 .layout-wrapper {
   display: flex;
@@ -24,8 +24,8 @@
     flex: 1;
 
     .selected-nav-list-element {
-      color: $primary-light;
-      background-color: $primary-shade;
+      color: $primary-variant;
+      background-color: $shade;
     }
 
     .main-content {

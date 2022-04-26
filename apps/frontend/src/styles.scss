@@ -1,56 +1,68 @@
 @use 'sass:map';
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$frontend-primary: mat.define-palette(mat.$teal-palette, 500);
-$frontend-accent: mat.define-palette(mat.$deep-orange-palette, 200);
-$frontend-warn: mat.define-palette(mat.$red-palette, 200);
+$frontend-light-primary: mat.define-palette(mat.$teal-palette, 700);
+$frontend-light-accent: mat.define-palette(mat.$orange-palette, 900);
+$frontend-light-warn: mat.define-palette(mat.$red-palette, 900);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$frontend-theme: mat.define-dark-theme(
+$frontend-dark-primary: mat.define-palette(mat.$teal-palette, 500);
+$frontend-dark-accent: mat.define-palette(mat.$orange-palette, 300);
+$frontend-dark-warn: mat.define-palette(mat.$red-palette, 200);
+
+$frontend-light-theme: mat.define-light-theme(
   (
     color: (
-      primary: $frontend-primary,
-      accent: $frontend-accent,
-      warn: $frontend-warn,
+      primary: $frontend-light-primary,
+      accent: $frontend-light-accent,
+      warn: $frontend-light-warn,
     ),
   )
 );
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($frontend-theme);
+$frontend-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $frontend-dark-primary,
+      accent: $frontend-dark-accent,
+      warn: $frontend-dark-warn,
+    ),
+  )
+);
 
-/* You can add global styles to this file, and also import other style files */
+@include mat.all-component-themes($frontend-light-theme);
 
-:root {
-  --primary: #{mat.get-color-from-palette($frontend-primary, 500)};
-  --accent: #{mat.get-color-from-palette($frontend-accent, 200)};
-  --warn: #{mat.get-color-from-palette($frontend-warn, 500)};
+.dark-theme {
+  @include mat.all-component-themes($frontend-dark-theme);
+}
 
-  --primary-light: #{mat.get-color-from-palette($frontend-primary, 100)};
-  --accent-light: #{mat.get-color-from-palette($frontend-accent, 50)};
-  --warn-light: #{mat.get-color-from-palette($frontend-warn, 50)};
+body {
+  --primary: #{mat.get-color-from-palette($frontend-light-primary, 700)};
+  --primary-variant: #{mat.get-color-from-palette($frontend-light-primary, 900)};
+  --primary-text: black;
 
-  --primary-dark: #{mat.get-color-from-palette($frontend-primary, 900)};
-  --accent-dark: #{mat.get-color-from-palette($frontend-accent, 900)};
-  --warn-dark: #{mat.get-color-from-palette($frontend-warn, 900)};
+  --accent: #{mat.get-color-from-palette($frontend-light-accent, 900)};
+  --accent-variant: #{mat.get-color-from-palette($frontend-light-accent, 200)};
 
-  --primary-shade: #{mat.get-color-from-palette($frontend-primary, 300, 0.2)};
+  --warn: #{mat.get-color-from-palette($frontend-light-warn, 900)};
+  --warn-variant: #{mat.get-color-from-palette($frontend-light-warn, 500)};
 
-  --primary-text: white;
+  --shade: rgba(0, 0, 0, 0.12);
+
+  &.dark-theme {
+    --primary: #{mat.get-color-from-palette($frontend-dark-primary, 500)};
+    --primary-variant: #{mat.get-color-from-palette($frontend-dark-primary, 100)};
+    --primary-text: white;
+
+    --accent: #{mat.get-color-from-palette($frontend-dark-accent, 300)};
+    --accent-variant: #{mat.get-color-from-palette($frontend-dark-accent, 600)};
+
+    --warn: #{mat.get-color-from-palette($frontend-dark-warn, 200)};
+    --warn-variant: #{mat.get-color-from-palette($frontend-dark-warn, 300)};
+
+    --shade: rgba(255, 255, 255, 0.12);
+  }
 }
 
 html,
