@@ -5,6 +5,8 @@ import {
   Component,
   OnDestroy,
 } from '@angular/core';
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 
 @Component({
@@ -24,9 +26,17 @@ export class LayoutComponent implements OnDestroy {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private iconRegistry: MatIconRegistry,
     private media: MediaMatcher,
     private router: Router,
+    private sanitizer: DomSanitizer,
   ) {
+    iconRegistry.addSvgIcon(
+      'opres',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../../../assets/icons/opres-white.icon.svg',
+      ),
+    );
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
