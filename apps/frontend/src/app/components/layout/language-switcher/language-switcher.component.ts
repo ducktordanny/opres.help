@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'language-switcher',
   templateUrl: './language-switcher.template.html',
@@ -8,11 +10,13 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 })
 export class LanguageSwitcherComponent implements OnInit {
   public readonly LANGUAGES = [
-    {id: 'eng', label: '🇬🇧 Angol'},
-    {id: 'hun', label: '🇭🇺 Magyar'},
+    {id: 'en', label: 'LANGUAGE.EN'},
+    {id: 'hu', label: 'LANGUAGE.HU'},
   ];
   public selectedLanguage =
     localStorage.getItem('user.selectedLanguage') || 'eng';
+
+  constructor(private translateService: TranslateService) {}
 
   public ngOnInit(): void {
     this.changeLanguage();
@@ -25,6 +29,6 @@ export class LanguageSwitcherComponent implements OnInit {
 
   private changeLanguage(): void {
     localStorage.setItem('user.selectedLanguage', this.selectedLanguage);
-    // ...
+    this.translateService.use(this.selectedLanguage);
   }
 }

@@ -5,10 +5,17 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 
 import {ThemeSwitcherComponent} from '@components/layout/theme-switcher/theme-switcher.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ThemeSwitcherComponent],
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    TranslateModule,
+  ],
   exports: [ThemeSwitcherComponent],
 })
 export class ThemeSwitcherModule {}

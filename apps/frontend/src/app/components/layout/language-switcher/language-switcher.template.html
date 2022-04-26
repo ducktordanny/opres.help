@@ -7,9 +7,8 @@
     mat-menu-item
     *ngFor="let lang of LANGUAGES"
     [ngClass]="{selected: lang.id === selectedLanguage}"
-    [disabled]="lang.id !== 'hun'"
     (click)="onLanguageSelect(lang.id)"
   >
-    <span>{{lang.label}}</span>
+    <span>{{lang.label | translate}}</span>
   </button>
 </mat-menu>

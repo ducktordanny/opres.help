@@ -19,7 +19,7 @@
     </button>
   </mat-toolbar>
 
-  <mat-sidenav-container>
+  <mat-sidenav-container autosize>
     <mat-sidenav
       #sidenav
       [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -32,7 +32,7 @@
           routerLinkActive="selected-nav-list-element"
           [routerLink]="route.path"
           (click)="mobileQuery.matches && sidenav.toggle()"
-          >{{route.title}}</a
+          >{{route.title | translate}}</a
         >
       </mat-nav-list>
     </mat-sidenav>

@@ -5,10 +5,10 @@
 <mat-menu #themeMenu="matMenu">
   <button
     mat-menu-item
-    *ngFor="let theme of themes"
+    *ngFor="let theme of THEMES"
     [ngClass]="{selected: theme.id === selectedTheme}"
     (click)="onThemeSelect(theme.id)"
   >
-    <span>{{theme.label}}</span>
+    <span>{{theme.label | translate}}</span>
   </button>
 </mat-menu>

@@ -18,9 +18,15 @@ import {Router} from '@angular/router';
 export class LayoutComponent implements OnDestroy {
   public mobileQuery: MediaQueryList;
   public readonly ROUTES = [
-    {path: '/home', title: 'Home'},
-    {path: '/transport-problem', title: 'Transportation problem'},
-    {path: '/assignment-problem', title: 'Assignment problem'},
+    {path: '/home', title: 'SIDEBAR_MENU.HOME'},
+    {
+      path: '/transport-problem',
+      title: 'SIDEBAR_MENU.TRANSPORTATION_PROBLEM',
+    },
+    {
+      path: '/assignment-problem',
+      title: 'SIDEBAR_MENU.ASSIGNMENT_PROBLEM',
+    },
   ];
   private readonly _mobileQueryListener: () => void;
 

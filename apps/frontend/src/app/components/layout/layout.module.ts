@@ -13,6 +13,7 @@ import {RouterModule} from '@angular/router';
 import {LanguageSwitcherModule} from '@components/layout/language-switcher/language-switcher.module';
 import {LayoutComponent} from '@components/layout/layout.component';
 import {ThemeSwitcherModule} from '@components/layout/theme-switcher/theme-switcher.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -29,6 +30,7 @@ import {ThemeSwitcherModule} from '@components/layout/theme-switcher/theme-switc
     MatToolbarModule,
     RouterModule,
     ThemeSwitcherModule,
+    TranslateModule,
   ],
   exports: [LayoutComponent],
 })
