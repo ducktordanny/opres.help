@@ -3,10 +3,13 @@
 </button>
 
 <mat-menu #langMenu="matMenu">
-  <button mat-menu-item>
-    <span>🇬🇧&ensp;English</span>
-  </button>
-  <button mat-menu-item>
-    <span>🇭🇺&ensp;Hungarian</span>
+  <button
+    mat-menu-item
+    *ngFor="let lang of LANGUAGES"
+    [ngClass]="{selected: lang.id === selectedLanguage}"
+    [disabled]="lang.id !== 'hun'"
+    (click)="onLanguageSelect(lang.id)"
+  >
+    <span>{{lang.label}}</span>
   </button>
 </mat-menu>
