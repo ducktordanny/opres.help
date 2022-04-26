@@ -10,7 +10,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
+import {LanguageSwitcherModule} from '@components/layout/language-switcher/language-switcher.module';
 import {LayoutComponent} from '@components/layout/layout.component';
+import {ThemeSwitcherModule} from '@components/layout/theme-switcher/theme-switcher.module';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -18,6 +20,7 @@ import {LayoutComponent} from '@components/layout/layout.component';
     CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    LanguageSwitcherModule,
     MatButtonModule,
     MatIconModule,
     MatListModule,
@@ -25,6 +28,7 @@ import {LayoutComponent} from '@components/layout/layout.component';
     MatSidenavModule,
     MatToolbarModule,
     RouterModule,
+    ThemeSwitcherModule,
   ],
   exports: [LayoutComponent],
 })
