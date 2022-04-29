@@ -1,6 +1,8 @@
 <form>
   <mat-form-field appearance="outline">
-    <mat-label>Shops</mat-label>
+    <mat-label
+      >{{'TRANSPORTATION_PROBLEM.COLUMNS_SELECT' | translate}}</mat-label
+    >
     <mat-select
       matNativeControl
       required
@@ -16,7 +18,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Storages</mat-label>
+    <mat-label>{{'TRANSPORTATION_PROBLEM.ROWS_SELECT' | translate}}</mat-label>
     <mat-select
       matNativeControl
       required
@@ -32,27 +34,34 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Method</mat-label>
+    <mat-label
+      >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.LABEL' | translate}}</mat-label
+    >
     <mat-select
       matNativeControl
       required
       [value]="selectedMethod$ | async"
       (selectionChange)="onMethodSelect($event)"
     >
-      <mat-option value="north-west">North-West</mat-option>
-      <mat-option value="table-min">Table minimum</mat-option>
-      <mat-option value="vogel-korda">Vogel-Korda</mat-option>
+      <mat-option value="north-west"
+        >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_NW' |
+        translate}}</mat-option
+      >
+      <mat-option value="table-min" disabled
+        >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_TM' |
+        translate}}</mat-option
+      >
+      <mat-option value="vogel-korda" disabled
+        >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_VK' |
+        translate}}</mat-option
+      >
     </mat-select>
   </mat-form-field>
   <mat-hint>
-    The table in the top left corner represents the costs, next to it on the
-    right it's the stocks of storages and under them can be found the demands of
-    the shops.
+    {{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}
   </mat-hint>
   <mat-hint class="info">
-    The table is currently filled with an example task the first phase is
-    solvable with North-West method. The other calculations will be available
-    soon. Stay tuned!
+    {{'TRANSPORTATION_PROBLEM.PAGE_INFO' | translate}}
   </mat-hint>
   <transport-table (tableClear)="reset()"></transport-table>
   <mat-error *ngIf="error | async as err">{{err}}</mat-error>
@@ -62,11 +71,13 @@
     type="submit"
     (click)="onCalculate($event)"
   >
-    Calculate
+    {{'CALCULATE_BUTTON' | translate}}
   </button>
 </form>
 <div class="result-wrapper">
-  <p *ngIf="resultEpsilon$ | async as epsilon">Epsilon value: {{epsilon}}</p>
+  <p *ngIf="resultEpsilon$ | async as epsilon">
+    {{'TRANSPORTATION_PROBLEM.EPSILON' | translate:{epsilon} }}
+  </p>
   <result-table
     *ngFor="let resultSource of (results | async); let i = index"
     [title]="i + 1 + '. step'"

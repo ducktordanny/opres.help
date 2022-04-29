@@ -5,6 +5,8 @@ import {
   Component,
   OnDestroy,
 } from '@angular/core';
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 
 @Component({
@@ -16,17 +18,31 @@ import {Router} from '@angular/router';
 export class LayoutComponent implements OnDestroy {
   public mobileQuery: MediaQueryList;
   public readonly ROUTES = [
-    {path: '/home', title: 'Home'},
-    {path: '/transport-problem', title: 'Transportation problem'},
-    {path: '/assignment-problem', title: 'Assignment problem'},
+    {path: '/home', title: 'SIDEBAR_MENU.HOME'},
+    {
+      path: '/transport-problem',
+      title: 'SIDEBAR_MENU.TRANSPORTATION_PROBLEM',
+    },
+    {
+      path: '/assignment-problem',
+      title: 'SIDEBAR_MENU.ASSIGNMENT_PROBLEM',
+    },
   ];
   private readonly _mobileQueryListener: () => void;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private iconRegistry: MatIconRegistry,
     private media: MediaMatcher,
     private router: Router,
+    private sanitizer: DomSanitizer,
   ) {
+    iconRegistry.addSvgIcon(
+      'opres',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../../../assets/icons/opres-white.icon.svg',
+      ),
+    );
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);

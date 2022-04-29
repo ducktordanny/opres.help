@@ -6,6 +6,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 
 import {InputTableModule} from '@components/input-table/input-table.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {TransportTableComponent} from './transport-table.component';
 
@@ -18,6 +19,7 @@ import {TransportTableComponent} from './transport-table.component';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    TranslateModule,
   ],
   exports: [TransportTableComponent],
 })

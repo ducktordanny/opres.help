@@ -1,0 +1,34 @@
+{
+  "TABLE_CLEAR_BUTTON": "Kiürít",
+  "CALCULATE_BUTTON": "Kiszámol",
+  "LANGUAGE": {
+    "EN": "🇬🇧 Angol",
+    "HU": "🇭🇺 Magyar"
+  },
+  "THEME": {
+    "DARK": "Sötét",
+    "LIGHT": "Világos"
+  },
+  "SIDEBAR_MENU": {
+    "HOME": "Kezdőlap",
+    "TRANSPORTATION_PROBLEM": "Szállítási probléma",
+    "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma"
+  },
+  "TRANSPORTATION_PROBLEM": {
+    "COLUMNS_SELECT": "Boltok (oszlopok)",
+    "ROWS_SELECT": "Raktárak (sorok)",
+    "METHOD_SELECT": {
+      "LABEL": "Módszer",
+      "OPTION_NW": "Észak-Nyugati",
+      "OPTION_TM": "Tábla-Minimum",
+      "OPTION_VK": "Vogel-Korda"
+    },
+    "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
+    "PAGE_INFO": "A táblák jelenleg egy példa feladat értékeivel vannak kitöltve, az első fázis lépései az Észak-Nyugati módszerrel elérhetőek. A többi módszer is hamarosan elérhetővé válik!",
+    "EPSILON": "Epszilon értéke: {{epsilon}}"
+  },
+  "ASSIGNMENT_PROBLEM": {
+    "TABLE_SIZE_SELECT": "Tábla méret (n*n)",
+    "PAGE_INFO": "Készítés alatt: Jelenleg csak az első fázis elérhető."
+  }
+}

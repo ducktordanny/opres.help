@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@import '../../styles/variables/colors';
 
 form {
   padding: 8px;
@@ -11,6 +11,11 @@ form {
     &.info {
       color: $accent;
     }
+  }
+
+  .assignment-table-wrapper {
+    padding: 8px 0;
+    overflow-y: auto;
   }
 }
 

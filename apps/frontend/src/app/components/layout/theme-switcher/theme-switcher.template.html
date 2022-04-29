@@ -1,0 +1,14 @@
+<button mat-icon-button [matMenuTriggerFor]="themeMenu">
+  <mat-icon class="mat-18">format_color_fill</mat-icon>
+</button>
+
+<mat-menu #themeMenu="matMenu">
+  <button
+    mat-menu-item
+    *ngFor="let theme of THEMES"
+    [ngClass]="{selected: theme.id === selectedTheme}"
+    (click)="onThemeSelect(theme.id)"
+  >
+    <span>{{theme.label | translate}}</span>
+  </button>
+</mat-menu>

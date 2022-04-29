@@ -1,0 +1,34 @@
+{
+  "TABLE_CLEAR_BUTTON": "Clear",
+  "CALCULATE_BUTTON": "Calculate",
+  "LANGUAGE": {
+    "EN": "🇬🇧 English",
+    "HU": "🇭🇺 Hungarian"
+  },
+  "THEME": {
+    "DARK": "Dark",
+    "LIGHT": "Light"
+  },
+  "SIDEBAR_MENU": {
+    "HOME": "Home",
+    "TRANSPORTATION_PROBLEM": "Transportation problem",
+    "ASSIGNMENT_PROBLEM": "Assignment problem"
+  },
+  "TRANSPORTATION_PROBLEM": {
+    "COLUMNS_SELECT": "Shops (columns)",
+    "ROWS_SELECT": "Storages (rows)",
+    "METHOD_SELECT": {
+      "LABEL": "Method",
+      "OPTION_NW": "North-West",
+      "OPTION_TM": "Table-Minimum",
+      "OPTION_VK": "Vogel-Korda"
+    },
+    "TABLE_EXPLANATION": "The table in the top left corner represents the costs, next to it on the right it's the stocks of storages and under them can be found the demands of the shops.",
+    "PAGE_INFO": "The table is currently filled with an example task the first phase is solvable with North-West method. The other calculations will be available soon.",
+    "EPSILON": "Epsilon's value: {{epsilon}}"
+  },
+  "ASSIGNMENT_PROBLEM": {
+    "TABLE_SIZE_SELECT": "Table size (n*n)",
+    "PAGE_INFO": "Under construction: Currently only the first phase is available."
+  }
+}

@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@import '../../styles/variables/colors';
 
 .layout-wrapper {
   display: flex;
@@ -10,8 +10,8 @@
   right: 0;
 
   mat-toolbar {
-    .opres-logo {
-      height: 32px;
+    .logo {
+      height: 36px;
       cursor: pointer;
     }
 
@@ -24,8 +24,8 @@
     flex: 1;
 
     .selected-nav-list-element {
-      color: $primary-light;
-      background-color: $primary-shade;
+      color: $primary-variant;
+      background-color: $shade;
     }
 
     .main-content {
@@ -33,4 +33,9 @@
       padding: 12px;
     }
   }
+}
+
+.selected {
+  color: $primary-variant;
+  background-color: $shade;
 }
