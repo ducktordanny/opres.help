@@ -12,6 +12,11 @@ form {
       color: $accent;
     }
   }
+
+  .assignment-table-wrapper {
+    padding: 8px 0;
+    overflow-y: auto;
+  }
 }
 
 button[type='submit'] {

@@ -13,13 +13,15 @@
   <mat-hint class="info">
     {{ 'ASSIGNMENT_PROBLEM.PAGE_INFO' | translate }}
   </mat-hint>
-  <input-table
-    key="assignment"
-    [rows]="tableSize.value"
-    [columns]="tableSize.value"
-    [tableSource]="mockedAssignment"
-    (tableChange)="onTableChange($event)"
-  ></input-table>
+  <div class="assignment-table-wrapper">
+    <input-table
+      key="assignment"
+      [rows]="tableSize.value"
+      [columns]="tableSize.value"
+      [tableSource]="mockedAssignment"
+      (tableChange)="onTableChange($event)"
+    ></input-table>
+  </div>
   <button
     mat-flat-button
     color="primary"
