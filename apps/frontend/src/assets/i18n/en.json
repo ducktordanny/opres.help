@@ -14,6 +14,16 @@
     "TRANSPORTATION_PROBLEM": "Transportation problem",
     "ASSIGNMENT_PROBLEM": "Assignment problem"
   },
+  "HOME": {
+    "HEADER_TITLE": "Operation Research Helper",
+    "SLOGAN": "You need some help with your subject or just want to check your calculations? You are at the best place!",
+    "SUGGESTION": "Try solving the following problems with the help of the app:",
+    "HELPERS_LIST": {
+      "TRANSPORTATION_PR": "Transportation problem",
+      "ASSIGNMENT_PR": "Assignment problem",
+      "OTHERS_SOON": "And more coming soon..."
+    }
+  },
   "TRANSPORTATION_PROBLEM": {
     "COLUMNS_SELECT": "Shops (columns)",
     "ROWS_SELECT": "Storages (rows)",

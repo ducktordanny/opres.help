@@ -1,0 +1,17 @@
+@import '../../styles/variables/colors';
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  background-image: -webkit-linear-gradient(left, $primary, $accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 30px;
+  color: white;
+}
+
+section {
+  text-align: center;
+}

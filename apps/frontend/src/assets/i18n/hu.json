@@ -14,6 +14,16 @@
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
     "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma"
   },
+  "HOME": {
+    "HEADER_TITLE": "Operáció Kutatás Segítő",
+    "SLOGAN": "Segítségre lenne szükséged a tárgyaddal kapcsolatban vagy csak leellenőriznéd a számolásaid? A legjobb helyen jársz!",
+    "SUGGESTION": "Probáld ki a következő problémák megoldását az app segítségével:",
+    "HELPERS_LIST": {
+      "TRANSPORTATION_PR": "Szállítási probléma",
+      "ASSIGNMENT_PR": "Hozzárendelési probléma",
+      "OTHERS_SOON": "És még több hamarosan..."
+    }
+  },
   "TRANSPORTATION_PROBLEM": {
     "COLUMNS_SELECT": "Boltok (oszlopok)",
     "ROWS_SELECT": "Raktárak (sorok)",
