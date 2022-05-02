@@ -3,7 +3,7 @@
     src="../../../assets/animated-vectors/home.background.svg"
     alt="Background"
   />
-  <mat-card>
+  <mat-card class="mat-elevation-z8">
     <mat-card-header>
       <h1>{{'HOME.HEADER_TITLE' | translate}}</h1>
       <div class="mat-card-header-text"></div>
@@ -11,89 +11,68 @@
     <mat-card-content>
       <p>{{'HOME.SLOGAN' | translate}}</p>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="scrollTo(descriptions)">
+        <mat-icon class="mat-18">keyboard_arrow_down</mat-icon>
+        {{'HOME.FIND_OUT_MORE_BUTTON' | translate}}
+      </button>
+    </mat-card-actions>
   </mat-card>
 </header>
 
-<p>{{'HOME.SUGGESTION' | translate}}</p>
+<main #descriptions>
+  <mat-hint>{{'HOME.WIP_NOTE' | translate}}</mat-hint>
+  <h2>{{'HOME.SUGGESTION' | translate}}</h2>
 
-<ul>
-  <li>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR' | translate}}</li>
-  <li>{{'HOME.HELPERS_LIST.ASSIGNMENT_PR' | translate}}</li>
-  <li>{{'HOME.HELPERS_LIST.OTHERS_SOON' | translate}}</li>
-</ul>
+  <section>
+    <h3>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR' | translate}}</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi cras
+      fermentum odio eu feugiat. Semper eget duis at tellus at. Netus et
+      malesuada fames ac turpis egestas sed tempus. Magnis dis parturient montes
+      nascetur ridiculus mus mauris vitae. Mus mauris vitae ultricies leo.
+      Pellentesque diam volutpat commodo sed egestas egestas. Aliquam ut
+      porttitor leo a diam sollicitudin tempor id. Turpis massa sed elementum
+      tempus egestas sed sed risus. Dis parturient montes nascetur ridiculus
+      mus.
+    </p>
+  </section>
+  <section>
+    <h3>{{'HOME.HELPERS_LIST.ASSIGNMENT_PR' | translate}}</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi cras
+      fermentum odio eu feugiat. Semper eget duis at tellus at. Netus et
+      malesuada fames ac turpis egestas sed tempus. Magnis dis parturient montes
+      nascetur ridiculus mus mauris vitae. Mus mauris vitae ultricies leo.
+      Pellentesque diam volutpat commodo sed egestas egestas. Aliquam ut
+      porttitor leo a diam sollicitudin tempor id. Turpis massa sed elementum
+      tempus egestas sed sed risus. Dis parturient montes nascetur ridiculus
+      mus.
+    </p>
+  </section>
+  <section>
+    <h3>{{'HOME.HELPERS_LIST.OTHERS_SOON' | translate}}</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi cras
+      fermentum odio eu feugiat. Semper eget duis at tellus at. Netus et
+      malesuada fames ac turpis egestas sed tempus. Magnis dis parturient montes
+      nascetur ridiculus mus mauris vitae. Mus mauris vitae ultricies leo.
+      Pellentesque diam volutpat commodo sed egestas egestas. Aliquam ut
+      porttitor leo a diam sollicitudin tempor id. Turpis massa sed elementum
+      tempus egestas sed sed risus. Dis parturient montes nascetur ridiculus
+      mus.
+    </p>
+  </section>
+</main>
 
-<h2>Lorem ipsum</h2>
-
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-  dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum
-  dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-  ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-</p>
-
-<h2>Lorem ipsum</h2>
-
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-  dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum
-  dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-  ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
-  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-</p>
-
-<footer>
-  <p>Copyright © 2022 Daniel Lazar.</p>
+<footer class="mat-elevation-z4">
+  <p>
+    Copyright © 2022 Daniel Lazar.
+    <a target="_blank" href="https://github.com/ducktordanny/opres">Github</a>
+  </p>
   <p>
     Free SVG Background by <a target="_blank" href="https://bgjar.com">BGJar</a>
   </p>

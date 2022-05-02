@@ -17,6 +17,8 @@
   "HOME": {
     "HEADER_TITLE": "Operation Research Helper",
     "SLOGAN": "You need some help with your subject or just want to check your calculations? You are at the best place!",
+    "FIND_OUT_MORE_BUTTON": "Find out more",
+    "WIP_NOTE": "Please keep in mind that this part of the app is still in progress.",
     "SUGGESTION": "Try solving the following problems with the help of the app:",
     "HELPERS_LIST": {
       "TRANSPORTATION_PR": "Transportation problem",

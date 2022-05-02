@@ -17,6 +17,8 @@
   "HOME": {
     "HEADER_TITLE": "Operáció Kutatás Segítő",
     "SLOGAN": "Segítségre lenne szükséged a tárgyaddal kapcsolatban vagy csak leellenőriznéd a számolásaid? A legjobb helyen jársz!",
+    "FIND_OUT_MORE_BUTTON": "Tudj meg többet",
+    "WIP_NOTE": "Az app ezen részének a fejlesztése még folyamatban van.",
     "SUGGESTION": "Probáld ki a következő problémák megoldását az app segítségével:",
     "HELPERS_LIST": {
       "TRANSPORTATION_PR": "Szállítási probléma",

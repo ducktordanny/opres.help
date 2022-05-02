@@ -24,9 +24,10 @@ header {
   }
 
   mat-card {
-    background-image: -webkit-linear-gradient(left, $primary, $accent);
+    background-image: -webkit-linear-gradient(left, $primary, $accent-variant);
     color: white;
     border-radius: 12px;
+    text-align: center;
 
     mat-card-header {
       justify-content: center;
@@ -35,13 +36,21 @@ header {
   }
 }
 
-section {
-  text-align: center;
+main {
+  padding: 40px 0;
+
+  // FIXME [2022-05-07] Remove this & the hint from the template
+  .mat-hint {
+    color: $accent;
+  }
+
+  section {
+    text-align: center;
+  }
 }
 
 footer {
   background-color: $background-accent;
-  margin-top: 40px;
   padding: 24px 0;
   border-radius: 12px;
 
