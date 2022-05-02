@@ -23,14 +23,31 @@ header {
     z-index: -1;
   }
 
-  mat-card-header {
-    z-index: 9;
+  mat-card {
     background-image: -webkit-linear-gradient(left, $primary, $accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
+    border-radius: 12px;
+
+    mat-card-header {
+      justify-content: center;
+      z-index: 9;
+    }
   }
 }
 
 section {
   text-align: center;
+}
+
+footer {
+  background-color: $background-accent;
+  margin-top: 40px;
+  padding: 24px 0;
+  border-radius: 12px;
+
+  p {
+    margin: 0;
+    padding: 6px 0;
+    text-align: center;
+  }
 }

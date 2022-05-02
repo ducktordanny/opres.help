@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
+@import './apps/frontend/src/app/styles/variables/colors';
 
 @include mat.core();
 
@@ -79,6 +80,10 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+a {
+  color: $accent;
 }
 
 * {
