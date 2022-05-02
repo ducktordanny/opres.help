@@ -10,6 +10,8 @@
   right: 0;
 
   mat-toolbar {
+    z-index: 9;
+
     .logo {
       height: 36px;
       cursor: pointer;
