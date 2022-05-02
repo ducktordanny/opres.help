@@ -20,7 +20,7 @@ import {filter, map, pluck} from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnDestroy {
-  @Input() routeToHideNavbar: string | Array<string> = '/home';
+  @Input() routeToHideNavbar: Array<string> = ['/home', '/'];
   public shouldFilterByUrl: Observable<boolean>;
   public mobileQuery: MediaQueryList;
   public readonly ROUTES = [
@@ -56,7 +56,7 @@ export class LayoutComponent implements OnDestroy {
     this.shouldFilterByUrl = this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       pluck('url'),
-      map((url) => url === this.routeToHideNavbar),
+      map((url) => this.routeToHideNavbar.some((element) => element === url)),
     );
   }
 

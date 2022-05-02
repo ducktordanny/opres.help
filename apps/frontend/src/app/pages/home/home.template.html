@@ -1,9 +1,19 @@
 <header>
-  <h1>{{'HOME.HEADER_TITLE' | translate}}</h1>
+  <img
+    src="../../../assets/animated-vectors/home.background.svg"
+    alt="Background"
+  />
+  <mat-card>
+    <mat-card-header>
+      <h1>{{'HOME.HEADER_TITLE' | translate}}</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{'HOME.SLOGAN' | translate}}</p>
+    </mat-card-content>
+  </mat-card>
 </header>
 
-<mat-hint>{{'HOME.SLOGAN' | translate}}</mat-hint>
-<mat-hint>{{'HOME.SUGGESTION' | translate}}</mat-hint>
+<p>{{'HOME.SUGGESTION' | translate}}</p>
 
 <ul>
   <li>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR' | translate}}</li>
