@@ -24,6 +24,11 @@
       "TRANSPORTATION_PR": "Transportation problem",
       "ASSIGNMENT_PR": "Assignment problem",
       "OTHERS_SOON": "And more coming soon..."
+    },
+    "FEATURE_LIST_TITLE": "Other smaller features",
+    "FEATURE_LIST": {
+      "LANGUAGES": "You can choose between english & hungarian",
+      "THEMES": "You can set your preferred theme"
     }
   },
   "TRANSPORTATION_PROBLEM": {
@@ -41,6 +46,7 @@
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",
-    "PAGE_INFO": "Under construction: Currently only the first phase is available."
+    "PAGE_INFO": "Under construction: Currently only the first phase is available.",
+    "RESULT_INFO": "The result of the first phase:"
   }
 }

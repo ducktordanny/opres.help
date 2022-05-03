@@ -24,6 +24,11 @@
       "TRANSPORTATION_PR": "Szállítási probléma",
       "ASSIGNMENT_PR": "Hozzárendelési probléma",
       "OTHERS_SOON": "És még több hamarosan..."
+    },
+    "FEATURE_LIST_TITLE": "Egyéb kisebb funkciók",
+    "FEATURE_LIST": {
+      "LANGUAGES": "Angol és magyar nyelv választhatósága",
+      "THEMES": "Preferált téma beállíthatósága"
     }
   },
   "TRANSPORTATION_PROBLEM": {
@@ -41,6 +46,7 @@
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Tábla méret (n*n)",
-    "PAGE_INFO": "Készítés alatt: Jelenleg csak az első fázis elérhető."
+    "PAGE_INFO": "Készítés alatt: Jelenleg csak az első fázis elérhető.",
+    "RESULT_INFO": "Az első fázis eredménye:"
   }
 }

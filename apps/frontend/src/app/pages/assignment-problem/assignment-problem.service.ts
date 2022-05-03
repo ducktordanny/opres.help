@@ -4,11 +4,10 @@ import {Table} from '@shared/types/table.types';
 
 @Injectable()
 export class AssignmentProblemService {
-  public calculate(assignmentTable: Table): void {
+  public calculate(assignmentTable: Table): Table {
     /** First Phase */
-    let table = this.reductionByRows([...assignmentTable]);
-    table = this.reductionByColumns(table);
-    console.table(table);
+    const table = this.reductionByRows([...assignmentTable]);
+    return this.reductionByColumns(table);
 
     /** Second Phase */
   }

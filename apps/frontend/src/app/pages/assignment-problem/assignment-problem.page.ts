@@ -13,7 +13,7 @@ import {AssignmentProblemService} from './assignment-problem.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssignmentProblemPageComponent {
-  private assignmentTable = new BehaviorSubject<Table>([]);
+  public result$ = new BehaviorSubject<Table>([]);
   public readonly mockedAssignment: Table = [
     {'0': 1, '1': 3, '2': 5, '3': 7, '4': 9, '5': 2},
     {'0': 2, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0},
@@ -22,6 +22,7 @@ export class AssignmentProblemPageComponent {
     {'0': 0, '1': 3, '2': 4, '3': 5, '4': 9, '5': 2},
     {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0},
   ];
+  private assignmentTable = new BehaviorSubject<Table>([]);
 
   constructor(
     private inputTableService: InputTableService,
@@ -29,12 +30,15 @@ export class AssignmentProblemPageComponent {
   ) {}
 
   public onAssignmentTableClear(): void {
+    this.result$.next([]);
     this.inputTableService.clear('assignment');
   }
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    this.assignmentProblemService.calculate(this.assignmentTable.getValue());
+    this.result$.next(
+      this.assignmentProblemService.calculate(this.assignmentTable.getValue()),
+    );
   }
 
   onTableChange(change: Table): void {
