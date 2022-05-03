@@ -24,6 +24,11 @@
       "TRANSPORTATION_PR": "Transportation problem",
       "ASSIGNMENT_PR": "Assignment problem",
       "OTHERS_SOON": "And more coming soon..."
+    },
+    "FEATURE_LIST_TITLE": "Other smaller features",
+    "FEATURE_LIST": {
+      "LANGUAGES": "You can choose between english & hungarian",
+      "THEMES": "You can set your preferred theme"
     }
   },
   "TRANSPORTATION_PROBLEM": {

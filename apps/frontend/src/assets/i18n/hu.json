@@ -24,6 +24,11 @@
       "TRANSPORTATION_PR": "Szállítási probléma",
       "ASSIGNMENT_PR": "Hozzárendelési probléma",
       "OTHERS_SOON": "És még több hamarosan..."
+    },
+    "FEATURE_LIST_TITLE": "Egyéb kisebb funkciók",
+    "FEATURE_LIST": {
+      "LANGUAGES": "Angol és magyar nyelv választhatósága",
+      "THEMES": "Preferált téma beállíthatósága"
     }
   },
   "TRANSPORTATION_PROBLEM": {
