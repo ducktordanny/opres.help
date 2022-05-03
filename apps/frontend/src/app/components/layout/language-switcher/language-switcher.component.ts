@@ -16,10 +16,9 @@ export class LanguageSwitcherComponent {
   public selectedLanguage = localStorage.getItem('user.selectedLanguage');
 
   constructor(private translateService: TranslateService) {
-    if (!this.selectedLanguage) {
+    if (!this.selectedLanguage)
       this.selectedLanguage = this.translateService.getDefaultLang();
-    }
-    this.translateService.use(this.selectedLanguage);
+    else this.translateService.use(this.selectedLanguage);
   }
 
   public onLanguageSelect(langId: string): void {

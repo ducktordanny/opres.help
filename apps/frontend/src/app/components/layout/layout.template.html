@@ -1,6 +1,6 @@
 <div
   class="layout-wrapper"
-  *ngIf="{shouldFilterByUrl: shouldFilterByUrl | async} as subs"
+  *ngIf="{shouldFilterByUrl: shouldFilterByUrl | async} as sub"
 >
   <mat-toolbar color="primary" class="mat-elevation-z8">
     <mat-icon
@@ -14,7 +14,7 @@
     <theme-switcher></theme-switcher>
     <language-switcher></language-switcher>
     <button
-      *ngIf="mobileQuery.matches || subs.shouldFilterByUrl"
+      *ngIf="mobileQuery.matches || sub.shouldFilterByUrl"
       mat-icon-button
       (click)="sidenav.toggle()"
     >
@@ -25,8 +25,8 @@
   <mat-sidenav-container autosize>
     <mat-sidenav
       #sidenav
-      [mode]="mobileQuery.matches || subs.shouldFilterByUrl ? 'over' : 'side'"
-      [opened]="!(subs.shouldFilterByUrl ?? true) && !mobileQuery.matches"
+      [mode]="mobileQuery.matches || sub.shouldFilterByUrl ? 'over' : 'side'"
+      [opened]="!(sub.shouldFilterByUrl ?? true) && !mobileQuery.matches"
     >
       <mat-nav-list>
         <a
