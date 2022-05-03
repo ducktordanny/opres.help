@@ -2,6 +2,11 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.3.1] - 2022-05-03
+
+- Display nice to have features (theme, language)
+- Show first phase result of the assignment problem
+
 ## [0.3.0] - 2022-05-03
 
 - Finish current version of home page
