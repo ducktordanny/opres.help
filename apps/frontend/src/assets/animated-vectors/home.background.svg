@@ -71,7 +71,7 @@
           transform: translate(0, 0)
         }
         50% {
-          transform: translate(0, -10px)
+          transform: translate(0, -15px)
         }
         100% {
           transform: translate(0, 0)
@@ -79,7 +79,7 @@
       }
 
       .triangle-float3 {
-        animation: float3 6s infinite;
+        animation: float3 5s infinite;
       }
     </style>
   </defs>
