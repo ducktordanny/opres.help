@@ -10,9 +10,10 @@ export class ThemeSwitcherComponent implements OnInit {
   public readonly THEMES = [
     {id: 'dark-theme', label: 'THEME.DARK'},
     {id: 'light-theme', label: 'THEME.LIGHT'},
+    {id: 'auto-theme', label: 'THEME.AUTO'},
   ];
   public selectedTheme =
-    localStorage.getItem('user.selectedTheme') || 'dark-theme';
+    localStorage.getItem('user.selectedTheme') || 'auto-theme';
 
   public ngOnInit(): void {
     this.changeTheme();
