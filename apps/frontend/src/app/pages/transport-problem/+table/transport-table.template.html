@@ -1,20 +1,23 @@
-<div class="input-table-wrapper">
+<div
+  class="input-table-wrapper"
+  *ngIf="{storages: storages$ | async, shops: shops$ | async} as sub"
+>
   <input-table
     key="costs"
-    [rows]="storages$ | async"
-    [columns]="shops$ | async"
+    [rows]="sub.storages"
+    [columns]="sub.shops"
     [tableSource]="mockCosts"
     (tableChange)="onCostChange($event)"
   ></input-table>
   <input-table
     key="storageStocks"
-    [rows]="storages$ | async"
+    [rows]="sub.storages"
     [tableSource]="mockStocks"
     (tableChange)="onStorageChange($event)"
   ></input-table>
   <input-table
     key="shopDemands"
-    [columns]="shops$ | async"
+    [columns]="sub.shops"
     [tableSource]="mockDemands"
     (tableChange)="onShopChange($event)"
   ></input-table>

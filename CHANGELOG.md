@@ -2,6 +2,14 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2022-05-03
+
+- Finish current version of home page
+- Fix assignment table overflow
+- Add language switcher with english & hungarian options
+- Add theme switcher and configure theme color
+- Layout improvements
+
 ## [0.2.0] - 2022-04-25
 
 - First phase of assignment problem

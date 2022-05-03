@@ -3,11 +3,15 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnDestroy,
 } from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
+
+import {Observable} from 'rxjs';
+import {filter, map, pluck} from 'rxjs/operators';
 
 @Component({
   selector: 'layout',
@@ -16,6 +20,8 @@ import {Router} from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnDestroy {
+  @Input() routesToHideNavbar: Array<string> = ['/home', '/'];
+  public shouldFilterByUrl: Observable<boolean>;
   public mobileQuery: MediaQueryList;
   public readonly ROUTES = [
     {path: '/home', title: 'SIDEBAR_MENU.HOME'},
@@ -46,6 +52,12 @@ export class LayoutComponent implements OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+
+    this.shouldFilterByUrl = this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      pluck('url'),
+      map((url) => this.routesToHideNavbar.some((element) => element === url)),
+    );
   }
 
   public ngOnDestroy(): void {

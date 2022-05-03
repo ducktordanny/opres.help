@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
+@import './apps/frontend/src/app/styles/variables/colors';
 
 @include mat.core();
 
@@ -38,6 +39,9 @@ $frontend-dark-theme: mat.define-dark-theme(
 }
 
 body {
+  --background-primary: #fafafa;
+  --background-accent: #fff;
+
   --primary: #{mat.get-color-from-palette($frontend-light-primary, 700)};
   --primary-variant: #{mat.get-color-from-palette($frontend-light-primary, 900)};
   --primary-text: black;
@@ -51,6 +55,9 @@ body {
   --shade: rgba(0, 0, 0, 0.12);
 
   &.dark-theme {
+    --background-primary: #303030;
+    --background-accent: #424242;
+
     --primary: #{mat.get-color-from-palette($frontend-dark-primary, 500)};
     --primary-variant: #{mat.get-color-from-palette($frontend-dark-primary, 100)};
     --primary-text: white;
@@ -73,6 +80,10 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+a {
+  color: $accent;
 }
 
 * {

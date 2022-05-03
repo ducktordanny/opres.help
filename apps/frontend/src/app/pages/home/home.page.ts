@@ -6,4 +6,8 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   styleUrls: ['./home.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePageComponent {}
+export class HomePageComponent {
+  public scrollTo(element: HTMLElement): void {
+    element.scrollIntoView({behavior: 'smooth'});
+  }
+}
