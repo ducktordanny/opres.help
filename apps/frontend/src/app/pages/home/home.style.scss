@@ -39,13 +39,39 @@ header {
 main {
   padding: 40px 0;
 
-  // FIXME [2022-05-07] Remove this & the hint from the template
-  .mat-hint {
-    color: $accent;
+  h2 {
+    margin: 0 0 40px;
+    text-align: center;
   }
 
   section {
     text-align: center;
+
+    img {
+      margin: 24px;
+      border-radius: 15px;
+      max-width: 250px;
+    }
+
+    .sample-img-right {
+      transform: rotate(3deg);
+    }
+
+    .sample-img-left {
+      transform: rotate(-3deg);
+    }
+  }
+
+  .others-soon {
+    width: 100%;
+    padding: 24px 0;
+  }
+
+  .sections-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 

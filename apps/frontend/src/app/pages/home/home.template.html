@@ -21,51 +21,29 @@
 </header>
 
 <main #descriptions>
-  <mat-hint>{{'HOME.WIP_NOTE' | translate}}</mat-hint>
   <h2>{{'HOME.SUGGESTION' | translate}}</h2>
 
-  <section>
-    <h3>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR' | translate}}</h3>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi cras
-      fermentum odio eu feugiat. Semper eget duis at tellus at. Netus et
-      malesuada fames ac turpis egestas sed tempus. Magnis dis parturient montes
-      nascetur ridiculus mus mauris vitae. Mus mauris vitae ultricies leo.
-      Pellentesque diam volutpat commodo sed egestas egestas. Aliquam ut
-      porttitor leo a diam sollicitudin tempor id. Turpis massa sed elementum
-      tempus egestas sed sed risus. Dis parturient montes nascetur ridiculus
-      mus.
-    </p>
-  </section>
-  <section>
-    <h3>{{'HOME.HELPERS_LIST.ASSIGNMENT_PR' | translate}}</h3>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi cras
-      fermentum odio eu feugiat. Semper eget duis at tellus at. Netus et
-      malesuada fames ac turpis egestas sed tempus. Magnis dis parturient montes
-      nascetur ridiculus mus mauris vitae. Mus mauris vitae ultricies leo.
-      Pellentesque diam volutpat commodo sed egestas egestas. Aliquam ut
-      porttitor leo a diam sollicitudin tempor id. Turpis massa sed elementum
-      tempus egestas sed sed risus. Dis parturient montes nascetur ridiculus
-      mus.
-    </p>
-  </section>
-  <section>
-    <h3>{{'HOME.HELPERS_LIST.OTHERS_SOON' | translate}}</h3>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi cras
-      fermentum odio eu feugiat. Semper eget duis at tellus at. Netus et
-      malesuada fames ac turpis egestas sed tempus. Magnis dis parturient montes
-      nascetur ridiculus mus mauris vitae. Mus mauris vitae ultricies leo.
-      Pellentesque diam volutpat commodo sed egestas egestas. Aliquam ut
-      porttitor leo a diam sollicitudin tempor id. Turpis massa sed elementum
-      tempus egestas sed sed risus. Dis parturient montes nascetur ridiculus
-      mus.
-    </p>
-  </section>
+  <div class="sections-wrapper">
+    <section>
+      <h3>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR' | translate}}</h3>
+      <img
+        class="mat-elevation-z12 sample-img-right"
+        src="../../../assets/home/transportation-page.example.png"
+        alt="Assignment page example"
+      />
+    </section>
+    <section>
+      <h3>{{'HOME.HELPERS_LIST.ASSIGNMENT_PR' | translate}}</h3>
+      <img
+        class="mat-elevation-z12 sample-img-left"
+        src="../../../assets/home/assignment-page.example.png"
+        alt="Assignment page example"
+      />
+    </section>
+    <section class="others-soon">
+      <h3>{{'HOME.HELPERS_LIST.OTHERS_SOON' | translate}}</h3>
+    </section>
+  </div>
 </main>
 
 <footer class="mat-elevation-z4">
