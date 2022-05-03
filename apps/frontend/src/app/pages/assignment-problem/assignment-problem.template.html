@@ -39,3 +39,12 @@
     {{ 'TABLE_CLEAR_BUTTON' | translate }}
   </button>
 </form>
+<div class="result-table" *ngIf="{result: result$ | async} as sub">
+  <p *ngIf="sub?.result?.length !== 0">
+    {{'ASSIGNMENT_PROBLEM.RESULT_INFO' | translate}}
+  </p>
+  <simple-table
+    *ngIf="sub?.result?.length !== 0"
+    [tableSource]="sub.result || []"
+  ></simple-table>
+</div>

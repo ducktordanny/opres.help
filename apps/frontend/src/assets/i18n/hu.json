@@ -41,6 +41,7 @@
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Tábla méret (n*n)",
-    "PAGE_INFO": "Készítés alatt: Jelenleg csak az első fázis elérhető."
+    "PAGE_INFO": "Készítés alatt: Jelenleg csak az első fázis elérhető.",
+    "RESULT_INFO": "Az első fázis eredménye:"
   }
 }

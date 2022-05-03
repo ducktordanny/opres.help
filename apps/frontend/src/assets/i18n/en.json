@@ -41,6 +41,7 @@
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",
-    "PAGE_INFO": "Under construction: Currently only the first phase is available."
+    "PAGE_INFO": "Under construction: Currently only the first phase is available.",
+    "RESULT_INFO": "The result of the first phase:"
   }
 }
