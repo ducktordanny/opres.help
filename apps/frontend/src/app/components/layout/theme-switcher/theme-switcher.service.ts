@@ -23,6 +23,12 @@ export class ThemeSwitcherService {
 
   private setAutoTheme() {
     const darkThemeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
+    darkThemeMatcher.addEventListener('change', (event) => {
+      this.setExactTheme(event.matches);
+    });
+    this.setExactTheme(darkThemeMatcher.matches);
+    this.selectedTheme.next('auto-theme');
+    localStorage.setItem('user.selectedTheme', 'auto-theme');
   }
 
   private setExactTheme(isDarkTheme: boolean) {

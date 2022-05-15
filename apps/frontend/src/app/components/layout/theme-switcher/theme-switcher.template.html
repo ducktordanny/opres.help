@@ -3,12 +3,14 @@
 </button>
 
 <mat-menu #themeMenu="matMenu">
-  <button
-    mat-menu-item
-    *ngFor="let theme of THEMES"
-    [ngClass]="{selected: theme.id === selectedTheme}"
-    (click)="onThemeSelect(theme.id)"
-  >
-    <span>{{theme.label | translate}}</span>
-  </button>
+  <ng-container *ngIf="{selectedTheme: selectedTheme$ | async} as sub">
+    <button
+      mat-menu-item
+      *ngFor="let theme of THEMES"
+      [ngClass]="{selected: theme.id === sub.selectedTheme}"
+      (click)="onThemeSelect(theme.id)"
+    >
+      <span>{{theme.label | translate}}</span>
+    </button>
+  </ng-container>
 </mat-menu>

@@ -1,4 +1,9 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+
+import {
+  Theme,
+  ThemeSwitcherService,
+} from '@components/layout/theme-switcher/theme-switcher.service';
 
 @Component({
   selector: 'theme-switcher',
@@ -6,28 +11,17 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   styleUrls: ['../layout.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThemeSwitcherComponent implements OnInit {
-  public readonly THEMES = [
+export class ThemeSwitcherComponent {
+  public readonly THEMES: Array<{id: Theme; label: string}> = [
     {id: 'dark-theme', label: 'THEME.DARK'},
     {id: 'light-theme', label: 'THEME.LIGHT'},
     {id: 'auto-theme', label: 'THEME.AUTO'},
   ];
-  public selectedTheme =
-    localStorage.getItem('user.selectedTheme') || 'auto-theme';
+  public selectedTheme$ = this.themeSwitcherService.selectedTheme;
 
-  public ngOnInit(): void {
-    this.changeTheme();
-  }
+  constructor(private themeSwitcherService: ThemeSwitcherService) {}
 
-  public onThemeSelect(themeId: string): void {
-    this.selectedTheme = themeId;
-    this.changeTheme();
-  }
-
-  private changeTheme(): void {
-    localStorage.setItem('user.selectedTheme', this.selectedTheme);
-    const body = document.querySelector('body');
-    if (this.selectedTheme === 'dark-theme') body?.classList.add('dark-theme');
-    else body?.classList.remove('dark-theme');
+  public onThemeSelect(themeId: Theme): void {
+    this.themeSwitcherService.changeTheme(themeId);
   }
 }
