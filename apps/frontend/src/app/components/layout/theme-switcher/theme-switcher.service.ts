@@ -9,26 +9,27 @@ export class ThemeSwitcherService {
   public selectedTheme = new BehaviorSubject<Theme>(
     <Theme>localStorage.getItem('user.selectedTheme') || 'auto-theme',
   );
+  private darkThemeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
 
   constructor() {
     this.changeTheme(this.selectedTheme.getValue());
   }
 
   public changeTheme(theme: Theme): void {
-    if (theme === 'auto-theme') return this.setAutoTheme();
-    this.setExactTheme(theme === 'dark-theme');
+    if (this.selectedTheme.getValue() === 'auto-theme')
+      this.darkThemeMatcher.removeEventListener(
+        'change',
+        this.handleAutoThemeEvent,
+      );
+    if (theme === 'auto-theme') this.setAutoTheme();
+    else this.setExactTheme(theme === 'dark-theme');
     this.selectedTheme.next(theme);
     localStorage.setItem('user.selectedTheme', theme);
   }
 
-  private setAutoTheme() {
-    const darkThemeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
-    darkThemeMatcher.addEventListener('change', (event) => {
-      this.setExactTheme(event.matches);
-    });
-    this.setExactTheme(darkThemeMatcher.matches);
-    this.selectedTheme.next('auto-theme');
-    localStorage.setItem('user.selectedTheme', 'auto-theme');
+  private setAutoTheme(): void {
+    this.darkThemeMatcher.addEventListener('change', this.handleAutoThemeEvent);
+    this.setExactTheme(this.darkThemeMatcher.matches);
   }
 
   private setExactTheme(isDarkTheme: boolean) {
@@ -36,4 +37,8 @@ export class ThemeSwitcherService {
     if (isDarkTheme) body?.classList.add('dark-theme');
     else body?.classList.remove('dark-theme');
   }
+
+  private handleAutoThemeEvent = (event: MediaQueryListEvent): void => {
+    this.setExactTheme(event.matches);
+  };
 }
