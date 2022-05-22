@@ -17,7 +17,9 @@ import {CalculationProcess, TPMethods} from './transport-problem.types';
 })
 export class TransportProblemPageComponent implements OnDestroy {
   public readonly resultEpsilon$ = new BehaviorSubject<number | null>(null);
-  public readonly selectedMethod$ = this.transportProblemService.method$;
+  public readonly selectedMethod$ = new BehaviorSubject<TPMethods>(
+    'north-west',
+  );
   public error = new BehaviorSubject<string | null>(null);
   public results = new BehaviorSubject<Array<CalculationProcess>>([]);
 
@@ -45,7 +47,7 @@ export class TransportProblemPageComponent implements OnDestroy {
   }
 
   public onMethodSelect(change: MatSelectChange): void {
-    this.transportProblemService.method$.next(<TPMethods>change.value);
+    this.selectedMethod$.next(<TPMethods>change.value);
   }
 
   public onCalculate(event: Event): void {

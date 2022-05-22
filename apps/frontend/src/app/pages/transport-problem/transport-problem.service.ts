@@ -14,7 +14,6 @@ import {
   Result,
   Stocks,
   TPData,
-  TPMethods,
   TransportRow,
   TransportTable,
 } from './transport-problem.types';
@@ -25,7 +24,6 @@ export class TransportProblemService {
   public shops$ = new BehaviorSubject<number>(4);
   /** A storage is the equivalent of a row. */
   public storages$ = new BehaviorSubject<number>(4);
-  public method$ = new BehaviorSubject<TPMethods>('north-west');
   private calculationProcess$ = new BehaviorSubject<CalculationProcess>(
     EMPTY_CALCULATION_PROCESS,
   );

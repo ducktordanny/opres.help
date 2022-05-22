@@ -73,7 +73,7 @@ describe('ThemeSwitcherService', () => {
     );
 
     themeSwitcherService.changeTheme('auto-theme');
-    expect(handleAutoThemeSpy).toBeCalledTimes(0);
+    expect(handleAutoThemeSpy).not.toHaveBeenCalled();
     expect(setExactThemeSpy).toHaveBeenCalledTimes(1);
     themeSwitcherService.selectedTheme.subscribe((value) => {
       expect(value).toEqual('auto-theme');
