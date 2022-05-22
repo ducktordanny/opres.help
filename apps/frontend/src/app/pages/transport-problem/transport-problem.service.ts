@@ -52,37 +52,14 @@ export class TransportProblemService {
     this.tpData$.next(EMPTY_TP_DATA);
   }
 
-  public calculate(): Result {
-    if (!this.checkSolvability())
-      throw new Error('The given problem is not solvable!');
-    const mockResult = {epsilon: 0, table: []};
-
-    // select method
-    const method = this.method$.getValue();
-    if (method === 'north-west') return this.northWest();
-    else if (method === 'table-min') return mockResult;
-    else if (method === 'vogel-korda') return mockResult;
-    return mockResult;
-  }
-
   public reset(): void {
     this.calculationProcess$.next(EMPTY_CALCULATION_PROCESS);
   }
 
-  private getEpsilon(resultTable: TransportTable): number {
-    const {costs} = this.tpData$.getValue();
-    let epsilon = 0;
-
-    for (const [rowIndex, row] of costs.entries())
-      for (const [columnIndex, cost] of Object.entries(row))
-        epsilon +=
-          (cost || 0) * (resultTable[rowIndex][columnIndex].transported || 0);
-
-    return epsilon;
-  }
-
-  private northWest(): Result {
-    const tpData = this.tpData$.getValue();
+  public northWest(transportProblemData?: TPData): Result {
+    const tpData = transportProblemData || this.tpData$.getValue();
+    if (!this.checkSolvability(tpData))
+      throw new Error('The given problem is not solvable! Try another one.');
     const {costs} = tpData;
     const stocks = [...tpData.storageStocks];
     const demands = [...tpData.shopDemands];
@@ -120,18 +97,8 @@ export class TransportProblemService {
     };
   }
 
-  private createResultTableFrom(costTable: Table): TransportTable {
-    return costTable.map((row: Row) => this.createNewResultRow(row));
-  }
-
-  private createNewResultRow = (costRow: Row): TransportRow =>
-    Object.keys(costRow).reduce((result: TransportRow, key) => {
-      result[key] = {cost: costRow[key]};
-      return result;
-    }, {});
-
-  private checkSolvability(): boolean {
-    const {costs, shopDemands, storageStocks} = this.tpData$.getValue();
+  public checkSolvability(transportProblemData: TPData): boolean {
+    const {costs, shopDemands, storageStocks} = transportProblemData;
     if (
       costs.length === 0 ||
       shopDemands.length === 0 ||
@@ -142,4 +109,26 @@ export class TransportProblemService {
     const storageStockSum = sum(storageStocks);
     return shopDemandSum === storageStockSum;
   }
+
+  public getEpsilon(resultTable: TransportTable): number {
+    let epsilon = 0;
+
+    for (const [rowIndex, row] of resultTable.entries())
+      for (const [columnIndex] of Object.entries(row))
+        epsilon +=
+          (resultTable[rowIndex][columnIndex].cost || 0) *
+          (resultTable[rowIndex][columnIndex].transported || 0);
+
+    return epsilon;
+  }
+
+  private createResultTableFrom(costTable: Table): TransportTable {
+    return costTable.map((row: Row) => this.createNewResultRow(row));
+  }
+
+  private createNewResultRow = (costRow: Row): TransportRow =>
+    Object.keys(costRow).reduce((result: TransportRow, key) => {
+      result[key] = {cost: costRow[key]};
+      return result;
+    }, {});
 }

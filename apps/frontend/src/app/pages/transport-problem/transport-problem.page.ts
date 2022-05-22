@@ -53,7 +53,7 @@ export class TransportProblemPageComponent implements OnDestroy {
     try {
       this.error.next(null);
       this.results.next([]);
-      const result = this.transportProblemService.calculate();
+      const result = this.transportProblemService.northWest();
       this.resultEpsilon$.next(result.epsilon);
     } catch (error) {
       this.error.next((<Error>error).message);
