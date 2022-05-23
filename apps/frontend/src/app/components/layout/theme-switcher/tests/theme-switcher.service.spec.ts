@@ -30,10 +30,10 @@ describe('ThemeSwitcherService', () => {
     expect(themeSwitcherService).toBeInstanceOf(ThemeSwitcherService));
 
   it('should have auto-theme as default', (done) => {
-    themeSwitcherService.selectedTheme.subscribe((value) =>
-      expect(value).toEqual('auto-theme'),
-    );
-    done();
+    themeSwitcherService.selectedTheme.subscribe((value) => {
+      expect(value).toEqual('auto-theme');
+      done();
+    });
   });
 
   it('should set dark theme', (done) => {
@@ -43,10 +43,10 @@ describe('ThemeSwitcherService', () => {
     );
     themeSwitcherService.changeTheme('dark-theme');
     expect(setExactThemeSpy).toHaveBeenCalledTimes(1);
-    themeSwitcherService.selectedTheme.subscribe((value) =>
-      expect(value).toEqual('dark-theme'),
-    );
-    done();
+    themeSwitcherService.selectedTheme.subscribe((value) => {
+      expect(value).toEqual('dark-theme');
+      done();
+    });
   });
 
   it('should set light theme', (done) => {
@@ -56,10 +56,10 @@ describe('ThemeSwitcherService', () => {
     );
     themeSwitcherService.changeTheme('light-theme');
     expect(setExactThemeSpy).toHaveBeenCalledTimes(1);
-    themeSwitcherService.selectedTheme.subscribe((value) =>
-      expect(value).toEqual('light-theme'),
-    );
-    done();
+    themeSwitcherService.selectedTheme.subscribe((value) => {
+      expect(value).toEqual('light-theme');
+      done();
+    });
   });
 
   it('should set auto theme', (done) => {
@@ -77,7 +77,7 @@ describe('ThemeSwitcherService', () => {
     expect(setExactThemeSpy).toHaveBeenCalledTimes(1);
     themeSwitcherService.selectedTheme.subscribe((value) => {
       expect(value).toEqual('auto-theme');
+      done();
     });
-    done();
   });
 });

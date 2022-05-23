@@ -24,7 +24,6 @@ describe('TransportProblemService', () => {
   it('should check default values', () => {
     expect(transportProblemService.shops$.value).toEqual(4);
     expect(transportProblemService.storages$.value).toEqual(4);
-    expect(transportProblemService.method$.value).toEqual('north-west');
   });
 
   it('should calculate problem with north-west method', () => {
