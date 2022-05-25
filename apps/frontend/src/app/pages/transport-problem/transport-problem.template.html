@@ -7,6 +7,7 @@
       matNativeControl
       required
       value="4"
+      data-test-id="number-of-shops-select"
       (selectionChange)="onShopsCountChange($event)"
     >
       <mat-option value="3">3</mat-option>
@@ -23,6 +24,7 @@
       matNativeControl
       required
       value="4"
+      data-test-id="number-of-storages-select"
       (selectionChange)="onStoragesCountChange($event)"
     >
       <mat-option value="3">3</mat-option>
@@ -41,6 +43,7 @@
       matNativeControl
       required
       [value]="selectedMethod$ | async"
+      data-test-id="method-select"
       (selectionChange)="onMethodSelect($event)"
     >
       <mat-option value="north-west"
@@ -69,6 +72,7 @@
     mat-flat-button
     color="primary"
     type="submit"
+    data-test-id="calculate-button"
     (click)="onCalculate($event)"
   >
     {{'CALCULATE_BUTTON' | translate}}

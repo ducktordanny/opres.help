@@ -21,7 +21,13 @@
     [tableSource]="mockDemands"
     (tableChange)="onShopChange($event)"
   ></input-table>
-  <button mat-flat-button color="primary" type="button" (click)="clearTables()">
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    data-test-id="table-clear-button"
+    (click)="clearTables()"
+  >
     {{ 'TABLE_CLEAR_BUTTON' | translate }}
   </button>
 </div>

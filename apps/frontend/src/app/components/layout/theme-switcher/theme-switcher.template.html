@@ -1,9 +1,14 @@
-<button mat-icon-button [matMenuTriggerFor]="themeMenu">
-  <mat-icon class="mat-18">format_color_fill</mat-icon>
-</button>
+<ng-container *ngIf="{selectedTheme: selectedTheme$ | async} as sub">
+  <button
+    type="button"
+    mat-icon-button
+    data-test-id="theme-switcher"
+    [matMenuTriggerFor]="themeMenu"
+  >
+    <mat-icon class="mat-18">format_color_fill</mat-icon>
+  </button>
 
-<mat-menu #themeMenu="matMenu">
-  <ng-container *ngIf="{selectedTheme: selectedTheme$ | async} as sub">
+  <mat-menu #themeMenu="matMenu" data-test-id="theme-switcher-menu">
     <button
       mat-menu-item
       *ngFor="let theme of THEMES"
@@ -12,5 +17,5 @@
     >
       <span>{{theme.label | translate}}</span>
     </button>
-  </ng-container>
-</mat-menu>
+  </mat-menu>
+</ng-container>
