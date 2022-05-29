@@ -1,18 +1,19 @@
 name: Tests
 
-on: [push]
+on: push
 
 jobs:
   build:
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16.x
 
       - name: Install dependencies
         run: yarn
