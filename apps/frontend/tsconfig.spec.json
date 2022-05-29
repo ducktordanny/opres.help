@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "../../dist/out-tsc",
+    "paths": {
+      "@components/*": ["src/app/components/*"],
+      "@shared/*": ["src/app/shared/*"]
+    },
     "module": "commonjs",
     "types": ["jest", "node"]
   },

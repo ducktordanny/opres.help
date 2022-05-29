@@ -1,3 +1,6 @@
+const {pathsToModuleNameMapper} = require('ts-jest/utils');
+const {compilerOptions} = require('./tsconfig.app.json');
+
 module.exports = {
   displayName: 'frontend',
   preset: '../../jest.preset.js',
@@ -8,6 +11,9 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
+  roots: ['<rootDir>'],
+  modulePaths: [compilerOptions.baseUrl],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   coverageDirectory: '../../coverage/apps/frontend',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',

@@ -1,20 +1,51 @@
-import {HttpClientModule} from '@angular/common/http';
-import {Component} from '@angular/core';
-import {async, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+
+import {TranslateService} from '@ngx-translate/core';
 
 import {AppComponent} from './app.component';
+import {AppModule} from './app.module';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      imports: [HttpClientModule],
-    }).compileComponents();
-  }));
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let translateService: TranslateService;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  beforeAll(() => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      })),
+    });
+  });
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppModule],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    translateService = TestBed.inject(TranslateService);
+  });
+
+  it('should add languages', () => {
+    const addLanguagesSpy = jest.spyOn(translateService, 'addLangs');
+    component.ngOnInit();
+    expect(addLanguagesSpy).toHaveBeenCalledWith(['en', 'hu']);
+  });
+
+  it('should set default language', () => {
+    const setDefaultLanguageSpy = jest.spyOn(
+      translateService,
+      'setDefaultLang',
+    );
+    component.ngOnInit();
+    expect(setDefaultLanguageSpy).toHaveBeenCalledWith('en');
   });
 });
