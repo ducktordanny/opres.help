@@ -16,20 +16,18 @@ describe('InputTableService', () => {
     expect(inputTableService).toBeInstanceOf(InputTableService));
 
   it('should clear with a key', (done) => {
-    inputTableService.clear('dummy-key');
     inputTableService.clear$.subscribe((key) => {
-      expect(key).toEqual('dummy-key');
+      expect(key).toEqual(['dummy-key']);
       done();
     });
-    done();
+    inputTableService.clear('dummy-key');
   });
 
   it('should clear with an array of keys', (done) => {
-    inputTableService.clear(['dummy-key-0', 'dummy-key-1']);
     inputTableService.clear$.subscribe((keys) => {
-      expect(keys).toContain(['dummy-key-0', 'dummy-key-1']);
+      expect(keys).toEqual(['dummy-key-0', 'dummy-key-1']);
       done();
     });
-    done();
+    inputTableService.clear(['dummy-key-0', 'dummy-key-1']);
   });
 });
