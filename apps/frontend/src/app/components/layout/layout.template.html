@@ -21,6 +21,11 @@
     <theme-switcher></theme-switcher>
     <language-switcher></language-switcher>
   </mat-toolbar>
+  <mat-progress-bar
+    *ngIf="isLoading | async"
+    mode="indeterminate"
+    color="accent"
+  ></mat-progress-bar>
 
   <mat-sidenav-container autosize>
     <mat-sidenav

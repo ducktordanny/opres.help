@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
-import {NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, NavigationStart, Router} from '@angular/router';
 
 import {Observable} from 'rxjs';
 import {filter, map, pluck} from 'rxjs/operators';
@@ -34,6 +34,7 @@ export class LayoutComponent implements OnDestroy {
       title: 'SIDEBAR_MENU.ASSIGNMENT_PROBLEM',
     },
   ];
+  public isLoading: Observable<boolean>;
   private readonly _mobileQueryListener: () => void;
 
   constructor(
@@ -57,6 +58,10 @@ export class LayoutComponent implements OnDestroy {
       filter((event) => event instanceof NavigationEnd),
       pluck('url'),
       map((url) => this.routesToHideNavbar.some((element) => element === url)),
+    );
+
+    this.isLoading = this.router.events.pipe(
+      map((event) => event instanceof NavigationStart),
     );
   }
 
