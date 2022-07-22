@@ -1,4 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 
 import {TranslateService} from '@ngx-translate/core';
 
@@ -26,7 +27,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppModule],
+      imports: [AppModule, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
@@ -34,18 +35,14 @@ describe('AppComponent', () => {
     translateService = TestBed.inject(TranslateService);
   });
 
-  it('should add languages', () => {
+  it('should add languages & set default', () => {
     const addLanguagesSpy = jest.spyOn(translateService, 'addLangs');
-    component.ngOnInit();
-    expect(addLanguagesSpy).toHaveBeenCalledWith(['en', 'hu']);
-  });
-
-  it('should set default language', () => {
     const setDefaultLanguageSpy = jest.spyOn(
       translateService,
       'setDefaultLang',
     );
     component.ngOnInit();
+    expect(addLanguagesSpy).toHaveBeenCalledWith(['en', 'hu']);
     expect(setDefaultLanguageSpy).toHaveBeenCalledWith('en');
   });
 });
