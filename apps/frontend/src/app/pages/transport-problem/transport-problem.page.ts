@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
 
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {BehaviorSubject} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {UntilDestroy} from '@ngneat/until-destroy';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 
 import {TransportProblemService} from './transport-problem.service';
 import {CalculationProcess, TPMethods} from './transport-problem.types';
@@ -21,18 +20,9 @@ export class TransportProblemPageComponent implements OnDestroy {
     'north-west',
   );
   public error = new BehaviorSubject<string | null>(null);
-  public results = new BehaviorSubject<Array<CalculationProcess>>([]);
+  public results: Observable<Array<CalculationProcess> | null> = of(null);
 
-  constructor(private transportProblemService: TransportProblemService) {
-    this.transportProblemService.calculationProcess
-      .pipe(
-        tap((result) =>
-          this.results.next([...this.results.getValue(), result]),
-        ),
-        untilDestroyed(this),
-      )
-      .subscribe();
-  }
+  constructor(private transportProblemService: TransportProblemService) {}
 
   public ngOnDestroy(): void {
     this.transportProblemService.reset();
@@ -54,9 +44,9 @@ export class TransportProblemPageComponent implements OnDestroy {
     event.preventDefault();
     try {
       this.error.next(null);
-      this.results.next([]);
-      const result = this.transportProblemService.northWest();
-      this.resultEpsilon$.next(result.epsilon);
+      this.results = this.transportProblemService.calculateFirstPhase(
+        this.selectedMethod$.getValue(),
+      );
     } catch (error) {
       this.error.next((<Error>error).message);
     }
@@ -64,7 +54,7 @@ export class TransportProblemPageComponent implements OnDestroy {
 
   public reset(): void {
     this.error.next(null);
-    this.results.next([]);
+    this.results = of(null);
     this.resultEpsilon$.next(null);
   }
 }

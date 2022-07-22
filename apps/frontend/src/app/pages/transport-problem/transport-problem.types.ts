@@ -23,6 +23,7 @@ export interface CalculationProcess {
   transportation: TransportTable;
   demands: Demands;
   stocks: Stocks;
+  explanation?: string;
 }
 
 export interface Result {

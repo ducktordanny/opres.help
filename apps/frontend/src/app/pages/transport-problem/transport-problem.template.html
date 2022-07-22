@@ -86,7 +86,7 @@
     {{'CALCULATE_BUTTON' | translate}}
   </button>
 </form>
-<div class="wrapper">
+<div class="wrapper" *ngIf="results | async as _results">
   <p *ngIf="resultEpsilon$ | async as epsilon">
     {{'TRANSPORTATION_PROBLEM.EPSILON' | translate:{epsilon} }}
   </p>

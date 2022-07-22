@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 
-import {sum} from '@shared/helpers/array.helper';
-import {Row, Table} from '@shared/types/table.types';
-import {BehaviorSubject} from 'rxjs';
+import {Table} from '@shared/types/table.types';
+import {BehaviorSubject, Observable, scan} from 'rxjs';
 
+import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
 import {
   EMPTY_CALCULATION_PROCESS,
   EMPTY_TP_DATA,
@@ -11,11 +11,9 @@ import {
 import {
   CalculationProcess,
   Demands,
-  Result,
   Stocks,
   TPData,
-  TransportRow,
-  TransportTable,
+  TPMethods,
 } from './transport-problem.types';
 
 @Injectable()
@@ -29,6 +27,8 @@ export class TransportProblemService {
   );
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
+
+  constructor(private northWestMethod: NorthWestMethodService) {}
 
   public get calculationProcess() {
     return this.calculationProcess$.asObservable();
@@ -54,79 +54,16 @@ export class TransportProblemService {
     this.calculationProcess$.next(EMPTY_CALCULATION_PROCESS);
   }
 
-  public northWest(transportProblemData?: TPData): Result {
-    const tpData = transportProblemData || this.tpData$.getValue();
-    if (!this.checkSolvability(tpData))
-      throw new Error('The given problem is not solvable! Try another one.');
-    const {costs} = tpData;
-    const stocks = [...tpData.storageStocks];
-    const demands = [...tpData.shopDemands];
-    const resultTable: TransportTable = this.createResultTableFrom(costs);
-    let stockIndex = 0,
-      demandIndex = 0;
-
-    while (stockIndex < stocks.length && demandIndex < demands.length) {
-      const currentStock = stocks[stockIndex] || 0,
-        currentDemand = demands[demandIndex] || 0;
-      const transported =
-        currentDemand < currentStock ? currentDemand : currentStock;
-
-      resultTable[stockIndex][demandIndex].transported = transported;
-      demands[demandIndex] = currentDemand - transported;
-      stocks[stockIndex] = currentStock - transported;
-
-      if (currentDemand < currentStock) demandIndex++;
-      else {
-        stockIndex++;
-      }
-
-      this.calculationProcess$.next({
-        transportation: JSON.parse(
-          JSON.stringify(resultTable),
-        ) as TransportTable,
-        demands: [...demands],
-        stocks: [...stocks],
-      });
-    }
-
-    return {
-      epsilon: this.getEpsilon(resultTable),
-      table: resultTable,
-    };
+  public calculateFirstPhase(
+    type: TPMethods,
+  ): Observable<Array<CalculationProcess>> {
+    return this.northWestMethod
+      .calculate(this.tpData$.getValue())
+      .pipe(scan(this.mergeProcesses, [] as Array<CalculationProcess>));
   }
 
-  public checkSolvability(transportProblemData: TPData): boolean {
-    const {costs, shopDemands, storageStocks} = transportProblemData;
-    if (
-      costs.length === 0 ||
-      shopDemands.length === 0 ||
-      storageStocks.length === 0
-    )
-      return false;
-    const shopDemandSum = sum(shopDemands);
-    const storageStockSum = sum(storageStocks);
-    return shopDemandSum === storageStockSum;
-  }
-
-  public getEpsilon(resultTable: TransportTable): number {
-    let epsilon = 0;
-
-    for (const [rowIndex, row] of resultTable.entries())
-      for (const [columnIndex] of Object.entries(row))
-        epsilon +=
-          (resultTable[rowIndex][columnIndex].cost || 0) *
-          (resultTable[rowIndex][columnIndex].transported || 0);
-
-    return epsilon;
-  }
-
-  private createResultTableFrom(costTable: Table): TransportTable {
-    return costTable.map((row: Row) => this.createNewResultRow(row));
-  }
-
-  private createNewResultRow = (costRow: Row): TransportRow =>
-    Object.keys(costRow).reduce((result: TransportRow, key) => {
-      result[key] = {cost: costRow[key]};
-      return result;
-    }, {});
+  private mergeProcesses = (
+    previous: Array<CalculationProcess>,
+    current: CalculationProcess,
+  ) => [...previous, current];
 }
