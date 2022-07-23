@@ -91,7 +91,7 @@
     {{'TRANSPORTATION_PROBLEM.EPSILON' | translate:{epsilon} }}
   </p>
   <result-table
-    *ngFor="let resultSource of (results | async); let i = index"
+    *ngFor="let resultSource of _results; let i = index"
     [title]="i + 1 + '. step'"
     [result]="resultSource"
   ></result-table>
