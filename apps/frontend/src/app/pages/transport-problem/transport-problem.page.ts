@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
 
 import {UntilDestroy} from '@ngneat/until-destroy';
@@ -14,7 +14,7 @@ import {CalculationProcess, TPMethods} from './transport-problem.types';
   styleUrls: ['./transport-problem.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TransportProblemPageComponent implements OnDestroy {
+export class TransportProblemPageComponent {
   public readonly resultEpsilon$ = new BehaviorSubject<number | null>(null);
   public readonly selectedMethod$ = new BehaviorSubject<TPMethods>(
     'north-west',
@@ -23,10 +23,6 @@ export class TransportProblemPageComponent implements OnDestroy {
   public results: Observable<Array<CalculationProcess> | null> = of(null);
 
   constructor(private transportProblemService: TransportProblemService) {}
-
-  public ngOnDestroy(): void {
-    this.transportProblemService.reset();
-  }
 
   public onShopsCountChange(change: MatSelectChange): void {
     this.transportProblemService.shops$.next(+change.value);

@@ -4,10 +4,10 @@ import {Table} from '@shared/types/table.types';
 import {BehaviorSubject, Observable, scan} from 'rxjs';
 
 import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
-import {
-  EMPTY_CALCULATION_PROCESS,
-  EMPTY_TP_DATA,
-} from './transport-problem.constant';
+import {TableMinimumMethodService} from './services/first-phase/table-minimum.method.service';
+import {VogelKordaMethodService} from './services/first-phase/vogel-korda.method.service';
+import {checkSolvability} from './utils/solvability.util';
+import {EMPTY_TP_DATA} from './transport-problem.constant';
 import {
   CalculationProcess,
   Demands,
@@ -22,17 +22,20 @@ export class TransportProblemService {
   public shops$ = new BehaviorSubject<number>(4);
   /** A storage is the equivalent of a row. */
   public storages$ = new BehaviorSubject<number>(4);
-  private calculationProcess$ = new BehaviorSubject<CalculationProcess>(
-    EMPTY_CALCULATION_PROCESS,
-  );
+
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
+  private firstPhase = {
+    'north-west': this.northWestMethod,
+    'table-min': this.tableMinimumMethod,
+    'vogel-korda': this.vogelKordaMethod,
+  };
 
-  constructor(private northWestMethod: NorthWestMethodService) {}
-
-  public get calculationProcess() {
-    return this.calculationProcess$.asObservable();
-  }
+  constructor(
+    private northWestMethod: NorthWestMethodService,
+    private tableMinimumMethod: TableMinimumMethodService,
+    private vogelKordaMethod: VogelKordaMethodService,
+  ) {}
 
   public setCosts(costs: Table): void {
     this.tpData$.next({...this.tpData$.getValue(), costs});
@@ -50,15 +53,15 @@ export class TransportProblemService {
     this.tpData$.next(EMPTY_TP_DATA);
   }
 
-  public reset(): void {
-    this.calculationProcess$.next(EMPTY_CALCULATION_PROCESS);
-  }
-
   public calculateFirstPhase(
     type: TPMethods,
   ): Observable<Array<CalculationProcess>> {
-    return this.northWestMethod
-      .calculate(this.tpData$.getValue())
+    const tpData = this.tpData$.getValue();
+    if (!checkSolvability(tpData))
+      throw new Error('The given problem is not solvable! Try another one.');
+
+    return this.firstPhase[type]
+      .calculate(tpData)
       .pipe(scan(this.mergeProcesses, [] as Array<CalculationProcess>));
   }
 

@@ -8,20 +8,15 @@ import {
   TransportTable,
 } from '../../transport-problem.types';
 import {createResultTableFrom} from '../../utils/result-table.util';
-import {checkSolvability} from '../../utils/solvability.util';
 
 @Injectable()
 export class NorthWestMethodService {
   public calculate(
     transportProblemData: TPData,
   ): Observable<CalculationProcess> {
-    const tpData = transportProblemData;
-    if (!checkSolvability(tpData))
-      throw new Error('The given problem is not solvable! Try another one.');
-
-    const {costs} = tpData;
-    const stocks = [...tpData.storageStocks];
-    const demands = [...tpData.shopDemands];
+    const {costs} = transportProblemData;
+    const stocks = [...transportProblemData.storageStocks];
+    const demands = [...transportProblemData.shopDemands];
 
     const process = new ReplaySubject<CalculationProcess>();
     const resultTable: TransportTable = createResultTableFrom(costs);

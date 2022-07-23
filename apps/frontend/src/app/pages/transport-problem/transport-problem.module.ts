@@ -13,7 +13,7 @@ import {TransportTableModule} from './+table/transport-table.module';
 import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
 import {TableMinimumMethodService} from './services/first-phase/table-minimum.method.service';
 import {VogelKordaMethodService} from './services/first-phase/vogel-korda.method.service';
-import {HungarianMethodService} from './services/second-phase/hungarian.method.service';
+import {SecondPhaseService} from './services/second-phase.service';
 import {TransportProblemPageComponent} from './transport-problem.page';
 import {TransportProblemRouting} from './transport-problem.routing';
 import {TransportProblemService} from './transport-problem.service';
@@ -33,7 +33,7 @@ import {TransportProblemService} from './transport-problem.service';
     TransportTableModule,
   ],
   providers: [
-    HungarianMethodService,
+    SecondPhaseService,
     NorthWestMethodService,
     TableMinimumMethodService,
     TransportProblemService,
