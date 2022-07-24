@@ -8,6 +8,7 @@ import {
   TransportTable,
 } from '../../transport-problem.types';
 import {createResultTableFrom} from '../../utils/result-table.util';
+import {transport} from '../../utils/transport.util';
 
 @Injectable()
 export class NorthWestMethodService {
@@ -24,14 +25,13 @@ export class NorthWestMethodService {
       demandIndex = 0;
 
     while (stockIndex < stocks.length && demandIndex < demands.length) {
-      const currentStock = stocks[stockIndex] || 0;
-      const currentDemand = demands[demandIndex] || 0;
-      const transported =
-        currentDemand < currentStock ? currentDemand : currentStock;
-
-      resultTable[stockIndex][demandIndex].transported = transported;
-      demands[demandIndex] = currentDemand - transported;
-      stocks[stockIndex] = currentStock - transported;
+      const [currentDemand, currentStock] = transport(
+        resultTable,
+        demands,
+        stocks,
+        demandIndex,
+        stockIndex,
+      );
 
       if (currentDemand < currentStock) demandIndex++;
       else stockIndex++;

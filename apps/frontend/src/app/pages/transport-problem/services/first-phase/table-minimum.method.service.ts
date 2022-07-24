@@ -11,6 +11,7 @@ import {
   TransportTable,
 } from '../../transport-problem.types';
 import {createResultTableFrom} from '../../utils/result-table.util';
+import {transport} from '../../utils/transport.util';
 
 interface SelectedCost {
   demandIndex: number;
@@ -35,16 +36,7 @@ export class TableMinimumMethodService {
         demands,
         stocks,
       );
-
-      // todo this could be a helper/shared function between the methods
-      const currentStock = stocks[stockIndex] || 0;
-      const currentDemand = demands[demandIndex] || 0;
-      const transported =
-        currentDemand < currentStock ? currentDemand : currentStock;
-
-      resultTable[stockIndex][demandIndex].transported = transported;
-      demands[demandIndex] = currentDemand - transported;
-      stocks[stockIndex] = currentStock - transported;
+      transport(resultTable, demands, stocks, demandIndex, stockIndex);
 
       process.next({
         transportation: JSON.parse(
