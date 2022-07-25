@@ -30,6 +30,10 @@
     "FEATURE_LIST": {
       "LANGUAGES": "Angol és magyar nyelv választhatósága",
       "THEMES": "Preferált téma beállíthatósága"
+    },
+    "SUPPORT": {
+      "TITLE": "Támogatás",
+      "CONTENT": "Ha támogatni szeretnéd a munkámat itt megteheted: "
     }
   },
   "TRANSPORTATION_PROBLEM": {
@@ -42,12 +46,18 @@
       "OPTION_VK": "Vogel-Korda"
     },
     "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
-    "PAGE_INFO": "A táblák jelenleg egy példa feladat értékeivel vannak kitöltve, az első fázis lépései az Észak-Nyugati módszerrel elérhetőek. A többi módszer is hamarosan elérhetővé válik!",
+    "PAGE_INFO": {
+      "TITLE": "Készítés alatt",
+      "CONTENT": "A táblák jelenleg egy példa feladat értékeivel vannak kitöltve, az első fázis lépései az Észak-Nyugati módszerrel elérhetőek. A többi módszer is hamarosan elérhetővé válik!"
+    },
     "EPSILON": "Epszilon értéke: {{epsilon}}"
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Tábla méret (n*n)",
-    "PAGE_INFO": "Készítés alatt: Jelenleg csak az első fázis elérhető.",
+    "PAGE_INFO": {
+      "TITLE": "Készítés alatt",
+      "CONTENT": "Jelenleg csak az első fázis elérhető"
+    },
     "RESULT_INFO": "Az első fázis eredménye:"
   }
 }

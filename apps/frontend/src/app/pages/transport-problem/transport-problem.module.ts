@@ -5,6 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 
 import {BadgedTableModule} from '@components/badged-table/badged-table.module';
+import {InfoCardModule} from '@components/info-card/info-card.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {ResultTableModule} from './+result-table/result-table.module';
@@ -18,6 +19,7 @@ import {TransportProblemService} from './transport-problem.service';
   imports: [
     BadgedTableModule,
     CommonModule,
+    InfoCardModule,
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
