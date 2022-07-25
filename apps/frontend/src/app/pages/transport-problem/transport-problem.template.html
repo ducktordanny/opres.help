@@ -1,4 +1,13 @@
 <form>
+  <div class="wrapper">
+    <info-card
+      width="600px"
+      type="warning"
+      title="{{'TRANSPORTATION_PROBLEM.PAGE_INFO.TITLE' | translate}}"
+    >
+      {{'TRANSPORTATION_PROBLEM.PAGE_INFO.CONTENT' | translate}}
+    </info-card>
+  </div>
   <mat-form-field appearance="outline">
     <mat-label
       >{{'TRANSPORTATION_PROBLEM.COLUMNS_SELECT' | translate}}</mat-label
@@ -60,12 +69,11 @@
       >
     </mat-select>
   </mat-form-field>
-  <mat-hint>
-    {{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}
-  </mat-hint>
-  <mat-hint class="info">
-    {{'TRANSPORTATION_PROBLEM.PAGE_INFO' | translate}}
-  </mat-hint>
+  <div class="wrapper">
+    <info-card width="600px"
+      >{{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}</info-card
+    >
+  </div>
   <transport-table (tableClear)="reset()"></transport-table>
   <mat-error *ngIf="error | async as err">{{err}}</mat-error>
   <button
@@ -78,7 +86,7 @@
     {{'CALCULATE_BUTTON' | translate}}
   </button>
 </form>
-<div class="result-wrapper">
+<div class="wrapper">
   <p *ngIf="resultEpsilon$ | async as epsilon">
     {{'TRANSPORTATION_PROBLEM.EPSILON' | translate:{epsilon} }}
   </p>

@@ -1,0 +1,42 @@
+@import 'apps/frontend/src/app/styles/variables/colors';
+
+mat-card {
+  display: flex;
+  align-items: center;
+
+  mat-card-title {
+    font-size: 21px;
+  }
+
+  mat-card-content {
+    margin-bottom: 0;
+  }
+
+  .content-wrapper {
+    padding-left: 16px;
+  }
+
+  .info-color {
+    color: $primary-variant;
+  }
+
+  .warning-color {
+    color: $accent;
+  }
+
+  .error-color {
+    color: $warn;
+  }
+}
+
+.info {
+  border-left: 8px solid $primary-variant;
+}
+
+.warning {
+  border-left: 8px solid $accent;
+}
+
+.error {
+  border-left: 8px solid $warn;
+}

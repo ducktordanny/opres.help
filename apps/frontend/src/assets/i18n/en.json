@@ -30,6 +30,10 @@
     "FEATURE_LIST": {
       "LANGUAGES": "You can choose between english & hungarian",
       "THEMES": "You can set your preferred theme"
+    },
+    "SUPPORT": {
+      "TITLE": "Support",
+      "CONTENT": "If you would like to support my work you can do it via"
     }
   },
   "TRANSPORTATION_PROBLEM": {
@@ -42,12 +46,18 @@
       "OPTION_VK": "Vogel-Korda"
     },
     "TABLE_EXPLANATION": "The table in the top left corner represents the costs, next to it on the right it's the stocks of storages and under them can be found the demands of the shops.",
-    "PAGE_INFO": "The table is currently filled with an example task the first phase is solvable with North-West method. The other calculations will be available soon.",
+    "PAGE_INFO": {
+      "TITLE": "Under construction",
+      "CONTENT": "The table is currently filled with an example task the first phase is solvable with North-West method. The other calculations will be available soon."
+    },
     "EPSILON": "Epsilon's value: {{epsilon}}"
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",
-    "PAGE_INFO": "Under construction: Currently only the first phase is available.",
+    "PAGE_INFO": {
+      "TITLE": "Under construction",
+      "CONTENT": "Currently only the first phase is available"
+    },
     "RESULT_INFO": "The result of the first phase:"
   }
 }

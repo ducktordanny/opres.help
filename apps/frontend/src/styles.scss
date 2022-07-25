@@ -43,10 +43,10 @@ body {
   --background-accent: #fff;
 
   --primary: #{mat.get-color-from-palette($frontend-light-primary, 700)};
-  --primary-variant: #{mat.get-color-from-palette($frontend-light-primary, 900)};
+  --primary-variant: #{mat.get-color-from-palette($frontend-light-primary, 800)};
   --primary-text: black;
 
-  --accent: #{mat.get-color-from-palette($frontend-light-accent, 900)};
+  --accent: #{mat.get-color-from-palette($frontend-light-accent, 800)};
   --accent-variant: #{mat.get-color-from-palette($frontend-light-accent, 200)};
 
   --warn: #{mat.get-color-from-palette($frontend-light-warn, 900)};

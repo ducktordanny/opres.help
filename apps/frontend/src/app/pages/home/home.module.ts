@@ -6,6 +6,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 
+import {InfoCardModule} from '@components/info-card/info-card.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {HomePageComponent} from './home.page';
@@ -16,6 +17,7 @@ import {HomeRouteModule} from './home.routing';
   imports: [
     CommonModule,
     HomeRouteModule,
+    InfoCardModule,
     MatButtonModule,
     MatCardModule,
     MatDividerModule,

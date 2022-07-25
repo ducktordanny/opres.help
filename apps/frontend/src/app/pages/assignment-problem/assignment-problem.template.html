@@ -1,4 +1,13 @@
 <form>
+  <div class="wrapper">
+    <info-card
+      type="warning"
+      width="600px"
+      title="{{'ASSIGNMENT_PROBLEM.PAGE_INFO.TITLE' | translate}}"
+    >
+      {{'ASSIGNMENT_PROBLEM.PAGE_INFO.CONTENT' | translate}}
+    </info-card>
+  </div>
   <mat-form-field appearance="outline">
     <mat-label
       >{{ 'ASSIGNMENT_PROBLEM.TABLE_SIZE_SELECT' | translate }}</mat-label
@@ -10,9 +19,6 @@
       <mat-option [value]="6">6</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-hint class="info">
-    {{ 'ASSIGNMENT_PROBLEM.PAGE_INFO' | translate }}
-  </mat-hint>
   <div class="assignment-table-wrapper">
     <input-table
       key="assignment"

@@ -1,0 +1,12 @@
+<mat-card [ngClass]="type" [ngStyle]="{'max-width': width || 'auto'}">
+  <mat-icon [ngClass]="type+'-color'">{{icon || type}}</mat-icon>
+  <div class="content-wrapper">
+    <mat-card-title *ngIf="title" [ngClass]="type+'-color'">
+      {{title}}
+    </mat-card-title>
+    <mat-card-content>
+      {{icon}}
+      <ng-content></ng-content>
+    </mat-card-content>
+  </div>
+</mat-card>
