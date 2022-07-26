@@ -1,15 +1,18 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MatSelectChange} from '@angular/material/select';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {Table} from '@shared/types/table.types';
 import {UntilDestroy} from '@ngneat/until-destroy';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
+import {checkSolvability} from './utils/solvability.util';
+import {EMPTY_TP_DATA} from './transport-problem.constant';
 import {TransportProblemService} from './transport-problem.service';
 import {
   CalculationProcess,
   Demands,
   Stocks,
+  TPData,
   TPMethods,
 } from './transport-problem.types';
 
@@ -21,59 +24,53 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemPageComponent {
-  /** A shop is the equivalent of a column. */
-  public shops$ = new BehaviorSubject<number>(4);
-  /** A storage is the equivalent of a row. */
-  public storages$ = new BehaviorSubject<number>(4);
-  public readonly resultEpsilon$ = new BehaviorSubject<number | null>(null);
-  public readonly selectedMethod$ = new BehaviorSubject<TPMethods>(
-    'north-west',
-  );
-  public error = new BehaviorSubject<string | null>(null);
-  public results: Observable<Array<CalculationProcess> | null> = of(null);
+  public formGroup = new FormGroup({
+    /** A shop is the equivalent of a column. */
+    shops: new FormControl(4, Validators.required),
+    /** A storage is the equivalent of a row. */
+    storages: new FormControl(4, Validators.required),
+    /** Three method can be chosen these methods are limited by the TPMethods type. */
+    method: new FormControl('north-west', Validators.required),
+  });
+  public results$: Observable<Array<CalculationProcess>> | null = null;
+  public resultEpsilon$ = new BehaviorSubject<number | null>(null);
+
+  /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
+  private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
 
   constructor(private transportProblemService: TransportProblemService) {}
 
-  public onShopsCountChange(change: MatSelectChange): void {
-    this.shops$.next(+change.value);
+  public onCostChange(costs: Table): void {
+    this.tpData$.next({...this.tpData$.getValue(), costs});
   }
 
-  public onStoragesCountChange(change: MatSelectChange): void {
-    this.storages$.next(+change.value);
+  public onDemandChange(shopDemands: Demands): void {
+    this.tpData$.next({...this.tpData$.getValue(), shopDemands});
   }
 
-  public onMethodSelect(change: MatSelectChange): void {
-    this.selectedMethod$.next(<TPMethods>change.value);
-  }
-
-  public onCostChange(values: Table): void {
-    this.transportProblemService.setCosts(values);
-  }
-
-  public onDemandChange(values: Demands): void {
-    this.transportProblemService.setShopDemands(values);
-  }
-
-  public onStockChange(values: Stocks): void {
-    this.transportProblemService.setStorageStocks(values);
+  public onStockChange(storageStocks: Stocks): void {
+    this.tpData$.next({...this.tpData$.getValue(), storageStocks});
   }
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    try {
-      this.error.next(null);
-      this.results = this.transportProblemService.calculateFirstPhase(
-        this.selectedMethod$.getValue(),
-      );
-    } catch (error) {
-      this.error.next((<Error>error).message);
+    this.formGroup.setErrors(null);
+    const tpData = this.tpData$.getValue();
+    if (!checkSolvability(tpData)) {
+      this.results$ = null;
+      return this.formGroup.setErrors({invalidTPData: true});
     }
+
+    this.results$ = this.transportProblemService.calculateFirstPhase(
+      tpData,
+      this.formGroup.get('method')?.value as TPMethods,
+    );
   }
 
   public reset(): void {
-    this.transportProblemService.clear();
-    this.error.next(null);
-    this.results = of(null);
+    this.formGroup.setErrors(null);
+    this.results$ = null;
+    this.tpData$.next(EMPTY_TP_DATA);
     this.resultEpsilon$.next(null);
   }
 }

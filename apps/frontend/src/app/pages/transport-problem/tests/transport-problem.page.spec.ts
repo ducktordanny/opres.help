@@ -38,9 +38,9 @@ describe('TransportProblemPageComponent', () => {
   it('should check default values', () => {
     expect(component.resultEpsilon$.getValue()).toEqual(null);
     expect(component.selectedMethod$.getValue()).toEqual('north-west');
-    expect(component.error.getValue()).toEqual(null);
-    expect(component.results.getValue().length).toEqual(1);
-    expect(component.results.getValue()[0]).toEqual({
+    expect(component.calculationError$.getValue()).toEqual(null);
+    expect(component.results$.getValue().length).toEqual(1);
+    expect(component.results$.getValue()[0]).toEqual({
       transportation: [],
       demands: [],
       stocks: [],
@@ -93,14 +93,14 @@ describe('TransportProblemPageComponent', () => {
       MatButtonHarness.with({selector: '[data-test-id="calculate-button"]'}),
     );
     await calculateButton.click();
-    expect(component.results.getValue()).toHaveLength(7);
+    expect(component.results$.getValue()).toHaveLength(7);
     expect(component.resultEpsilon$.getValue()).toEqual(458);
   });
 
   it('should reset states', () => {
     component.reset();
-    expect(component.error.getValue()).toEqual(null);
-    expect(component.results.getValue()).toHaveLength(0);
+    expect(component.calculationError$.getValue()).toEqual(null);
+    expect(component.results$.getValue()).toHaveLength(0);
     expect(component.resultEpsilon$.getValue()).toEqual(null);
   });
 
