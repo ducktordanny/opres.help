@@ -40,8 +40,8 @@ describe('TransportTableComponent', () => {
     expect(component).toBeInstanceOf(TransportTableComponent));
 
   it('should check default values', () => {
-    expect(component.storages$.getValue()).toEqual(4);
-    expect(component.shops$.getValue()).toEqual(4);
+    expect(component.storagesCount.getValue()).toEqual(4);
+    expect(component.shopsCount.getValue()).toEqual(4);
   });
 
   it('should clear the tables with the button', async () => {

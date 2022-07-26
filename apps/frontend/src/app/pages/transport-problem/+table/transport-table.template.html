@@ -1,32 +1,29 @@
-<div
-  class="input-table-wrapper"
-  *ngIf="{storages: storages$ | async, shops: shops$ | async} as sub"
->
+<div class="input-table-wrapper">
   <input-table
     key="costs"
-    [rows]="sub.storages"
-    [columns]="sub.shops"
+    [rows]="storagesCount"
+    [columns]="shopsCount"
     [tableSource]="mockCosts"
     (tableChange)="onCostChange($event)"
   ></input-table>
   <input-table
     key="storageStocks"
-    [rows]="sub.storages"
+    [rows]="storagesCount"
     [tableSource]="mockStocks"
-    (tableChange)="onStorageChange($event)"
+    (tableChange)="onStockChange($event)"
   ></input-table>
   <input-table
     key="shopDemands"
-    [columns]="sub.shops"
+    [columns]="shopsCount"
     [tableSource]="mockDemands"
-    (tableChange)="onShopChange($event)"
+    (tableChange)="onDemandChange($event)"
   ></input-table>
   <button
     mat-flat-button
     color="primary"
     type="button"
     data-test-id="table-clear-button"
-    (click)="clearTables()"
+    (click)="onTablesClear()"
   >
     {{ 'TABLE_CLEAR_BUTTON' | translate }}
   </button>

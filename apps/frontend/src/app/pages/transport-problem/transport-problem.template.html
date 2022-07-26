@@ -74,7 +74,14 @@
       >{{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}</info-card
     >
   </div>
-  <transport-table (tableClear)="reset()"></transport-table>
+  <transport-table
+    [shopsCount]="(shops$ | async) || 4"
+    [storagesCount]="(storages$ | async) || 4"
+    (costChange)="onCostChange($event)"
+    (demandChange)="onDemandChange($event)"
+    (stockChange)="onStockChange($event)"
+    (tableClear)="reset()"
+  ></transport-table>
   <mat-error *ngIf="error | async as err">{{err}}</mat-error>
   <button
     mat-flat-button

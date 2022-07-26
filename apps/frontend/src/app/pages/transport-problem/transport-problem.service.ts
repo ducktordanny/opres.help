@@ -18,11 +18,6 @@ import {
 
 @Injectable()
 export class TransportProblemService {
-  /** A shop is the equivalent of a column. */
-  public shops$ = new BehaviorSubject<number>(4);
-  /** A storage is the equivalent of a row. */
-  public storages$ = new BehaviorSubject<number>(4);
-
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
   private firstPhase = {
