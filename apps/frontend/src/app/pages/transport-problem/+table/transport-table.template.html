@@ -1,23 +1,23 @@
 <div class="input-table-wrapper">
-  <input-table
+  <opres-input-table
     key="costs"
     [rows]="storagesCount"
     [columns]="shopsCount"
     [tableSource]="mockCosts"
     (tableChange)="onCostChange($event)"
-  ></input-table>
-  <input-table
+  ></opres-input-table>
+  <opres-input-table
     key="storageStocks"
     [rows]="storagesCount"
     [tableSource]="mockStocks"
     (tableChange)="onStockChange($event)"
-  ></input-table>
-  <input-table
+  ></opres-input-table>
+  <opres-input-table
     key="shopDemands"
     [columns]="shopsCount"
     [tableSource]="mockDemands"
     (tableChange)="onDemandChange($event)"
-  ></input-table>
+  ></opres-input-table>
   <button
     mat-flat-button
     color="primary"

@@ -20,13 +20,13 @@
     </mat-select>
   </mat-form-field>
   <div class="assignment-table-wrapper">
-    <input-table
+    <opres-input-table
       key="assignment"
       [rows]="tableSize.value"
       [columns]="tableSize.value"
       [tableSource]="mockedAssignment"
       (tableChange)="onTableChange($event)"
-    ></input-table>
+    ></opres-input-table>
   </div>
   <button
     mat-flat-button
@@ -49,8 +49,8 @@
   <p *ngIf="sub?.result?.length !== 0">
     {{'ASSIGNMENT_PROBLEM.RESULT_INFO' | translate}}
   </p>
-  <simple-table
+  <opres-simple-table
     *ngIf="sub?.result?.length !== 0"
     [tableSource]="sub.result || []"
-  ></simple-table>
+  ></opres-simple-table>
 </div>

@@ -6,16 +6,18 @@ import {
   Output,
 } from '@angular/core';
 
-import {InputTableService} from './input-table.service';
-import {rowDefinitionsFrom, tableSourceFrom} from '../table.helper';
-import {RowDefs, Table} from '../table.types';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
 
+import {rowDefinitionsFrom, tableSourceFrom} from '../table.helper';
+import {RowDefs, Table} from '../table.types';
+
+import {InputTableService} from './input-table.service';
+
 @UntilDestroy()
 @Component({
-  selector: 'input-table[key]',
+  selector: 'opres-input-table[key]',
   templateUrl: './input-table.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
