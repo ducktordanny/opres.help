@@ -1,4 +1,4 @@
-import {RowDefs, Table} from '../types/table.types';
+import {RowDefs, Table} from './table.types';
 
 /** Returns a Table with null values what can be used in the
  * dataSource of angular material table. This function can

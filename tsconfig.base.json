@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@opres/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@opres/generatable-tables": ["libs/generatable-tables/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

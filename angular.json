@@ -4,6 +4,7 @@
     "api-interfaces": "libs/api-interfaces",
     "backend": "apps/backend",
     "frontend": "apps/frontend",
-    "frontend-e2e": "apps/frontend-e2e"
+    "frontend-e2e": "apps/frontend-e2e",
+    "generatable-tables": "libs/generatable-tables"
   }
 }

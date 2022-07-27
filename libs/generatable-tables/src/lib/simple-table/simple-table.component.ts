@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {Table} from '@shared/types/table.types';
+import {Table} from '../table.types';
 
 @Component({
   selector: 'simple-table[tableSource]',
