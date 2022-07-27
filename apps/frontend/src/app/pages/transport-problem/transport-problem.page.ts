@@ -1,20 +1,20 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {Table} from '@shared/types/table.types';
-import {UntilDestroy} from '@ngneat/until-destroy';
-import {BehaviorSubject, Observable} from 'rxjs';
-
-import {checkSolvability} from './utils/solvability.util';
-import {EMPTY_TP_DATA} from './transport-problem.constant';
-import {TransportProblemService} from './transport-problem.service';
+import {Table} from '@opres/generatable-tables';
 import {
   CalculationProcess,
   Demands,
   Stocks,
   TPData,
   TPMethods,
-} from './transport-problem.types';
+} from '@opres/shared-interfaces';
+import {UntilDestroy} from '@ngneat/until-destroy';
+import {BehaviorSubject, Observable} from 'rxjs';
+
+import {checkSolvability} from './utils/solvability.util';
+import {EMPTY_TP_DATA} from './transport-problem.constant';
+import {TransportProblemService} from './transport-problem.service';
 
 @UntilDestroy()
 @Component({
@@ -56,6 +56,7 @@ export class TransportProblemPageComponent {
     event.preventDefault();
     this.formGroup.setErrors(null);
     const tpData = this.tpData$.getValue();
+    // check solvability on every value change?
     if (!checkSolvability(tpData)) {
       this.results$ = null;
       return this.formGroup.setErrors({invalidTPData: true});

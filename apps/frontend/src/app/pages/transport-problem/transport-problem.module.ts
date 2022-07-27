@@ -6,10 +6,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 
-import {BadgedTableModule} from '@components/badged-table/badged-table.module';
 import {InfoCardModule} from '@components/info-card/info-card.module';
 import {TranslateModule} from '@ngx-translate/core';
 
+import {BadgedTableModule} from './+badged-table/badged-table.module';
 import {ResultTableModule} from './+result-table/result-table.module';
 import {TransportTableModule} from './+table/transport-table.module';
 import {NorthWestMethodService} from './services/first-phase/north-west.method.service';

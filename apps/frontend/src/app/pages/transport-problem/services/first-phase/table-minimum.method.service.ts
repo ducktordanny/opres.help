@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 
-import {Table} from '@shared/types/table.types';
-import {Observable, ReplaySubject} from 'rxjs';
-
+import {Table} from '@opres/generatable-tables';
 import {
   CalculationProcess,
   Demands,
   Stocks,
   TPData,
   TransportTable,
-} from '../../transport-problem.types';
+} from '@opres/shared-interfaces';
+import {Observable, ReplaySubject} from 'rxjs';
+
 import {createResultTableFrom} from '../../utils/result-table.util';
 import {transport} from '../../utils/transport.util';
 

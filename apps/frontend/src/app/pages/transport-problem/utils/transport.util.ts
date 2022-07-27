@@ -1,4 +1,4 @@
-import {Demands, Stocks, TransportTable} from '../transport-problem.types';
+import {Demands, Stocks, TransportTable} from '@opres/shared-interfaces';
 
 export function transport(
   resultTable: TransportTable,

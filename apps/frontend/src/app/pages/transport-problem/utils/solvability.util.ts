@@ -1,6 +1,5 @@
+import {TPData} from '@opres/shared-interfaces';
 import {sum} from '@shared/helpers/array.helper';
-
-import {TPData} from '../transport-problem.types';
 
 /* Checks if the given base table is solvable. */
 export function checkSolvability(transportProblemData: TPData): boolean {

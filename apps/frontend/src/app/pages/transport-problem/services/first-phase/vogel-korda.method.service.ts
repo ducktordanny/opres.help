@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 
+import {CalculationProcess, TPData} from '@opres/shared-interfaces';
 import {Observable, of} from 'rxjs';
-
-import {CalculationProcess, TPData} from '../../transport-problem.types';
 
 @Injectable()
 export class VogelKordaMethodService {

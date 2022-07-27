@@ -72,6 +72,7 @@
   <mat-error *ngIf="formGroup.hasError('invalidTPData')"
     >The given problem is not solvable! Try another one.</mat-error
   >
+  <pre>{{formGroup.invalid | json}}</pre>
   <button
     mat-flat-button
     color="primary"

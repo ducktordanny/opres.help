@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 
+import {CalculationProcess, TPData, TPMethods} from '@opres/shared-interfaces';
 import {Observable, scan} from 'rxjs';
 
 import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
 import {TableMinimumMethodService} from './services/first-phase/table-minimum.method.service';
 import {VogelKordaMethodService} from './services/first-phase/vogel-korda.method.service';
-import {CalculationProcess, TPData, TPMethods} from './transport-problem.types';
 
 @Injectable()
 export class TransportProblemService {
