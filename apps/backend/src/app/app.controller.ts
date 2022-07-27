@@ -1,15 +1,13 @@
 import {Controller, Get} from '@nestjs/common';
 
-import {Message} from '@opres/api-interfaces';
-
-import {AppService} from './app.service';
+import {Stocks} from '@opres/shared-interfaces';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  private test: Stocks = [];
 
   @Get('hello')
-  getData(): Message {
-    return this.appService.getData();
+  public getWelcomeMessage(): string {
+    return 'Welcome to opres.help/api';
   }
 }
