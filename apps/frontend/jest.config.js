@@ -13,7 +13,9 @@ module.exports = {
   },
   roots: ['<rootDir>'],
   modulePaths: [compilerOptions.baseUrl],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>',
+  }),
   coverageDirectory: '../../coverage/apps/frontend',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',

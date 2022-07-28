@@ -50,7 +50,7 @@
       "TITLE": "Under construction",
       "CONTENT": "The table is currently filled with an example task and the first phase is solvable with the North-West and Table-Minimum methods. The Vogel-Korda method will be available soon."
     },
-    "EPSILON": "Epsilon's value:"
+    "EPSILON": "Epsilon's value: {{epsilon}}"
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",

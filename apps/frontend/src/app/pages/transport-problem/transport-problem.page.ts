@@ -10,7 +10,7 @@ import {
   TPMethods,
 } from '@opres/shared-interfaces';
 import {UntilDestroy} from '@ngneat/until-destroy';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 
 import {checkSolvability} from './utils/solvability.util';
 import {EMPTY_TP_DATA} from './transport-problem.constant';
@@ -24,21 +24,28 @@ import {TransportProblemService} from './transport-problem.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemPageComponent {
-  public formGroup = new FormGroup({
-    /** A shop is the equivalent of a column. */
-    shops: new FormControl(4, Validators.required),
-    /** A storage is the equivalent of a row. */
-    storages: new FormControl(4, Validators.required),
-    /** Three method can be chosen these methods are limited by the TPMethods type. */
-    method: new FormControl('north-west', Validators.required),
-  });
+  public formGroup: FormGroup;
   public results$: Observable<Array<CalculationProcess>> | null = null;
   public resultEpsilon$ = new BehaviorSubject<number | null>(null);
 
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
 
-  constructor(private transportProblemService: TransportProblemService) {}
+  constructor(private transportProblemService: TransportProblemService) {
+    const inputValidators = [
+      Validators.required,
+      Validators.min(3),
+      Validators.max(8),
+    ];
+    this.formGroup = new FormGroup({
+      /** A shop is the equivalent of a column. */
+      shops: new FormControl(4, inputValidators),
+      /** A storage is the equivalent of a row. */
+      storages: new FormControl(4, inputValidators),
+      /** Three method can be chosen these methods are limited by the TPMethods type. */
+      method: new FormControl('north-west', Validators.required),
+    });
+  }
 
   public onCostChange(costs: Table): void {
     this.tpData$.next({...this.tpData$.getValue(), costs});
@@ -56,16 +63,23 @@ export class TransportProblemPageComponent {
     event.preventDefault();
     this.formGroup.setErrors(null);
     const tpData = this.tpData$.getValue();
-    // check solvability on every value change?
     if (!checkSolvability(tpData)) {
       this.results$ = null;
       return this.formGroup.setErrors({invalidTPData: true});
     }
 
-    this.results$ = this.transportProblemService.calculateFirstPhase(
-      tpData,
-      this.formGroup.get('method')?.value as TPMethods,
-    );
+    this.results$ = this.transportProblemService
+      .calculateFirstPhase(
+        tpData,
+        this.formGroup.get('method')?.value as TPMethods,
+      )
+      .pipe(
+        tap((processArray) => {
+          const result = processArray[processArray.length - 1].transportation;
+          const epsilon = this.transportProblemService.getEpsilon(result);
+          this.resultEpsilon$.next(epsilon);
+        }),
+      );
   }
 
   public reset(): void {

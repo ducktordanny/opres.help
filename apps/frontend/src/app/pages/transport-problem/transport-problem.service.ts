@@ -1,7 +1,12 @@
 import {Injectable} from '@angular/core';
 
-import {CalculationProcess, TPData, TPMethods} from '@opres/shared-interfaces';
-import {Observable, scan} from 'rxjs';
+import {
+  CalculationProcess,
+  TPData,
+  TPMethods,
+  TransportTable,
+} from '@opres/shared-interfaces';
+import {Observable, of} from 'rxjs';
 
 import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
 import {TableMinimumMethodService} from './services/first-phase/table-minimum.method.service';
@@ -25,13 +30,18 @@ export class TransportProblemService {
     transportProblemData: TPData,
     type: TPMethods = 'north-west',
   ): Observable<Array<CalculationProcess>> {
-    return this.firstPhase[type]
-      .calculate(transportProblemData)
-      .pipe(scan(this.mergeProcesses, [] as Array<CalculationProcess>));
+    return of(this.firstPhase[type].calculate(transportProblemData));
   }
 
-  private mergeProcesses = (
-    previous: Array<CalculationProcess>,
-    current: CalculationProcess,
-  ) => [...previous, current];
+  public getEpsilon(resultTable: TransportTable): number {
+    let epsilon = 0;
+
+    for (const [rowIndex, row] of resultTable.entries())
+      for (const [columnIndex] of Object.entries(row))
+        epsilon +=
+          (resultTable[rowIndex][columnIndex].cost || 0) *
+          (resultTable[rowIndex][columnIndex].transported || 0);
+
+    return epsilon;
+  }
 }

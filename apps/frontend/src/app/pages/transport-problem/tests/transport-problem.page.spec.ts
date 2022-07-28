@@ -2,6 +2,7 @@ import {HarnessLoader} from '@angular/cdk/testing';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatButtonHarness} from '@angular/material/button/testing';
+import {MatInputHarness} from '@angular/material/input/testing';
 import {MatSelectHarness} from '@angular/material/select/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -12,6 +13,11 @@ import {TransportProblemPageComponent} from '../transport-problem.page';
 import {TransportProblemService} from '../transport-problem.service';
 
 describe('TransportProblemPageComponent', () => {
+  const formGroupMock = {
+    shops: 4,
+    storages: 4,
+    method: 'north-west',
+  };
   let fixture: ComponentFixture<TransportProblemPageComponent>;
   let component: TransportProblemPageComponent;
   let loader: HarnessLoader;
@@ -36,46 +42,29 @@ describe('TransportProblemPageComponent', () => {
     expect(component).toBeInstanceOf(TransportProblemPageComponent));
 
   it('should check default values', () => {
+    expect(component.formGroup.getRawValue()).toEqual(formGroupMock);
+    expect(component.results$).toEqual(null);
     expect(component.resultEpsilon$.getValue()).toEqual(null);
-    expect(component.selectedMethod$.getValue()).toEqual('north-west');
-    expect(component.calculationError$.getValue()).toEqual(null);
-    expect(component.results$.getValue().length).toEqual(1);
-    expect(component.results$.getValue()[0]).toEqual({
-      transportation: [],
-      demands: [],
-      stocks: [],
-    });
   });
 
   it('should change number of shops', async () => {
-    const onShopCountChangeSpy = jest.spyOn(component, 'onShopsCountChange');
-    const select = await loader.getHarness(
-      MatSelectHarness.with({
-        selector: '[data-test-id="number-of-shops-select"]',
+    const input = await loader.getHarness(
+      MatInputHarness.with({
+        selector: '[data-test-id="number-of-shops-input"]',
       }),
     );
-    await select.open();
-    const threeShopsOption = await select.getOptions();
-    await threeShopsOption[0].click();
-    expect(onShopCountChangeSpy).toHaveBeenCalled();
-    expect(transportProblemService.shops$.getValue()).toEqual(3);
+    await input.setValue('3');
+    expect(component.formGroup.get('shops')?.value).toEqual(3);
   });
 
   it('should change number of storages', async () => {
-    const onStorageCountChangeSpy = jest.spyOn(
-      component,
-      'onStoragesCountChange',
-    );
-    const select = await loader.getHarness(
-      MatSelectHarness.with({
-        selector: '[data-test-id="number-of-storages-select"]',
+    const input = await loader.getHarness(
+      MatInputHarness.with({
+        selector: '[data-test-id="number-of-storages-input"]',
       }),
     );
-    await select.open();
-    const threeStoragesOption = await select.getOptions();
-    await threeStoragesOption[0].click();
-    expect(onStorageCountChangeSpy).toHaveBeenCalled();
-    expect(transportProblemService.storages$.getValue()).toEqual(3);
+    await input.setValue('3');
+    expect(component.formGroup.get('storages')?.value).toEqual(3);
   });
 
   it('should check method options', async () => {
@@ -84,32 +73,29 @@ describe('TransportProblemPageComponent', () => {
     );
     await select.open();
     const methodOptions = await select.getOptions();
-    expect(await methodOptions[1].isDisabled()).toBeTruthy();
-    expect(await methodOptions[2].isDisabled()).toBeTruthy();
+    expect(await methodOptions[0].isDisabled()).toEqual(false);
+    expect(await methodOptions[1].isDisabled()).toEqual(false);
+    expect(await methodOptions[2].isDisabled()).toEqual(true);
   });
 
   it('should click to calculate result', async () => {
+    const firstPhaseSpy = jest.spyOn(
+      transportProblemService,
+      'calculateFirstPhase',
+    );
     const calculateButton = await loader.getHarness(
       MatButtonHarness.with({selector: '[data-test-id="calculate-button"]'}),
     );
     await calculateButton.click();
-    expect(component.results$.getValue()).toHaveLength(7);
+    expect(firstPhaseSpy).toHaveBeenCalled();
+    expect(component.results$).not.toEqual(null);
     expect(component.resultEpsilon$.getValue()).toEqual(458);
   });
 
   it('should reset states', () => {
     component.reset();
-    expect(component.calculationError$.getValue()).toEqual(null);
-    expect(component.results$.getValue()).toHaveLength(0);
+    expect(component.formGroup.errors).toEqual(null);
+    expect(component.results$).toEqual(null);
     expect(component.resultEpsilon$.getValue()).toEqual(null);
-  });
-
-  it('should reset onDestroy', () => {
-    const transportServiceResetSpy = jest.spyOn(
-      transportProblemService,
-      'reset',
-    );
-    component.ngOnDestroy();
-    expect(transportServiceResetSpy).toHaveBeenCalled();
   });
 });

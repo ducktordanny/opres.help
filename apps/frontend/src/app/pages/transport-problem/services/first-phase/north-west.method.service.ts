@@ -5,21 +5,18 @@ import {
   TPData,
   TransportTable,
 } from '@opres/shared-interfaces';
-import {Observable, ReplaySubject} from 'rxjs';
 
 import {createResultTableFrom} from '../../utils/result-table.util';
 import {transport} from '../../utils/transport.util';
 
 @Injectable()
 export class NorthWestMethodService {
-  public calculate(
-    transportProblemData: TPData,
-  ): Observable<CalculationProcess> {
+  public calculate(transportProblemData: TPData): Array<CalculationProcess> {
     const {costs} = transportProblemData;
     const stocks = [...transportProblemData.storageStocks];
     const demands = [...transportProblemData.shopDemands];
 
-    const process = new ReplaySubject<CalculationProcess>();
+    const process: Array<CalculationProcess> = [];
     const resultTable: TransportTable = createResultTableFrom(costs);
     let stockIndex = 0,
       demandIndex = 0;
@@ -36,7 +33,7 @@ export class NorthWestMethodService {
       if (currentDemand < currentStock) demandIndex++;
       else stockIndex++;
 
-      process.next({
+      process.push({
         transportation: JSON.parse(
           JSON.stringify(resultTable),
         ) as TransportTable,
@@ -45,6 +42,6 @@ export class NorthWestMethodService {
       });
     }
 
-    return process.asObservable();
+    return process;
   }
 }
