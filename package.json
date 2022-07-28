@@ -10,8 +10,7 @@
     "test": "nx affected:test",
     "format": "nx format:write --files=apps/frontend/src,apps/frontend-e2e/src,apps/backend/src",
     "format:staged": "pretty-quick --staged",
-    "lint:apps": "nx affected:lint --files=apps/frontend/src,apps/frontend-e2e/src,apps/backend/src",
-    "lint:all": "nx run-many --all --target=lint",
+    "lint": "nx affected:lint",
     "prepare": "husky install",
     "heroku-postbuild": "nx build $PROJECT_NAME --prod"
   },
