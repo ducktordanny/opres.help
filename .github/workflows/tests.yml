@@ -1,6 +1,6 @@
 name: Tests
 
-on: push
+on: pull_request
 
 jobs:
   build:
@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - name: Fetch origin/master
+        run: |
+          git fetch --no-tags --prune --depth=5 origin master
 
       - name: Setup node
         uses: actions/setup-node@v3
