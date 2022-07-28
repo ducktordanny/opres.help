@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {CalculationProcess} from '../transport-problem.types';
+import {CalculationProcess} from '@opres/shared-interfaces';
 
 @Component({
   selector: 'result-table[result]',

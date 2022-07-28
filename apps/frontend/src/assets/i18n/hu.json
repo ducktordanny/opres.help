@@ -48,7 +48,7 @@
     "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
     "PAGE_INFO": {
       "TITLE": "Készítés alatt",
-      "CONTENT": "A táblák jelenleg egy példa feladat értékeivel vannak kitöltve, az első fázis lépései az Észak-Nyugati módszerrel elérhetőek. A többi módszer is hamarosan elérhetővé válik!"
+      "CONTENT": "A táblák jelenleg egy példa feladat értékeivel vannak kitöltve, az első fázis lépései az Észak-Nyugati és Tábla-Minimum módszerekkel elérhetőek. A Vogel-Korda módszer is hamarosan elérhető lesz!"
     },
     "EPSILON": "Epszilon értéke: {{epsilon}}"
   },

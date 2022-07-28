@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {Table} from '@shared/types/table.types';
+import {Table} from '../table.types';
 
 @Component({
-  selector: 'simple-table[tableSource]',
+  selector: 'opres-simple-table[tableSource]',
   templateUrl: './simple-table.template.html',
   styles: [
     `

@@ -5,7 +5,11 @@
     "outDir": "../../dist/out-tsc",
     "paths": {
       "@components/*": ["src/app/components/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@opres/generatable-tables": [
+        "../../libs/generatable-tables/src/index.ts"
+      ],
+      "@opres/shared-interfaces": ["../../libs/shared-interfaces/src/index.ts"]
     },
     "module": "commonjs",
     "types": ["jest", "node"]

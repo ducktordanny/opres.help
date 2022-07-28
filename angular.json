@@ -1,9 +1,10 @@
 {
   "version": 2,
   "projects": {
-    "api-interfaces": "libs/api-interfaces",
     "backend": "apps/backend",
     "frontend": "apps/frontend",
-    "frontend-e2e": "apps/frontend-e2e"
+    "frontend-e2e": "apps/frontend-e2e",
+    "shared-interfaces": "libs/shared-interfaces",
+    "generatable-tables": "libs/generatable-tables"
   }
 }

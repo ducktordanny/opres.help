@@ -1,12 +1,20 @@
-import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
-import {MatSelectChange} from '@angular/material/select';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {BehaviorSubject} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {Table} from '@opres/generatable-tables';
+import {
+  CalculationProcess,
+  Demands,
+  Stocks,
+  TPData,
+  TPMethods,
+} from '@opres/shared-interfaces';
+import {UntilDestroy} from '@ngneat/until-destroy';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 
+import {checkSolvability} from './utils/solvability.util';
+import {EMPTY_TP_DATA} from './transport-problem.constant';
 import {TransportProblemService} from './transport-problem.service';
-import {CalculationProcess, TPMethods} from './transport-problem.types';
 
 @UntilDestroy()
 @Component({
@@ -15,56 +23,69 @@ import {CalculationProcess, TPMethods} from './transport-problem.types';
   styleUrls: ['./transport-problem.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TransportProblemPageComponent implements OnDestroy {
-  public readonly resultEpsilon$ = new BehaviorSubject<number | null>(null);
-  public readonly selectedMethod$ = new BehaviorSubject<TPMethods>(
-    'north-west',
-  );
-  public error = new BehaviorSubject<string | null>(null);
-  public results = new BehaviorSubject<Array<CalculationProcess>>([]);
+export class TransportProblemPageComponent {
+  public formGroup: FormGroup;
+  public results$: Observable<Array<CalculationProcess>> | null = null;
+  public resultEpsilon$ = new BehaviorSubject<number | null>(null);
+
+  /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
+  private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
 
   constructor(private transportProblemService: TransportProblemService) {
-    this.transportProblemService.calculationProcess
-      .pipe(
-        tap((result) =>
-          this.results.next([...this.results.getValue(), result]),
-        ),
-        untilDestroyed(this),
-      )
-      .subscribe();
+    const inputValidators = [
+      Validators.required,
+      Validators.min(3),
+      Validators.max(8),
+    ];
+    this.formGroup = new FormGroup({
+      /** A shop is the equivalent of a column. */
+      shops: new FormControl(4, inputValidators),
+      /** A storage is the equivalent of a row. */
+      storages: new FormControl(4, inputValidators),
+      /** Three method can be chosen these methods are limited by the TPMethods type. */
+      method: new FormControl('north-west', Validators.required),
+    });
   }
 
-  public ngOnDestroy(): void {
-    this.transportProblemService.reset();
+  public onCostChange(costs: Table): void {
+    this.tpData$.next({...this.tpData$.getValue(), costs});
   }
 
-  public onShopsCountChange(change: MatSelectChange): void {
-    this.transportProblemService.shops$.next(+change.value);
+  public onDemandChange(shopDemands: Demands): void {
+    this.tpData$.next({...this.tpData$.getValue(), shopDemands});
   }
 
-  public onStoragesCountChange(change: MatSelectChange): void {
-    this.transportProblemService.storages$.next(+change.value);
-  }
-
-  public onMethodSelect(change: MatSelectChange): void {
-    this.selectedMethod$.next(<TPMethods>change.value);
+  public onStockChange(storageStocks: Stocks): void {
+    this.tpData$.next({...this.tpData$.getValue(), storageStocks});
   }
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    try {
-      this.error.next(null);
-      this.results.next([]);
-      const result = this.transportProblemService.northWest();
-      this.resultEpsilon$.next(result.epsilon);
-    } catch (error) {
-      this.error.next((<Error>error).message);
+    this.formGroup.setErrors(null);
+    const tpData = this.tpData$.getValue();
+    if (!checkSolvability(tpData)) {
+      this.results$ = null;
+      return this.formGroup.setErrors({invalidTPData: true});
     }
+
+    this.results$ = this.transportProblemService
+      .calculateFirstPhase(
+        tpData,
+        this.formGroup.get('method')?.value as TPMethods,
+      )
+      .pipe(
+        tap((processArray) => {
+          const result = processArray[processArray.length - 1].transportation;
+          const epsilon = this.transportProblemService.getEpsilon(result);
+          this.resultEpsilon$.next(epsilon);
+        }),
+      );
   }
 
   public reset(): void {
-    this.error.next(null);
-    this.results.next([]);
+    this.formGroup.setErrors(null);
+    this.results$ = null;
+    this.tpData$.next(EMPTY_TP_DATA);
     this.resultEpsilon$.next(null);
   }
 }

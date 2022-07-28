@@ -30,13 +30,6 @@
         "no-console": "warn",
         "prefer-const": "error",
         "prefer-arrow-callback": "error",
-        "rxjs-angular/prefer-takeuntil": [
-          "error",
-          {
-            "alias": ["untilDestroyed"],
-            "checkDecorators": ["Component"]
-          }
-        ],
         "semi": ["error", "always"],
         "simple-import-sort/imports": [
           "error",
@@ -72,6 +65,18 @@
         "unicorn/prefer-date-now": "error",
         "unicorn/prefer-spread": "error",
         "unicorn/require-array-join-separator": "error"
+      }
+    },
+    {
+      "files": ["*.component.ts", "*.page.ts"],
+      "rules": {
+        "rxjs-angular/prefer-takeuntil": [
+          "error",
+          {
+            "alias": ["untilDestroyed"],
+            "checkDecorators": ["Component"]
+          }
+        ]
       }
     },
     {

@@ -1,4 +1,4 @@
-import {Table} from '@shared/types/table.types';
+import {Table} from '@opres/generatable-tables';
 
 export type Stocks = Array<number | null>;
 export type Demands = Array<number | null>;
@@ -23,6 +23,7 @@ export interface CalculationProcess {
   transportation: TransportTable;
   demands: Demands;
   stocks: Stocks;
+  explanation?: string;
 }
 
 export interface Result {

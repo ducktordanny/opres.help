@@ -2,6 +2,11 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2022-07-28
+
+- Add new transportation first phase method: Table-Minimum
+- Refactor & restructure project to prepare for further changes
+
 ## [0.3.3] - 2022-07-26
 
 - Add support section
