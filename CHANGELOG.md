@@ -2,6 +2,11 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2022-07-29
+
+- Add missing transport problem form validity check before calculation
+- Input tables now only remove values if their size really changed
+
 ## [0.4.0] - 2022-07-28
 
 - Add new transportation first phase method: Table-Minimum
