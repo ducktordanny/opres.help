@@ -29,14 +29,14 @@
     "@nestjs/common": "^8.4.1",
     "@nestjs/core": "^8.4.1",
     "@nestjs/platform-express": "^8.4.1",
-    "@ngneat/until-destroy": "^9.0.0",
+    "@ngneat/until-destroy": "^9.0.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "@nrwl/angular": "13.9.2",
+    "@nrwl/angular": "13.9.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.5",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.2.4",
