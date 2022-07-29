@@ -41,11 +41,11 @@ export class InputTableComponent {
   }
 
   @Input() set rows(value: number | null) {
-    if (value) this.rows$.next(value);
+    if (value && value !== this.rows$.getValue()) this.rows$.next(value);
   }
 
   @Input() set columns(value: number | null) {
-    if (value) this.columns$.next(value);
+    if (value && value !== this.columns$.getValue()) this.columns$.next(value);
   }
 
   constructor(private inputTableService: InputTableService) {
