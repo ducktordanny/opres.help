@@ -63,6 +63,8 @@ export class TransportProblemPageComponent {
     event.preventDefault();
     this.formGroup.setErrors(null);
     const tpData = this.tpData$.getValue();
+
+    if (this.formGroup.invalid) return;
     if (!checkSolvability(tpData)) {
       this.results$ = null;
       return this.formGroup.setErrors({invalidTPData: true});

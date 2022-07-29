@@ -79,6 +79,7 @@
     color="primary"
     type="submit"
     data-test-id="calculate-button"
+    [disabled]="formGroup.invalid"
   >
     {{'CALCULATE_BUTTON' | translate}}
   </button>
