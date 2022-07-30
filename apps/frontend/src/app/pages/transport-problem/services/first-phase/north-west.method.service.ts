@@ -1,22 +1,18 @@
 import {Injectable} from '@angular/core';
 
-import {
-  CalculationProcess,
-  TPData,
-  TransportTable,
-} from '@opres/shared-interfaces';
+import {FirstPhaseStep, TPData, TransportTable} from '@opres/shared/types';
 
 import {createResultTableFrom} from '../../utils/result-table.util';
 import {transport} from '../../utils/transport.util';
 
 @Injectable()
 export class NorthWestMethodService {
-  public calculate(transportProblemData: TPData): Array<CalculationProcess> {
+  public calculate(transportProblemData: TPData): Array<FirstPhaseStep> {
     const {costs} = transportProblemData;
     const stocks = [...transportProblemData.storageStocks];
     const demands = [...transportProblemData.shopDemands];
 
-    const process: Array<CalculationProcess> = [];
+    const process: Array<FirstPhaseStep> = [];
     const resultTable: TransportTable = createResultTableFrom(costs);
     let stockIndex = 0,
       demandIndex = 0;

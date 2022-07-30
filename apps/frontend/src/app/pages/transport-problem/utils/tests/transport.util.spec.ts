@@ -1,4 +1,4 @@
-import {TransportTable} from '@opres/shared-interfaces';
+import {TransportTable} from '@opres/shared/types';
 
 import {transport} from '../transport.util';
 

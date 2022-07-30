@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 
 import {
-  CalculationProcess,
+  FirstPhaseStep,
   TPData,
   TPMethods,
   TransportTable,
-} from '@opres/shared-interfaces';
+} from '@opres/shared/types';
 import {Observable, of} from 'rxjs';
 
 import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
@@ -29,7 +29,7 @@ export class TransportProblemService {
   public calculateFirstPhase(
     transportProblemData: TPData,
     type: TPMethods = 'north-west',
-  ): Observable<Array<CalculationProcess>> {
+  ): Observable<Array<FirstPhaseStep>> {
     return of(this.firstPhase[type].calculate(transportProblemData));
   }
 

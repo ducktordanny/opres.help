@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 
 import {Table} from '@opres/generatable-tables';
 import {
-  CalculationProcess,
   Demands,
+  FirstPhaseStep,
   Stocks,
   TPData,
   TransportTable,
-} from '@opres/shared-interfaces';
+} from '@opres/shared/types';
 
 import {createResultTableFrom} from '../../utils/result-table.util';
 import {transport} from '../../utils/transport.util';
@@ -19,12 +19,12 @@ interface SelectedCost {
 
 @Injectable()
 export class TableMinimumMethodService {
-  public calculate(transportProblemData: TPData): Array<CalculationProcess> {
+  public calculate(transportProblemData: TPData): Array<FirstPhaseStep> {
     const {costs} = transportProblemData;
     const stocks = [...transportProblemData.storageStocks];
     const demands = [...transportProblemData.shopDemands];
 
-    const process: Array<CalculationProcess> = [];
+    const process: Array<FirstPhaseStep> = [];
     const resultTable: TransportTable = createResultTableFrom(costs);
 
     while (this.hasAvailableProducts(demands, stocks)) {

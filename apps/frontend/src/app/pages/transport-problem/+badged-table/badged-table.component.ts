@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 import {RowDefs} from '@opres/generatable-tables';
-import {TransportTable} from '@opres/shared-interfaces';
+import {TransportTable} from '@opres/shared/types';
 
 @Component({
   selector: 'badged-table[tableSource]',

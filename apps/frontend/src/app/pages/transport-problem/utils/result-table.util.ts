@@ -1,5 +1,5 @@
 import {Row, Table} from '@opres/generatable-tables';
-import {TransportRow, TransportTable} from '@opres/shared-interfaces';
+import {TransportRow, TransportTable} from '@opres/shared/types';
 
 const createNewResultRow = (costRow: Row): TransportRow =>
   Object.keys(costRow).reduce((result: TransportRow, key) => {

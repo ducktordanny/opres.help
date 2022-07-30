@@ -3,16 +3,16 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {Table} from '@opres/generatable-tables';
 import {
-  CalculationProcess,
   Demands,
+  FirstPhaseStep,
   Stocks,
   TPData,
   TPMethods,
-} from '@opres/shared-interfaces';
+} from '@opres/shared/types';
+import {checkSolvability} from '@opres/shared/utils';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
 
-import {checkSolvability} from './utils/solvability.util';
 import {EMPTY_TP_DATA} from './transport-problem.constant';
 import {TransportProblemService} from './transport-problem.service';
 
@@ -25,7 +25,7 @@ import {TransportProblemService} from './transport-problem.service';
 })
 export class TransportProblemPageComponent {
   public formGroup: FormGroup;
-  public results$: Observable<Array<CalculationProcess>> | null = null;
+  public results$: Observable<Array<FirstPhaseStep>> | null = null;
   public resultEpsilon$ = new BehaviorSubject<number | null>(null);
 
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */

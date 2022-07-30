@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 
-import {CalculationProcess, TPData} from '@opres/shared-interfaces';
+import {FirstPhaseStep, TPData} from '@opres/shared/types';
 
 @Injectable()
 export class VogelKordaMethodService {
-  public calculate(transportProblemData: TPData): Array<CalculationProcess> {
+  public calculate(transportProblemData: TPData): Array<FirstPhaseStep> {
     // todo: wip
     return [];
   }

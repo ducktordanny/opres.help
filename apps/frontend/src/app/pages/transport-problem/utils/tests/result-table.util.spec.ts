@@ -1,5 +1,5 @@
 import {Table} from '@opres/generatable-tables';
-import {TransportTable} from '@opres/shared-interfaces';
+import {TransportTable} from '@opres/shared/types';
 
 import {createResultTableFrom} from '../result-table.util';
 

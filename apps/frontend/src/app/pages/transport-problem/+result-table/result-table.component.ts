@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {CalculationProcess} from '@opres/shared-interfaces';
+import {FirstPhaseStep} from '@opres/shared/types';
 
 @Component({
   selector: 'result-table[result]',
@@ -10,7 +10,7 @@ import {CalculationProcess} from '@opres/shared-interfaces';
 })
 export class ResultTableComponent {
   @Input() title: string | undefined;
-  @Input() result: CalculationProcess | undefined;
+  @Input() result: FirstPhaseStep | undefined;
 
   get demands() {
     if (!this.result) return [];
@@ -24,6 +24,6 @@ export class ResultTableComponent {
 
   get stocks() {
     if (!this.result) return [];
-    return this.result.stocks.map((stock) => ({'0': stock}));
+    return this.result.stocks.map((stock) => ({'0': stock || 0}));
   }
 }

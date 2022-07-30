@@ -1,13 +1,13 @@
 {
-  "root": "libs/shared-interfaces",
-  "sourceRoot": "libs/shared-interfaces/src",
+  "root": "libs/shared/types",
+  "sourceRoot": "libs/shared/types/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared-interfaces/**/*.ts"]
+        "lintFilePatterns": ["libs/shared/types/**/*.ts"]
       }
     }
   },

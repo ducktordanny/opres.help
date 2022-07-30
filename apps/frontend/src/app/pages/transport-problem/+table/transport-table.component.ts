@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 import {InputTableService, Table} from '@opres/generatable-tables';
-import {Demands, Stocks} from '@opres/shared-interfaces';
+import {Demands, Stocks} from '@opres/shared/types';
 
 @Component({
   selector: 'transport-table',

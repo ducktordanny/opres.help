@@ -1,9 +1,10 @@
+import {checkSolvability} from '../solvability.util';
+
 import {
   invalidTpDataMock,
   tpDataFirstMock,
   tpDataSecondMock,
-} from '../../tests/transport-problem.mock';
-import {checkSolvability} from '../solvability.util';
+} from './transport-problem.mock';
 
 describe('SolvabilityUtil', () => {
   it('should be solvable 1', () => {

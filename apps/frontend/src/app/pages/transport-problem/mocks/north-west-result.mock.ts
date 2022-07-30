@@ -1,6 +1,6 @@
-import {CalculationProcess} from '@opres/shared-interfaces';
+import {FirstPhaseStep} from '@opres/shared/types';
 
-export const northWestFirstResultMock: Array<CalculationProcess> = [
+export const northWestFirstResultMock: Array<FirstPhaseStep> = [
   {
     transportation: [
       {
@@ -213,7 +213,7 @@ export const northWestFirstResultMock: Array<CalculationProcess> = [
   },
 ];
 
-export const northWestSecondResultMock: Array<CalculationProcess> = [
+export const northWestSecondResultMock: Array<FirstPhaseStep> = [
   {
     transportation: [
       {
