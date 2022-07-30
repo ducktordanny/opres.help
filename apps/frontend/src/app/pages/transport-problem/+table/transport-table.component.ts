@@ -6,7 +6,8 @@ import {
   Output,
 } from '@angular/core';
 
-import {InputTableService, Table} from '@opres/generatable-tables';
+import {InputTableService} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
 import {Demands, Stocks} from '@opres/shared/types';
 
 @Component({

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {RowDefs} from '@opres/generatable-tables';
+import {RowDefs} from '@opres/shared/types';
 import {TransportTable} from '@opres/shared/types';
 
 @Component({

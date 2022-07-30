@@ -1,4 +1,4 @@
-import {Row, Table} from '@opres/generatable-tables';
+import {Row, Table} from '@opres/shared/types';
 import {TransportRow, TransportTable} from '@opres/shared/types';
 
 const createNewResultRow = (costRow: Row): TransportRow =>

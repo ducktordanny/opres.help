@@ -1,4 +1,4 @@
-import {Table} from '@opres/generatable-tables';
+import {Table} from './table.type';
 
 export type Stocks = Array<number>;
 export type Demands = Array<number>;

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {Table} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
 
 @Injectable()
 export class AssignmentProblemService {

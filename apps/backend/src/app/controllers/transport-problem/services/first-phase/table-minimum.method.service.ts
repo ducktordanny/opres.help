@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 
-import {Table} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
 import {
   CalculationMode,
   Demands,

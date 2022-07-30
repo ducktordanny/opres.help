@@ -1,4 +1,4 @@
-import {Table} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
 import {TPData, TransportTable} from '@opres/shared/types';
 
 import {sum} from './array.util';

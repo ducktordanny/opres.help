@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {Table} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
 import {
   Demands,
   FirstPhaseStep,

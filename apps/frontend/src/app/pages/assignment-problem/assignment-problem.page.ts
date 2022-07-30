@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
-import {InputTableService, Table} from '@opres/generatable-tables';
+import {InputTableService} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
 import {BehaviorSubject} from 'rxjs';
 
 import {AssignmentProblemService} from './assignment-problem.service';
