@@ -12,5 +12,5 @@ export function getEpsilon(
         (transportTable[rowIndex][columnIndex].cost || 0) *
         (transportTable[rowIndex][columnIndex].transported || 0);
 
-  return {epsilon};
+  return {value: epsilon};
 }

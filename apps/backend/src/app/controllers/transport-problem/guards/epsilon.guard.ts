@@ -14,7 +14,7 @@ type EpsilonRequest = Request<
   unknown,
   unknown,
   TransportTable,
-  {explanation?: boolean}
+  {explanation?: string}
 >;
 
 @Injectable()
@@ -27,7 +27,7 @@ export class EpsilonGuard implements CanActivate {
     const transportTable = request?.body;
     const explanation = request?.query?.explanation;
 
-    if (explanation && typeof explanation !== 'boolean')
+    if (explanation && explanation !== 'true' && explanation !== 'false')
       throw new BadRequestException(
         'Invalid explanation mode! Try: true or false',
       );
