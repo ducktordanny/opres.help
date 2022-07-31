@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {InfoCardModule} from '@components/info-card/info-card.module';
+import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {ApiDocsPageComponent} from './api-docs.page';

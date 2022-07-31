@@ -78,9 +78,18 @@
     mat-flat-button
     color="primary"
     type="submit"
+    class="loading-button"
     data-test-id="calculate-button"
-    [disabled]="formGroup.invalid"
+    *ngIf="{isLoading: isLoading$ | async} as sub"
+    [disabled]="formGroup.invalid || sub.isLoading"
   >
+    <mat-spinner
+      *ngIf="sub.isLoading"
+      color="accent"
+      strokeWidth="4"
+      diameter="18"
+      style="padding-right: 4px"
+    ></mat-spinner>
     {{'CALCULATE_BUTTON' | translate}}
   </button>
 </form>

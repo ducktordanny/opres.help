@@ -3,7 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {Demands, Stocks, Table, TPData, TPMethods} from '@opres/shared/types';
 import {checkSolvability} from '@opres/shared/utils';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
+import {BehaviorSubject, finalize, Observable} from 'rxjs';
 
 import {
   FullCalculationResult,
@@ -16,16 +17,21 @@ import {EMPTY_TP_DATA} from '../tabs.constant';
   templateUrl: './all.tab.template.html',
   styleUrls: ['../tabs.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LoadingHandlerService],
 })
 export class AllTabComponent {
   public formGroup: FormGroup;
   public results$: Observable<FullCalculationResult> | null = null;
   public resultEpsilon$ = new BehaviorSubject<number | null>(null);
+  public isLoading$ = this.loadingHandler.isLoading;
 
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
 
-  constructor(private transportProblemService: TransportProblemService) {
+  constructor(
+    private transportProblemService: TransportProblemService,
+    private loadingHandler: LoadingHandlerService,
+  ) {
     const inputValidators = [
       Validators.required,
       Validators.min(3),
@@ -55,20 +61,21 @@ export class AllTabComponent {
 
   public onCalculate(event: Event): void {
     event.preventDefault();
+    this.loadingHandler.start();
     this.formGroup.setErrors(null);
     const tpData = this.tpData$.getValue();
 
-    if (this.formGroup.invalid) return;
+    if (this.formGroup.invalid) return this.loadingHandler.stop();
     if (!checkSolvability(tpData)) {
+      this.loadingHandler.stop();
       this.results$ = null;
       return this.formGroup.setErrors({invalidTPData: true});
     }
 
     const method = this.formGroup.get('method')?.value as TPMethods;
-    this.results$ = this.transportProblemService.getFullCalculationResult(
-      tpData,
-      method,
-    );
+    this.results$ = this.transportProblemService
+      .getFullCalculationResult(tpData, method)
+      .pipe(finalize(() => this.loadingHandler.stop()));
   }
 
   public reset(): void {

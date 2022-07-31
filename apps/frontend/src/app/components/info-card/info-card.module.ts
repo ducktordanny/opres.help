@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 
-import {InfoCardComponent} from '@components/info-card/info-card.component';
+import {InfoCardComponent} from '@frontend/components/info-card/info-card.component';
 
 @NgModule({
   declarations: [InfoCardComponent],

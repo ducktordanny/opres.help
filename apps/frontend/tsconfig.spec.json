@@ -4,8 +4,8 @@
     "baseUrl": ".",
     "outDir": "../../dist/out-tsc",
     "paths": {
-      "@components/*": ["src/app/components/*"],
-      "@shared/*": ["src/app/shared/*"],
+      "@frontend/components/*": ["src/app/components/*"],
+      "@frontend/services/*": ["src/app/services/*"],
       "@opres/generatable-tables": [
         "../../libs/generatable-tables/src/index.ts"
       ],
