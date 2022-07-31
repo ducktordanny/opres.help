@@ -5,3 +5,10 @@ export function sum(array: Array<number | null | undefined>) {
     return current ? previous + current : previous;
   });
 }
+
+/**
+ * Returns the last element of any array.
+ */
+export function lastOf<Type>(array: Array<Type>): Type {
+  return array[array.length - 1];
+}

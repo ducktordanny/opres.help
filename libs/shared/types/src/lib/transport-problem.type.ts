@@ -28,5 +28,6 @@ export interface FirstPhaseStep {
 
 // todo: wip
 export interface SecondPhaseStep {
+  transportation: TransportTable;
   explanation?: string;
 }
