@@ -12,12 +12,12 @@ import {
 import {EMPTY_TP_DATA} from '../tabs.constant';
 
 @Component({
-  selector: 'full-calculation-tab',
-  templateUrl: './full-calculation.tab.template.html',
+  selector: 'all-tab',
+  templateUrl: './all.tab.template.html',
   styleUrls: ['../tabs.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FullCalculationTabComponent {
+export class AllTabComponent {
   public formGroup: FormGroup;
   public results$: Observable<FullCalculationResult> | null = null;
   public resultEpsilon$ = new BehaviorSubject<number | null>(null);

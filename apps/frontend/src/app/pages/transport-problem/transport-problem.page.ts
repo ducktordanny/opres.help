@@ -16,7 +16,7 @@ interface Tab {
 })
 export class TransportProblemPageComponent {
   public readonly tabs: Array<Tab> = [
-    {label: 'Full calculation', link: 'full-calculation'},
+    {label: 'All', link: 'all'},
     {label: 'Second phase only', link: 'second-phase'},
     {label: 'Epsilon only', link: 'epsilon'},
   ];

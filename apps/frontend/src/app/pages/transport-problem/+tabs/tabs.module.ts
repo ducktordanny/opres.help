@@ -13,16 +13,12 @@ import {ResultTableModule} from '../+result-table/result-table.module';
 import {TransportTableModule} from '../+table/transport-table.module';
 import {TransportProblemService} from '../transport-problem.service';
 
+import {AllTabComponent} from './all-tab/all-tab.component';
 import {EpsilonTabComponent} from './epsilon-tab/epsilon.tab.component';
-import {FullCalculationTabComponent} from './full-calculation-tab/full-calculation.tab.component';
 import {SecondPhaseTabComponent} from './second-phase-tab/second-phase.tab.component';
 
 @NgModule({
-  declarations: [
-    FullCalculationTabComponent,
-    SecondPhaseTabComponent,
-    EpsilonTabComponent,
-  ],
+  declarations: [AllTabComponent, SecondPhaseTabComponent, EpsilonTabComponent],
   imports: [
     CommonModule,
     InfoCardModule,
@@ -36,10 +32,6 @@ import {SecondPhaseTabComponent} from './second-phase-tab/second-phase.tab.compo
     TransportTableModule,
   ],
   providers: [TransportProblemService],
-  exports: [
-    FullCalculationTabComponent,
-    SecondPhaseTabComponent,
-    EpsilonTabComponent,
-  ],
+  exports: [AllTabComponent, SecondPhaseTabComponent, EpsilonTabComponent],
 })
 export class TabsModule {}
