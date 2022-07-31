@@ -1,96 +1,15 @@
-<form [formGroup]="formGroup" (ngSubmit)="onCalculate($event)">
-  <div class="wrapper">
-    <info-card
-      width="600px"
-      type="warning"
-      title="{{'TRANSPORTATION_PROBLEM.PAGE_INFO.TITLE' | translate}}"
-    >
-      {{'TRANSPORTATION_PROBLEM.PAGE_INFO.CONTENT' | translate}}
-    </info-card>
-  </div>
-  <mat-form-field appearance="outline">
-    <mat-label
-      >{{'TRANSPORTATION_PROBLEM.COLUMNS_SELECT' | translate}}</mat-label
-    >
-    <input
-      matInput
-      type="number"
-      min="3"
-      max="8"
-      formControlName="shops"
-      data-test-id="number-of-shops-input"
-      [defaultValue]="4"
-    />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>{{'TRANSPORTATION_PROBLEM.ROWS_SELECT' | translate}}</mat-label>
-    <input
-      matInput
-      type="number"
-      min="3"
-      max="8"
-      formControlName="storages"
-      data-test-id="number-of-storages-input"
-      [defaultValue]="4"
-    />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label
-      >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.LABEL' | translate}}</mat-label
-    >
-    <mat-select
-      matNativeControl
-      required
-      data-test-id="method-select"
-      formControlName="method"
-    >
-      <mat-option value="north-west"
-        >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_NW' |
-        translate}}</mat-option
-      >
-      <mat-option value="table-min"
-        >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_TM' |
-        translate}}</mat-option
-      >
-      <mat-option value="vogel-korda" disabled
-        >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_VK' |
-        translate}}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-  <div class="wrapper">
-    <info-card width="600px"
-      >{{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}</info-card
-    >
-  </div>
-  <transport-table
-    [shopsCount]="formGroup.get('shops')?.value"
-    [storagesCount]="formGroup.get('storages')?.value"
-    (costChange)="onCostChange($event)"
-    (demandChange)="onDemandChange($event)"
-    (stockChange)="onStockChange($event)"
-    (tableClear)="reset()"
-  ></transport-table>
-  <mat-error *ngIf="formGroup.hasError('invalidTPData')"
-    >The given problem is not solvable! Try another one.</mat-error
+<nav mat-tab-nav-bar mat-stretch-tabs>
+  <a
+    mat-tab-link
+    routerLinkActive
+    #rla="routerLinkActive"
+    *ngFor="let tab of tabs"
+    [active]="rla.isActive"
+    [routerLink]="tab.link"
   >
-  <button
-    mat-flat-button
-    color="primary"
-    type="submit"
-    data-test-id="calculate-button"
-    [disabled]="formGroup.invalid"
-  >
-    {{'CALCULATE_BUTTON' | translate}}
-  </button>
-</form>
-<div class="wrapper" *ngIf="results$ | async as results">
-  <p *ngIf="resultEpsilon$ | async as epsilon">
-    {{'TRANSPORTATION_PROBLEM.EPSILON' | translate:{epsilon} }}
-  </p>
-  <result-table
-    *ngFor="let resultSource of results; let i = index"
-    [title]="i + 1 + '. step'"
-    [result]="resultSource"
-  ></result-table>
+    {{tab.label}}
+  </a>
+</nav>
+<div class="tab-content-wrapper">
+  <router-outlet></router-outlet>
 </div>

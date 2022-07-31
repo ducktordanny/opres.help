@@ -1,0 +1,80 @@
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+
+import {Demands, Stocks, Table, TPData, TPMethods} from '@opres/shared/types';
+import {checkSolvability} from '@opres/shared/utils';
+import {BehaviorSubject, Observable} from 'rxjs';
+
+import {
+  FullCalculationResult,
+  TransportProblemService,
+} from '../../transport-problem.service';
+import {EMPTY_TP_DATA} from '../tabs.constant';
+
+@Component({
+  selector: 'full-calculation-tab',
+  templateUrl: './full-calculation.tab.template.html',
+  styleUrls: ['../tabs.style.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class FullCalculationTabComponent {
+  public formGroup: FormGroup;
+  public results$: Observable<FullCalculationResult> | null = null;
+  public resultEpsilon$ = new BehaviorSubject<number | null>(null);
+
+  /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
+  private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
+
+  constructor(private transportProblemService: TransportProblemService) {
+    const inputValidators = [
+      Validators.required,
+      Validators.min(3),
+      Validators.max(8),
+    ];
+    this.formGroup = new FormGroup({
+      /** A shop is the equivalent of a column. */
+      shops: new FormControl(4, inputValidators),
+      /** A storage is the equivalent of a row. */
+      storages: new FormControl(4, inputValidators),
+      /** Three method can be chosen these methods are limited by the TPMethods type. */
+      method: new FormControl('north-west', Validators.required),
+    });
+  }
+
+  public onCostChange(costs: Table): void {
+    this.tpData$.next({...this.tpData$.getValue(), costs});
+  }
+
+  public onDemandChange(shopDemands: Demands): void {
+    this.tpData$.next({...this.tpData$.getValue(), shopDemands});
+  }
+
+  public onStockChange(storageStocks: Stocks): void {
+    this.tpData$.next({...this.tpData$.getValue(), storageStocks});
+  }
+
+  public onCalculate(event: Event): void {
+    event.preventDefault();
+    this.formGroup.setErrors(null);
+    const tpData = this.tpData$.getValue();
+
+    if (this.formGroup.invalid) return;
+    if (!checkSolvability(tpData)) {
+      this.results$ = null;
+      return this.formGroup.setErrors({invalidTPData: true});
+    }
+
+    const method = this.formGroup.get('method')?.value as TPMethods;
+    this.results$ = this.transportProblemService.getFullCalculationResult(
+      tpData,
+      method,
+    );
+  }
+
+  public reset(): void {
+    this.formGroup.setErrors(null);
+    this.results$ = null;
+    this.tpData$.next(EMPTY_TP_DATA);
+    this.resultEpsilon$.next(null);
+  }
+}

@@ -8,30 +8,18 @@ import {
   tableMinimumFirstResultMock,
   tableMinimumSecondResultMock,
 } from '../mocks/table-minimum-result.mock';
-import {NorthWestMethodService} from '../services/first-phase/north-west.method.service';
-import {TableMinimumMethodService} from '../services/first-phase/table-minimum.method.service';
-import {VogelKordaMethodService} from '../services/first-phase/vogel-korda.method.service';
 import {TransportProblemService} from '../transport-problem.service';
 
 import {tpDataFirstMock, tpDataSecondMock} from './transport-problem.mock';
 
 describe('TransportProblemService', () => {
   let transportProblemService: TransportProblemService;
-  let northWestMethodService: NorthWestMethodService;
-  let tableMinimumMethodService: TableMinimumMethodService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        TransportProblemService,
-        NorthWestMethodService,
-        TableMinimumMethodService,
-        VogelKordaMethodService,
-      ],
+      providers: [TransportProblemService],
     });
     transportProblemService = TestBed.inject(TransportProblemService);
-    northWestMethodService = TestBed.inject(NorthWestMethodService);
-    tableMinimumMethodService = TestBed.inject(TableMinimumMethodService);
   });
 
   it('should be created', () =>
