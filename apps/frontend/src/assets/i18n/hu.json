@@ -12,6 +12,7 @@
   },
   "SIDEBAR_MENU": {
     "HOME": "Kezdőlap",
+    "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
     "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma"
   },
@@ -35,6 +36,9 @@
       "TITLE": "Támogatás",
       "CONTENT": "Ha támogatni szeretnéd a munkámat itt megteheted: "
     }
+  },
+  "API_DOCS": {
+    "INFO": "Készítés alatt"
   },
   "TRANSPORTATION_PROBLEM": {
     "COLUMNS_SELECT": "Boltok (oszlopok)",
