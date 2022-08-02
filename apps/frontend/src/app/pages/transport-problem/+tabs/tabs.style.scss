@@ -1,6 +1,18 @@
 @import '../../../styles/variables/colors';
 
 :host {
+  section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    article {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
   mat-form-field {
     margin: 8px;
   }

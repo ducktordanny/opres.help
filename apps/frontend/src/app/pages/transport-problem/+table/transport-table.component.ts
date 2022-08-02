@@ -15,12 +15,12 @@ import {Demands, Stocks} from '@opres/shared/types';
   templateUrl: './transport-table.template.html',
   styles: [
     `
-      .input-table-wrapper {
+      :host {
         padding: 8px;
         display: grid;
         grid-template-rows: auto auto;
         grid-template-columns: auto auto;
-        gap: 16px;
+        gap: 8px;
         justify-content: start;
         overflow-x: auto;
       }

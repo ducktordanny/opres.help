@@ -11,7 +11,13 @@ interface Tab {
 @Component({
   selector: 'transport-problem-page',
   templateUrl: './transport-problem.template.html',
-  styleUrls: ['./transport-problem.style.scss'],
+  styles: [
+    `
+      .tab-content-wrapper {
+        padding: 8px;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportProblemPageComponent {

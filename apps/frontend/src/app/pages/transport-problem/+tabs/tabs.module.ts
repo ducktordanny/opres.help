@@ -11,7 +11,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
 import {TranslateModule} from '@ngx-translate/core';
 
-import {ResultTableModule} from '../+result-table/result-table.module';
+import {FirstPhaseStepsModule} from '../+results/+first-phase-steps/first-phase-steps.module';
 import {TransportTableModule} from '../+table/transport-table.module';
 
 @NgModule({
@@ -25,7 +25,7 @@ import {TransportTableModule} from '../+table/transport-table.module';
     MatSelectModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    ResultTableModule,
+    FirstPhaseStepsModule,
     TranslateModule,
     TransportTableModule,
   ],

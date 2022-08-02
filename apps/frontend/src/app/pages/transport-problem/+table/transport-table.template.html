@@ -1,30 +1,28 @@
-<div class="input-table-wrapper">
-  <opres-input-table
-    key="costs"
-    [rows]="storagesCount"
-    [columns]="shopsCount"
-    [tableSource]="mockCosts"
-    (tableChange)="onCostChange($event)"
-  ></opres-input-table>
-  <opres-input-table
-    key="storageStocks"
-    [rows]="storagesCount"
-    [tableSource]="mockStocks"
-    (tableChange)="onStockChange($event)"
-  ></opres-input-table>
-  <opres-input-table
-    key="shopDemands"
-    [columns]="shopsCount"
-    [tableSource]="mockDemands"
-    (tableChange)="onDemandChange($event)"
-  ></opres-input-table>
-  <button
-    mat-flat-button
-    color="primary"
-    type="button"
-    data-test-id="table-clear-button"
-    (click)="onTablesClear()"
-  >
-    {{ 'TABLE_CLEAR_BUTTON' | translate }}
-  </button>
-</div>
+<opres-input-table
+  key="costs"
+  [rows]="storagesCount"
+  [columns]="shopsCount"
+  [tableSource]="mockCosts"
+  (tableChange)="onCostChange($event)"
+></opres-input-table>
+<opres-input-table
+  key="storageStocks"
+  [rows]="storagesCount"
+  [tableSource]="mockStocks"
+  (tableChange)="onStockChange($event)"
+></opres-input-table>
+<opres-input-table
+  key="shopDemands"
+  [columns]="shopsCount"
+  [tableSource]="mockDemands"
+  (tableChange)="onDemandChange($event)"
+></opres-input-table>
+<button
+  mat-flat-button
+  color="primary"
+  type="button"
+  data-test-id="table-clear-button"
+  (click)="onTablesClear()"
+>
+  {{ 'TABLE_CLEAR_BUTTON' | translate }}
+</button>

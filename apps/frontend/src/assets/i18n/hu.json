@@ -54,7 +54,8 @@
       "TITLE": "Készítés alatt",
       "CONTENT": "A táblák jelenleg egy példa feladat értékeivel vannak kitöltve, az első fázis lépései az Észak-Nyugati és Tábla-Minimum módszerekkel elérhetőek. A Vogel-Korda módszer is hamarosan elérhető lesz!"
     },
-    "EPSILON": "Epszilon értéke: {{epsilon}}"
+    "FIRST_PHASE_RESULT_TITLE": "Első fázis {{steps}} lépésben",
+    "EXPLANATION_TITLE": "Magyarázat"
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Tábla méret (n*n)",

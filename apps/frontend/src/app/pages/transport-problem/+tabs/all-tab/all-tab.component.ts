@@ -49,20 +49,22 @@ export class AllTabComponent {
 
   public onCostChange(costs: Table): void {
     this.tpData$.next({...this.tpData$.getValue(), costs});
+    this.formGroup.setErrors(null);
   }
 
   public onDemandChange(shopDemands: Demands): void {
     this.tpData$.next({...this.tpData$.getValue(), shopDemands});
+    this.formGroup.setErrors(null);
   }
 
   public onStockChange(storageStocks: Stocks): void {
     this.tpData$.next({...this.tpData$.getValue(), storageStocks});
+    this.formGroup.setErrors(null);
   }
 
   public onCalculate(event: Event): void {
     event.preventDefault();
     this.loadingHandler.start();
-    this.formGroup.setErrors(null);
     const tpData = this.tpData$.getValue();
 
     if (this.formGroup.invalid) return this.loadingHandler.stop();
