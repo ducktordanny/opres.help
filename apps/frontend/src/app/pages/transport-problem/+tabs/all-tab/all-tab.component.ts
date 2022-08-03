@@ -17,7 +17,6 @@ import {EMPTY_TP_DATA} from '../tabs.constant';
   templateUrl: './all.tab.template.html',
   styleUrls: ['../tabs.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LoadingHandlerService],
 })
 export class AllTabComponent {
   public formGroup: FormGroup;

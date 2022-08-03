@@ -7,6 +7,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {InputTableModule, SimpleTableModule} from '@opres/generatable-tables';
 import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
+import {ErrorHandlerService} from '@frontend/services/error-handler.service';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AssignmentProblemPageComponent} from './assignment-problem.page';
@@ -27,6 +28,6 @@ import {AssignmentProblemService} from './assignment-problem.service';
     SimpleTableModule,
     TranslateModule,
   ],
-  providers: [AssignmentProblemService],
+  providers: [AssignmentProblemService, ErrorHandlerService],
 })
 export class AssignmentProblemModule {}

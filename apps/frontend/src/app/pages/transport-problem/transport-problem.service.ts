@@ -1,6 +1,5 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {
   CalculationMode,
@@ -12,7 +11,8 @@ import {
   TransportTable,
 } from '@opres/shared/types';
 import {lastOf} from '@opres/shared/utils';
-import {EMPTY, Observable} from 'rxjs';
+import {ErrorHandlerService} from '@frontend/services/error-handler.service';
+import {Observable} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
 
 export interface FirstPhaseResult {
@@ -30,15 +30,12 @@ export interface FullCalculationResult {
   secondPhase: SecondPhaseResult;
 }
 
-interface Error {
-  message?: string;
-  statusCode?: number;
-  error?: string;
-}
-
 @Injectable()
 export class TransportProblemService {
-  constructor(private http: HttpClient, private snackbar: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService,
+  ) {}
 
   public getFullCalculationResult(
     transportProblemData: TPData,
@@ -70,7 +67,7 @@ export class TransportProblemService {
     return this.http
       .post<Array<SecondPhaseStep>>(url, transportTable, {params})
       .pipe(
-        catchError(this.handleError),
+        catchError(this.errorHandler.showError),
         switchMap((steps) => {
           return this.getEpsilonResult(
             lastOf(steps)?.transportation || [],
@@ -88,7 +85,7 @@ export class TransportProblemService {
     const params = new HttpParams().set('explanation', explanation);
     return this.http
       .post<Epsilon>(url, transportTable, {params})
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.errorHandler.showError));
   }
 
   private getFirstPhaseResult(
@@ -102,7 +99,7 @@ export class TransportProblemService {
     return this.http
       .post<Array<FirstPhaseStep>>(url, transportProblemData, {params})
       .pipe(
-        catchError(this.handleError),
+        catchError(this.errorHandler.showError),
         switchMap((steps) => {
           return this.getEpsilonResult(
             lastOf(steps)?.transportation || [],
@@ -111,13 +108,6 @@ export class TransportProblemService {
         }),
       );
   }
-
-  private handleError = (value: {error: Error}): Observable<never> => {
-    const message =
-      value?.error?.message || value?.error?.error || 'Something went wrong';
-    this.snackbar.open(message, 'Close');
-    return EMPTY;
-  };
 
   private urlPrefix = (path: string): string =>
     `/api/transport-problem/${path}`;

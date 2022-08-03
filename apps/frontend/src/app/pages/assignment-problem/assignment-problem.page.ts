@@ -1,10 +1,8 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {InputTableService} from '@opres/generatable-tables';
 import {Table} from '@opres/shared/types';
-import {BehaviorSubject, catchError, Observable, of} from 'rxjs';
-import {filter} from 'rxjs/operators';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 
 import {AssignmentProblemService} from './assignment-problem.service';
 
@@ -15,7 +13,6 @@ import {AssignmentProblemService} from './assignment-problem.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssignmentProblemPageComponent {
-  // public result$ = new BehaviorSubject<Table>([]);
   public result$: Observable<Table | null> = of(null);
   public readonly mockedAssignment: Table = [
     {'0': 1, '1': 3, '2': 5, '3': 7, '4': 9, '5': 2},
@@ -30,25 +27,19 @@ export class AssignmentProblemPageComponent {
   constructor(
     private inputTableService: InputTableService,
     private assignmentProblemService: AssignmentProblemService,
-    private snackbar: MatSnackBar,
   ) {}
 
   public onAssignmentTableClear(): void {
     this.result$ = of(null);
+    this.assignmentTable.next([]);
     this.inputTableService.clear('assignment');
   }
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    this.result$ = this.assignmentProblemService
-      .calculateFirsPhase(this.assignmentTable.getValue())
-      .pipe(
-        catchError(({error}) => {
-          this.snackbar.open(error?.message, 'Close');
-          return of(null);
-        }),
-        filter((value) => value !== null),
-      );
+    this.result$ = this.assignmentProblemService.calculateFirsPhase(
+      this.assignmentTable.getValue(),
+    );
   }
 
   onTableChange(change: Table): void {

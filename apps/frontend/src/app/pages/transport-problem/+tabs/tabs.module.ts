@@ -9,12 +9,15 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
+import {ErrorHandlerService} from '@frontend/services/error-handler.service';
+import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {FirstPhaseStepsModule} from '../+results/+first-phase-steps/first-phase-steps.module';
 import {TransportTableModule} from '../+table/transport-table.module';
 
 @NgModule({
+  providers: [LoadingHandlerService, ErrorHandlerService],
   exports: [
     CommonModule,
     InfoCardModule,
