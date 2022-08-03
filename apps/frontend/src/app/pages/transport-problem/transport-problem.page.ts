@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 import {UntilDestroy} from '@ngneat/until-destroy';
 
-interface Tab {
+export interface Tab {
   label: string;
   link: string;
 }

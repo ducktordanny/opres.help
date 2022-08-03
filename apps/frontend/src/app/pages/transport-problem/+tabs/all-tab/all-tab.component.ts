@@ -22,7 +22,6 @@ import {EMPTY_TP_DATA} from '../tabs.constant';
 export class AllTabComponent {
   public formGroup: FormGroup;
   public results$: Observable<FullCalculationResult> | null = null;
-  public resultEpsilon$ = new BehaviorSubject<number | null>(null);
   public isLoading$ = this.loadingHandler.isLoading;
 
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
@@ -84,6 +83,5 @@ export class AllTabComponent {
     this.formGroup.setErrors(null);
     this.results$ = null;
     this.tpData$.next(EMPTY_TP_DATA);
-    this.resultEpsilon$.next(null);
   }
 }

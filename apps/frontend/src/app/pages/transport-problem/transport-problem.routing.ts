@@ -5,7 +5,7 @@ import {TabsModule} from './+tabs/tabs.module';
 import {TransportProblemPageComponent} from './transport-problem.page';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'all'},
+  {path: '', redirectTo: 'all', pathMatch: 'full'},
   {
     path: '',
     component: TransportProblemPageComponent,

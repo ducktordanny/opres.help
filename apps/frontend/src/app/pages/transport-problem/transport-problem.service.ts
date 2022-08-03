@@ -47,8 +47,8 @@ export class TransportProblemService {
   ): Observable<FullCalculationResult> {
     return this.getFirstPhaseResult(transportProblemData, method, mode).pipe(
       switchMap((firstPhase) => {
-        return this.getSecondPhaseResul(
-          lastOf(firstPhase.steps).transportation,
+        return this.getSecondPhaseResult(
+          lastOf(firstPhase.steps)?.transportation || [],
           mode,
         ).pipe(
           map(
@@ -60,7 +60,7 @@ export class TransportProblemService {
     );
   }
 
-  public getSecondPhaseResul(
+  public getSecondPhaseResult(
     transportTable: TransportTable,
     mode: CalculationMode = 'explanations',
   ): Observable<SecondPhaseResult> {
@@ -82,7 +82,7 @@ export class TransportProblemService {
 
   public getEpsilonResult(
     transportTable: TransportTable,
-    explanation: boolean,
+    explanation: boolean = true,
   ): Observable<Epsilon> {
     const url = this.urlPrefix('epsilon');
     const params = new HttpParams().set('explanation', explanation);
