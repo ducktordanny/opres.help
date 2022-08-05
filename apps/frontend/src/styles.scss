@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@import './apps/frontend/src/app/styles/variables/colors';
+@import 'apps/frontend/src/app/styles/variables/colors';
 
 @include mat.core();
 
@@ -88,4 +88,11 @@ a {
 
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+.loading-button {
+  .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+  }
 }

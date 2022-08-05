@@ -1,47 +1,114 @@
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 import {
-  CalculationProcess,
+  CalculationMode,
+  Epsilon,
+  FirstPhaseStep,
+  SecondPhaseStep,
   TPData,
   TPMethods,
   TransportTable,
-} from '@opres/shared-interfaces';
-import {Observable, of} from 'rxjs';
+} from '@opres/shared/types';
+import {lastOf} from '@opres/shared/utils';
+import {ErrorHandlerService} from '@frontend/services/error-handler.service';
+import {Observable} from 'rxjs';
+import {catchError, map, switchMap} from 'rxjs/operators';
 
-import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
-import {TableMinimumMethodService} from './services/first-phase/table-minimum.method.service';
-import {VogelKordaMethodService} from './services/first-phase/vogel-korda.method.service';
+export interface FirstPhaseResult {
+  steps: Array<FirstPhaseStep>;
+  epsilon: Epsilon;
+}
+
+export interface SecondPhaseResult {
+  steps: Array<SecondPhaseStep>;
+  epsilon: Epsilon;
+}
+
+export interface FullCalculationResult {
+  firstPhase: FirstPhaseResult;
+  secondPhase: SecondPhaseResult;
+}
 
 @Injectable()
 export class TransportProblemService {
-  private firstPhase = {
-    'north-west': this.northWestMethod,
-    'table-min': this.tableMinimumMethod,
-    'vogel-korda': this.vogelKordaMethod,
-  };
-
   constructor(
-    private northWestMethod: NorthWestMethodService,
-    private tableMinimumMethod: TableMinimumMethodService,
-    private vogelKordaMethod: VogelKordaMethodService,
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService,
   ) {}
 
-  public calculateFirstPhase(
+  public getFullCalculationResult(
     transportProblemData: TPData,
-    type: TPMethods = 'north-west',
-  ): Observable<Array<CalculationProcess>> {
-    return of(this.firstPhase[type].calculate(transportProblemData));
+    method: TPMethods = 'north-west',
+    mode: CalculationMode = 'explanations',
+  ): Observable<FullCalculationResult> {
+    return this.getFirstPhaseResult(transportProblemData, method, mode).pipe(
+      switchMap((firstPhase) => {
+        return this.getSecondPhaseResult(
+          lastOf(firstPhase.steps)?.transportation || [],
+          mode,
+        ).pipe(
+          map(
+            (secondPhase) =>
+              ({firstPhase, secondPhase} as FullCalculationResult),
+          ),
+        );
+      }),
+    );
   }
 
-  public getEpsilon(resultTable: TransportTable): number {
-    let epsilon = 0;
+  public getSecondPhaseResult(
+    transportTable: TransportTable,
+    mode: CalculationMode = 'explanations',
+  ): Observable<SecondPhaseResult> {
+    const url = this.urlPrefix('second-phase');
+    const params = new HttpParams().set('mode', mode);
 
-    for (const [rowIndex, row] of resultTable.entries())
-      for (const [columnIndex] of Object.entries(row))
-        epsilon +=
-          (resultTable[rowIndex][columnIndex].cost || 0) *
-          (resultTable[rowIndex][columnIndex].transported || 0);
-
-    return epsilon;
+    return this.http
+      .post<Array<SecondPhaseStep>>(url, transportTable, {params})
+      .pipe(
+        catchError(this.errorHandler.showError),
+        switchMap((steps) => {
+          return this.getEpsilonResult(
+            lastOf(steps)?.transportation || [],
+            mode === 'explanations',
+          ).pipe(map((epsilon) => ({steps, epsilon} as FirstPhaseResult)));
+        }),
+      );
   }
+
+  public getEpsilonResult(
+    transportTable: TransportTable,
+    explanation: boolean = true,
+  ): Observable<Epsilon> {
+    const url = this.urlPrefix('epsilon');
+    const params = new HttpParams().set('explanation', explanation);
+    return this.http
+      .post<Epsilon>(url, transportTable, {params})
+      .pipe(catchError(this.errorHandler.showError));
+  }
+
+  private getFirstPhaseResult(
+    transportProblemData: TPData,
+    method: TPMethods = 'north-west',
+    mode: CalculationMode = 'explanations',
+  ): Observable<FirstPhaseResult> {
+    const url = this.urlPrefix(`first-phase/${method}`);
+    const params = new HttpParams().set('mode', mode);
+
+    return this.http
+      .post<Array<FirstPhaseStep>>(url, transportProblemData, {params})
+      .pipe(
+        catchError(this.errorHandler.showError),
+        switchMap((steps) => {
+          return this.getEpsilonResult(
+            lastOf(steps)?.transportation || [],
+            mode === 'explanations',
+          ).pipe(map((epsilon) => ({steps, epsilon} as FirstPhaseResult)));
+        }),
+      );
+  }
+
+  private urlPrefix = (path: string): string =>
+    `/api/transport-problem/${path}`;
 }

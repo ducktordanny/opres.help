@@ -1,6 +1,6 @@
-import {CalculationProcess} from '@opres/shared-interfaces';
+import {FirstPhaseStep} from '@opres/shared/types';
 
-export const tableMinimumFirstResultMock: Array<CalculationProcess> = [
+export const tableMinimumFirstResultMock: Array<FirstPhaseStep> = [
   {
     transportation: [
       {
@@ -213,7 +213,7 @@ export const tableMinimumFirstResultMock: Array<CalculationProcess> = [
   },
 ];
 
-export const tableMinimumSecondResultMock: Array<CalculationProcess> = [
+export const tableMinimumSecondResultMock: Array<FirstPhaseStep> = [
   {
     transportation: [
       {

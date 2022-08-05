@@ -1,0 +1,34 @@
+@import '../../../styles/variables/colors';
+
+:host {
+  section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    article {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  mat-form-field {
+    margin: 8px;
+  }
+
+  mat-hint,
+  mat-error {
+    display: block;
+    max-width: 500px;
+    margin: 8px;
+  }
+
+  button[type='submit'] {
+    margin: 8px;
+  }
+
+  .wrapper {
+    padding: 8px;
+  }
+}

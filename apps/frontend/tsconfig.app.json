@@ -4,12 +4,13 @@
     "baseUrl": ".",
     "outDir": "../../dist/out-tsc",
     "paths": {
-      "@components/*": ["src/app/components/*"],
-      "@shared/*": ["src/app/shared/*"],
+      "@frontend/components/*": ["src/app/components/*"],
+      "@frontend/services/*": ["src/app/services/*"],
       "@opres/generatable-tables": [
         "../../libs/generatable-tables/src/index.ts"
       ],
-      "@opres/shared-interfaces": ["../../libs/shared-interfaces/src/index.ts"]
+      "@opres/shared/types": ["../../libs/shared/types/src/index.ts"],
+      "@opres/shared/utils": ["../../libs/shared/utils/src/index.ts"]
     },
     "types": [],
     "target": "ES2017"

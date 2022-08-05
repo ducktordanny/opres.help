@@ -1,9 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {LayoutModule} from '@components/layout/layout.module';
+import {LayoutModule} from '@frontend/components/layout/layout.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -28,6 +29,9 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+  ],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}},
   ],
   bootstrap: [AppComponent],
 })

@@ -6,20 +6,21 @@ import {
   Output,
 } from '@angular/core';
 
-import {InputTableService, Table} from '@opres/generatable-tables';
-import {Demands, Stocks} from '@opres/shared-interfaces';
+import {InputTableService} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
+import {Demands, Stocks} from '@opres/shared/types';
 
 @Component({
   selector: 'transport-table',
   templateUrl: './transport-table.template.html',
   styles: [
     `
-      .input-table-wrapper {
+      :host {
         padding: 8px;
         display: grid;
         grid-template-rows: auto auto;
         grid-template-columns: auto auto;
-        gap: 16px;
+        gap: 8px;
         justify-content: start;
         overflow-x: auto;
       }

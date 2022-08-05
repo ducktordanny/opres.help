@@ -1,10 +1,13 @@
 import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-import {InfoCardModule} from '@components/info-card/info-card.module';
 import {InputTableModule, SimpleTableModule} from '@opres/generatable-tables';
+import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
+import {ErrorHandlerService} from '@frontend/services/error-handler.service';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AssignmentProblemPageComponent} from './assignment-problem.page';
@@ -16,13 +19,15 @@ import {AssignmentProblemService} from './assignment-problem.service';
   imports: [
     AssignmentProblemRouting,
     CommonModule,
+    HttpClientModule,
     InfoCardModule,
     InputTableModule,
     MatButtonModule,
     MatSelectModule,
+    MatSnackBarModule,
     SimpleTableModule,
     TranslateModule,
   ],
-  providers: [AssignmentProblemService],
+  providers: [AssignmentProblemService, ErrorHandlerService],
 })
 export class AssignmentProblemModule {}

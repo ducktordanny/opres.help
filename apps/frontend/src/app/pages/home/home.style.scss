@@ -28,6 +28,7 @@ header {
     color: white;
     border-radius: 12px;
     text-align: center;
+    margin: 0 8px;
 
     mat-card-header {
       justify-content: center;
@@ -37,7 +38,7 @@ header {
 }
 
 main {
-  padding: 40px 0;
+  padding: 30px 8px;
 
   h2 {
     margin: 0 0 40px;
@@ -81,6 +82,7 @@ main {
 
 footer {
   background-color: $background-accent;
+  margin: 0 8px 8px;
   padding: 24px 0;
   border-radius: 12px;
 

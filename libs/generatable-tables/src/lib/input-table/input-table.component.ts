@@ -6,12 +6,12 @@ import {
   Output,
 } from '@angular/core';
 
+import {RowDefs, Table} from '@opres/shared/types';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
 
 import {rowDefinitionsFrom, tableSourceFrom} from '../table.helper';
-import {RowDefs, Table} from '../table.types';
 
 import {InputTableService} from './input-table.service';
 

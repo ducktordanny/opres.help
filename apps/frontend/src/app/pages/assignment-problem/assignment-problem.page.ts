@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
-import {InputTableService, Table} from '@opres/generatable-tables';
-import {BehaviorSubject} from 'rxjs';
+import {InputTableService} from '@opres/generatable-tables';
+import {Table} from '@opres/shared/types';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 
 import {AssignmentProblemService} from './assignment-problem.service';
 
@@ -12,7 +13,7 @@ import {AssignmentProblemService} from './assignment-problem.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssignmentProblemPageComponent {
-  public result$ = new BehaviorSubject<Table>([]);
+  public result$: Observable<Table | null> = of(null);
   public readonly mockedAssignment: Table = [
     {'0': 1, '1': 3, '2': 5, '3': 7, '4': 9, '5': 2},
     {'0': 2, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0},
@@ -29,14 +30,15 @@ export class AssignmentProblemPageComponent {
   ) {}
 
   public onAssignmentTableClear(): void {
-    this.result$.next([]);
+    this.result$ = of(null);
+    this.assignmentTable.next([]);
     this.inputTableService.clear('assignment');
   }
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    this.result$.next(
-      this.assignmentProblemService.calculate(this.assignmentTable.getValue()),
+    this.result$ = this.assignmentProblemService.calculateFirsPhase(
+      this.assignmentTable.getValue(),
     );
   }
 

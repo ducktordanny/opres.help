@@ -1,0 +1,45 @@
+<mat-divider></mat-divider>
+<h1 class="title">
+  {{ 'TRANSPORTATION_PROBLEM.FIRST_PHASE_RESULT_TITLE' | translate: {steps:
+  firstPhaseResult?.steps?.length} }}
+</h1>
+<mat-tab-group
+  mat-stretch-tabs
+  #matTabGroup
+  (selectedTabChange)="onSelectedTabChange()"
+>
+  <mat-tab
+    *ngFor="let step of firstPhaseResult?.steps; let index = index"
+    [label]="index + 1 + '.'"
+  >
+    <div class="content-wrapper">
+      <mat-card *ngIf="step?.explanation as explanation">
+        <mat-card-title
+          >{{'TRANSPORTATION_PROBLEM.EXPLANATION_TITLE' |
+          translate}}</mat-card-title
+        >
+        <mat-card-content>{{explanation}} </mat-card-content>
+      </mat-card>
+      <div class="table-wrapper">
+        <badged-table [tableSource]="step?.transportation || []"></badged-table>
+        <opres-simple-table
+          [tableSource]="step?.stocks | stocksToTable"
+        ></opres-simple-table>
+        <opres-simple-table
+          [tableSource]="step?.demands | demandsToTable"
+        ></opres-simple-table>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<mat-card
+  *ngIf="firstPhaseResult?.epsilon as epsilon"
+  style="width: fit-content"
+>
+  <mat-card-title style="text-align: center">
+    ε: {{epsilon.value}}
+  </mat-card-title>
+  <mat-card-content *ngIf="epsilon?.explanation as explanation"
+    >{{explanation}}</mat-card-content
+  >
+</mat-card>

@@ -1,9 +1,0 @@
-<ng-container *ngIf="result?.transportation?.length !== 0">
-  <mat-divider></mat-divider>
-  <p><strong>{{title}}</strong></p>
-</ng-container>
-<div class="result-table-wrapper">
-  <badged-table [tableSource]="result?.transportation || []"></badged-table>
-  <opres-simple-table [tableSource]="stocks"></opres-simple-table>
-  <opres-simple-table [tableSource]="demands"></opres-simple-table>
-</div>

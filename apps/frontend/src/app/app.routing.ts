@@ -12,6 +12,14 @@ const routes: Routes = [
       import('./pages/home/home.module').then((module) => module.HomeModule),
   },
   {
+    path: 'public-api-docs',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./pages/api-docs/api-docs.module').then(
+        (module) => module.ApiDocsModule,
+      ),
+  },
+  {
     path: 'transport-problem',
     loadChildren: () =>
       import('./pages/transport-problem/transport-problem.module').then(

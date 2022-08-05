@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {
   Theme,
   ThemeSwitcherService,
-} from '@components/layout/theme-switcher/theme-switcher.service';
+} from '@frontend/components/layout/theme-switcher/theme-switcher.service';
 
 @Component({
   selector: 'theme-switcher',

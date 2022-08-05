@@ -4,7 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 
-import {ThemeSwitcherComponent} from '@components/layout/theme-switcher/theme-switcher.component';
+import {ThemeSwitcherComponent} from '@frontend/components/layout/theme-switcher/theme-switcher.component';
 import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({

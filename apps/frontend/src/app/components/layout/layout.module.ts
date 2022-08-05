@@ -11,9 +11,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
-import {LanguageSwitcherModule} from '@components/layout/language-switcher/language-switcher.module';
-import {LayoutComponent} from '@components/layout/layout.component';
-import {ThemeSwitcherModule} from '@components/layout/theme-switcher/theme-switcher.module';
+import {LanguageSwitcherModule} from '@frontend/components/layout/language-switcher/language-switcher.module';
+import {LayoutComponent} from '@frontend/components/layout/layout.component';
+import {ThemeSwitcherModule} from '@frontend/components/layout/theme-switcher/theme-switcher.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({

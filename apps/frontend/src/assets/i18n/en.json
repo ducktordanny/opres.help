@@ -12,6 +12,7 @@
   },
   "SIDEBAR_MENU": {
     "HOME": "Home",
+    "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Transportation problem",
     "ASSIGNMENT_PROBLEM": "Assignment problem"
   },
@@ -36,7 +37,15 @@
       "CONTENT": "If you would like to support my work you can do it via"
     }
   },
+  "API_DOCS": {
+    "INFO": "Under construction"
+  },
   "TRANSPORTATION_PROBLEM": {
+    "TABS": {
+      "ALL": "All",
+      "SECOND_PHASE": "Seond phase only",
+      "EPSILON": "Epsilon only"
+    },
     "COLUMNS_SELECT": "Shops (columns)",
     "ROWS_SELECT": "Storages (rows)",
     "METHOD_SELECT": {
@@ -50,7 +59,8 @@
       "TITLE": "Under construction",
       "CONTENT": "The table is currently filled with an example task and the first phase is solvable with the North-West and Table-Minimum methods. The Vogel-Korda method will be available soon."
     },
-    "EPSILON": "Epsilon's value: {{epsilon}}"
+    "FIRST_PHASE_RESULT_TITLE": "First phase in {{steps}} steps",
+    "EXPLANATION_TITLE": "Explanation"
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",

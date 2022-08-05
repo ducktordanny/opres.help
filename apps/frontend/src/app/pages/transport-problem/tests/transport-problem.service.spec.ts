@@ -1,103 +1,94 @@
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TestBed} from '@angular/core/testing';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
-import {
-  northWestFirstResultMock,
-  northWestSecondResultMock,
-} from '../mocks/north-west-result.mock';
-import {
-  tableMinimumFirstResultMock,
-  tableMinimumSecondResultMock,
-} from '../mocks/table-minimum-result.mock';
-import {NorthWestMethodService} from '../services/first-phase/north-west.method.service';
-import {TableMinimumMethodService} from '../services/first-phase/table-minimum.method.service';
-import {VogelKordaMethodService} from '../services/first-phase/vogel-korda.method.service';
+import {Epsilon} from '@opres/shared/types';
+import {lastOf} from '@opres/shared/utils';
+import {of, throwError} from 'rxjs';
+
+import {ErrorHandlerService} from '../../../services/error-handler.service';
+import {tableMinimumFirstResultMock} from '../mocks/table-minimum-result.mock';
 import {TransportProblemService} from '../transport-problem.service';
 
-import {tpDataFirstMock, tpDataSecondMock} from './transport-problem.mock';
+import {tpDataFirstMock} from './transport-problem.mock';
 
+// FIXME [2022-08-20] after having working second phase implementation modify this
 describe('TransportProblemService', () => {
+  const epsilonMock: Epsilon = {value: 123};
+  const epsilonErrorMock = {
+    statusCode: 400,
+    message: 'Invalid transportation table! Try another one.',
+    error: 'Bad Request',
+  };
   let transportProblemService: TransportProblemService;
-  let northWestMethodService: NorthWestMethodService;
-  let tableMinimumMethodService: TableMinimumMethodService;
+  let http: HttpClient;
+  let snackbar: MatSnackBar;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        TransportProblemService,
-        NorthWestMethodService,
-        TableMinimumMethodService,
-        VogelKordaMethodService,
-      ],
+      imports: [HttpClientModule, MatSnackBarModule],
+      providers: [TransportProblemService, HttpClient, ErrorHandlerService],
     });
     transportProblemService = TestBed.inject(TransportProblemService);
-    northWestMethodService = TestBed.inject(NorthWestMethodService);
-    tableMinimumMethodService = TestBed.inject(TableMinimumMethodService);
+    http = TestBed.inject(HttpClient);
+    snackbar = TestBed.inject(MatSnackBar);
   });
 
   it('should be created', () =>
     expect(transportProblemService).toBeInstanceOf(TransportProblemService));
 
-  it('should calculate first phase with north-west method 1', (done) => {
-    const northWestSpy = jest.spyOn(northWestMethodService, 'calculate');
-    const result = transportProblemService.calculateFirstPhase(
-      tpDataFirstMock,
-      'north-west',
-    );
-    expect(northWestSpy).toHaveBeenCalledTimes(1);
-    result.subscribe((value) => {
-      expect(value).toHaveLength(northWestFirstResultMock.length);
-      expect(value).toEqual(northWestFirstResultMock);
-    });
+  it('should request all calculations results', (done) => {
+    const httpPostSpy = jest.spyOn(http, 'post').mockReturnValue(of([]));
+    const epsilonSpy = jest
+      .spyOn(transportProblemService, 'getEpsilonResult')
+      .mockReturnValue(of(epsilonMock));
+    const phaseMock = {steps: [], epsilon: epsilonMock};
+    transportProblemService
+      .getFullCalculationResult(tpDataFirstMock)
+      .subscribe((value) => {
+        expect(value.firstPhase).toEqual(phaseMock);
+        expect(value.secondPhase).toEqual(phaseMock);
+      });
     done();
+    expect(httpPostSpy).toHaveBeenCalledTimes(2);
+    expect(epsilonSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('should calculate first phase with north-west method 2', (done) => {
-    const northWestSpy = jest.spyOn(northWestMethodService, 'calculate');
-    const result = transportProblemService.calculateFirstPhase(
-      tpDataSecondMock,
-      'north-west',
-    );
-    expect(northWestSpy).toHaveBeenCalledTimes(1);
-    result.subscribe((value) => {
-      expect(value).toHaveLength(northWestSecondResultMock.length);
-      expect(value).toEqual(northWestSecondResultMock);
+  it('should request second phase results', (done) => {
+    const httpPostSpy = jest.spyOn(http, 'post').mockReturnValue(of([]));
+    const epsilonSpy = jest
+      .spyOn(transportProblemService, 'getEpsilonResult')
+      .mockReturnValue(of(epsilonMock));
+    transportProblemService.getSecondPhaseResult([]).subscribe((value) => {
+      expect(value).toEqual({steps: [], epsilon: epsilonMock});
     });
     done();
+    expect(httpPostSpy).toHaveBeenCalledTimes(1);
+    expect(epsilonSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should calculate first phase with table-minimum method 1', (done) => {
-    const tableMinimumSpy = jest.spyOn(tableMinimumMethodService, 'calculate');
-    const result = transportProblemService.calculateFirstPhase(
-      tpDataFirstMock,
-      'table-min',
-    );
-    expect(tableMinimumSpy).toHaveBeenCalledTimes(1);
-    result.subscribe((value) => {
-      expect(value).toHaveLength(tableMinimumFirstResultMock.length);
-      expect(value).toEqual(tableMinimumFirstResultMock);
-    });
+  it('should check epsilon result', () => {
+    const httpPostSpy = jest
+      .spyOn(http, 'post')
+      .mockReturnValue(of(epsilonMock));
+    transportProblemService
+      .getEpsilonResult(lastOf(tableMinimumFirstResultMock).transportation)
+      .subscribe((value) => {
+        expect(value).toEqual(epsilonMock);
+      });
+    expect(httpPostSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle error', (done) => {
+    const httpPostSpy = jest
+      .spyOn(http, 'post')
+      .mockReturnValue(throwError(() => epsilonErrorMock));
+    const snackbarSpy = jest.spyOn(snackbar, 'open');
+    transportProblemService
+      .getEpsilonResult(lastOf(tableMinimumFirstResultMock).transportation)
+      .subscribe();
     done();
-  });
-
-  it('should calculate first phase with table-minimum method 2', (done) => {
-    const tableMinimumSpy = jest.spyOn(tableMinimumMethodService, 'calculate');
-    const result = transportProblemService.calculateFirstPhase(
-      tpDataSecondMock,
-      'table-min',
-    );
-    expect(tableMinimumSpy).toHaveBeenCalledTimes(1);
-    result.subscribe((value) => {
-      expect(value).toHaveLength(tableMinimumSecondResultMock.length);
-      expect(value).toEqual(tableMinimumSecondResultMock);
-    });
-    done();
-  });
-
-  it(`should get epsilon's value`, () => {
-    const lastIndexOfMock = northWestFirstResultMock.length - 1;
-    const epsilon = transportProblemService.getEpsilon(
-      northWestFirstResultMock[lastIndexOfMock].transportation,
-    );
-    expect(epsilon).toEqual(458);
+    expect(httpPostSpy).toHaveBeenCalledTimes(1);
+    expect(snackbarSpy).toHaveBeenCalledTimes(1);
   });
 });
