@@ -6,6 +6,7 @@ import {Epsilon} from '@opres/shared/types';
 import {lastOf} from '@opres/shared/utils';
 import {of, throwError} from 'rxjs';
 
+import {ErrorHandlerService} from '../../../services/error-handler.service';
 import {tableMinimumFirstResultMock} from '../mocks/table-minimum-result.mock';
 import {TransportProblemService} from '../transport-problem.service';
 
@@ -26,7 +27,7 @@ describe('TransportProblemService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, MatSnackBarModule],
-      providers: [TransportProblemService, HttpClient],
+      providers: [TransportProblemService, HttpClient, ErrorHandlerService],
     });
     transportProblemService = TestBed.inject(TransportProblemService);
     http = TestBed.inject(HttpClient);

@@ -6,9 +6,9 @@ import {Tab, TransportProblemPageComponent} from '../transport-problem.page';
 
 describe('TransportProblemPageComponent', () => {
   const tabsMock: Array<Tab> = [
-    {label: 'All', link: 'all'},
-    {label: 'Second phase only', link: 'second-phase'},
-    {label: 'Epsilon only', link: 'epsilon'},
+    {label: 'TRANSPORTATION_PROBLEM.TABS.ALL', link: 'all'},
+    {label: 'TRANSPORTATION_PROBLEM.TABS.SECOND_PHASE', link: 'second-phase'},
+    {label: 'TRANSPORTATION_PROBLEM.TABS.EPSILON', link: 'epsilon'},
   ];
   let fixture: ComponentFixture<TransportProblemPageComponent>;
   let component: TransportProblemPageComponent;

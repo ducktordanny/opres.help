@@ -41,6 +41,11 @@
     "INFO": "Under construction"
   },
   "TRANSPORTATION_PROBLEM": {
+    "TABS": {
+      "ALL": "All",
+      "SECOND_PHASE": "Seond phase only",
+      "EPSILON": "Epsilon only"
+    },
     "COLUMNS_SELECT": "Shops (columns)",
     "ROWS_SELECT": "Storages (rows)",
     "METHOD_SELECT": {

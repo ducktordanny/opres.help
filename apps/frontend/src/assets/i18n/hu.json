@@ -12,7 +12,7 @@
   },
   "SIDEBAR_MENU": {
     "HOME": "Kezdőlap",
-    "API_DOCS": "API docs",
+    "API_DOCS": "API dokumentáció",
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
     "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma"
   },
@@ -41,6 +41,11 @@
     "INFO": "Készítés alatt"
   },
   "TRANSPORTATION_PROBLEM": {
+    "TABS": {
+      "ALL": "Mind",
+      "SECOND_PHASE": "Csak második fázis",
+      "EPSILON": "Csak epsilon"
+    },
     "COLUMNS_SELECT": "Boltok (oszlopok)",
     "ROWS_SELECT": "Raktárak (sorok)",
     "METHOD_SELECT": {
