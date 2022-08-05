@@ -2,6 +2,12 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2022-08-05
+
+- Implement public API for calculations & refactor the ui to use it
+- Add tabs on transport problem page for further features
+- Rethink the look of transport problem page & showing the result
+
 ## [0.4.1] - 2022-07-29
 
 - Add missing transport problem form validity check before calculation
