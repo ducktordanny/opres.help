@@ -10,6 +10,7 @@
     "start:backend": "nx serve backend",
     "build": "nx build",
     "test": "nx affected:test",
+    "test:all": "nx run-many --all --target=test",
     "format": "nx format:write --files=apps/frontend/src,apps/frontend-e2e/src,apps/backend/src",
     "format:staged": "pretty-quick --staged",
     "lint": "nx affected:lint",
