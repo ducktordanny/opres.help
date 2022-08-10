@@ -4,7 +4,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 
-import {TableModule} from '@opres/generatable-tables';
+import {TableModule} from '@opres/ui/tables';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {TransportProblemPipesModule} from '../../pipes/transport-problem-pipes.module';

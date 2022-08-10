@@ -4,7 +4,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatButtonHarness} from '@angular/material/button/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-import {InputTableService} from '@opres/generatable-tables';
+import {InputTableService} from '@opres/ui/tables';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {TransportProblemModule} from '../transport-problem.module';

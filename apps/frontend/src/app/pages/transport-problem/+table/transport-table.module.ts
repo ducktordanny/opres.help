@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 
-import {InputTableModule} from '@opres/generatable-tables';
+import {InputTableModule} from '@opres/ui/tables';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {TransportTableComponent} from './transport-table.component';
