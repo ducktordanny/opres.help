@@ -18,3 +18,10 @@ export function transport(
 
   return [currentDemand, currentStock];
 }
+
+export function canTransport(demands: Demands, stocks: Stocks): boolean {
+  return (
+    demands.some((unit) => unit !== null && unit > 0) &&
+    stocks.some((unit) => unit !== null && unit > 0)
+  );
+}

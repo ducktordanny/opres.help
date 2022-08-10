@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotAcceptableException} from '@nestjs/common';
 
 import {
   CalculationMode,
@@ -6,6 +6,7 @@ import {
   TPData,
   TransportTable,
 } from '@opres/shared/types';
+import {cloneDeep} from 'lodash';
 
 import {createResultTableFrom} from '../../utils/result-table.util';
 import {transport} from '../../utils/transport.util';
@@ -25,6 +26,7 @@ export class NorthWestMethodService {
     let stockIndex = 0,
       demandIndex = 0;
 
+    let iterationCounter = 0;
     while (stockIndex < stocks.length && demandIndex < demands.length) {
       const [currentDemand, currentStock] = transport(
         resultTable,
@@ -38,12 +40,16 @@ export class NorthWestMethodService {
       else stockIndex++;
 
       process.push({
-        transportation: JSON.parse(
-          JSON.stringify(resultTable),
-        ) as TransportTable,
+        transportation: cloneDeep(resultTable) as TransportTable,
         demands: [...demands],
         stocks: [...stocks],
       });
+
+      iterationCounter++;
+      if (iterationCounter > 30)
+        throw new NotAcceptableException(
+          'Too many iterations during calculation. No result.',
+        );
     }
 
     return process;
