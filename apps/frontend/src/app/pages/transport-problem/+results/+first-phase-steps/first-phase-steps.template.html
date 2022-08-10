@@ -21,13 +21,19 @@
         <mat-card-content>{{explanation}} </mat-card-content>
       </mat-card>
       <div class="table-wrapper">
-        <badged-table [tableSource]="step?.transportation || []"></badged-table>
-        <opres-simple-table
-          [tableSource]="step?.stocks | stocksToTable"
-        ></opres-simple-table>
-        <opres-simple-table
-          [tableSource]="step?.demands | demandsToTable"
-        ></opres-simple-table>
+        <opres-table
+          [tableSource]="step?.transportation || [] | transportTableToTable"
+          [badgeSource]="step?.transportation || [] | transportTableToTable: 'cost'"
+          [showZeros]="false"
+        ></opres-table>
+        <opres-table
+          [tableSource]="step?.stocks | arrayToTableRow"
+          [badgeSource]="step?.auxiliaryVariables?.y | arrayToTableRow"
+        ></opres-table>
+        <opres-table
+          [tableSource]="step?.demands | arrayToTable"
+          [badgeSource]="step?.auxiliaryVariables?.x | arrayToTable"
+        ></opres-table>
       </div>
     </div>
   </mat-tab>

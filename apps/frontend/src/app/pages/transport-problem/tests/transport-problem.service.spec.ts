@@ -3,7 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {Epsilon} from '@opres/shared/types';
-import {lastOf} from '@opres/shared/utils';
+import {last} from 'lodash';
 import {of, throwError} from 'rxjs';
 
 import {ErrorHandlerService} from '../../../services/error-handler.service';
@@ -72,7 +72,8 @@ describe('TransportProblemService', () => {
       .spyOn(http, 'post')
       .mockReturnValue(of(epsilonMock));
     transportProblemService
-      .getEpsilonResult(lastOf(tableMinimumFirstResultMock).transportation)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      .getEpsilonResult(last(tableMinimumFirstResultMock)!.transportation)
       .subscribe((value) => {
         expect(value).toEqual(epsilonMock);
       });
@@ -85,7 +86,8 @@ describe('TransportProblemService', () => {
       .mockReturnValue(throwError(() => epsilonErrorMock));
     const snackbarSpy = jest.spyOn(snackbar, 'open');
     transportProblemService
-      .getEpsilonResult(lastOf(tableMinimumFirstResultMock).transportation)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      .getEpsilonResult(last(tableMinimumFirstResultMock)!.transportation)
       .subscribe();
     done();
     expect(httpPostSpy).toHaveBeenCalledTimes(1);

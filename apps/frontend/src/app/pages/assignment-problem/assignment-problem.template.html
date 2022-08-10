@@ -49,8 +49,8 @@
   <p *ngIf="sub?.result?.length">
     {{'ASSIGNMENT_PROBLEM.RESULT_INFO' | translate}}
   </p>
-  <opres-simple-table
+  <opres-table
     *ngIf="sub?.result?.length"
     [tableSource]="sub.result || []"
-  ></opres-simple-table>
+  ></opres-table>
 </div>

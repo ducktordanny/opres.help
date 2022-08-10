@@ -5,6 +5,7 @@
     "outDir": "../../dist/out-tsc",
     "paths": {
       "@frontend/components/*": ["src/app/components/*"],
+      "@frontend/pipes/*": ["src/app/pipes/*"],
       "@frontend/services/*": ["src/app/services/*"],
       "@opres/generatable-tables": [
         "../../libs/generatable-tables/src/index.ts"

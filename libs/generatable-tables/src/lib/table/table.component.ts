@@ -3,22 +3,24 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Table} from '@opres/shared/types';
 
 @Component({
-  selector: 'opres-simple-table[tableSource]',
-  templateUrl: './simple-table.template.html',
+  selector: 'opres-table[tableSource]',
+  templateUrl: './table.template.html',
   styles: [
     `
       td {
         width: 50px;
         text-align: center;
       }
+
+      .hidden-transport {
+        color: transparent;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SimpleTableComponent {
-  @Input() tableSource: Table = [];
-
-  public get rowDefinitions() {
-    return Object.keys(this.tableSource[0] || []);
-  }
+export class TableComponent {
+  @Input() tableSource!: Table;
+  @Input() badgeSource?: Table;
+  @Input() showZeros = true;
 }

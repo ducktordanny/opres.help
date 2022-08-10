@@ -10,8 +10,8 @@ import {
   TPMethods,
   TransportTable,
 } from '@opres/shared/types';
-import {lastOf} from '@opres/shared/utils';
 import {ErrorHandlerService} from '@frontend/services/error-handler.service';
+import {last} from 'lodash';
 import {Observable} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
 
@@ -45,7 +45,7 @@ export class TransportProblemService {
     return this.getFirstPhaseResult(transportProblemData, method, mode).pipe(
       switchMap((firstPhase) => {
         return this.getSecondPhaseResult(
-          lastOf(firstPhase.steps)?.transportation || [],
+          last(firstPhase.steps)?.transportation || [],
           mode,
         ).pipe(
           map(
@@ -70,7 +70,7 @@ export class TransportProblemService {
         catchError(this.errorHandler.showError),
         switchMap((steps) => {
           return this.getEpsilonResult(
-            lastOf(steps)?.transportation || [],
+            last(steps)?.transportation || [],
             mode === 'explanations',
           ).pipe(map((epsilon) => ({steps, epsilon} as FirstPhaseResult)));
         }),
@@ -102,7 +102,7 @@ export class TransportProblemService {
         catchError(this.errorHandler.showError),
         switchMap((steps) => {
           return this.getEpsilonResult(
-            lastOf(steps)?.transportation || [],
+            last(steps)?.transportation || [],
             mode === 'explanations',
           ).pipe(map((epsilon) => ({steps, epsilon} as FirstPhaseResult)));
         }),
