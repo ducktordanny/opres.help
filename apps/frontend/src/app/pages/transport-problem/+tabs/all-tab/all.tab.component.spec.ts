@@ -84,7 +84,7 @@ describe('AllTabComponent', () => {
     const methodOptions = await select.getOptions();
     expect(await methodOptions[0].isDisabled()).toEqual(false);
     expect(await methodOptions[1].isDisabled()).toEqual(false);
-    expect(await methodOptions[2].isDisabled()).toEqual(true);
+    expect(await methodOptions[2].isDisabled()).toEqual(false);
   });
 
   it('should click to calculate result', async () => {
