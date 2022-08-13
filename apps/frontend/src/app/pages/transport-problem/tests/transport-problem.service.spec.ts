@@ -2,15 +2,16 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TestBed} from '@angular/core/testing';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
+import {
+  tableMinimumFirstResultMock,
+  tpDataFirstMock,
+} from '@opres/shared/data/mocks';
 import {Epsilon} from '@opres/shared/types';
 import {last} from 'lodash';
 import {of, throwError} from 'rxjs';
 
 import {ErrorHandlerService} from '../../../services/error-handler.service';
-import {tableMinimumFirstResultMock} from '../mocks/table-minimum-result.mock';
 import {TransportProblemService} from '../transport-problem.service';
-
-import {tpDataFirstMock} from './transport-problem.mock';
 
 // FIXME [2022-08-20] after having working second phase implementation modify this
 describe('TransportProblemService', () => {
