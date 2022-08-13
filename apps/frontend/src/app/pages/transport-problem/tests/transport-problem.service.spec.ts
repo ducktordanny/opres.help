@@ -11,7 +11,10 @@ import {last} from 'lodash';
 import {of, throwError} from 'rxjs';
 
 import {ErrorHandlerService} from '../../../services/error-handler.service';
-import {TransportProblemService} from '../transport-problem.service';
+import {
+  transportProblemCacheBuster$,
+  TransportProblemService,
+} from '../transport-problem.service';
 
 // FIXME [2022-08-20] after having working second phase implementation modify this
 describe('TransportProblemService', () => {
@@ -33,6 +36,7 @@ describe('TransportProblemService', () => {
     transportProblemService = TestBed.inject(TransportProblemService);
     http = TestBed.inject(HttpClient);
     snackbar = TestBed.inject(MatSnackBar);
+    transportProblemCacheBuster$.next();
   });
 
   it('should be created', () =>

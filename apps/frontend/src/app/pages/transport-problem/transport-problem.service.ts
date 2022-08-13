@@ -12,8 +12,9 @@ import {
 } from '@opres/shared/types';
 import {ErrorHandlerService} from '@frontend/services/error-handler.service';
 import {last} from 'lodash';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
+import {Cacheable} from 'ts-cacheable';
 
 export interface FirstPhaseResult {
   steps: Array<FirstPhaseStep>;
@@ -29,6 +30,8 @@ export interface FullCalculationResult {
   firstPhase: FirstPhaseResult;
   secondPhase: SecondPhaseResult;
 }
+
+export const transportProblemCacheBuster$ = new Subject<void>();
 
 @Injectable()
 export class TransportProblemService {
@@ -57,6 +60,7 @@ export class TransportProblemService {
     );
   }
 
+  @Cacheable({cacheBusterObserver: transportProblemCacheBuster$})
   public getSecondPhaseResult(
     transportTable: TransportTable,
     mode: CalculationMode = 'explanations',
@@ -77,6 +81,7 @@ export class TransportProblemService {
       );
   }
 
+  @Cacheable({cacheBusterObserver: transportProblemCacheBuster$})
   public getEpsilonResult(
     transportTable: TransportTable,
     explanation: boolean = true,
@@ -88,6 +93,7 @@ export class TransportProblemService {
       .pipe(catchError(this.errorHandler.showError));
   }
 
+  @Cacheable({cacheBusterObserver: transportProblemCacheBuster$})
   private getFirstPhaseResult(
     transportProblemData: TPData,
     method: TPMethods = 'north-west',
