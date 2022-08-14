@@ -25,26 +25,30 @@ export class TableMinimumMethodService {
     transportProblemData: TPData,
     mode: CalculationMode,
   ): Array<FirstPhaseStep> {
-    const {costs} = transportProblemData;
-    const stocks = [...transportProblemData.storageStocks];
-    const demands = [...transportProblemData.shopDemands];
+    const {costs, shopDemands, storageStocks} = cloneDeep(transportProblemData);
 
     const process: Array<FirstPhaseStep> = [];
     const resultTable: TransportTable = createResultTableFrom(costs);
 
     let iterationCounter = 0;
-    while (canTransport(demands, stocks)) {
+    while (canTransport(shopDemands, storageStocks)) {
       const {demandIndex, stockIndex} = this.getCurrentMinimumCost(
         costs,
-        demands,
-        stocks,
+        shopDemands,
+        storageStocks,
       );
-      transport(resultTable, demands, stocks, demandIndex, stockIndex);
+      transport(
+        resultTable,
+        shopDemands,
+        storageStocks,
+        demandIndex,
+        stockIndex,
+      );
 
       process.push({
         transportation: cloneDeep(resultTable) as TransportTable,
-        demands: [...demands],
-        stocks: [...stocks],
+        demands: [...shopDemands],
+        stocks: [...storageStocks],
       });
 
       iterationCounter++;

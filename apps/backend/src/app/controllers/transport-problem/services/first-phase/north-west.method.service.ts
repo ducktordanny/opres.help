@@ -17,9 +17,7 @@ export class NorthWestMethodService {
     transportProblemData: TPData,
     mode: CalculationMode,
   ): Array<FirstPhaseStep> {
-    const {costs} = transportProblemData;
-    const stocks = [...transportProblemData.storageStocks];
-    const demands = [...transportProblemData.shopDemands];
+    const {costs, shopDemands, storageStocks} = cloneDeep(transportProblemData);
 
     const process: Array<FirstPhaseStep> = [];
     const resultTable: TransportTable = createResultTableFrom(costs);
@@ -27,11 +25,14 @@ export class NorthWestMethodService {
       demandIndex = 0;
 
     let iterationCounter = 0;
-    while (stockIndex < stocks.length && demandIndex < demands.length) {
+    while (
+      stockIndex < storageStocks.length &&
+      demandIndex < shopDemands.length
+    ) {
       const [currentDemand, currentStock] = transport(
         resultTable,
-        demands,
-        stocks,
+        shopDemands,
+        storageStocks,
         demandIndex,
         stockIndex,
       );
@@ -41,8 +42,8 @@ export class NorthWestMethodService {
 
       process.push({
         transportation: cloneDeep(resultTable) as TransportTable,
-        demands: [...demands],
-        stocks: [...stocks],
+        demands: [...shopDemands],
+        stocks: [...storageStocks],
       });
 
       iterationCounter++;
