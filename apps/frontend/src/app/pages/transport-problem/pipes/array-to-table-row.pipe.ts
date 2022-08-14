@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-import {Table} from '@opres/shared/types';
+import {Row, Table} from '@opres/shared/types';
 
 @Pipe({
   name: 'arrayToTableRow',
@@ -8,6 +8,11 @@ import {Table} from '@opres/shared/types';
 export class ArrayToTableRowPipe implements PipeTransform {
   public transform(value: Array<number | null> | undefined): Table {
     if (!value) return [];
-    return value.map((stock) => ({'0': stock}));
+    return [
+      value.reduce(
+        (acc, curr, index) => ({...acc, [`${index}`]: curr}),
+        {} as Row,
+      ),
+    ];
   }
 }

@@ -27,12 +27,12 @@
           [showZeros]="false"
         ></opres-table>
         <opres-table
-          [tableSource]="step?.stocks | arrayToTableRow"
-          [badgeSource]="step?.auxiliaryVariables?.y | arrayToTableRow"
+          [tableSource]="step?.stocks | arrayToTableColumn"
+          [badgeSource]="step?.auxiliaryVariables?.y | arrayToTableColumn"
         ></opres-table>
         <opres-table
-          [tableSource]="step?.demands | arrayToTable"
-          [badgeSource]="step?.auxiliaryVariables?.x | arrayToTable"
+          [tableSource]="step?.demands | arrayToTableRow"
+          [badgeSource]="step?.auxiliaryVariables?.x | arrayToTableRow"
         ></opres-table>
       </div>
     </div>

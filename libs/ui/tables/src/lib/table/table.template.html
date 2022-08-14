@@ -19,7 +19,11 @@
       >
         {{element[header] || 0}}
       </span>
-      <ng-template #badgelessCell>{{element[header] || 0}}</ng-template>
+      <ng-template #badgelessCell>
+        <span [ngClass]="{'hidden-transport': !showZeros && !element[header]}">
+          {{element[header] || 0}}
+        </span>
+      </ng-template>
     </td>
   </ng-container>
   <tr

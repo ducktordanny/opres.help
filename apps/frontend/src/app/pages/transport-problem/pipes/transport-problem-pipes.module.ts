@@ -1,15 +1,19 @@
 import {NgModule} from '@angular/core';
 
-import {ArrayToTablePipe} from './array-to-table.pipe';
+import {ArrayToTableColumnPipe} from './array-to-table-column.pipe';
 import {ArrayToTableRowPipe} from './array-to-table-row.pipe';
 import {TransportTableToTablePipe} from './transport-table-to-table.pipe';
 
 @NgModule({
   declarations: [
-    ArrayToTablePipe,
     ArrayToTableRowPipe,
+    ArrayToTableColumnPipe,
     TransportTableToTablePipe,
   ],
-  exports: [ArrayToTablePipe, ArrayToTableRowPipe, TransportTableToTablePipe],
+  exports: [
+    ArrayToTableRowPipe,
+    ArrayToTableColumnPipe,
+    TransportTableToTablePipe,
+  ],
 })
 export class TransportProblemPipesModule {}
