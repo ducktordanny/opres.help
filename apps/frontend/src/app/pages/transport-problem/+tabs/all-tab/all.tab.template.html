@@ -1,9 +1,12 @@
 <section>
   <div class="wrapper">
     <info-card width="600px">
-      <span>{{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}</span>
+      <span
+        >{{'TRANSPORTATION_PROBLEM.TABS.ALL.TABLE_EXPLANATION' |
+        translate}}</span
+      >
       <br /><br />
-      <strong>{{'TRANSPORTATION_PROBLEM.PAGE_INFO' | translate}}</strong>
+      <strong>{{'TRANSPORTATION_PROBLEM.TABS.ALL.INFO' | translate}}</strong>
     </info-card>
   </div>
 </section>
@@ -12,7 +15,8 @@
     <article>
       <mat-form-field appearance="outline">
         <mat-label
-          >{{'TRANSPORTATION_PROBLEM.COLUMNS_SELECT' | translate}}</mat-label
+          >{{'TRANSPORTATION_PROBLEM.TABS.ALL.COLUMNS_SELECT' |
+          translate}}</mat-label
         >
         <input
           matInput
@@ -26,7 +30,8 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label
-          >{{'TRANSPORTATION_PROBLEM.ROWS_SELECT' | translate}}</mat-label
+          >{{'TRANSPORTATION_PROBLEM.TABS.ALL.ROWS_SELECT' |
+          translate}}</mat-label
         >
         <input
           matInput
@@ -40,7 +45,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label
-          >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.LABEL' |
+          >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.LABEL' |
           translate}}</mat-label
         >
         <mat-select
@@ -50,15 +55,15 @@
           formControlName="method"
         >
           <mat-option value="north-west"
-            >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_NW' |
+            >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.OPTION_NW' |
             translate}}</mat-option
           >
           <mat-option value="table-min"
-            >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_TM' |
+            >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.OPTION_TM' |
             translate}}</mat-option
           >
           <mat-option value="vogel-korda"
-            >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_VK' |
+            >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.OPTION_VK' |
             translate}}</mat-option
           >
         </mat-select>

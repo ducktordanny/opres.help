@@ -42,22 +42,29 @@
   },
   "TRANSPORTATION_PROBLEM": {
     "TABS": {
-      "ALL": "Mind",
-      "SECOND_PHASE": "Csak második fázis",
-      "EPSILON": "Csak epsilon"
+      "ALL": {
+        "NAME": "Mind",
+        "METHOD_SELECT": {
+          "LABEL": "Módszer",
+          "OPTION_NW": "Észak-Nyugati",
+          "OPTION_TM": "Tábla-Minimum",
+          "OPTION_VK": "Vogel-Korda"
+        },
+        "COLUMNS_SELECT": "Boltok (oszlopok)",
+        "ROWS_SELECT": "Raktárak (sorok)",
+        "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
+        "INFO": "Jelenleg csak az első fázis elérhető, de a második fázis is hamarosan kiadásra kerül!",
+        "FIRST_PHASE_RESULT_TITLE": "Első fázis {{steps}} lépésben",
+        "EXPLANATION_TITLE": "Magyarázat"
+      },
+      "SECOND_PHASE": {
+        "NAME": "Csak második fázis"
+      },
+      "EPSILON": {
+        "NAME": "Csak epsilon"
+      }
     },
-    "COLUMNS_SELECT": "Boltok (oszlopok)",
-    "ROWS_SELECT": "Raktárak (sorok)",
-    "METHOD_SELECT": {
-      "LABEL": "Módszer",
-      "OPTION_NW": "Észak-Nyugati",
-      "OPTION_TM": "Tábla-Minimum",
-      "OPTION_VK": "Vogel-Korda"
-    },
-    "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
-    "PAGE_INFO": "Jelenleg csak az első fázis elérhető, de a második fázis is hamarosan kiadásra kerül!",
-    "FIRST_PHASE_RESULT_TITLE": "Első fázis {{steps}} lépésben",
-    "EXPLANATION_TITLE": "Magyarázat"
+    "INFO": "Fejlesztés alatt! Hamarosan elérhetővé válik."
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Tábla méret (n*n)",

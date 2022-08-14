@@ -1,7 +1,7 @@
 <mat-divider></mat-divider>
 <h1 class="title">
-  {{ 'TRANSPORTATION_PROBLEM.FIRST_PHASE_RESULT_TITLE' | translate: {steps:
-  firstPhaseResult?.steps?.length} }}
+  {{ 'TRANSPORTATION_PROBLEM.TABS.ALL.FIRST_PHASE_RESULT_TITLE' | translate:
+  {steps: firstPhaseResult?.steps?.length} }}
 </h1>
 <mat-tab-group
   mat-stretch-tabs
@@ -15,7 +15,7 @@
     <div class="content-wrapper">
       <mat-card *ngIf="step?.explanation as explanation">
         <mat-card-title
-          >{{'TRANSPORTATION_PROBLEM.EXPLANATION_TITLE' |
+          >{{'TRANSPORTATION_PROBLEM.TABS.ALL.EXPLANATION_TITLE' |
           translate}}</mat-card-title
         >
         <mat-card-content>{{explanation}} </mat-card-content>
