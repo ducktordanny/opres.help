@@ -1,5 +1,118 @@
-<div class="wrapper">
-  <info-card width="600px" type="warning">
-    {{'TRANSPORTATION_PROBLEM.INFO' | translate}}
-  </info-card>
-</div>
+<mat-stepper>
+  <mat-step>
+    <form [formGroup]="firstStepFormGroup" (ngSubmit)="onCalculate($event)">
+      <ng-template matStepLabel>Costs</ng-template>
+      <section>
+        <article>
+          <mat-form-field appearance="outline">
+            <mat-label
+              >{{'TRANSPORTATION_PROBLEM.COLUMNS_SELECT' |
+              translate}}</mat-label
+            >
+            <input
+              matInput
+              type="number"
+              min="3"
+              max="8"
+              formControlName="shops"
+              data-test-id="number-of-shops-input"
+              [defaultValue]="4"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label
+              >{{'TRANSPORTATION_PROBLEM.ROWS_SELECT' | translate}}</mat-label
+            >
+            <input
+              matInput
+              type="number"
+              min="3"
+              max="8"
+              formControlName="storages"
+              data-test-id="number-of-storages-input"
+              [defaultValue]="4"
+            />
+          </mat-form-field>
+        </article>
+        <opres-input-table
+          key="costs"
+          [rows]="firstStepFormGroup.get('storages')?.value"
+          [columns]="firstStepFormGroup.get('shops')?.value"
+          [tableSource]="costs$ | async"
+          (tableChange)="onCostsChange($event)"
+        ></opres-input-table>
+      </section>
+      <section>
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="onCostsClear()"
+        >
+          Clear
+        </button>
+        <button mat-flat-button color="primary" type="button" matStepperNext>
+          Next
+        </button>
+      </section>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Transportations</ng-template>
+    <section>
+      <opres-input-table
+        key="transportations"
+        [rows]="firstStepFormGroup.get('storages')?.value"
+        [columns]="firstStepFormGroup.get('shops')?.value"
+        [tableSource]="transportations$ | async"
+        (tableChange)="onTransportationsChange($event)"
+      ></opres-input-table>
+    </section>
+    <section>
+      <button mat-flat-button color="primary" type="button" matStepperPrevious>
+        Previous
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="onTransportationsClear()"
+      >
+        Clear
+      </button>
+      <button mat-flat-button color="primary" type="button" matStepperNext>
+        Next
+      </button>
+    </section>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Review</ng-template>
+    <section>
+      <div class="wrapper">
+        <info-card type="warning"
+          >Make sure the table below is the one that you want to use.</info-card
+        >
+      </div>
+    </section>
+    <section>
+      <opres-table
+        [tableSource]="(transportations$ | async) || []"
+        [badgeSource]="(costs$ | async) || []"
+        [showZeros]="false"
+      ></opres-table>
+    </section>
+    <section>
+      <button mat-flat-button color="primary" type="button" matStepperPrevious>
+        Previous
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="onCalculate($event)"
+      >
+        Calculate
+      </button>
+    </section>
+  </mat-step>
+</mat-stepper>

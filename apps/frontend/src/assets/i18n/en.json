@@ -50,8 +50,6 @@
           "OPTION_TM": "Table-Minimum",
           "OPTION_VK": "Vogel-Korda"
         },
-        "COLUMNS_SELECT": "Shops (columns)",
-        "ROWS_SELECT": "Storages (rows)",
         "TABLE_EXPLANATION": "The table in the top left corner represents the costs, next to it on the right it's the stocks of storages and under them can be found the demands of the shops.",
         "INFO": "Currently only the first-phase is available, but the second-phase will be released soon as well!",
         "FIRST_PHASE_RESULT_TITLE": "First phase in {{steps}} steps",
@@ -64,6 +62,8 @@
         "NAME": "Epsilon only"
       }
     },
+    "COLUMNS_SELECT": "Shops (columns)",
+    "ROWS_SELECT": "Storages (rows)",
     "INFO": "Under construction! It will be available soon."
   },
   "ASSIGNMENT_PROBLEM": {

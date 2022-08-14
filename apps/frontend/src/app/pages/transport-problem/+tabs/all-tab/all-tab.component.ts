@@ -34,16 +34,11 @@ export class AllTabComponent {
     private transportProblemService: TransportProblemService,
     private loadingHandler: LoadingHandlerService,
   ) {
-    const inputValidators = [
-      Validators.required,
-      Validators.min(3),
-      Validators.max(8),
-    ];
     this.formGroup = new FormGroup({
       /** A shop is the equivalent of a column. */
-      shops: new FormControl(4, inputValidators),
+      shops: new FormControl(4, transportProblemService.tableSizeValidators),
       /** A storage is the equivalent of a row. */
-      storages: new FormControl(4, inputValidators),
+      storages: new FormControl(4, transportProblemService.tableSizeValidators),
       /** Three method can be chosen these methods are limited by the TPMethods type. */
       method: new FormControl('north-west', Validators.required),
     });

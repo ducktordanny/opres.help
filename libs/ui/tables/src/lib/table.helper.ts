@@ -1,6 +1,6 @@
 import {RowDefs, Table} from '@opres/shared/types';
 
-/** Returns a Table with null values what can be used in the
+/** Returns a Table with null values that can be used in the
  * dataSource of angular material table. This function can
  * be used to create dynamically sized tables */
 export function tableSourceFrom(rows: number, rowDefinitions: RowDefs): Table {
