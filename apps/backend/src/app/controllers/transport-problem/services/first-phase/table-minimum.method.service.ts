@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotAcceptableException} from '@nestjs/common';
 
 import {Table} from '@opres/shared/types';
 import {
@@ -9,9 +9,10 @@ import {
   TPData,
   TransportTable,
 } from '@opres/shared/types';
+import {cloneDeep} from 'lodash';
 
 import {createResultTableFrom} from '../../utils/result-table.util';
-import {transport} from '../../utils/transport.util';
+import {canTransport, transport} from '../../utils/transport.util';
 
 interface SelectedCost {
   demandIndex: number;
@@ -24,38 +25,40 @@ export class TableMinimumMethodService {
     transportProblemData: TPData,
     mode: CalculationMode,
   ): Array<FirstPhaseStep> {
-    const {costs} = transportProblemData;
-    const stocks = [...transportProblemData.storageStocks];
-    const demands = [...transportProblemData.shopDemands];
+    const {costs, shopDemands, storageStocks} = cloneDeep(transportProblemData);
 
     const process: Array<FirstPhaseStep> = [];
     const resultTable: TransportTable = createResultTableFrom(costs);
 
-    while (this.hasAvailableProducts(demands, stocks)) {
+    let iterationCounter = 0;
+    while (canTransport(shopDemands, storageStocks)) {
       const {demandIndex, stockIndex} = this.getCurrentMinimumCost(
         costs,
-        demands,
-        stocks,
+        shopDemands,
+        storageStocks,
       );
-      transport(resultTable, demands, stocks, demandIndex, stockIndex);
+      transport(
+        resultTable,
+        shopDemands,
+        storageStocks,
+        demandIndex,
+        stockIndex,
+      );
 
       process.push({
-        transportation: JSON.parse(
-          JSON.stringify(resultTable),
-        ) as TransportTable,
-        demands: [...demands],
-        stocks: [...stocks],
+        transportation: cloneDeep(resultTable) as TransportTable,
+        demands: [...shopDemands],
+        stocks: [...storageStocks],
       });
+
+      iterationCounter++;
+      if (iterationCounter > 30)
+        throw new NotAcceptableException(
+          'Too many iterations during calculation. No result.',
+        );
     }
 
     return process;
-  }
-
-  private hasAvailableProducts(demands: Demands, stocks: Stocks): boolean {
-    return (
-      demands.some((unit) => unit !== null && unit > 0) &&
-      stocks.some((unit) => unit !== null && unit > 0)
-    );
   }
 
   /* Here it's important to get the actual demands and stocks in order to get a valid response. */
@@ -69,11 +72,11 @@ export class TableMinimumMethodService {
     let stockIndex: number | null = null;
 
     for (const [rowIndex, rows] of costs.entries()) {
-      if ([0, null].includes(stocks[rowIndex])) continue;
+      if (!stocks[rowIndex]) continue;
       const rowArray = Object.values(rows);
 
       for (const [columnIndex, cost] of rowArray.entries()) {
-        if ([0, null].includes(demands[columnIndex]) || !cost) continue;
+        if (!demands[columnIndex] || !cost) continue;
         if (minCost === null || cost < minCost) {
           minCost = cost;
           demandIndex = columnIndex;

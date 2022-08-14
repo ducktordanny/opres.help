@@ -10,10 +10,11 @@ import {
   TPMethods,
   TransportTable,
 } from '@opres/shared/types';
-import {lastOf} from '@opres/shared/utils';
 import {ErrorHandlerService} from '@frontend/services/error-handler.service';
-import {Observable} from 'rxjs';
+import {last} from 'lodash';
+import {Observable, Subject} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
+import {Cacheable} from 'ts-cacheable';
 
 export interface FirstPhaseResult {
   steps: Array<FirstPhaseStep>;
@@ -30,6 +31,8 @@ export interface FullCalculationResult {
   secondPhase: SecondPhaseResult;
 }
 
+export const transportProblemCacheBuster$ = new Subject<void>();
+
 @Injectable()
 export class TransportProblemService {
   constructor(
@@ -45,7 +48,7 @@ export class TransportProblemService {
     return this.getFirstPhaseResult(transportProblemData, method, mode).pipe(
       switchMap((firstPhase) => {
         return this.getSecondPhaseResult(
-          lastOf(firstPhase.steps)?.transportation || [],
+          last(firstPhase.steps)?.transportation || [],
           mode,
         ).pipe(
           map(
@@ -57,6 +60,7 @@ export class TransportProblemService {
     );
   }
 
+  @Cacheable({cacheBusterObserver: transportProblemCacheBuster$})
   public getSecondPhaseResult(
     transportTable: TransportTable,
     mode: CalculationMode = 'explanations',
@@ -70,13 +74,14 @@ export class TransportProblemService {
         catchError(this.errorHandler.showError),
         switchMap((steps) => {
           return this.getEpsilonResult(
-            lastOf(steps)?.transportation || [],
+            last(steps)?.transportation || [],
             mode === 'explanations',
           ).pipe(map((epsilon) => ({steps, epsilon} as FirstPhaseResult)));
         }),
       );
   }
 
+  @Cacheable({cacheBusterObserver: transportProblemCacheBuster$})
   public getEpsilonResult(
     transportTable: TransportTable,
     explanation: boolean = true,
@@ -88,6 +93,7 @@ export class TransportProblemService {
       .pipe(catchError(this.errorHandler.showError));
   }
 
+  @Cacheable({cacheBusterObserver: transportProblemCacheBuster$})
   private getFirstPhaseResult(
     transportProblemData: TPData,
     method: TPMethods = 'north-west',
@@ -102,7 +108,7 @@ export class TransportProblemService {
         catchError(this.errorHandler.showError),
         switchMap((steps) => {
           return this.getEpsilonResult(
-            lastOf(steps)?.transportation || [],
+            last(steps)?.transportation || [],
             mode === 'explanations',
           ).pipe(map((epsilon) => ({steps, epsilon} as FirstPhaseResult)));
         }),

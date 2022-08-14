@@ -1,14 +1,14 @@
 {
   "projectType": "library",
-  "root": "libs/generatable-tables",
-  "sourceRoot": "libs/generatable-tables/src",
+  "root": "libs/ui/tables",
+  "sourceRoot": "libs/ui/tables/src",
   "prefix": "opres",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/generatable-tables"],
+      "outputs": ["coverage/libs/ui/tables"],
       "options": {
-        "jestConfig": "libs/generatable-tables/jest.config.js",
+        "jestConfig": "libs/ui/tables/jest.config.js",
         "passWithNoTests": true
       }
     },
@@ -16,8 +16,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/generatable-tables/src/**/*.ts",
-          "libs/generatable-tables/src/**/*.html"
+          "libs/ui/tables/src/**/*.ts",
+          "libs/ui/tables/src/**/*.html"
         ]
       }
     }

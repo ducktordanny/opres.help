@@ -1,17 +1,10 @@
 <section>
   <div class="wrapper">
-    <info-card
-      width="600px"
-      type="warning"
-      title="{{'TRANSPORTATION_PROBLEM.PAGE_INFO.TITLE' | translate}}"
-    >
-      {{'TRANSPORTATION_PROBLEM.PAGE_INFO.CONTENT' | translate}}
+    <info-card width="600px">
+      <span>{{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}</span>
+      <br /><br />
+      <strong>{{'TRANSPORTATION_PROBLEM.PAGE_INFO' | translate}}</strong>
     </info-card>
-  </div>
-  <div class="wrapper">
-    <info-card width="600px"
-      >{{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}</info-card
-    >
   </div>
 </section>
 <form [formGroup]="formGroup" (ngSubmit)="onCalculate($event)">
@@ -64,7 +57,7 @@
             >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_TM' |
             translate}}</mat-option
           >
-          <mat-option value="vogel-korda" disabled
+          <mat-option value="vogel-korda"
             >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_VK' |
             translate}}</mat-option
           >

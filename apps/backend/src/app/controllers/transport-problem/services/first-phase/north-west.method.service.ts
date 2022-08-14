@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotAcceptableException} from '@nestjs/common';
 
 import {
   CalculationMode,
@@ -6,6 +6,7 @@ import {
   TPData,
   TransportTable,
 } from '@opres/shared/types';
+import {cloneDeep} from 'lodash';
 
 import {createResultTableFrom} from '../../utils/result-table.util';
 import {transport} from '../../utils/transport.util';
@@ -16,20 +17,22 @@ export class NorthWestMethodService {
     transportProblemData: TPData,
     mode: CalculationMode,
   ): Array<FirstPhaseStep> {
-    const {costs} = transportProblemData;
-    const stocks = [...transportProblemData.storageStocks];
-    const demands = [...transportProblemData.shopDemands];
+    const {costs, shopDemands, storageStocks} = cloneDeep(transportProblemData);
 
     const process: Array<FirstPhaseStep> = [];
     const resultTable: TransportTable = createResultTableFrom(costs);
     let stockIndex = 0,
       demandIndex = 0;
 
-    while (stockIndex < stocks.length && demandIndex < demands.length) {
+    let iterationCounter = 0;
+    while (
+      stockIndex < storageStocks.length &&
+      demandIndex < shopDemands.length
+    ) {
       const [currentDemand, currentStock] = transport(
         resultTable,
-        demands,
-        stocks,
+        shopDemands,
+        storageStocks,
         demandIndex,
         stockIndex,
       );
@@ -38,12 +41,16 @@ export class NorthWestMethodService {
       else stockIndex++;
 
       process.push({
-        transportation: JSON.parse(
-          JSON.stringify(resultTable),
-        ) as TransportTable,
-        demands: [...demands],
-        stocks: [...stocks],
+        transportation: cloneDeep(resultTable) as TransportTable,
+        demands: [...shopDemands],
+        stocks: [...storageStocks],
       });
+
+      iterationCounter++;
+      if (iterationCounter > 30)
+        throw new NotAcceptableException(
+          'Too many iterations during calculation. No result.',
+        );
     }
 
     return process;

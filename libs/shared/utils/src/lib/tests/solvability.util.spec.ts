@@ -1,10 +1,10 @@
-import {checkSolvability} from '../solvability.util';
-
 import {
   invalidTpDataMock,
   tpDataFirstMock,
   tpDataSecondMock,
-} from './transport-problem.mock';
+} from '@opres/shared/data/mocks';
+
+import {checkSolvability} from '../solvability.util';
 
 describe('SolvabilityUtil', () => {
   it('should be solvable 1', () => {

@@ -2,15 +2,19 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TestBed} from '@angular/core/testing';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
+import {
+  tableMinimumFirstResultMock,
+  tpDataFirstMock,
+} from '@opres/shared/data/mocks';
 import {Epsilon} from '@opres/shared/types';
-import {lastOf} from '@opres/shared/utils';
+import {last} from 'lodash';
 import {of, throwError} from 'rxjs';
 
 import {ErrorHandlerService} from '../../../services/error-handler.service';
-import {tableMinimumFirstResultMock} from '../mocks/table-minimum-result.mock';
-import {TransportProblemService} from '../transport-problem.service';
-
-import {tpDataFirstMock} from './transport-problem.mock';
+import {
+  transportProblemCacheBuster$,
+  TransportProblemService,
+} from '../transport-problem.service';
 
 // FIXME [2022-08-20] after having working second phase implementation modify this
 describe('TransportProblemService', () => {
@@ -32,6 +36,7 @@ describe('TransportProblemService', () => {
     transportProblemService = TestBed.inject(TransportProblemService);
     http = TestBed.inject(HttpClient);
     snackbar = TestBed.inject(MatSnackBar);
+    transportProblemCacheBuster$.next();
   });
 
   it('should be created', () =>
@@ -72,7 +77,8 @@ describe('TransportProblemService', () => {
       .spyOn(http, 'post')
       .mockReturnValue(of(epsilonMock));
     transportProblemService
-      .getEpsilonResult(lastOf(tableMinimumFirstResultMock).transportation)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      .getEpsilonResult(last(tableMinimumFirstResultMock)!.transportation)
       .subscribe((value) => {
         expect(value).toEqual(epsilonMock);
       });
@@ -85,7 +91,8 @@ describe('TransportProblemService', () => {
       .mockReturnValue(throwError(() => epsilonErrorMock));
     const snackbarSpy = jest.spyOn(snackbar, 'open');
     transportProblemService
-      .getEpsilonResult(lastOf(tableMinimumFirstResultMock).transportation)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      .getEpsilonResult(last(tableMinimumFirstResultMock)!.transportation)
       .subscribe();
     done();
     expect(httpPostSpy).toHaveBeenCalledTimes(1);

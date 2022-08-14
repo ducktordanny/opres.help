@@ -36,8 +36,10 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@nrwl/angular": "13.9.5",
+    "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.5",
+    "ts-cacheable": "^1.0.6",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.5"
   },
@@ -61,6 +63,7 @@
     "@nrwl/tao": "13.8.3",
     "@nrwl/workspace": "13.8.3",
     "@types/jest": "27.0.2",
+    "@types/lodash": "^4.14.182",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "~5.10.0",
     "@typescript-eslint/parser": "^5.14.0",
