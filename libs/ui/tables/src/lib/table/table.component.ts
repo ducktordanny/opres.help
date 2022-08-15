@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 import {Table} from '@opres/shared/types';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'opres-table[tableSource]',
@@ -20,7 +21,17 @@ import {Table} from '@opres/shared/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
-  @Input() tableSource!: Table;
-  @Input() badgeSource?: Table;
-  @Input() showZeros = true;
+  public tableSource$ = new Observable<Table>();
+  public badgeSource$ = new Observable<Table>();
+  @Input() public showZeros = true;
+
+  @Input() public set tableSource(value: Observable<Table> | Table) {
+    if (Array.isArray(value)) this.tableSource$ = of(value);
+    else this.tableSource$ = value;
+  }
+
+  @Input() public set badgeSource(value: Observable<Table> | Table) {
+    if (Array.isArray(value)) this.badgeSource$ = of(value);
+    else this.badgeSource$ = value;
+  }
 }

@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 
-import {Table} from '@opres/shared/types';
+import {Epsilon, Table, TransportTable} from '@opres/shared/types';
 import {InputTableService} from '@opres/ui/tables';
-import {BehaviorSubject} from 'rxjs';
+import {mapValues} from 'lodash';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 import {TransportProblemService} from '../../transport-problem.service';
 
@@ -27,6 +28,7 @@ export class EpsilonTabComponent {
     {'0': 10, '1': 13, '2': null, '3': 5},
     {'0': null, '1': 19, '2': null, '3': null},
   ]);
+  public result$ = new Observable<Epsilon>();
 
   constructor(
     private transportProblemService: TransportProblemService,
@@ -55,6 +57,18 @@ export class EpsilonTabComponent {
   }
 
   public onCalculate($event: Event): void {
-    // do the magic
+    const transportTable = this.getTransportTableFromCurrentInput();
+    this.result$ =
+      this.transportProblemService.getEpsilonResult(transportTable);
+  }
+
+  private getTransportTableFromCurrentInput(): TransportTable {
+    const transportations = this.transportations$.getValue();
+    return this.costs$.getValue().map((row, index) => {
+      return mapValues(row, (cost, key) => ({
+        cost: cost as number,
+        transported: transportations[index][key] as number,
+      }));
+    });
   }
 }

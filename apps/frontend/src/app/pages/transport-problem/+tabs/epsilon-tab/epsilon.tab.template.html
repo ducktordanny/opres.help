@@ -96,8 +96,8 @@
     </section>
     <section>
       <opres-table
-        [tableSource]="(transportations$ | async) || []"
-        [badgeSource]="(costs$ | async) || []"
+        [tableSource]="transportations$"
+        [badgeSource]="costs$"
         [showZeros]="false"
       ></opres-table>
     </section>
@@ -116,3 +116,4 @@
     </section>
   </mat-step>
 </mat-stepper>
+<pre>{{result$ | async | json}}</pre>
