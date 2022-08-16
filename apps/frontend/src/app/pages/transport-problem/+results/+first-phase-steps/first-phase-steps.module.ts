@@ -8,6 +8,7 @@ import {TableModule} from '@opres/ui/tables';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {TransportProblemPipesModule} from '../../pipes/transport-problem-pipes.module';
+import {EpsilonResultModule} from '../epsilon-result/epsilon-result.module';
 
 import {FirstPhaseStepsComponent} from './first-phase-steps.component';
 
@@ -15,6 +16,7 @@ import {FirstPhaseStepsComponent} from './first-phase-steps.component';
   declarations: [FirstPhaseStepsComponent],
   imports: [
     CommonModule,
+    EpsilonResultModule,
     MatCardModule,
     MatDividerModule,
     MatTabsModule,
