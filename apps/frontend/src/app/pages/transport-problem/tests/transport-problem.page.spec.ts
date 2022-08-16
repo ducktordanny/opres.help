@@ -6,9 +6,12 @@ import {Tab, TransportProblemPageComponent} from '../transport-problem.page';
 
 describe('TransportProblemPageComponent', () => {
   const tabsMock: Array<Tab> = [
-    {label: 'TRANSPORTATION_PROBLEM.TABS.ALL', link: 'all'},
-    {label: 'TRANSPORTATION_PROBLEM.TABS.SECOND_PHASE', link: 'second-phase'},
-    {label: 'TRANSPORTATION_PROBLEM.TABS.EPSILON', link: 'epsilon'},
+    {label: 'TRANSPORTATION_PROBLEM.TABS.ALL.NAME', link: 'all'},
+    {
+      label: 'TRANSPORTATION_PROBLEM.TABS.SECOND_PHASE.NAME',
+      link: 'second-phase',
+    },
+    {label: 'TRANSPORTATION_PROBLEM.TABS.EPSILON.NAME', link: 'epsilon'},
   ];
   let fixture: ComponentFixture<TransportProblemPageComponent>;
   let component: TransportProblemPageComponent;
