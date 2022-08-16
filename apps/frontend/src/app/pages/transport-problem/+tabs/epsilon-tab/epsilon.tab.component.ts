@@ -3,7 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 
 import {Epsilon, Table, TransportTable} from '@opres/shared/types';
 import {InputTableService} from '@opres/ui/tables';
-import {mapValues} from 'lodash';
+import {forEach, mapValues} from 'lodash';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {TransportProblemService} from '../../transport-problem.service';
@@ -16,6 +16,7 @@ import {TransportProblemService} from '../../transport-problem.service';
 })
 export class EpsilonTabComponent {
   public firstStepFormGroup: FormGroup;
+  public secondStepFormGroup: FormGroup;
   public costs$ = new BehaviorSubject<Table>([
     {'0': 8, '1': 7, '2': 3, '3': 2},
     {'0': 1, '1': 4, '2': 2, '3': 5},
@@ -38,25 +39,30 @@ export class EpsilonTabComponent {
       shops: new FormControl(4, transportProblemService.tableSizeValidators),
       storages: new FormControl(4, transportProblemService.tableSizeValidators),
     });
+    this.secondStepFormGroup = new FormGroup({});
   }
 
   public onCostsChange(table: Table): void {
     this.costs$.next(table);
+    this.validateCostsTable();
   }
 
   public onTransportationsChange(table: Table): void {
     this.transportations$.next(table);
+    this.validateTransportationsTable();
   }
 
   public onCostsClear(): void {
     this.inputTableService.clear('costs');
+    this.validateCostsTable();
   }
 
   public onTransportationsClear(): void {
     this.inputTableService.clear('transportations');
+    this.validateTransportationsTable();
   }
 
-  public onCalculate($event: Event): void {
+  public onCalculate(): void {
     const transportTable = this.getTransportTableFromCurrentInput();
     this.result$ =
       this.transportProblemService.getEpsilonResult(transportTable);
@@ -70,5 +76,32 @@ export class EpsilonTabComponent {
         transported: transportations[index][key] as number,
       }));
     });
+  }
+
+  private validateCostsTable(): void {
+    const costs = this.costs$.getValue();
+    let hasNullCost = false;
+
+    for (const row of costs)
+      forEach(row, (cost) => {
+        if (cost === null || cost === undefined) hasNullCost = true;
+      });
+
+    if (hasNullCost) this.firstStepFormGroup.setErrors({nullCost: true});
+    else this.firstStepFormGroup.setErrors(null);
+  }
+
+  private validateTransportationsTable(): void {
+    const transportations = this.transportations$.getValue();
+    let hasTransported = false;
+
+    for (const row of transportations)
+      forEach(row, (transport) => {
+        if (transport) hasTransported = true;
+      });
+
+    if (!hasTransported)
+      this.secondStepFormGroup.setErrors({noTransport: true});
+    else this.secondStepFormGroup.setErrors(null);
   }
 }

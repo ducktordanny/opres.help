@@ -76,6 +76,7 @@ export class InputTableComponent {
         ),
         tap((newTableSource) => {
           this.tableSource$.next(newTableSource);
+          this.tableChange.emit(newTableSource);
           this.hasValues$.next(false);
         }),
         untilDestroyed(this),

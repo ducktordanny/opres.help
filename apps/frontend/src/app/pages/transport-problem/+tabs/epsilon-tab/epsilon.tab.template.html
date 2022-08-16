@@ -1,7 +1,7 @@
-<mat-stepper>
-  <mat-step>
-    <form [formGroup]="firstStepFormGroup" (ngSubmit)="onCalculate($event)">
-      <ng-template matStepLabel>Costs</ng-template>
+<mat-stepper linear>
+  <mat-step [stepControl]="firstStepFormGroup">
+    <ng-template matStepLabel>Costs</ng-template>
+    <form [formGroup]="firstStepFormGroup">
       <section>
         <article>
           <mat-form-field appearance="outline">
@@ -42,6 +42,9 @@
           (tableChange)="onCostsChange($event)"
         ></opres-input-table>
       </section>
+      <section *ngIf="firstStepFormGroup.hasError('nullCost')">
+        <mat-error>All cost cells must be filled.</mat-error>
+      </section>
       <section>
         <button
           mat-flat-button
@@ -57,39 +60,49 @@
       </section>
     </form>
   </mat-step>
-  <mat-step>
+  <mat-step [stepControl]="secondStepFormGroup">
     <ng-template matStepLabel>Transportations</ng-template>
-    <section>
-      <opres-input-table
-        key="transportations"
-        [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
-        [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
-        [tableSource]="transportations$ | async"
-        (tableChange)="onTransportationsChange($event)"
-      ></opres-input-table>
-    </section>
-    <section>
-      <button mat-flat-button color="primary" type="button" matStepperPrevious>
-        Previous
-      </button>
-      <button
-        mat-flat-button
-        color="primary"
-        type="button"
-        (click)="onTransportationsClear()"
-      >
-        Clear
-      </button>
-      <button mat-flat-button color="primary" type="button" matStepperNext>
-        Next
-      </button>
-    </section>
+    <form [formGroup]="secondStepFormGroup">
+      <section>
+        <opres-input-table
+          key="transportations"
+          [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
+          [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
+          [tableSource]="transportations$ | async"
+          (tableChange)="onTransportationsChange($event)"
+        ></opres-input-table>
+      </section>
+      <section *ngIf="secondStepFormGroup.hasError('noTransport')">
+        <mat-error>There must be at least one transportation.</mat-error>
+      </section>
+      <section>
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          matStepperPrevious
+        >
+          Previous
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="onTransportationsClear()"
+        >
+          Clear
+        </button>
+        <button mat-flat-button color="primary" type="button" matStepperNext>
+          Next
+        </button>
+      </section>
+    </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Review</ng-template>
     <section>
       <div class="wrapper">
-        <info-card type="warning"
+        <info-card type="info"
           >Make sure the table below is the one that you want to use.</info-card
         >
       </div>
@@ -109,7 +122,7 @@
         mat-flat-button
         color="primary"
         type="button"
-        (click)="onCalculate($event)"
+        (click)="onCalculate()"
       >
         Calculate
       </button>
