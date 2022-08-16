@@ -68,8 +68,8 @@
       </mat-form-field>
     </article>
     <transport-table
-      [shopsCount]="formGroup.get('shops')?.value"
-      [storagesCount]="formGroup.get('storages')?.value"
+      [shopsCount]="formGroup.get('shops')?.value | sizeVerify"
+      [storagesCount]="formGroup.get('storages')?.value | sizeVerify"
       (costChange)="onCostChange($event)"
       (demandChange)="onDemandChange($event)"
       (stockChange)="onStockChange($event)"

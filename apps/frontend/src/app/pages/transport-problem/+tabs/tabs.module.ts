@@ -15,6 +15,7 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {FirstPhaseStepsModule} from '../+results/+first-phase-steps/first-phase-steps.module';
 import {TransportTableModule} from '../+table/transport-table.module';
+import {TransportProblemPipesModule} from '../pipes/transport-problem-pipes.module';
 
 @NgModule({
   providers: [LoadingHandlerService, ErrorHandlerService],
@@ -30,6 +31,7 @@ import {TransportTableModule} from '../+table/transport-table.module';
     ReactiveFormsModule,
     FirstPhaseStepsModule,
     TranslateModule,
+    TransportProblemPipesModule,
     TransportTableModule,
   ],
 })

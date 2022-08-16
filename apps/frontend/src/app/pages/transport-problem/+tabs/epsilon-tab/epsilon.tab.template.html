@@ -36,8 +36,8 @@
         </article>
         <opres-input-table
           key="costs"
-          [rows]="firstStepFormGroup.get('storages')?.value"
-          [columns]="firstStepFormGroup.get('shops')?.value"
+          [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
+          [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
           [tableSource]="costs$ | async"
           (tableChange)="onCostsChange($event)"
         ></opres-input-table>
@@ -62,8 +62,8 @@
     <section>
       <opres-input-table
         key="transportations"
-        [rows]="firstStepFormGroup.get('storages')?.value"
-        [columns]="firstStepFormGroup.get('shops')?.value"
+        [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
+        [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
         [tableSource]="transportations$ | async"
         (tableChange)="onTransportationsChange($event)"
       ></opres-input-table>
