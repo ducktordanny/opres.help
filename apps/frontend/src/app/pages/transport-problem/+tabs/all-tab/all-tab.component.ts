@@ -24,8 +24,8 @@ import {EMPTY_TP_DATA} from '../tabs.constant';
 })
 export class AllTabComponent {
   public formGroup: FormGroup;
-  public results$: Observable<FullCalculationResult> | null = null;
   public isLoading$ = this.loadingHandler.isLoading;
+  public results$: Observable<FullCalculationResult> | null = null;
 
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
@@ -69,8 +69,7 @@ export class AllTabComponent {
     this.formGroup.setErrors(null);
   }
 
-  public onCalculate(event: Event): void {
-    event.preventDefault();
+  public onCalculate(): void {
     this.loadingHandler.start();
     const tpData = this.tpData$.getValue();
 

@@ -3,10 +3,15 @@ import {FormControl, FormGroup} from '@angular/forms';
 
 import {Epsilon, Table, TransportTable} from '@opres/shared/types';
 import {InputTableService} from '@opres/ui/tables';
+import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
 import {forEach, mapValues} from 'lodash';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {finalize} from 'rxjs/operators';
 
-import {TransportProblemService} from '../../transport-problem.service';
+import {
+  transportProblemCacheBuster$,
+  TransportProblemService,
+} from '../../transport-problem.service';
 
 @Component({
   selector: 'epsilon-tab',
@@ -29,11 +34,13 @@ export class EpsilonTabComponent {
     {'0': 10, '1': 13, '2': null, '3': 5},
     {'0': null, '1': 19, '2': null, '3': null},
   ]);
-  public result$ = new Observable<Epsilon>();
+  public isLoading$ = this.loadingHandler.isLoading;
+  public result$: Observable<Epsilon> | null = null;
 
   constructor(
     private transportProblemService: TransportProblemService,
     private inputTableService: InputTableService,
+    private loadingHandler: LoadingHandlerService,
   ) {
     this.firstStepFormGroup = new FormGroup({
       shops: new FormControl(4, transportProblemService.tableSizeValidators),
@@ -44,28 +51,34 @@ export class EpsilonTabComponent {
 
   public onCostsChange(table: Table): void {
     this.costs$.next(table);
+    transportProblemCacheBuster$.next();
     this.validateCostsTable();
   }
 
   public onTransportationsChange(table: Table): void {
     this.transportations$.next(table);
+    transportProblemCacheBuster$.next();
     this.validateTransportationsTable();
   }
 
   public onCostsClear(): void {
     this.inputTableService.clear('costs');
+    transportProblemCacheBuster$.next();
     this.validateCostsTable();
   }
 
   public onTransportationsClear(): void {
     this.inputTableService.clear('transportations');
+    transportProblemCacheBuster$.next();
     this.validateTransportationsTable();
   }
 
   public onCalculate(): void {
+    this.loadingHandler.start();
     const transportTable = this.getTransportTableFromCurrentInput();
-    this.result$ =
-      this.transportProblemService.getEpsilonResult(transportTable);
+    this.result$ = this.transportProblemService
+      .getEpsilonResult(transportTable)
+      .pipe(finalize(() => this.loadingHandler.stop()));
   }
 
   private getTransportTableFromCurrentInput(): TransportTable {

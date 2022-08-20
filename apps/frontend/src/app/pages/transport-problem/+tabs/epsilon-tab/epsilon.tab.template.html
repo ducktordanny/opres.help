@@ -118,14 +118,9 @@
       <button mat-flat-button color="primary" type="button" matStepperPrevious>
         Previous
       </button>
-      <button
-        mat-flat-button
-        color="primary"
-        type="button"
-        (click)="onCalculate()"
+      <loading-button [loading]="isLoading$" (click)="onCalculate()"
+        >Calculate</loading-button
       >
-        Calculate
-      </button>
     </section>
   </mat-step>
 </mat-stepper>

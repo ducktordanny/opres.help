@@ -9,8 +9,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
+import {LoadingButtonModule} from '@frontend/components/loading-button/loading-button.module';
 import {ErrorHandlerService} from '@frontend/services/error-handler.service';
-import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {FirstPhaseStepsModule} from '../+results/+first-phase-steps/first-phase-steps.module';
@@ -18,10 +18,11 @@ import {TransportTableModule} from '../+table/transport-table.module';
 import {TransportProblemPipesModule} from '../pipes/transport-problem-pipes.module';
 
 @NgModule({
-  providers: [LoadingHandlerService, ErrorHandlerService],
+  providers: [ErrorHandlerService],
   exports: [
     CommonModule,
     InfoCardModule,
+    LoadingButtonModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,

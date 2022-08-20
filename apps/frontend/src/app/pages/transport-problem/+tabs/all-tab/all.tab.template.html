@@ -10,7 +10,7 @@
     </info-card>
   </div>
 </section>
-<form [formGroup]="formGroup" (ngSubmit)="onCalculate($event)">
+<form [formGroup]="formGroup">
   <section>
     <article>
       <mat-form-field appearance="outline">
@@ -82,24 +82,12 @@
     >
   </section>
   <section>
-    <button
-      mat-flat-button
-      color="primary"
-      type="submit"
-      class="loading-button"
-      data-test-id="calculate-button"
-      *ngIf="{isLoading: isLoading$ | async} as sub"
-      [disabled]="formGroup.invalid || sub.isLoading"
+    <loading-button
+      [loading]="isLoading$"
+      [invalid]="formGroup.invalid"
+      (click)="onCalculate()"
+      >{{'CALCULATE_BUTTON' | translate}}</loading-button
     >
-      <mat-spinner
-        *ngIf="sub.isLoading"
-        color="accent"
-        strokeWidth="4"
-        diameter="18"
-        style="padding-right: 4px"
-      ></mat-spinner>
-      {{'CALCULATE_BUTTON' | translate}}
-    </button>
   </section>
 </form>
 <div class="wrapper" *ngIf="results$ | async as results">
