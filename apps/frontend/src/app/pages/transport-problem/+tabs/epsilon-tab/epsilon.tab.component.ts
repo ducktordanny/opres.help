@@ -64,13 +64,11 @@ export class EpsilonTabComponent {
   public onCostsClear(): void {
     this.inputTableService.clear('costs');
     transportProblemCacheBuster$.next();
-    this.validateCostsTable();
   }
 
   public onTransportationsClear(): void {
     this.inputTableService.clear('transportations');
     transportProblemCacheBuster$.next();
-    this.validateTransportationsTable();
   }
 
   public onCalculate(): void {
