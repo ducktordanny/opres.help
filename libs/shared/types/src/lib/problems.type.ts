@@ -6,9 +6,14 @@
  * */
 export type CalculationMode = 'steps' | 'explanations' | 'result';
 
+export interface Explanation {
+  hu: string;
+  en: string;
+}
+
 export interface Epsilon {
   /** The result number of the calculation what's called epsilon. */
   value: number;
   /** This should contain the explanation of the calculation if needed. */
-  explanation?: string;
+  explanation?: Explanation;
 }

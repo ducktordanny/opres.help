@@ -13,6 +13,7 @@ import {
 import {EpsilonGuard} from './guards/epsilon.guard';
 import {FirstPhaseGuard} from './guards/first-phase.guard';
 import {SecondPhaseGuard} from './guards/second-phase.guard';
+import {EpsilonExplanationPipe} from './pipes/epsilon-explanation.pipe';
 import {NorthWestMethodService} from './services/first-phase/north-west.method.service';
 import {TableMinimumMethodService} from './services/first-phase/table-minimum.method.service';
 import {VogelKordaMethodService} from './services/first-phase/vogel-korda.method.service';
@@ -56,7 +57,7 @@ export class TransportProblemController {
   @UseGuards(EpsilonGuard)
   @Post('epsilon')
   public calculateEpsilonsValue(
-    @Query('explanation') explanation = true,
+    @Query('explanation', new EpsilonExplanationPipe()) explanation,
     @Body() transportTable: TransportTable,
   ): Epsilon {
     return getEpsilon(transportTable, explanation);
