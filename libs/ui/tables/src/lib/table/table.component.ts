@@ -9,7 +9,7 @@ import {Observable, of} from 'rxjs';
   styles: [
     `
       td {
-        width: 50px;
+        min-width: 50px;
         text-align: center;
       }
 
