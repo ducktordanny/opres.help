@@ -93,5 +93,6 @@
 <div class="wrapper" *ngIf="results$ | async as results">
   <first-phase-steps
     [firstPhaseResult]="results.firstPhase"
+    [language]="currentLanguage$ | async"
   ></first-phase-steps>
 </div>

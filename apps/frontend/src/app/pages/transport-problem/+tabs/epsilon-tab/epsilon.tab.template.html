@@ -35,6 +35,7 @@
           </mat-form-field>
         </article>
         <opres-input-table
+          class="table-wrapper"
           key="costs"
           [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
           [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
@@ -65,6 +66,7 @@
     <form [formGroup]="secondStepFormGroup">
       <section>
         <opres-input-table
+          class="table-wrapper"
           key="transportations"
           [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
           [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
@@ -107,8 +109,9 @@
         >
       </div>
     </section>
-    <section>
+    <section class="table-wrapper">
       <opres-table
+        class="table-wrapper"
         [tableSource]="transportations$"
         [badgeSource]="costs$"
         [showZeros]="false"
@@ -124,4 +127,7 @@
     </section>
   </mat-step>
 </mat-stepper>
-<epsilon-result [epsilon]="result$ | async"></epsilon-result>
+<epsilon-result
+  [epsilon]="result$ | async"
+  [language]="currentLanguage$ | async"
+></epsilon-result>

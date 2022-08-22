@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 
 import {Epsilon, Table, TransportTable} from '@opres/shared/types';
 import {InputTableService} from '@opres/ui/tables';
+import {LanguageSwitcherService} from '@frontend/components/layout/language-switcher/language-switcher.service';
 import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
 import {forEach, mapValues} from 'lodash';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -16,7 +17,7 @@ import {
 @Component({
   selector: 'epsilon-tab',
   templateUrl: './epsilon.tab.template.html',
-  styleUrls: ['../tabs.style.scss'],
+  styleUrls: ['../tabs.style.scss', './epsilon.tab.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EpsilonTabComponent {
@@ -35,10 +36,12 @@ export class EpsilonTabComponent {
     {'0': null, '1': 19, '2': null, '3': null},
   ]);
   public isLoading$ = this.loadingHandler.isLoading;
+  public currentLanguage$ = this.languageSwitcherService.currentLanguage;
   public result$: Observable<Epsilon> | null = null;
 
   constructor(
     private transportProblemService: TransportProblemService,
+    private languageSwitcherService: LanguageSwitcherService,
     private inputTableService: InputTableService,
     private loadingHandler: LoadingHandlerService,
   ) {
