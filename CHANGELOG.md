@@ -2,6 +2,14 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2022-08-23
+
+- Update home page
+- Add explanations for epsilon calculation
+- Implement epsilon tab on transportation problem page
+- Add Vogel-Korda method to transportation problems
+- Automation of release via GitHub Actions
+
 ## [0.5.0] - 2022-08-05
 
 - Implement public API for calculations & refactor the ui to use it
