@@ -21,27 +21,44 @@
 </header>
 
 <main #descriptions>
-  <h2>{{'HOME.SUGGESTION' | translate}}</h2>
+  <h1>{{'HOME.SUGGESTION' | translate}}</h1>
 
+  <h2>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR.TITLE' | translate}}</h2>
   <div class="sections-wrapper">
     <section>
-      <h3>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR' | translate}}</h3>
+      <h3>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR.ALL' | translate}}</h3>
       <img
         class="mat-elevation-z12 sample-img-right"
-        src="../../../assets/home/transportation-page.example.png"
+        src="../../../assets/home/transport-problem/all-tab.example.png"
         alt="Transportation page example"
       />
     </section>
     <section>
-      <h3>{{'HOME.HELPERS_LIST.ASSIGNMENT_PR' | translate}}</h3>
+      <h3>{{'HOME.HELPERS_LIST.TRANSPORTATION_PR.EPSILON' | translate}}</h3>
       <img
         class="mat-elevation-z12 sample-img-left"
+        src="../../../assets/home/transport-problem/epsilon-tab.example.png"
+        alt="Transportation page example"
+      />
+    </section>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <h2>{{'HOME.HELPERS_LIST.ASSIGNMENT_PR' | translate}}</h2>
+  <div class="sections-wrapper">
+    <section>
+      <img
+        class="mat-elevation-z12 sample-img-right"
         src="../../../assets/home/assignment-page.example.png"
         alt="Assignment page example"
       />
     </section>
+  </div>
+
+  <div class="sections-wrapper">
     <section class="others-soon">
-      <h3>{{'HOME.HELPERS_LIST.OTHERS_SOON' | translate}}</h3>
+      <info-card>{{'HOME.HELPERS_LIST.OTHERS_SOON' | translate}}</info-card>
     </section>
   </div>
 
@@ -50,7 +67,7 @@
   <h2>{{'HOME.FEATURE_LIST_TITLE' | translate}}</h2>
 
   <div class="sections-wrapper">
-    <section>
+    <section class="small-feature">
       <h3>{{'HOME.FEATURE_LIST.LANGUAGES' | translate}}</h3>
       <img
         class="mat-elevation-z12 sample-img-right"
@@ -58,7 +75,7 @@
         alt="Language switcher example"
       />
     </section>
-    <section>
+    <section class="small-feature">
       <h3>{{'HOME.FEATURE_LIST.THEMES' | translate}}</h3>
       <img
         class="mat-elevation-z12 sample-img-left"

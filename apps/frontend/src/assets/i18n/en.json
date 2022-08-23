@@ -25,7 +25,11 @@
     "WIP_NOTE": "Please keep in mind that this part of the app is still in progress.",
     "SUGGESTION": "Try solving the following problems with the help of the app:",
     "HELPERS_LIST": {
-      "TRANSPORTATION_PR": "Transportation problem",
+      "TRANSPORTATION_PR": {
+        "TITLE": "Transportation problem",
+        "ALL": "Need all steps?",
+        "EPSILON": "If only the epsilon is needed"
+      },
       "ASSIGNMENT_PR": "Assignment problem",
       "OTHERS_SOON": "And more coming soon..."
     },
