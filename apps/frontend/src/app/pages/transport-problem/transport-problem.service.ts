@@ -36,7 +36,7 @@ export const transportProblemCacheBuster$ = new Subject<void>();
 
 @Injectable()
 export class TransportProblemService {
-  public tableSizeValidators = [
+  public readonly tableSizeValidators = [
     Validators.required,
     Validators.min(3),
     Validators.max(8),

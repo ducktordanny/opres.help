@@ -1,6 +1,6 @@
 import {Epsilon, TransportTable} from '@opres/shared/types';
 
-import {epsilonLanguage} from '../../../language/epsilon.language';
+import {epsilonLanguageHandler} from '../../../language/epsilon.handler';
 
 export function getEpsilon(
   transportTable: TransportTable,
@@ -27,6 +27,6 @@ export function getEpsilon(
   calculation += ` = ${epsilon}`;
   return {
     value: epsilon,
-    explanation: epsilonLanguage(calculation),
+    explanation: epsilonLanguageHandler(calculation),
   };
 }

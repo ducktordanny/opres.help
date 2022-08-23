@@ -23,7 +23,7 @@ export class LanguageSwitcherService {
       .subscribe();
   }
 
-  public changeLanguage(languageId: 'hu' | 'en'): void {
+  public changeLanguage(languageId: Language): void {
     this.currentLanguageSubject.next(languageId);
     localStorage.setItem('user.selectedLanguage', languageId);
   }

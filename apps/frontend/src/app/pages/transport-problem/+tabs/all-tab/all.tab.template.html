@@ -78,7 +78,8 @@
   </section>
   <section>
     <mat-error *ngIf="formGroup.hasError('invalidTPData')"
-      >The given problem is not solvable! Try another one.</mat-error
+      >{{'TRANSPORTATION_PROBLEM.TABS.ALL.INVALID_TP_DATA' |
+      translate}}</mat-error
     >
   </section>
   <section>

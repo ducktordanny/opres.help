@@ -1,6 +1,9 @@
 <mat-stepper linear>
   <mat-step [stepControl]="firstStepFormGroup">
-    <ng-template matStepLabel>Costs</ng-template>
+    <ng-template matStepLabel
+      >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.STEPS.FIRST' |
+      translate}}</ng-template
+    >
     <form [formGroup]="firstStepFormGroup">
       <section>
         <article>
@@ -44,7 +47,10 @@
         ></opres-input-table>
       </section>
       <section *ngIf="firstStepFormGroup.hasError('nullCost')">
-        <mat-error>All cost cells must be filled.</mat-error>
+        <mat-error
+          >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.ERRORS.NULL_COST' |
+          translate}}</mat-error
+        >
       </section>
       <section>
         <button
@@ -53,16 +59,19 @@
           type="button"
           (click)="onCostsClear()"
         >
-          Clear
+          {{'TABLE_CLEAR_BUTTON' | translate}}
         </button>
         <button mat-flat-button color="primary" type="button" matStepperNext>
-          Next
+          {{'NEXT' | translate}}
         </button>
       </section>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondStepFormGroup">
-    <ng-template matStepLabel>Transportations</ng-template>
+    <ng-template matStepLabel
+      >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.STEPS.SECOND' |
+      translate}}</ng-template
+    >
     <form [formGroup]="secondStepFormGroup">
       <section>
         <opres-input-table
@@ -75,7 +84,10 @@
         ></opres-input-table>
       </section>
       <section *ngIf="secondStepFormGroup.hasError('noTransport')">
-        <mat-error>There must be at least one transportation.</mat-error>
+        <mat-error
+          >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.ERRORS.NO_TRANSPORT' |
+          translate}}</mat-error
+        >
       </section>
       <section>
         <button
@@ -84,7 +96,7 @@
           type="button"
           matStepperPrevious
         >
-          Previous
+          {{'PREVIOUS' | translate}}
         </button>
         <button
           mat-flat-button
@@ -92,20 +104,24 @@
           type="button"
           (click)="onTransportationsClear()"
         >
-          Clear
+          {{'TABLE_CLEAR_BUTTON' | translate}}
         </button>
         <button mat-flat-button color="primary" type="button" matStepperNext>
-          Next
+          {{'NEXT' | translate}}
         </button>
       </section>
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Review</ng-template>
+    <ng-template matStepLabel
+      >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.STEPS.THIRD' |
+      translate}}</ng-template
+    >
     <section>
       <div class="wrapper">
         <info-card type="info"
-          >Make sure the table below is the one that you want to use.</info-card
+          >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.REVIEW_INFO' |
+          translate}}</info-card
         >
       </div>
     </section>
@@ -119,10 +135,10 @@
     </section>
     <section>
       <button mat-flat-button color="primary" type="button" matStepperPrevious>
-        Previous
+        {{'PREVIOUS' | translate}}
       </button>
       <loading-button [loading]="isLoading$" (click)="onCalculate()"
-        >Calculate</loading-button
+        >{{'CALCULATE_BUTTON' | translate}}</loading-button
       >
     </section>
   </mat-step>

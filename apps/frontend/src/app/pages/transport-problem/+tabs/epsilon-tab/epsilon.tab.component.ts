@@ -66,12 +66,10 @@ export class EpsilonTabComponent {
 
   public onCostsClear(): void {
     this.inputTableService.clear('costs');
-    transportProblemCacheBuster$.next();
   }
 
   public onTransportationsClear(): void {
     this.inputTableService.clear('transportations');
-    transportProblemCacheBuster$.next();
   }
 
   public onCalculate(): void {

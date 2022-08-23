@@ -1,5 +1,7 @@
 {
   "TABLE_CLEAR_BUTTON": "Kiürít",
+  "PREVIOUS": "Előző",
+  "NEXT": "Következő",
   "CALCULATE_BUTTON": "Kiszámol",
   "LANGUAGE": {
     "EN": "🇬🇧 Angol",
@@ -50,6 +52,7 @@
           "OPTION_TM": "Tábla-Minimum",
           "OPTION_VK": "Vogel-Korda"
         },
+        "INVALID_TP_DATA": "A megadott probléma nem megoldható! Próbáljon másikat.",
         "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
         "INFO": "Jelenleg csak az első fázis elérhető, de a második fázis is hamarosan kiadásra kerül!",
         "FIRST_PHASE_RESULT_TITLE": "Első fázis {{steps}} lépésben",
@@ -59,7 +62,17 @@
         "NAME": "Csak második fázis"
       },
       "EPSILON": {
-        "NAME": "Csak epsilon"
+        "NAME": "Csak epsilon",
+        "REVIEW_INFO": "A megadott adatok alapján az alábbi táblázat kerül majd kiszámításra. Bizonyosodjon meg róla, hogy helyesen lett kitöltve.",
+        "ERRORS": {
+          "NULL_COST": "Minden költség cellának kitöltve kell lennie.",
+          "NO_TRANSPORT": "Legalább egy cella szállítási egység szükséges."
+        },
+        "STEPS": {
+          "FIRST": "Költségek",
+          "SECOND": "Szállított egységek",
+          "THIRD": "Átnézés"
+        }
       }
     },
     "COLUMNS_SELECT": "Boltok (oszlopok)",
