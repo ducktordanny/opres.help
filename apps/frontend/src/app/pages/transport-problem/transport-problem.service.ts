@@ -1,5 +1,6 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Validators} from '@angular/forms';
 
 import {
   CalculationMode,
@@ -35,6 +36,12 @@ export const transportProblemCacheBuster$ = new Subject<void>();
 
 @Injectable()
 export class TransportProblemService {
+  public readonly tableSizeValidators = [
+    Validators.required,
+    Validators.min(3),
+    Validators.max(8),
+  ];
+
   constructor(
     private http: HttpClient,
     private errorHandler: ErrorHandlerService,

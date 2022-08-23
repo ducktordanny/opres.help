@@ -10,7 +10,7 @@
   <button
     mat-menu-item
     *ngFor="let lang of LANGUAGES"
-    [ngClass]="{selected: lang.id === selectedLanguage}"
+    [ngClass]="{selected: lang.id === (selectedLanguage$ | async)}"
     (click)="onLanguageSelect(lang.id)"
   >
     <span>{{lang.label | translate}}</span>

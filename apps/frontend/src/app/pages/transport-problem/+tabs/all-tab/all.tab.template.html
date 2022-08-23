@@ -1,13 +1,16 @@
 <section>
   <div class="wrapper">
     <info-card width="600px">
-      <span>{{'TRANSPORTATION_PROBLEM.TABLE_EXPLANATION' | translate}}</span>
+      <span
+        >{{'TRANSPORTATION_PROBLEM.TABS.ALL.TABLE_EXPLANATION' |
+        translate}}</span
+      >
       <br /><br />
-      <strong>{{'TRANSPORTATION_PROBLEM.PAGE_INFO' | translate}}</strong>
+      <strong>{{'TRANSPORTATION_PROBLEM.TABS.ALL.INFO' | translate}}</strong>
     </info-card>
   </div>
 </section>
-<form [formGroup]="formGroup" (ngSubmit)="onCalculate($event)">
+<form [formGroup]="formGroup">
   <section>
     <article>
       <mat-form-field appearance="outline">
@@ -40,7 +43,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label
-          >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.LABEL' |
+          >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.LABEL' |
           translate}}</mat-label
         >
         <mat-select
@@ -50,23 +53,23 @@
           formControlName="method"
         >
           <mat-option value="north-west"
-            >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_NW' |
+            >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.OPTION_NW' |
             translate}}</mat-option
           >
           <mat-option value="table-min"
-            >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_TM' |
+            >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.OPTION_TM' |
             translate}}</mat-option
           >
           <mat-option value="vogel-korda"
-            >{{'TRANSPORTATION_PROBLEM.METHOD_SELECT.OPTION_VK' |
+            >{{'TRANSPORTATION_PROBLEM.TABS.ALL.METHOD_SELECT.OPTION_VK' |
             translate}}</mat-option
           >
         </mat-select>
       </mat-form-field>
     </article>
     <transport-table
-      [shopsCount]="formGroup.get('shops')?.value"
-      [storagesCount]="formGroup.get('storages')?.value"
+      [shopsCount]="formGroup.get('shops')?.value | sizeVerify"
+      [storagesCount]="formGroup.get('storages')?.value | sizeVerify"
       (costChange)="onCostChange($event)"
       (demandChange)="onDemandChange($event)"
       (stockChange)="onStockChange($event)"
@@ -75,32 +78,22 @@
   </section>
   <section>
     <mat-error *ngIf="formGroup.hasError('invalidTPData')"
-      >The given problem is not solvable! Try another one.</mat-error
+      >{{'TRANSPORTATION_PROBLEM.TABS.ALL.INVALID_TP_DATA' |
+      translate}}</mat-error
     >
   </section>
   <section>
-    <button
-      mat-flat-button
-      color="primary"
-      type="submit"
-      class="loading-button"
-      data-test-id="calculate-button"
-      *ngIf="{isLoading: isLoading$ | async} as sub"
-      [disabled]="formGroup.invalid || sub.isLoading"
+    <loading-button
+      [loading]="isLoading$"
+      [invalid]="formGroup.invalid"
+      (click)="onCalculate()"
+      >{{'CALCULATE_BUTTON' | translate}}</loading-button
     >
-      <mat-spinner
-        *ngIf="sub.isLoading"
-        color="accent"
-        strokeWidth="4"
-        diameter="18"
-        style="padding-right: 4px"
-      ></mat-spinner>
-      {{'CALCULATE_BUTTON' | translate}}
-    </button>
   </section>
 </form>
 <div class="wrapper" *ngIf="results$ | async as results">
   <first-phase-steps
     [firstPhaseResult]="results.firstPhase"
+    [language]="currentLanguage$ | async"
   ></first-phase-steps>
 </div>

@@ -8,7 +8,8 @@ type TableRow = Record<string, unknown>;
   name: 'toRowDefinitions',
 })
 export class RowDefinitionsPipe implements PipeTransform {
-  public transform(value: TableRow): RowDefs {
+  public transform(value?: TableRow): RowDefs {
+    if (!value) return [];
     return Object.keys(value);
   }
 }

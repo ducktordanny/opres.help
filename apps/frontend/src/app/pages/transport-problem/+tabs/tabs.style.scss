@@ -24,7 +24,11 @@
     margin: 8px;
   }
 
-  button[type='submit'] {
+  mat-stepper {
+    background: transparent;
+  }
+
+  button {
     margin: 8px;
   }
 

@@ -40,10 +40,13 @@ describe('LanguageSwitcherComponent', () => {
   it('should be created', () =>
     expect(component).toBeInstanceOf(LanguageSwitcherComponent));
 
-  it('should check default values', () => {
+  it('should check default values', (done) => {
     expect(component.LANGUAGES).toEqual(languagesMock);
     expect(localStorage.getItem('user.selectedLanguage')).toBeNull();
-    expect(component.selectedLanguage).toEqual('en');
+    component.selectedLanguage$.subscribe((language) =>
+      expect(language).toEqual('en'),
+    );
+    done();
   });
 
   it('should open & close language switcher menu', async () => {

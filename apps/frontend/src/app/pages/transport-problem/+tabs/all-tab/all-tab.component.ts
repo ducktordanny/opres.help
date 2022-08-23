@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {Demands, Stocks, Table, TPData, TPMethods} from '@opres/shared/types';
 import {checkSolvability} from '@opres/shared/utils';
+import {LanguageSwitcherService} from '@frontend/components/layout/language-switcher/language-switcher.service';
 import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, finalize, Observable} from 'rxjs';
@@ -24,8 +25,9 @@ import {EMPTY_TP_DATA} from '../tabs.constant';
 })
 export class AllTabComponent {
   public formGroup: FormGroup;
-  public results$: Observable<FullCalculationResult> | null = null;
   public isLoading$ = this.loadingHandler.isLoading;
+  public results$: Observable<FullCalculationResult> | null = null;
+  public currentLanguage$ = this.languageSwitcherService.currentLanguage;
 
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
@@ -33,17 +35,13 @@ export class AllTabComponent {
   constructor(
     private transportProblemService: TransportProblemService,
     private loadingHandler: LoadingHandlerService,
+    private languageSwitcherService: LanguageSwitcherService,
   ) {
-    const inputValidators = [
-      Validators.required,
-      Validators.min(3),
-      Validators.max(8),
-    ];
     this.formGroup = new FormGroup({
       /** A shop is the equivalent of a column. */
-      shops: new FormControl(4, inputValidators),
+      shops: new FormControl(4, transportProblemService.tableSizeValidators),
       /** A storage is the equivalent of a row. */
-      storages: new FormControl(4, inputValidators),
+      storages: new FormControl(4, transportProblemService.tableSizeValidators),
       /** Three method can be chosen these methods are limited by the TPMethods type. */
       method: new FormControl('north-west', Validators.required),
     });
@@ -74,8 +72,7 @@ export class AllTabComponent {
     this.formGroup.setErrors(null);
   }
 
-  public onCalculate(event: Event): void {
-    event.preventDefault();
+  public onCalculate(): void {
     this.loadingHandler.start();
     const tpData = this.tpData$.getValue();
 

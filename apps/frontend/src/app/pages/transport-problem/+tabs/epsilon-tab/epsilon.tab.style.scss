@@ -1,0 +1,9 @@
+:host {
+  ::ng-deep.mat-horizontal-content-container {
+    padding: 0;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+}
