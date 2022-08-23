@@ -25,7 +25,11 @@
     "WIP_NOTE": "Az app ezen részének a fejlesztése még folyamatban van.",
     "SUGGESTION": "Probáld ki a következő problémák megoldását az app segítségével:",
     "HELPERS_LIST": {
-      "TRANSPORTATION_PR": "Szállítási probléma",
+      "TRANSPORTATION_PR": {
+        "TITLE": "Szállítási probléma",
+        "ALL": "Az összes lépés kell?",
+        "EPSILON": "Ha csak az epszilon kell"
+      },
       "ASSIGNMENT_PR": "Hozzárendelési probléma",
       "OTHERS_SOON": "És még több hamarosan..."
     },
