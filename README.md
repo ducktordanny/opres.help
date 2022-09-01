@@ -1,98 +1,74 @@
 # Opres
 
-This project was generated using [Nx](https://nx.dev).
+> Aims to help learning and calculating problems of operation research like transportation and assignment problems.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Available features
 
-🔎 **Smart, Fast and Extensible Build System**
+Currently, the transportation problem has implemented features like: first phase with North-West/Table-Minimum/Vogel-Korda methods. The second phase is under construction and will be available soon both on API and UI. Other operation research problems are on the way.
 
-## Quick Start & Documentation
+## Project setup
 
-[Nx Documentation](https://nx.dev/angular)
+> The project is a Nx monorepo with two main apps frontend (Angular) and backend (NestJS) and some libs like: tables and several shared libs.
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+### Clone repo:
 
-[Interactive Tutorial](https://nx.dev/tutorial/01-create-application)
+```shell
+git clone git@github.com:ducktordanny/opres.help.git
+```
 
-## Adding capabilities to your workspace
+### Install dependencies via yarn:
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+```shell
+yarn
+```
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+### Start the project (frontend and api):
 
-Below are our core plugins:
+```shell
+yarn start
+```
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+### If you only want to start one of the apps:
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+Though if you do so and only start the frontend then you can change the proxy in the `apps/frontend/proxy.conf.json` file.
 
-## Generate an application
+```shell
+yarn start:frontend
+```
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+or
 
-> You can use any of the plugins above to generate applications as well.
+```shell
+yarn start:backend
+```
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+### Run unit tests:
 
-## Generate a library
+All:
 
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
+```shell
+yarn test:all
+```
 
-> You can also use any of the plugins above to generate libraries as well.
+Affected:
 
-Libraries are shareable across libraries and applications. They can be imported from `@opres/mylib`.
+```shell
+yarn test
+```
 
-## Development server
+## Github actions
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Currently, there are two types of actions in the repo, one for running tests when we are pushing something into a pull request and one to deploy to production when drafting a new release on GitHub.
 
-## Code scaffolding
+## Other
 
-Run `ng g component my-component --project=my-app` to generate a new component.
+### Commit messages:
 
-## Build
+[https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format)
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Changelog: [CHANGELOG.md](https://github.com/ducktordanny/opres.help/blob/master/CHANGELOG.md)
 
-## Running unit tests
+### Husky:
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+- pre-commit: `yarn format:staged`
+- pre-push: `yarn lint`
