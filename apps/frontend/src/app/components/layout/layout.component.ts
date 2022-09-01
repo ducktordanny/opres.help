@@ -8,11 +8,19 @@ import {
 } from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
-import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 
-import {Observable} from 'rxjs';
-import {filter, map, pluck} from 'rxjs/operators';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {filter, map, pluck, tap} from 'rxjs/operators';
 
+@UntilDestroy()
 @Component({
   selector: 'layout',
   templateUrl: './layout.template.html',
@@ -35,7 +43,7 @@ export class LayoutComponent implements OnDestroy {
       title: 'SIDEBAR_MENU.ASSIGNMENT_PROBLEM',
     },
   ];
-  public isLoading: Observable<boolean>;
+  public isLoading = new BehaviorSubject<boolean>(true);
   private readonly _mobileQueryListener: () => void;
 
   constructor(
@@ -61,9 +69,20 @@ export class LayoutComponent implements OnDestroy {
       map((url) => this.routesToHideNavbar.some((element) => element === url)),
     );
 
-    this.isLoading = this.router.events.pipe(
-      map((event) => event instanceof NavigationStart),
-    );
+    this.router.events
+      .pipe(
+        tap((event) => {
+          if (event instanceof NavigationStart) this.isLoading.next(true);
+          else if (
+            event instanceof NavigationEnd ||
+            event instanceof NavigationCancel ||
+            event instanceof NavigationError
+          )
+            this.isLoading.next(false);
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
   public ngOnDestroy(): void {
