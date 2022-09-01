@@ -2,6 +2,11 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.6.1] - 2022-09-01
+
+- Fix showing progress bar when switching between pages
+- Update readme of the repository
+
 ## [0.6.0] - 2022-08-23
 
 - Update home page
