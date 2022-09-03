@@ -14,7 +14,7 @@ export interface Tab {
   styles: [
     `
       .tab-content-wrapper {
-        padding: 8px;
+        padding: 8px calc(env(safe-area-inset-right) + 8px) 8px 8px;
       }
     `,
   ],

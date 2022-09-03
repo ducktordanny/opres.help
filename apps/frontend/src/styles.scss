@@ -89,3 +89,12 @@ a {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+.safe-area-horizontally {
+  padding-right: env(safe-area-inset-right);
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right);
+}

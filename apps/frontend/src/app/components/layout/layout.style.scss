@@ -10,6 +10,8 @@
   right: 0;
 
   mat-toolbar {
+    padding-left: calc(env(safe-area-inset-left) + 16px);
+    padding-right: calc(env(safe-area-inset-right) + 16px);
     z-index: 9;
 
     .logo {
@@ -25,12 +27,17 @@
   mat-sidenav-container {
     flex: 1;
 
+    mat-nav-list a {
+      padding-left: env(safe-area-inset-left);
+    }
+
     .selected-nav-list-element {
       color: $primary-variant;
       background-color: $shade;
     }
 
     .main-content {
+      padding-bottom: env(safe-area-inset-bottom);
       overflow-x: hidden;
       box-sizing: border-box;
     }

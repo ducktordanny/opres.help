@@ -1,7 +1,7 @@
 @import '../../styles/variables/colors';
 
 form {
-  padding: 8px;
+  padding: 16px env(safe-area-inset-right) 16px 16px;
 
   mat-hint {
     display: block;
@@ -20,7 +20,7 @@ form {
 }
 
 button[type='submit'] {
-  margin: 8px 8px 0 0;
+  margin: 8px 16px 0 0;
 }
 
 .wrapper {
