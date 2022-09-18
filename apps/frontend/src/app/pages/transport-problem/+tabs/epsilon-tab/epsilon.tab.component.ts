@@ -5,15 +5,17 @@ import {Epsilon, Table, TransportTable} from '@opres/shared/types';
 import {InputTableService} from '@opres/ui/tables';
 import {LanguageSwitcherService} from '@frontend/components/layout/language-switcher/language-switcher.service';
 import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {forEach, mapValues} from 'lodash';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {finalize} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+import {finalize, tap} from 'rxjs/operators';
 
 import {
   transportProblemCacheBuster$,
   TransportProblemService,
 } from '../../transport-problem.service';
 
+@UntilDestroy()
 @Component({
   selector: 'epsilon-tab',
   templateUrl: './epsilon.tab.template.html',
@@ -37,7 +39,7 @@ export class EpsilonTabComponent {
   ]);
   public isLoading$ = this.loadingHandler.isLoading;
   public currentLanguage$ = this.languageSwitcherService.currentLanguage;
-  public result$: Observable<Epsilon> | null = null;
+  public result$ = new BehaviorSubject<Epsilon | null>(null);
 
   constructor(
     private transportProblemService: TransportProblemService,
@@ -75,9 +77,14 @@ export class EpsilonTabComponent {
   public onCalculate(): void {
     this.loadingHandler.start();
     const transportTable = this.getTransportTableFromCurrentInput();
-    this.result$ = this.transportProblemService
+    this.transportProblemService
       .getEpsilonResult(transportTable)
-      .pipe(finalize(() => this.loadingHandler.stop()));
+      .pipe(
+        tap((response) => this.result$.next(response)),
+        finalize(() => this.loadingHandler.stop()),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
   private getTransportTableFromCurrentInput(): TransportTable {

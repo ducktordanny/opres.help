@@ -76,7 +76,7 @@ describe('EpsilonTabComponent', () => {
     expect(component.secondStepFormGroup.getRawValue()).toEqual({});
     expect(component.costs$.getValue()).toEqual(costsMock);
     expect(component.transportations$.getValue()).toEqual(transportationsMock);
-    expect(component.result$).toEqual(null);
+    expect(component.result$.getValue()).toEqual(null);
     component.isLoading$.subscribe((loading: boolean) =>
       expect(loading).toEqual(false),
     );
