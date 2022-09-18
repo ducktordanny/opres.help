@@ -6,7 +6,7 @@ import {checkSolvability} from '@opres/shared/utils';
 import {LanguageSwitcherService} from '@frontend/components/layout/language-switcher/language-switcher.service';
 import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {BehaviorSubject, finalize, Observable} from 'rxjs';
+import {BehaviorSubject, finalize} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
 import {
@@ -26,8 +26,8 @@ import {EMPTY_TP_DATA} from '../tabs.constant';
 export class AllTabComponent {
   public formGroup: FormGroup;
   public isLoading$ = this.loadingHandler.isLoading;
-  public results$: Observable<FullCalculationResult> | null = null;
   public currentLanguage$ = this.languageSwitcherService.currentLanguage;
+  public results$ = new BehaviorSubject<FullCalculationResult | null>(null);
 
   /** It contains all table data what are necessary for calculations (costs, demands, stocks). */
   private tpData$ = new BehaviorSubject<TPData>(EMPTY_TP_DATA);
@@ -83,14 +83,19 @@ export class AllTabComponent {
     }
 
     const method = this.formGroup.get('method')?.value as TPMethods;
-    this.results$ = this.transportProblemService
+    this.transportProblemService
       .getFullCalculationResult(tpData, method)
-      .pipe(finalize(() => this.loadingHandler.stop()));
+      .pipe(
+        tap((response) => this.results$.next(response)),
+        finalize(() => this.loadingHandler.stop()),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
   public reset(): void {
     this.formGroup.setErrors(null);
-    this.results$ = null;
+    this.results$.next(null);
     this.tpData$.next(EMPTY_TP_DATA);
   }
 }
