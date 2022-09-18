@@ -53,7 +53,7 @@ describe('AllTabComponent', () => {
 
   it('should check default values', () => {
     expect(component.formGroup.getRawValue()).toEqual(formGroupMock);
-    expect(component.results$).toEqual(null);
+    expect(component.results$.getValue()).toEqual(null);
   });
 
   it('should change number of shops', async () => {
@@ -95,18 +95,18 @@ describe('AllTabComponent', () => {
       MatButtonHarness.with({selector: '[data-test-id="calculate-button"]'}),
     );
     await button.click();
-    expect(component.results$).not.toEqual(null);
+    expect(component.results$.getValue()).not.toEqual(null);
     expect(firstPhaseSpy).toHaveBeenCalled();
   });
 
   it('should reset states', () => {
     component.formGroup.setErrors({apple: 'I am an error'});
-    component.results$ = of({
+    component.results$.next({
       firstPhase: {steps: [], epsilon: {value: 123}},
       secondPhase: {steps: [], epsilon: {value: 123}},
     });
     component.reset();
     expect(component.formGroup.errors).toEqual(null);
-    expect(component.results$).toEqual(null);
+    expect(component.results$.getValue()).toEqual(null);
   });
 });
