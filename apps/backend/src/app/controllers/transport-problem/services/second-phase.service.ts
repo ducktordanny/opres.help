@@ -7,9 +7,16 @@ import {
   SelectedCell,
   TransportTable,
 } from '@opres/shared/types';
-import {findIndex, forEach, map, some} from 'lodash';
-
-import {getBaseCellsInColumn} from '../utils/base-cells-counter.util';
+import {
+  cloneDeep,
+  findIndex,
+  first,
+  forEach,
+  last,
+  map,
+  minBy,
+  some,
+} from 'lodash';
 
 @Injectable()
 export class SecondPhaseService {
@@ -17,21 +24,23 @@ export class SecondPhaseService {
     transportTable: TransportTable,
     mode: CalculationMode,
   ): Array<SecondPhaseStep> {
-    console.log(getBaseCellsInColumn(transportTable, 1));
-    // todo this should be iterated after the circle is implemented
+    const process: Array<SecondPhaseStep> = [];
     let nextBase: SelectedCell = {x: 0, y: 0};
-    while (nextBase?.value === undefined || nextBase?.value < 0) {
+    do {
       const variables = this.getAuxiliaryVariable(transportTable);
       nextBase = this.getNextNewBase(transportTable, variables);
-      console.log(variables);
-      console.log(transportTable);
-      console.log(nextBase);
-      const circle = this.getCircle(transportTable, nextBase);
-      console.log('circle', circle);
-      break; // ! until we have no circle implementation
-    }
-
-    return [];
+      if (nextBase?.value < 0) {
+        const circle = this.getCircle(transportTable, nextBase);
+        this.reduceTransportTable(transportTable, cloneDeep(circle));
+        process.push({
+          transportation: cloneDeep(transportTable),
+          auxiliaryVariables: variables,
+          nextBase: cloneDeep(nextBase),
+          circle,
+        });
+      }
+    } while (nextBase?.value < 0);
+    return process;
   }
 
   private getAuxiliaryVariable(
@@ -103,7 +112,47 @@ export class SecondPhaseService {
       removedCells = baseCells.length - filteredBaseCells.length;
       baseCells = filteredBaseCells;
     }
-    return baseCells;
+    return this.sortCircleCells(baseCells);
+  }
+
+  private getMaxReducableValueFromCircle(circle: Array<SelectedCell>): number {
+    return minBy(
+      circle?.filter((cell, index) => cell?.value !== -1 && index % 2 !== 0),
+      'value',
+    )?.value;
+  }
+
+  private sortCircleCells(circle: Array<SelectedCell>): Array<SelectedCell> {
+    let comparingIndex: 'x' | 'y' = 'x';
+    const sortedCircle = [circle[0]];
+    for (let i = 1; i < circle.length; i++) {
+      const lastSortedCell = last(sortedCircle);
+      const asd = circle?.find(
+        (value) =>
+          value?.[comparingIndex] === lastSortedCell?.[comparingIndex] &&
+          value?.value !== lastSortedCell?.value,
+      );
+      sortedCircle.push(asd);
+      comparingIndex = comparingIndex === 'x' ? 'y' : 'x';
+    }
+    return sortedCircle;
+  }
+
+  private reduceTransportTable(
+    transportTable: TransportTable,
+    circle: Array<SelectedCell>,
+  ): void {
+    const maxReducableValue = this.getMaxReducableValueFromCircle(circle);
+    first(circle).value = maxReducableValue;
+    for (let i = 1; i < circle.length; i++) {
+      if (!circle[i]) continue;
+      if (i % 2) circle[i].value -= maxReducableValue;
+      else circle[i].value += maxReducableValue;
+    }
+    forEach(circle, (cell) => {
+      transportTable[cell?.y][cell?.x].transported =
+        cell?.value === 0 ? undefined : cell?.value;
+    });
   }
 
   private getBaseCellPositions(

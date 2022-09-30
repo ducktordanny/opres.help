@@ -83,7 +83,7 @@ export class TransportProblemService {
           return this.getEpsilonResult(
             last(steps)?.transportation || [],
             mode === 'explanations',
-          ).pipe(map((epsilon) => ({steps, epsilon} as FirstPhaseResult)));
+          ).pipe(map((epsilon) => ({steps, epsilon} as SecondPhaseResult)));
         }),
       );
   }
