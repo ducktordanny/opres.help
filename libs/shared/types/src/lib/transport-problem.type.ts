@@ -14,8 +14,7 @@ export interface TPData {
 export interface Cell {
   cost: number;
   transported?: number;
-  potential?: number;
-  partOfCircle?: boolean; // ? do we need this ? the circle cells will be stored inside an array of selectedCells
+  reducedCost?: number;
 }
 
 export type TransportRow = Record<string, Cell>;

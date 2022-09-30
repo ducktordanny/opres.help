@@ -84,11 +84,11 @@ export class SecondPhaseService {
     forEach(transportTable, (row, rowIndex) =>
       forEach(row, (cell, columnIndex) => {
         if (cell.transported !== undefined) return;
-        const potential =
+        const reducedCost =
           cell.cost - (variables.x[columnIndex] + variables.y[rowIndex]);
-        transportTable[rowIndex][columnIndex].potential = potential;
-        if (newBase.value === null || newBase.value > potential)
-          newBase = {value: potential, x: +columnIndex, y: rowIndex};
+        transportTable[rowIndex][columnIndex].reducedCost = reducedCost;
+        if (newBase.value === null || newBase.value > reducedCost)
+          newBase = {value: reducedCost, x: +columnIndex, y: rowIndex};
       }),
     );
     return newBase;
