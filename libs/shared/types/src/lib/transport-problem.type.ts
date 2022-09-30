@@ -15,6 +15,7 @@ export interface Cell {
   cost: number;
   transported?: number;
   potential?: number;
+  partOfCircle?: boolean; // ? do we need this ? the circle cells will be stored inside an array of selectedCells
 }
 
 export type TransportRow = Record<string, Cell>;
@@ -33,16 +34,16 @@ export interface FirstPhaseStep {
   explanation?: string;
 }
 
-export interface NextBase {
-  potential: number | null;
+export interface SelectedCell {
   x: number;
   y: number;
+  value?: number;
 }
 
 // todo these shouldn't be optionals
 export interface SecondPhaseStep {
   transportation: TransportTable;
   auxiliaryVariables?: AuxiliaryVariables;
-  nextBase?: NextBase;
+  nextBase?: SelectedCell;
   explanation?: string;
 }

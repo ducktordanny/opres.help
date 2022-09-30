@@ -3,11 +3,13 @@ import {Injectable} from '@nestjs/common';
 import {
   AuxiliaryVariables,
   CalculationMode,
-  NextBase,
   SecondPhaseStep,
+  SelectedCell,
   TransportTable,
 } from '@opres/shared/types';
-import {findIndex, map, some} from 'lodash';
+import {findIndex, forEach, map, some} from 'lodash';
+
+import {getBaseCellsInColumn} from '../utils/base-cells-counter.util';
 
 @Injectable()
 export class SecondPhaseService {
@@ -15,8 +17,20 @@ export class SecondPhaseService {
     transportTable: TransportTable,
     mode: CalculationMode,
   ): Array<SecondPhaseStep> {
-    const variables = this.getAuxiliaryVariable(transportTable);
-    const nextNewBase = this.getNextNewBase(transportTable, variables);
+    console.log(getBaseCellsInColumn(transportTable, 1));
+    // todo this should be iterated after the circle is implemented
+    let nextBase: SelectedCell = {x: 0, y: 0};
+    while (nextBase?.value === undefined || nextBase?.value < 0) {
+      const variables = this.getAuxiliaryVariable(transportTable);
+      nextBase = this.getNextNewBase(transportTable, variables);
+      console.log(variables);
+      console.log(transportTable);
+      console.log(nextBase);
+      const circle = this.getCircle(transportTable, nextBase);
+      console.log('circle', circle);
+      break; // ! until we have no circle implementation
+    }
+
     return [];
   }
 
@@ -34,22 +48,21 @@ export class SecondPhaseService {
 
     const containsNull = (variable) => variable === null;
     while (variables.x.some(containsNull) || variables.y.some(containsNull)) {
-      for (const [rowIndex, row] of transportTable.entries()) {
-        const cells = Object.values(row);
-        for (const [columnIndex, cell] of cells.entries()) {
+      forEach(transportTable, (row, rowIndex) =>
+        forEach(row, (cell, columnIndex) => {
           const currentXVariable = variables.x[columnIndex];
           const currentYVariable = variables.y[rowIndex];
 
-          if (cell.transported === undefined) continue;
-          if (currentXVariable === null && currentYVariable === null) continue;
-          if (currentXVariable !== null && currentYVariable !== null) continue;
+          if (cell.transported === undefined) return;
+          if (currentXVariable === null && currentYVariable === null) return;
+          if (currentXVariable !== null && currentYVariable !== null) return;
 
           if (currentYVariable === null)
             variables.y[rowIndex] = cell.cost - variables.x[columnIndex];
           else if (currentXVariable === null)
             variables.x[columnIndex] = cell.cost - variables.y[rowIndex];
-        }
-      }
+        }),
+      );
     }
     return variables;
   }
@@ -57,19 +70,60 @@ export class SecondPhaseService {
   private getNextNewBase(
     transportTable: TransportTable,
     variables: AuxiliaryVariables,
-  ): NextBase {
-    let newBase: NextBase = {potential: 0, x: 0, y: 0};
-    for (const [rowIndex, row] of transportTable.entries()) {
-      const cells = Object.values(row);
-      for (const [columnIndex, cell] of cells.entries()) {
-        if (cell.transported !== undefined) continue;
+  ): SelectedCell {
+    let newBase: SelectedCell = {value: 0, x: 0, y: 0};
+    forEach(transportTable, (row, rowIndex) =>
+      forEach(row, (cell, columnIndex) => {
+        if (cell.transported !== undefined) return;
         const potential =
           cell.cost - (variables.x[columnIndex] + variables.y[rowIndex]);
         transportTable[rowIndex][columnIndex].potential = potential;
-        if (newBase.potential === null || newBase.potential > potential)
-          newBase = {potential, x: columnIndex, y: rowIndex};
-      }
-    }
+        if (newBase.value === null || newBase.value > potential)
+          newBase = {value: potential, x: +columnIndex, y: rowIndex};
+      }),
+    );
     return newBase;
+  }
+
+  private getCircle(
+    transportTable: TransportTable,
+    nextBase: SelectedCell,
+  ): Array<SelectedCell> {
+    let baseCells: Array<SelectedCell> = this.getBaseCellPositions(
+      transportTable,
+      nextBase,
+    );
+    let removedCells = Infinity;
+    while (removedCells > 0) {
+      const filteredBaseCells = baseCells.filter((value, _, array) => {
+        const xIndexes = array.filter((v) => v.x === value.x).length;
+        const yIndexes = array.filter((v) => v.y === value.y).length;
+        return xIndexes > 1 && yIndexes > 1;
+      });
+      removedCells = baseCells.length - filteredBaseCells.length;
+      baseCells = filteredBaseCells;
+    }
+    return baseCells;
+  }
+
+  private getBaseCellPositions(
+    transportTable: TransportTable,
+    nextBase?: SelectedCell,
+  ): Array<SelectedCell> {
+    const baseCellPositions: Array<SelectedCell> = [];
+    if (nextBase) baseCellPositions.push({...nextBase, value: -1});
+
+    forEach(transportTable, (row, rowIndex) =>
+      forEach(row, (cell, columnIndex) => {
+        if (cell.transported !== undefined)
+          baseCellPositions.push({
+            x: +columnIndex,
+            y: rowIndex,
+            value: cell.transported,
+          });
+      }),
+    );
+
+    return baseCellPositions;
   }
 }
