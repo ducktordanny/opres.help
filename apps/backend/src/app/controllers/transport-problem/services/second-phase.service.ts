@@ -90,7 +90,10 @@ export class SecondPhaseService {
         const reducedCost =
           cell.cost - (variables.x[columnIndex] + variables.y[rowIndex]);
         transportTable[rowIndex][columnIndex].reducedCost = reducedCost;
-        if (reducedCost < 0 || newBase.value > reducedCost)
+        if (
+          (newBase?.value === undefined && reducedCost < 0) ||
+          newBase?.value > reducedCost
+        )
           newBase = {value: reducedCost, x: +columnIndex, y: rowIndex};
       }),
     );
@@ -126,17 +129,20 @@ export class SecondPhaseService {
   }
 
   private sortCircleCells(circle: Array<SelectedCell>): Array<SelectedCell> {
-    let comparingIndex: 'x' | 'y' = 'x';
+    const comparingIndex = (isX: boolean) => (isX ? 'x' : 'y');
+    let isX = true;
     const sortedCircle = [circle[0]];
     for (let i = 1; i < circle.length; i++) {
       const lastSortedCell = last(sortedCircle);
-      const asd = circle?.find(
+      const baseCell = circle?.find(
         (value) =>
-          value?.[comparingIndex] === lastSortedCell?.[comparingIndex] &&
-          value?.value !== lastSortedCell?.value,
+          value?.[comparingIndex(isX)] ===
+            lastSortedCell?.[comparingIndex(isX)] &&
+          value?.[comparingIndex(!isX)] !==
+            lastSortedCell?.[comparingIndex(!isX)],
       );
-      sortedCircle.push(asd);
-      comparingIndex = comparingIndex === 'x' ? 'y' : 'x';
+      sortedCircle.push(baseCell);
+      isX = !isX;
     }
     return sortedCircle;
   }
