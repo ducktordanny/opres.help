@@ -39,11 +39,10 @@ export interface SelectedCell {
   value?: number;
 }
 
-// todo these shouldn't be optionals
 export interface SecondPhaseStep {
   transportation: TransportTable;
-  circle: Array<SelectedCell>;
-  auxiliaryVariables: AuxiliaryVariables;
-  nextBase: SelectedCell;
+  circle?: Array<SelectedCell>;
+  auxiliaryVariables?: AuxiliaryVariables;
+  nextBase?: SelectedCell;
   explanation?: string;
 }

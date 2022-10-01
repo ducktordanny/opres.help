@@ -29,17 +29,19 @@ export class SecondPhaseService {
     do {
       const variables = this.getAuxiliaryVariable(transportTable);
       nextBase = this.getNextNewBase(transportTable, variables);
-      if (nextBase?.value < 0) {
+      if (nextBase?.value !== undefined) {
         const circle = this.getCircle(transportTable, nextBase);
-        this.reduceTransportTable(transportTable, cloneDeep(circle));
         process.push({
           transportation: cloneDeep(transportTable),
           auxiliaryVariables: variables,
           nextBase: cloneDeep(nextBase),
           circle,
         });
+        this.reduceTransportTable(transportTable, cloneDeep(circle));
+        continue;
       }
-    } while (nextBase?.value < 0);
+      process.push({transportation: cloneDeep(transportTable)});
+    } while (nextBase?.value !== undefined);
     return process;
   }
 
@@ -80,14 +82,15 @@ export class SecondPhaseService {
     transportTable: TransportTable,
     variables: AuxiliaryVariables,
   ): SelectedCell {
-    let newBase: SelectedCell = {value: 0, x: 0, y: 0};
+    let newBase: SelectedCell = {value: undefined, x: 0, y: 0};
     forEach(transportTable, (row, rowIndex) =>
       forEach(row, (cell, columnIndex) => {
-        if (cell.transported !== undefined) return;
+        if (cell.transported !== undefined)
+          return (cell.reducedCost = undefined);
         const reducedCost =
           cell.cost - (variables.x[columnIndex] + variables.y[rowIndex]);
         transportTable[rowIndex][columnIndex].reducedCost = reducedCost;
-        if (newBase.value === null || newBase.value > reducedCost)
+        if (reducedCost < 0 || newBase.value > reducedCost)
           newBase = {value: reducedCost, x: +columnIndex, y: rowIndex};
       }),
     );
