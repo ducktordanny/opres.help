@@ -40,7 +40,10 @@ export class SecondPhaseService {
         this.reduceTransportTable(transportTable, cloneDeep(circle));
         continue;
       }
-      process.push({transportation: cloneDeep(transportTable)});
+      process.push({
+        transportation: cloneDeep(transportTable),
+        auxiliaryVariables: variables,
+      });
     } while (nextBase?.value !== undefined);
     return process;
   }
