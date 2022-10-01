@@ -14,6 +14,7 @@ export interface TPData {
 export interface Cell {
   cost: number;
   transported?: number;
+  reducedCost?: number;
 }
 
 export type TransportRow = Record<string, Cell>;
@@ -32,8 +33,16 @@ export interface FirstPhaseStep {
   explanation?: string;
 }
 
-// todo: wip
+export interface SelectedCell {
+  x: number;
+  y: number;
+  value?: number;
+}
+
 export interface SecondPhaseStep {
   transportation: TransportTable;
+  circle?: Array<SelectedCell>;
+  auxiliaryVariables?: AuxiliaryVariables;
+  nextBase?: SelectedCell;
   explanation?: string;
 }
