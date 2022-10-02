@@ -92,8 +92,14 @@
   </section>
 </form>
 <div class="wrapper" *ngIf="results$ | async as results">
-  <first-phase-steps
-    [firstPhaseResult]="results.firstPhase"
-    [language]="currentLanguage$ | async"
-  ></first-phase-steps>
+  <ng-container *ngIf="{currentLanguage: currentLanguage$ | async} as subs">
+    <first-phase-steps
+      [firstPhaseResult]="results.firstPhase"
+      [language]="subs.currentLanguage"
+    ></first-phase-steps>
+    <second-phase-steps
+      [secondPhaseResult]="results.secondPhase"
+      [language]="subs.currentLanguage"
+    ></second-phase-steps>
+  </ng-container>
 </div>

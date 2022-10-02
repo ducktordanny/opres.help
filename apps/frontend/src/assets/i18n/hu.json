@@ -60,7 +60,8 @@
         "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
         "INFO": "Jelenleg csak az első fázis elérhető, de a második fázis is hamarosan kiadásra kerül!",
         "FIRST_PHASE_RESULT_TITLE": "Első fázis {{steps}} lépésben",
-        "EXPLANATION_TITLE": "Magyarázat"
+        "EXPLANATION_TITLE": "Magyarázat",
+        "SECOND_PHASE_RESULT_TITLE": "Második fázis {{steps}} lépésben"
       },
       "SECOND_PHASE": {
         "NAME": "Csak második fázis"

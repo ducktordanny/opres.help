@@ -1,0 +1,43 @@
+<mat-divider></mat-divider>
+<h1 class="title">
+  {{ 'TRANSPORTATION_PROBLEM.TABS.ALL.SECOND_PHASE_RESULT_TITLE' | translate:
+  {steps: secondPhaseResult?.steps?.length} }}
+</h1>
+<mat-tab-group
+  mat-stretch-tabs
+  #matTabGroup
+  (selectedTabChange)="onSelectedTabChange()"
+>
+  <mat-tab
+    *ngFor="let step of secondPhaseResult?.steps; let index = index"
+    [label]="index + 1 + '.'"
+  >
+    <div class="content-wrapper">
+      <mat-card *ngIf="step?.explanation as explanation">
+        <mat-card-title
+          >{{'TRANSPORTATION_PROBLEM.TABS.ALL.EXPLANATION_TITLE' |
+          translate}}</mat-card-title
+        >
+        <mat-card-content>{{explanation}} </mat-card-content>
+      </mat-card>
+      <div class="table-wrapper">
+        <opres-table
+          [tableSource]="step?.transportation || [] | transportTableToTable"
+          [badgeSource]="step?.transportation || [] | transportTableToTable: 'cost'"
+          [secondaryBadgeSource]="step?.transportation || [] | transportTableToTable: 'reducedCost'"
+          [showZeros]="false"
+        ></opres-table>
+        <opres-table
+          [tableSource]="step?.auxiliaryVariables?.y || [] | arrayToTableColumn"
+        ></opres-table>
+        <opres-table
+          [tableSource]="step?.auxiliaryVariables?.x || [] | arrayToTableRow"
+        ></opres-table>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<epsilon-result
+  [epsilon]="secondPhaseResult?.epsilon"
+  [language]="language"
+></epsilon-result>

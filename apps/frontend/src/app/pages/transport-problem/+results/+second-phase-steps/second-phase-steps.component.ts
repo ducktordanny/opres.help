@@ -1,8 +1,39 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild,
+} from '@angular/core';
+import {MatTabGroup} from '@angular/material/tabs';
+
+import {Language} from '@frontend/components/layout/language-switcher/language-switcher.service';
+
+import {SecondPhaseResult} from '../../transport-problem.service';
 
 @Component({
-  selector: 'second-phase-steps',
+  selector: 'second-phase-steps[secondPhaseResult][language]',
   templateUrl: './second-phase-steps.template.html',
+  styleUrls: ['./second-phase-steps.style.scss', '../results.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SecondPhaseStepsComponent {}
+export class SecondPhaseStepsComponent implements AfterViewInit {
+  @Input() public secondPhaseResult: SecondPhaseResult | undefined;
+  @Input() public language!: Language | null;
+  @ViewChild('matTabGroup', {static: true}) public matTabGroup:
+    | MatTabGroup
+    | undefined;
+
+  public ngAfterViewInit(): void {
+    this.setMatTabGroupHeight();
+  }
+
+  public onSelectedTabChange(): void {
+    this.setMatTabGroupHeight();
+  }
+
+  private setMatTabGroupHeight(): void {
+    const ntvEl = this.matTabGroup?._elementRef?.nativeElement;
+    ntvEl.style.minHeight = ntvEl?.clientHeight + 'px';
+  }
+}

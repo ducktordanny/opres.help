@@ -60,7 +60,8 @@
         "TABLE_EXPLANATION": "The table in the top left corner represents the costs, next to it on the right it's the stocks of storages and under them can be found the demands of the shops.",
         "INFO": "Currently only the first-phase is available, but the second-phase will be released soon as well!",
         "FIRST_PHASE_RESULT_TITLE": "First phase in {{steps}} steps",
-        "EXPLANATION_TITLE": "Explanation"
+        "EXPLANATION_TITLE": "Explanation",
+        "SECOND_PHASE_RESULT_TITLE": "Second phase in {{steps}} steps"
       },
       "SECOND_PHASE": {
         "NAME": "Second phase only"
