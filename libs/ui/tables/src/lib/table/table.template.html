@@ -13,31 +13,37 @@
     >
       <th mat-header-cell *matHeaderCellDef>{{header}}</th>
       <td mat-cell *matCellDef="let element; let rowIndex = index">
-        <span
-          *ngIf="subs?.badgeSource !== undefined && subs?.badgeSource?.length; else badgelessCell"
-          [matBadge]="subs?.badgeSource?.[rowIndex]?.[+header] ?? ''"
-          matBadgePosition="below after"
-          matBadgeOverlap="false"
-          matBadgeSize="medium"
-          [ngClass]="{'hidden-transport': !showZeros && !element[header]}"
+        <ng-container
+          *ngIf="{primary: subs?.badgeSource?.[rowIndex]?.[header], secondary: subs?.secondaryBadgeSource?.[rowIndex]?.[header]} as badgeCells"
         >
           <span
-            *ngIf="subs?.secondaryBadgeSource && subs?.secondaryBadgeSource?.length; else noSecondaryBadge"
-            [matBadge]="subs?.secondaryBadgeSource?.[rowIndex]?.[+header] ?? ''"
+            *ngIf="badgeCells.primary !== undefined && badgeCells !== null; else badgelessCell"
+            [matBadge]="badgeCells.primary ?? ''"
+            matBadgePosition="below after"
             matBadgeOverlap="false"
             matBadgeSize="medium"
-            matBadgeColor="accent"
-            >{{element[header] || 0}}</span
-          >
-          <ng-template #noSecondaryBadge>{{element[header] || 0}}</ng-template>
-        </span>
-        <ng-template #badgelessCell>
-          <span
             [ngClass]="{'hidden-transport': !showZeros && !element[header]}"
           >
-            {{element[header] || 0}}
+            <span
+              *ngIf="badgeCells.secondary !== undefined && badgeCells.secondary !== null; else noSecondaryBadge"
+              [matBadge]="badgeCells.secondary >= 0 ? '+' : badgeCells.secondary"
+              matBadgeOverlap="false"
+              matBadgeSize="medium"
+              matBadgeColor="accent"
+              >{{element[header] || 0}}</span
+            >
+            <ng-template #noSecondaryBadge
+              >{{element[header] || 0}}</ng-template
+            >
           </span>
-        </ng-template>
+          <ng-template #badgelessCell>
+            <span
+              [ngClass]="{'hidden-transport': !showZeros && !element[header]}"
+            >
+              {{element[header] || 0}}
+            </span>
+          </ng-template>
+        </ng-container>
       </td>
     </ng-container>
     <tr
