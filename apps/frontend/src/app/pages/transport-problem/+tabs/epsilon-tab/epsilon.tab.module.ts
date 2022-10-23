@@ -1,11 +1,8 @@
 import {NgModule} from '@angular/core';
-import {MatStepperModule} from '@angular/material/stepper';
 import {RouterModule, Routes} from '@angular/router';
 
-import {InputTableModule, TableModule} from '@opres/ui/tables';
-
+import {FirstPhaseResultInputModule} from '../../+first-phase-result-input/first-phase-result-input.module';
 import {EpsilonResultModule} from '../../+results/epsilon-result/epsilon-result.module';
-import {TransportProblemService} from '../../transport-problem.service';
 import {TabsModule} from '../tabs.module';
 
 import {EpsilonTabComponent} from './epsilon.tab.component';
@@ -16,12 +13,9 @@ const routes: Routes = [{path: '', component: EpsilonTabComponent}];
   declarations: [EpsilonTabComponent],
   imports: [
     EpsilonResultModule,
-    InputTableModule,
-    MatStepperModule,
+    FirstPhaseResultInputModule,
     RouterModule.forChild(routes),
-    TableModule,
     TabsModule,
   ],
-  providers: [TransportProblemService],
 })
 export class EpsilonTabModule {}

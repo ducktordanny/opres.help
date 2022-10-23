@@ -1,0 +1,145 @@
+<mat-stepper linear>
+  <mat-step [stepControl]="firstStepFormGroup">
+    <ng-template matStepLabel
+      >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.STEPS.FIRST' |
+      translate}}</ng-template
+    >
+    <form [formGroup]="firstStepFormGroup">
+      <section>
+        <article>
+          <mat-form-field appearance="outline">
+            <mat-label
+              >{{'TRANSPORTATION_PROBLEM.COLUMNS_SELECT' |
+              translate}}</mat-label
+            >
+            <input
+              matInput
+              type="number"
+              min="3"
+              max="8"
+              formControlName="shops"
+              data-test-id="number-of-shops-input"
+              [defaultValue]="4"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label
+              >{{'TRANSPORTATION_PROBLEM.ROWS_SELECT' | translate}}</mat-label
+            >
+            <input
+              matInput
+              type="number"
+              min="3"
+              max="8"
+              formControlName="storages"
+              data-test-id="number-of-storages-input"
+              [defaultValue]="4"
+            />
+          </mat-form-field>
+        </article>
+        <opres-input-table
+          class="table-wrapper"
+          key="costs"
+          [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
+          [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
+          [tableSource]="costs$ | async"
+          (tableChange)="onCostsChange($event)"
+        ></opres-input-table>
+      </section>
+      <section *ngIf="firstStepFormGroup.hasError('nullCost')">
+        <mat-error
+          >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.ERRORS.NULL_COST' |
+          translate}}</mat-error
+        >
+      </section>
+      <section>
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="onCostsClear()"
+        >
+          {{'TABLE_CLEAR_BUTTON' | translate}}
+        </button>
+        <button mat-flat-button color="primary" type="button" matStepperNext>
+          {{'NEXT' | translate}}
+        </button>
+      </section>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondStepFormGroup">
+    <ng-template matStepLabel
+      >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.STEPS.SECOND' |
+      translate}}</ng-template
+    >
+    <form [formGroup]="secondStepFormGroup">
+      <section>
+        <opres-input-table
+          class="table-wrapper"
+          key="transportations"
+          [rows]="firstStepFormGroup.get('storages')?.value | sizeVerify"
+          [columns]="firstStepFormGroup.get('shops')?.value | sizeVerify"
+          [tableSource]="transportations$ | async"
+          (tableChange)="onTransportationsChange($event)"
+        ></opres-input-table>
+      </section>
+      <section *ngIf="secondStepFormGroup.hasError('noTransport')">
+        <mat-error
+          >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.ERRORS.NO_TRANSPORT' |
+          translate}}</mat-error
+        >
+      </section>
+      <section>
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          matStepperPrevious
+        >
+          {{'PREVIOUS' | translate}}
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="onTransportationsClear()"
+        >
+          {{'TABLE_CLEAR_BUTTON' | translate}}
+        </button>
+        <button mat-flat-button color="primary" type="button" matStepperNext>
+          {{'NEXT' | translate}}
+        </button>
+      </section>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel
+      >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.STEPS.THIRD' |
+      translate}}</ng-template
+    >
+    <section>
+      <div class="wrapper">
+        <info-card type="info"
+          >{{'TRANSPORTATION_PROBLEM.TABS.EPSILON.REVIEW_INFO' |
+          translate}}</info-card
+        >
+      </div>
+    </section>
+    <section class="table-wrapper">
+      <opres-table
+        class="table-wrapper"
+        [tableSource]="transportations$"
+        [badgeSource]="costs$"
+        [showZeros]="false"
+      ></opres-table>
+    </section>
+    <section>
+      <button mat-flat-button color="primary" type="button" matStepperPrevious>
+        {{'PREVIOUS' | translate}}
+      </button>
+      <loading-button [loading]="isLoading$" (click)="onCalculate()"
+        >{{'CALCULATE_BUTTON' | translate}}</loading-button
+      >
+    </section>
+  </mat-step>
+</mat-stepper>
