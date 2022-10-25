@@ -14,7 +14,7 @@ import {
 import {ErrorHandlerService} from '@frontend/services/error-handler.service';
 import {last} from 'lodash';
 import {Observable, Subject} from 'rxjs';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, map, switchMap} from 'rxjs/operators';
 import {Cacheable} from 'ts-cacheable';
 
 export interface FirstPhaseResult {
@@ -75,7 +75,6 @@ export class TransportProblemService {
     const url = this.urlPrefix('second-phase');
     const params = new HttpParams().set('mode', mode);
 
-    console.log('transportTable', transportTable);
     return this.http
       .post<Array<SecondPhaseStep>>(url, transportTable, {params})
       .pipe(
