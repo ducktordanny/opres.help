@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@import 'apps/frontend/src/app/styles/variables/colors';
+@import 'libs/shared/styles/colors';
 
 @include mat.core();
 
@@ -47,6 +47,11 @@ body {
   --primary-text: black;
 
   --accent: #{mat.get-color-from-palette($frontend-light-accent, 800)};
+  --accent-transparent: #{mat.get-color-from-palette(
+      $frontend-light-accent,
+      800,
+      0.16
+    )};
   --accent-variant: #{mat.get-color-from-palette($frontend-light-accent, 200)};
 
   --warn: #{mat.get-color-from-palette($frontend-light-warn, 900)};
@@ -63,6 +68,11 @@ body {
     --primary-text: white;
 
     --accent: #{mat.get-color-from-palette($frontend-dark-accent, 300)};
+    --accent-transparent: #{mat.get-color-from-palette(
+        $frontend-dark-accent,
+        300,
+        0.16
+      )};
     --accent-variant: #{mat.get-color-from-palette($frontend-dark-accent, 600)};
 
     --warn: #{mat.get-color-from-palette($frontend-dark-warn, 200)};

@@ -1,23 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {Table} from '@opres/shared/types';
+import {SelectedCell, Table} from '@opres/shared/types';
 import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'opres-table[tableSource]',
   templateUrl: './table.template.html',
-  styles: [
-    `
-      td {
-        min-width: 50px;
-        text-align: center;
-      }
-
-      .hidden-transport {
-        color: transparent;
-      }
-    `,
-  ],
+  styleUrls: ['./table.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
@@ -25,6 +14,7 @@ export class TableComponent {
   public badgeSource$ = new Observable<Table>();
   public secondaryBadgeSource$ = new Observable<Table>();
   @Input() public showZeros = true;
+  @Input() public markedCell?: SelectedCell;
 
   @Input() public set tableSource(value: Observable<Table> | Table) {
     if (Array.isArray(value)) this.tableSource$ = of(value);

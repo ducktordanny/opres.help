@@ -1,0 +1,16 @@
+@import 'libs/shared/styles/colors';
+
+td {
+  min-width: 50px;
+  text-align: center;
+
+  &.marked-cell {
+    outline: 1px solid $accent;
+    outline-offset: -4px;
+    background-color: $accent-transparent;
+  }
+}
+
+.hidden-transport {
+  color: transparent;
+}

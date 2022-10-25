@@ -1,5 +1,5 @@
 {
-  "npmScope": "opres",
+  "npmScope": "opres.help",
   "affected": {
     "defaultBase": "origin/master"
   },

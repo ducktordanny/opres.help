@@ -12,7 +12,11 @@
       [matColumnDef]="header"
     >
       <th mat-header-cell *matHeaderCellDef>{{header}}</th>
-      <td mat-cell *matCellDef="let element; let rowIndex = index">
+      <td
+        mat-cell
+        *matCellDef="let element; let rowIndex = index"
+        [ngClass]="{'marked-cell': markedCell?.x === +header && markedCell?.y === rowIndex}"
+      >
         <ng-container
           *ngIf="{primary: subs?.badgeSource?.[rowIndex]?.[header], secondary: subs?.secondaryBadgeSource?.[rowIndex]?.[header]} as badgeCells"
         >
