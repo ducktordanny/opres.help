@@ -19,6 +19,7 @@ import {InputTableService} from './input-table.service';
 @Component({
   selector: 'opres-input-table[key]',
   templateUrl: './input-table.template.html',
+  styleUrls: ['../tables.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTableComponent {

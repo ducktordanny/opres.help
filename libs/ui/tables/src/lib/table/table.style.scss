@@ -6,7 +6,6 @@ td {
 
   &.marked-cell {
     outline: 1px solid $accent;
-    outline-offset: -4px;
     background-color: $accent-transparent;
   }
 }

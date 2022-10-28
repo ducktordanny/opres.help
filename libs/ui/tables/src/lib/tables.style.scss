@@ -1,0 +1,9 @@
+:host {
+  ::ng-deep td.mat-cell {
+    padding: 0 10px;
+  }
+
+  ::ng-deep.mat-form-field-infix {
+    border: unset;
+  }
+}

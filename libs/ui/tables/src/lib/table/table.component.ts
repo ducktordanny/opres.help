@@ -6,7 +6,7 @@ import {Observable, of} from 'rxjs';
 @Component({
   selector: 'opres-table[tableSource]',
   templateUrl: './table.template.html',
-  styleUrls: ['./table.style.scss'],
+  styleUrls: ['./table.style.scss', '../tables.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
