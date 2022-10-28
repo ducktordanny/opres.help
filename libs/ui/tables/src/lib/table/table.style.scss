@@ -1,12 +1,21 @@
 @import 'libs/shared/styles/colors';
 
 td {
+  position: relative;
   min-width: 50px;
   text-align: center;
 
-  &.marked-cell {
+  &.main-marked-cell {
     outline: 1px solid $accent;
     background-color: $accent-transparent;
+  }
+
+  .marked-cell {
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    color: $accent;
+    font-size: 12px;
   }
 }
 

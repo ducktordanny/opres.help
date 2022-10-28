@@ -14,7 +14,8 @@ export class TableComponent {
   public badgeSource$ = new Observable<Table>();
   public secondaryBadgeSource$ = new Observable<Table>();
   @Input() public showZeros = true;
-  @Input() public markedCell?: SelectedCell;
+  @Input() public mainMarkedCell?: SelectedCell;
+  @Input() public markedCells?: Array<SelectedCell>;
 
   @Input() public set tableSource(value: Observable<Table> | Table) {
     if (Array.isArray(value)) this.tableSource$ = of(value);
@@ -29,5 +30,15 @@ export class TableComponent {
   @Input() public set secondaryBadgeSource(value: Observable<Table> | Table) {
     if (Array.isArray(value)) this.secondaryBadgeSource$ = of(value);
     else this.secondaryBadgeSource = value;
+  }
+
+  public getCircleStepNumber(
+    rowIndex: number,
+    columnIndex: number,
+  ): number | undefined {
+    const index = this.markedCells?.findIndex(
+      (cell) => cell.x === columnIndex && cell.y === rowIndex,
+    );
+    return index === undefined ? undefined : index + 1;
   }
 }
