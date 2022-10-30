@@ -16,7 +16,6 @@ import {
   TransportProblemService,
 } from '../transport-problem.service';
 
-// FIXME [2022-08-20] after having working second phase implementation modify this
 describe('TransportProblemService', () => {
   const epsilonMock: Epsilon = {value: 123};
   const epsilonErrorMock = {

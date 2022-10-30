@@ -21,6 +21,7 @@ import {Language} from '@frontend/components/layout/language-switcher/language-s
       }
 
       mat-card {
+        box-sizing: border-box;
         width: fit-content;
         max-width: 600px;
         margin: auto;

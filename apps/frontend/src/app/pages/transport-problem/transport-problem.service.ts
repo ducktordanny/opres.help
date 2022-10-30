@@ -79,7 +79,7 @@ export class TransportProblemService {
       .post<Array<SecondPhaseStep>>(url, transportTable, {params})
       .pipe(
         catchError(this.errorHandler.showError),
-        switchMap((steps) => {
+        switchMap((steps: Array<SecondPhaseStep>) => {
           return this.getEpsilonResult(
             last(steps)?.transportation || [],
             mode === 'explanations',

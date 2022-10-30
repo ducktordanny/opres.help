@@ -16,9 +16,10 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FirstPhaseStepsModule} from '../+results/+first-phase-steps/first-phase-steps.module';
 import {TransportTableModule} from '../+table/transport-table.module';
 import {TransportProblemPipesModule} from '../pipes/transport-problem-pipes.module';
+import {TransportProblemService} from '../transport-problem.service';
 
 @NgModule({
-  providers: [ErrorHandlerService],
+  providers: [ErrorHandlerService, TransportProblemService],
   exports: [
     CommonModule,
     InfoCardModule,

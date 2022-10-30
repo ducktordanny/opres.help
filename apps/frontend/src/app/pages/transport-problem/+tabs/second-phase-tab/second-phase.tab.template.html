@@ -1,5 +1,9 @@
-<div class="wrapper">
-  <info-card width="600px" type="warning">
-    {{'TRANSPORTATION_PROBLEM.INFO' | translate}}
-  </info-card>
-</div>
+<first-phase-result-input
+  (calculate)="onCalculate($event)"
+></first-phase-result-input>
+<ng-container *ngIf="result$ | async as result">
+  <second-phase-steps
+    [secondPhaseResult]="result"
+    [language]="currentLanguage$ | async"
+  ></second-phase-steps>
+</ng-container>

@@ -14,7 +14,7 @@ import {FirstPhaseResult} from '../../transport-problem.service';
 @Component({
   selector: 'first-phase-steps[firstPhaseResult][language]',
   templateUrl: './first-phase-steps.template.html',
-  styleUrls: ['./first-phase-steps.style.scss'],
+  styleUrls: ['./first-phase-steps.style.scss', '../results.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FirstPhaseStepsComponent implements AfterViewInit {

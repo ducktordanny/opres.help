@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {Demands, Stocks, Table, TPData, TPMethods} from '@opres/shared/types';
@@ -23,7 +23,7 @@ import {EMPTY_TP_DATA} from '../tabs.constant';
   styleUrls: ['../tabs.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AllTabComponent {
+export class AllTabComponent implements OnDestroy {
   public formGroup: FormGroup;
   public isLoading$ = this.loadingHandler.isLoading;
   public currentLanguage$ = this.languageSwitcherService.currentLanguage;
@@ -97,5 +97,10 @@ export class AllTabComponent {
     this.formGroup.setErrors(null);
     this.results$.next(null);
     this.tpData$.next(EMPTY_TP_DATA);
+  }
+
+  public ngOnDestroy(): void {
+    this.loadingHandler.stop();
+    transportProblemCacheBuster$.next();
   }
 }
