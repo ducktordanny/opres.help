@@ -2,6 +2,13 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2022-10-30
+
+- Add second phase support for transportation problem on API and UI side
+- UI style fixes
+- Fix layout jumps caused by clearing the results when calculating a new case.
+- Fix not supporting safe area view
+
 ## [0.6.1] - 2022-09-01
 
 - Fix showing progress bar when switching between pages
