@@ -23,6 +23,12 @@ export class SecondPhaseStepsComponent implements AfterViewInit {
   @ViewChild('matTabGroup', {static: true}) public matTabGroup:
     | MatTabGroup
     | undefined;
+  public readonly explanationTranslateKeys = [
+    'SIDE_TABLES',
+    'ORANGE_BADGES',
+    'ORANGE_NUMBERS_LEFT',
+    'ORANGE_BORDERED_CELL',
+  ];
 
   public ngAfterViewInit(): void {
     this.setMatTabGroupHeight();

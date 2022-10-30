@@ -23,6 +23,7 @@
   mat-card {
     flex: 1;
     max-width: 400px;
-    margin: 0;
+    min-width: 100px;
+    margin: 8px;
   }
 }

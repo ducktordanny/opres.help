@@ -39,6 +39,26 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+<div class="wrapper">
+  <info-card>
+    <strong
+      >{{'TRANSPORTATION_PROBLEM.SECOND_PHASE_TABLE_EXPLANATIONS.TITLE' |
+      translate}}</strong
+    >
+    <ul>
+      <li
+        *ngFor="let explanationTranslateKey of explanationTranslateKeys"
+        class="table-explanations"
+      >
+        <strong
+          >{{'TRANSPORTATION_PROBLEM.SECOND_PHASE_TABLE_EXPLANATIONS.' +
+          explanationTranslateKey + '.TITLE' | translate}}</strong
+        >: {{'TRANSPORTATION_PROBLEM.SECOND_PHASE_TABLE_EXPLANATIONS.' +
+        explanationTranslateKey + '.DESCRIPTION' | translate}}
+      </li>
+    </ul>
+  </info-card>
+</div>
 <epsilon-result
   [epsilon]="secondPhaseResult?.epsilon"
   [language]="language"

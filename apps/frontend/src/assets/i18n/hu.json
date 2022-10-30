@@ -58,7 +58,6 @@
         },
         "INVALID_TP_DATA": "A megadott probléma nem megoldható! Próbáljon másikat.",
         "TABLE_EXPLANATION": "A felső bal oldali nagy tábla a költségek, mellette a jobb oldalon levő a raktárkészletek, míg alattuk a bolti igények megadására alkalmas mezők találhatók egymástól elválasztva.",
-        "INFO": "Jelenleg csak az első fázis elérhető, de a második fázis is hamarosan kiadásra kerül!",
         "FIRST_PHASE_RESULT_TITLE": "Első fázis {{steps}} lépésben",
         "EXPLANATION_TITLE": "Magyarázat",
         "SECOND_PHASE_RESULT_TITLE": "Második fázis {{steps}} lépésben"
@@ -82,7 +81,25 @@
     },
     "COLUMNS_SELECT": "Boltok (oszlopok)",
     "ROWS_SELECT": "Raktárak (sorok)",
-    "INFO": "Fejlesztés alatt! Hamarosan elérhetővé válik."
+    "SECOND_PHASE_TABLE_EXPLANATIONS": {
+      "TITLE": "Tábla magyarázatok",
+      "SIDE_TABLES": {
+        "TITLE": "Oldalsó táblák (allul és jobb oldalt)",
+        "DESCRIPTION": "Azokat a segédváltozókat tartalmazzák, amik megmutatják, hogy a cellákat érdemes-e bevinni a bázisba."
+      },
+      "ORANGE_BADGES": {
+        "TITLE": "Narancs körök (számmal, plusz jellel)",
+        "DESCRIPTION": "Redukált költségek értékei. Ahol ennek értéke pozitív oda egy plusz jel került."
+      },
+      "ORANGE_NUMBERS_LEFT": {
+        "TITLE": "Narancs számok (bal felső sarkok)",
+        "DESCRIPTION": "A körhöz tartozó cellákat jelölik sorszámozva."
+      },
+      "ORANGE_BORDERED_CELL": {
+        "TITLE": "Narancs bekeretezett cella",
+        "DESCRIPTION": "Az a cella, amit beviszünk a bázisba."
+      }
+    }
   },
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Tábla méret (n*n)",

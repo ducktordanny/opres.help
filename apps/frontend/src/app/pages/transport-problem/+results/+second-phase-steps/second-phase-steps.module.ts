@@ -5,6 +5,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {TableModule} from '@opres/ui/tables';
+import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {TransportProblemPipesModule} from '../../pipes/transport-problem-pipes.module';
@@ -17,6 +18,7 @@ import {SecondPhaseStepsComponent} from './second-phase-steps.component';
   imports: [
     CommonModule,
     EpsilonResultModule,
+    InfoCardModule,
     MatCardModule,
     MatDividerModule,
     MatTabsModule,
