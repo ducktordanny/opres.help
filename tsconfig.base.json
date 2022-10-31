@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@opres/shared/data/constants": [
+        "libs/shared/data/constants/src/index.ts"
+      ],
       "@opres/shared/data/mocks": ["libs/shared/data/mocks/src/index.ts"],
       "@opres/shared/types": ["libs/shared/types/src/index.ts"],
       "@opres/shared/utils": ["libs/shared/utils/src/index.ts"],
