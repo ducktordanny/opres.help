@@ -3,7 +3,6 @@ import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {HttpClientModule} from '@angular/common/http';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatButtonHarness} from '@angular/material/button/testing';
-import {MatInputHarness} from '@angular/material/input/testing';
 import {MatSelectHarness} from '@angular/material/select/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -57,23 +56,29 @@ describe('AllTabComponent', () => {
   });
 
   it('should change number of shops', async () => {
-    const input = await loader.getHarness(
-      MatInputHarness.with({
+    const shopSelect = await loader.getHarness(
+      MatSelectHarness.with({
         selector: '[data-test-id="number-of-shops-input"]',
       }),
     );
-    await input.setValue('3');
-    expect(component.formGroup.get('shops')?.value).toEqual(3);
+    await shopSelect.open();
+    const storageSizes = await shopSelect.getOptions();
+    expect(storageSizes.length).toEqual(6);
+    expect(await storageSizes[0].getText()).toEqual('3');
+    expect(await storageSizes[5].getText()).toEqual('8');
   });
 
   it('should change number of storages', async () => {
-    const input = await loader.getHarness(
-      MatInputHarness.with({
+    const storageSelect = await loader.getHarness(
+      MatSelectHarness.with({
         selector: '[data-test-id="number-of-storages-input"]',
       }),
     );
-    await input.setValue('3');
-    expect(component.formGroup.get('storages')?.value).toEqual(3);
+    await storageSelect.open();
+    const storageSizes = await storageSelect.getOptions();
+    expect(storageSizes.length).toEqual(6);
+    expect(await storageSizes[0].getText()).toEqual('3');
+    expect(await storageSizes[5].getText()).toEqual('8');
   });
 
   it('should check method options', async () => {

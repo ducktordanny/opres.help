@@ -12,29 +12,37 @@
               >{{'TRANSPORTATION_PROBLEM.COLUMNS_SELECT' |
               translate}}</mat-label
             >
-            <input
-              matInput
-              type="number"
-              min="3"
-              max="8"
-              formControlName="shops"
+            <mat-select
+              matNativeControl
+              required
               data-test-id="number-of-shops-input"
-              [defaultValue]="4"
-            />
+              formControlName="shops"
+            >
+              <mat-option [value]="3">3</mat-option>
+              <mat-option [value]="4">4</mat-option>
+              <mat-option [value]="5">5</mat-option>
+              <mat-option [value]="6">6</mat-option>
+              <mat-option [value]="7">7</mat-option>
+              <mat-option [value]="8">8</mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label
               >{{'TRANSPORTATION_PROBLEM.ROWS_SELECT' | translate}}</mat-label
             >
-            <input
-              matInput
-              type="number"
-              min="3"
-              max="8"
-              formControlName="storages"
+            <mat-select
+              matNativeControl
+              required
               data-test-id="number-of-storages-input"
-              [defaultValue]="4"
-            />
+              formControlName="storages"
+            >
+              <mat-option [value]="3">3</mat-option>
+              <mat-option [value]="4">4</mat-option>
+              <mat-option [value]="5">5</mat-option>
+              <mat-option [value]="6">6</mat-option>
+              <mat-option [value]="7">7</mat-option>
+              <mat-option [value]="8">8</mat-option>
+            </mat-select>
           </mat-form-field>
         </article>
         <opres-input-table
