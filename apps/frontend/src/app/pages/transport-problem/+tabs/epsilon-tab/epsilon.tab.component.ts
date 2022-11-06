@@ -16,7 +16,7 @@ import {
 @Component({
   selector: 'epsilon-tab',
   templateUrl: './epsilon.tab.template.html',
-  styleUrls: ['../tabs.style.scss', './epsilon.tab.style.scss'],
+  styleUrls: ['../tabs.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EpsilonTabComponent implements OnDestroy {

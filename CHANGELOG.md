@@ -2,6 +2,13 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.7.1] - 2022-11-06
+
+- Use select instead of inputs in transportation problem tabs
+- Fix assignment problem page styles
+- Fix spelling on the home page & and add new example
+- Fix white background at the top in Safari browsers
+
 ## [0.7.0] - 2022-10-30
 
 - Add second phase support for transportation problem on API and UI side

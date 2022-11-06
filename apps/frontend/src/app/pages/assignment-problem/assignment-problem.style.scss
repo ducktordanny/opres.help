@@ -1,7 +1,31 @@
 @import 'libs/shared/styles/colors';
 
-form {
-  padding: 16px env(safe-area-inset-right) 16px 16px;
+:host {
+  .content-wrapper {
+    padding: 8px calc(env(safe-area-inset-right) + 8px) 8px 8px;
+  }
+
+  section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    article {
+      display: flex;
+      flex-direction: column;
+    }
+
+    article.assignment-table-wrapper {
+      display: grid;
+      padding: 8px;
+      overflow-x: auto;
+    }
+  }
+
+  mat-form-field {
+    margin: 8px;
+  }
 
   mat-hint {
     display: block;
@@ -13,20 +37,17 @@ form {
     }
   }
 
-  .assignment-table-wrapper {
-    padding: 8px 0;
-    overflow-y: auto;
+  button[type='submit'] {
+    margin: 8px;
   }
-}
 
-button[type='submit'] {
-  margin: 8px 16px 0 0;
-}
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+  }
 
-.wrapper {
-  padding-bottom: 16px;
-}
-
-.result-table {
-  padding: 8px;
+  .result-table {
+    padding: 8px 0;
+  }
 }
