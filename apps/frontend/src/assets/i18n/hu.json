@@ -27,8 +27,9 @@
     "HELPERS_LIST": {
       "TRANSPORTATION_PR": {
         "TITLE": "Szállítási probléma",
-        "ALL": "Az összes lépés kell?",
-        "EPSILON": "Ha csak az epszilon kell"
+        "ALL": "Kellenek az első és második fázis lépései?",
+        "EPSILON": "Ha csak az epszilon kell",
+        "SECOND_PHASE": "Ha csak a második fázis kell"
       },
       "ASSIGNMENT_PR": "Hozzárendelési probléma",
       "OTHERS_SOON": "És még több hamarosan..."

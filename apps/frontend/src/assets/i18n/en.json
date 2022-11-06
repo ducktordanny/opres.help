@@ -27,8 +27,9 @@
     "HELPERS_LIST": {
       "TRANSPORTATION_PR": {
         "TITLE": "Transportation problem",
-        "ALL": "Need all steps?",
-        "EPSILON": "If only the epsilon is needed"
+        "ALL": "Need both first and second phase steps?",
+        "EPSILON": "If only the epsilon is needed",
+        "SECOND_PHASE": "If only the second phase is needed"
       },
       "ASSIGNMENT_PR": "Assignment problem",
       "OTHERS_SOON": "And more coming soon..."
