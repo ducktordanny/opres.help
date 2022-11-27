@@ -1,24 +1,32 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Param, Post, Query} from '@nestjs/common';
 
-import {Table} from '@opres/shared/types';
+import {SelectedCell, Table} from '@opres/shared/types';
 
-import {FirstPhaseService} from './services/first-phase.service';
-import {SecondPhaseService} from './services/second-phase.service';
+import {KoenigAlgorithmService, ZeroFindingMethod} from './services/koenig-algorithm.service';
+import {ReduceService} from './services/reduce.service';
 
 @Controller('assignment-problem')
 export class AssignmentProblemController {
-  constructor(
-    private firstPhaseService: FirstPhaseService,
-    private secondPhaseService: SecondPhaseService,
-  ) {}
+  constructor(private reduceService: ReduceService, private koenigAlgoService: KoenigAlgorithmService) {}
 
-  @Post('first-phase')
-  public calculateFirstPhase(@Body() assignmentTable: Table): Table {
-    return this.firstPhaseService.calculate(assignmentTable);
+  @Post('reduce')
+  public getReducedTable(@Body() assignmentTable: Table): Table {
+    return this.reduceService.calculate(assignmentTable);
   }
 
-  @Post('second-phase')
-  public calculateSecondPhase(@Body() assignmentTable: Table): Table {
-    return this.secondPhaseService.calculate(assignmentTable);
+  @Post('hungarian-method')
+  public getHungarianMethodResult(
+    @Body() reducedAssignmentTable: Table,
+    @Query('zero-finding-method') zeroFindingMethod: ZeroFindingMethod,
+  ) {
+    return this.koenigAlgoService.calculate(reducedAssignmentTable, zeroFindingMethod || ZeroFindingMethod.Greedy);
+  }
+
+  @Post('independent-zeros/:method')
+  public getIndependentZeros(
+    @Body() reducedAssignmentTable: Table,
+    @Param('method') method: ZeroFindingMethod,
+  ): Array<SelectedCell> {
+    return this.koenigAlgoService.findIndependentZeros[method](reducedAssignmentTable);
   }
 }
