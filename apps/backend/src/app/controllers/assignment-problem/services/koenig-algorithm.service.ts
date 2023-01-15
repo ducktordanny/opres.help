@@ -10,9 +10,14 @@ export enum ZeroFindingMethod {
   Greedy = 'greedy',
 }
 
-interface Verified {
+interface TableLineSelections {
   rows: Array<number>;
   columns: Array<number>;
+}
+
+interface KoenigAlgoResponse {
+  selectedIndependentZeros: Array<SelectedCell>;
+  strikeThroughs?: TableLineSelections;
 }
 
 interface RowToColumnMarks {
@@ -29,10 +34,10 @@ export class KoenigAlgorithmService {
     [ZeroFindingMethod.Heuristics]: this.findIndependentZerosWithHeuristics,
   };
 
-  public calculate(reducedAssignmentTable: Table, zeroFindingMethod: ZeroFindingMethod): Array<SelectedCell> {
+  public calculate(reducedAssignmentTable: Table, zeroFindingMethod: ZeroFindingMethod): KoenigAlgoResponse {
     const selectedIndependentZeros = this.findIndependentZeros[zeroFindingMethod](reducedAssignmentTable);
     console.log('selectedIndependentZeros', selectedIndependentZeros);
-    if (selectedIndependentZeros.length === reducedAssignmentTable.length) return selectedIndependentZeros;
+    if (selectedIndependentZeros.length === reducedAssignmentTable.length) return {selectedIndependentZeros};
 
     const reachedRows: Array<number> = [];
     const targetColumns: Array<number> = [];
@@ -40,7 +45,7 @@ export class KoenigAlgorithmService {
     console.log('reachedRows', reachedRows);
     console.log('targetColumns', targetColumns);
 
-    const verifiedLines: Verified = {rows: [], columns: []};
+    const verifiedLines: TableLineSelections = {rows: [], columns: []};
     const rowToColumnMarks: RowToColumnMarks = {};
 
     while (!isEmpty(reachedRows)) {
@@ -53,8 +58,8 @@ export class KoenigAlgorithmService {
       );
       console.log('rowToColumnMarks', rowToColumnMarks);
       if (!hasWayToColumn) {
-        console.log('Should apply strikethrough.'); // todo
-        break;
+        const strikeThroughs = this.getStrikeThroughs(reducedAssignmentTable.length, verifiedLines);
+        return {selectedIndependentZeros, strikeThroughs};
       }
       if (this.haveMarksOnAllTargets(rowToColumnMarks, targetColumns)) {
         console.log('Should search back. And restart loop.'); // todo
@@ -65,7 +70,7 @@ export class KoenigAlgorithmService {
       console.log('verifiedLines', verifiedLines);
     }
 
-    return [];
+    return {selectedIndependentZeros};
   }
 
   private haveMarksOnAllTargets(rowToColumnMarks: RowToColumnMarks, targetColumns: Array<number>): boolean {
@@ -75,10 +80,19 @@ export class KoenigAlgorithmService {
     });
   }
 
+  private getStrikeThroughs(n: number, verifiedLines: TableLineSelections): TableLineSelections {
+    const strikeThroughs: TableLineSelections = {rows: [], columns: []};
+    for (let index = 0; index < n; index++) {
+      if (!verifiedLines.rows.some((rowIndex) => rowIndex === index)) strikeThroughs.rows.push(index);
+      if (verifiedLines.columns.some((columnIndex) => columnIndex === index)) strikeThroughs.columns.push(index);
+    }
+    return strikeThroughs;
+  }
+
   private findWaysToRows(
     independentZeros: Array<SelectedCell>,
     reachedRows: Array<number>,
-    verifiedLines: Verified,
+    verifiedLines: TableLineSelections,
     rowToColumnMarks: RowToColumnMarks,
   ): void {
     const unverifiedColumns = keys(rowToColumnMarks).filter(
@@ -99,7 +113,7 @@ export class KoenigAlgorithmService {
     table: Table,
     independentZeros: Array<SelectedCell>,
     reachedRows: Array<number>,
-    verifiedLines: Verified,
+    verifiedLines: TableLineSelections,
     rowToColumnMarks: RowToColumnMarks,
   ): boolean {
     let hasFoundWays = false;
