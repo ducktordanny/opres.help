@@ -21,7 +21,7 @@ interface KoenigAlgoResponse {
 }
 
 interface RowToColumnMarks {
-  [columnIndex: number]: Array<number>;
+  [columnIndex: number]: number;
 }
 
 /**
@@ -36,45 +36,45 @@ export class KoenigAlgorithmService {
 
   public calculate(reducedAssignmentTable: Table, zeroFindingMethod: ZeroFindingMethod): KoenigAlgoResponse {
     const selectedIndependentZeros = this.findIndependentZeros[zeroFindingMethod](reducedAssignmentTable);
-    console.log('selectedIndependentZeros', selectedIndependentZeros);
     if (selectedIndependentZeros.length === reducedAssignmentTable.length) return {selectedIndependentZeros};
 
     const reachedRows: Array<number> = [];
     const targetColumns: Array<number> = [];
-    this.fillInitialPoints(reducedAssignmentTable.length, selectedIndependentZeros, reachedRows, targetColumns);
-    console.log('reachedRows', reachedRows);
-    console.log('targetColumns', targetColumns);
-
     const verifiedLines: TableLineSelections = {rows: [], columns: []};
-    const rowToColumnMarks: RowToColumnMarks = {};
+    let rowToColumnMarks: RowToColumnMarks = {};
 
+    this.fillInitialPoints(reducedAssignmentTable.length, selectedIndependentZeros, reachedRows, targetColumns);
     while (!isEmpty(reachedRows)) {
       const hasWayToColumn = this.findWaysToColumns(
         reducedAssignmentTable,
-        selectedIndependentZeros, // ? maybe I should consider moving some main variables out
+        selectedIndependentZeros,
         reachedRows,
         verifiedLines,
         rowToColumnMarks,
       );
-      console.log('rowToColumnMarks', rowToColumnMarks);
       if (!hasWayToColumn) {
         const strikeThroughs = this.getStrikeThroughs(reducedAssignmentTable.length, verifiedLines);
         return {selectedIndependentZeros, strikeThroughs};
       }
-      if (this.haveMarksOnAllTargets(rowToColumnMarks, targetColumns)) {
-        console.log('Should search back. And restart loop.'); // todo
-        break;
+      const markWithTarget = this.getMarkWithTarget(rowToColumnMarks, targetColumns);
+      if (markWithTarget !== undefined) {
+        this.searchBack(selectedIndependentZeros, rowToColumnMarks, markWithTarget);
+        rowToColumnMarks = {};
+        remove(reachedRows, () => true);
+        remove(targetColumns, () => true);
+        verifiedLines.rows = [];
+        verifiedLines.columns = [];
+        this.fillInitialPoints(reducedAssignmentTable.length, selectedIndependentZeros, reachedRows, targetColumns);
+        continue;
       }
       this.findWaysToRows(selectedIndependentZeros, reachedRows, verifiedLines, rowToColumnMarks);
-      console.log('reachedRows end', reachedRows);
-      console.log('verifiedLines', verifiedLines);
     }
 
     return {selectedIndependentZeros};
   }
 
-  private haveMarksOnAllTargets(rowToColumnMarks: RowToColumnMarks, targetColumns: Array<number>): boolean {
-    return targetColumns.every((target) => {
+  private getMarkWithTarget(rowToColumnMarks: RowToColumnMarks, targetColumns: Array<number>): number | undefined {
+    return targetColumns.find((target) => {
       const marks = keys(rowToColumnMarks);
       return marks.some((mark) => +mark === target);
     });
@@ -89,6 +89,29 @@ export class KoenigAlgorithmService {
     return strikeThroughs;
   }
 
+  private searchBack(
+    independentZeros: Array<SelectedCell>,
+    rowToColumnMarks: RowToColumnMarks,
+    reachedTargetColumn: number,
+  ): void {
+    let rowIndex = rowToColumnMarks[reachedTargetColumn];
+    let columnIndex = reachedTargetColumn;
+    let hasIndieZeroInRow;
+
+    do {
+      hasIndieZeroInRow = independentZeros.some((indieZero) => indieZero.y === rowIndex);
+      const indexOfCurrentIndieZero = independentZeros.findIndex((indieZero) => indieZero.y === rowIndex);
+      if (indexOfCurrentIndieZero === -1) {
+        independentZeros.push({x: columnIndex, y: rowIndex});
+        continue;
+      }
+      const nextColumnIndex = independentZeros[indexOfCurrentIndieZero].x;
+      independentZeros[indexOfCurrentIndieZero].x = columnIndex;
+      columnIndex = nextColumnIndex;
+      rowIndex = rowToColumnMarks[columnIndex];
+    } while (hasIndieZeroInRow);
+  }
+
   private findWaysToRows(
     independentZeros: Array<SelectedCell>,
     reachedRows: Array<number>,
@@ -98,11 +121,9 @@ export class KoenigAlgorithmService {
     const unverifiedColumns = keys(rowToColumnMarks).filter(
       (mark) => !verifiedLines.columns.some((index) => index === +mark),
     );
-    console.log('unverifiedColumns', unverifiedColumns);
     const switchingPoints = independentZeros.filter((cell) =>
       unverifiedColumns.some((columnIndex) => +columnIndex === cell.x),
     );
-    console.log('switchingPoints', switchingPoints);
     for (const switchingPoint of switchingPoints) {
       reachedRows.push(switchingPoint.y);
       verifiedLines.columns.push(switchingPoint.x);
@@ -126,8 +147,7 @@ export class KoenigAlgorithmService {
           !keys(rowToColumnMarks).some((index) => index === zeroColumn),
       );
       for (const zeroColumn of zeroColumns) {
-        if (!rowToColumnMarks[+zeroColumn]) rowToColumnMarks[+zeroColumn] = [];
-        rowToColumnMarks[+zeroColumn].push(reachedRow);
+        rowToColumnMarks[+zeroColumn] = reachedRow;
         hasFoundWays = true;
       }
       verifiedLines.rows.push(reachedRow);
