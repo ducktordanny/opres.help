@@ -1,8 +1,8 @@
 import {Body, Controller, Param, Post, Query} from '@nestjs/common';
 
-import {SelectedCell, Table} from '@opres/shared/types';
+import {SelectedCell, Table, ZeroFindingMethod} from '@opres/shared/types';
 
-import {KoenigAlgorithmService, ZeroFindingMethod} from './services/koenig-algorithm.service';
+import {KoenigAlgorithmService} from './services/koenig-algorithm.service';
 import {ReduceService} from './services/reduce.service';
 
 @Controller('assignment-problem')
@@ -14,8 +14,8 @@ export class AssignmentProblemController {
     return this.reduceService.calculate(assignmentTable);
   }
 
-  @Post('hungarian-method')
-  public getHungarianMethodResult(
+  @Post('koenig-algorithm')
+  public getKoenigAlgoResult(
     @Body() reducedAssignmentTable: Table,
     @Query('zero-finding-method') zeroFindingMethod: ZeroFindingMethod,
   ) {

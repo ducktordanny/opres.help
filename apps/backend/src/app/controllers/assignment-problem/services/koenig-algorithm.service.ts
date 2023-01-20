@@ -1,28 +1,17 @@
 import {Injectable} from '@nestjs/common';
 
-import {SelectedCell, Table} from '@opres/shared/types';
-import {forEach, isEmpty, keys, pickBy, remove} from 'lodash';
+import {
+  ColumnToRowMarks,
+  KoenigAlgoResponse,
+  KoenigAlgoStep,
+  SelectedCell,
+  Table,
+  TableLineSelections,
+  ZeroFindingMethod,
+} from '@opres/shared/types';
+import {cloneDeep, forEach, isEmpty, keys, pickBy} from 'lodash';
 
 import {getColumnUtil} from '../../../utils/get-column.util';
-
-export enum ZeroFindingMethod {
-  Heuristics = 'heuristics',
-  Greedy = 'greedy',
-}
-
-interface TableLineSelections {
-  rows: Array<number>;
-  columns: Array<number>;
-}
-
-interface KoenigAlgoResponse {
-  selectedIndependentZeros: Array<SelectedCell>;
-  strikeThroughs?: TableLineSelections;
-}
-
-interface RowToColumnMarks {
-  [columnIndex: number]: number;
-}
 
 /**
  * Should be used to find which columns and rows can be "skipped".
@@ -33,68 +22,79 @@ export class KoenigAlgorithmService {
     [ZeroFindingMethod.Greedy]: this.findIndependentZerosWithGreedyMethod,
     [ZeroFindingMethod.Heuristics]: this.findIndependentZerosWithHeuristics,
   };
+  private reachedRows: Array<number>;
+  private targetColumns: Array<number>;
+  private verifiedLines: TableLineSelections;
+  private columnToRowMarks: ColumnToRowMarks;
 
   public calculate(reducedAssignmentTable: Table, zeroFindingMethod: ZeroFindingMethod): KoenigAlgoResponse {
+    const N = reducedAssignmentTable.length;
     const selectedIndependentZeros = this.findIndependentZeros[zeroFindingMethod](reducedAssignmentTable);
-    if (selectedIndependentZeros.length === reducedAssignmentTable.length) return {selectedIndependentZeros};
+    if (selectedIndependentZeros.length === N) return [{selectedIndependentZeros}];
 
-    const reachedRows: Array<number> = [];
-    const targetColumns: Array<number> = [];
-    const verifiedLines: TableLineSelections = {rows: [], columns: []};
-    let rowToColumnMarks: RowToColumnMarks = {};
+    const process: KoenigAlgoResponse = [];
+    this.setInitialAuxiliaryParameters();
+    this.setStarterReachedRowsAndTargets(N, selectedIndependentZeros);
 
-    this.fillInitialPoints(reducedAssignmentTable.length, selectedIndependentZeros, reachedRows, targetColumns);
-    while (!isEmpty(reachedRows)) {
-      const hasWayToColumn = this.findWaysToColumns(
-        reducedAssignmentTable,
-        selectedIndependentZeros,
-        reachedRows,
-        verifiedLines,
-        rowToColumnMarks,
-      );
+    while (!isEmpty(this.reachedRows)) {
+      this.snapshotAProcessStep(process, selectedIndependentZeros);
+      const hasWayToColumn = this.findWaysToColumns(reducedAssignmentTable, selectedIndependentZeros);
       if (!hasWayToColumn) {
-        const strikeThroughs = this.getStrikeThroughs(reducedAssignmentTable.length, verifiedLines);
-        return {selectedIndependentZeros, strikeThroughs};
+        const strikeThroughs = this.getStrikeThroughs(N);
+        process.push({selectedIndependentZeros, strikeThroughs});
+        return process;
       }
-      const markWithTarget = this.getMarkWithTarget(rowToColumnMarks, targetColumns);
+      const markWithTarget = this.getMarkWithTarget();
       if (markWithTarget !== undefined) {
-        this.searchBack(selectedIndependentZeros, rowToColumnMarks, markWithTarget);
-        rowToColumnMarks = {};
-        remove(reachedRows, () => true);
-        remove(targetColumns, () => true);
-        verifiedLines.rows = [];
-        verifiedLines.columns = [];
-        this.fillInitialPoints(reducedAssignmentTable.length, selectedIndependentZeros, reachedRows, targetColumns);
+        this.searchBack(selectedIndependentZeros, markWithTarget);
+        this.setInitialAuxiliaryParameters();
+        this.setStarterReachedRowsAndTargets(N, selectedIndependentZeros);
         continue;
       }
-      this.findWaysToRows(selectedIndependentZeros, reachedRows, verifiedLines, rowToColumnMarks);
+      this.findWaysToRows(selectedIndependentZeros);
     }
 
-    return {selectedIndependentZeros};
+    process.push({selectedIndependentZeros});
+    return process;
   }
 
-  private getMarkWithTarget(rowToColumnMarks: RowToColumnMarks, targetColumns: Array<number>): number | undefined {
-    return targetColumns.find((target) => {
-      const marks = keys(rowToColumnMarks);
+  private snapshotAProcessStep(process: KoenigAlgoResponse, selectedIndependentZeros: Array<SelectedCell>): void {
+    const {reachedRows, targetColumns, verifiedLines, columnToRowMarks} = this;
+    const stepSnapshot: KoenigAlgoStep = cloneDeep({
+      selectedIndependentZeros,
+      reachedRows,
+      targetColumns,
+      verifiedLines,
+      columnToRowMarks,
+    });
+    process.push(stepSnapshot);
+  }
+
+  private setInitialAuxiliaryParameters(): void {
+    this.reachedRows = [];
+    this.targetColumns = [];
+    this.verifiedLines = {rows: [], columns: []};
+    this.columnToRowMarks = {};
+  }
+
+  private getMarkWithTarget(): number | undefined {
+    return this.targetColumns.find((target) => {
+      const marks = keys(this.columnToRowMarks);
       return marks.some((mark) => +mark === target);
     });
   }
 
-  private getStrikeThroughs(n: number, verifiedLines: TableLineSelections): TableLineSelections {
+  private getStrikeThroughs(n: number): TableLineSelections {
     const strikeThroughs: TableLineSelections = {rows: [], columns: []};
     for (let index = 0; index < n; index++) {
-      if (!verifiedLines.rows.some((rowIndex) => rowIndex === index)) strikeThroughs.rows.push(index);
-      if (verifiedLines.columns.some((columnIndex) => columnIndex === index)) strikeThroughs.columns.push(index);
+      if (!this.verifiedLines.rows.some((rowIndex) => rowIndex === index)) strikeThroughs.rows.push(index);
+      if (this.verifiedLines.columns.some((columnIndex) => columnIndex === index)) strikeThroughs.columns.push(index);
     }
     return strikeThroughs;
   }
 
-  private searchBack(
-    independentZeros: Array<SelectedCell>,
-    rowToColumnMarks: RowToColumnMarks,
-    reachedTargetColumn: number,
-  ): void {
-    let rowIndex = rowToColumnMarks[reachedTargetColumn];
+  private searchBack(independentZeros: Array<SelectedCell>, reachedTargetColumn: number): void {
+    let rowIndex = this.columnToRowMarks[reachedTargetColumn];
     let columnIndex = reachedTargetColumn;
     let hasIndieZeroInRow;
 
@@ -108,51 +108,40 @@ export class KoenigAlgorithmService {
       const nextColumnIndex = independentZeros[indexOfCurrentIndieZero].x;
       independentZeros[indexOfCurrentIndieZero].x = columnIndex;
       columnIndex = nextColumnIndex;
-      rowIndex = rowToColumnMarks[columnIndex];
+      rowIndex = this.columnToRowMarks[columnIndex];
     } while (hasIndieZeroInRow);
   }
 
-  private findWaysToRows(
-    independentZeros: Array<SelectedCell>,
-    reachedRows: Array<number>,
-    verifiedLines: TableLineSelections,
-    rowToColumnMarks: RowToColumnMarks,
-  ): void {
-    const unverifiedColumns = keys(rowToColumnMarks).filter(
-      (mark) => !verifiedLines.columns.some((index) => index === +mark),
+  private findWaysToRows(independentZeros: Array<SelectedCell>): void {
+    const unverifiedColumns = keys(this.columnToRowMarks).filter(
+      (mark) => !this.verifiedLines.columns.some((index) => index === +mark),
     );
     const switchingPoints = independentZeros.filter((cell) =>
       unverifiedColumns.some((columnIndex) => +columnIndex === cell.x),
     );
     for (const switchingPoint of switchingPoints) {
-      reachedRows.push(switchingPoint.y);
-      verifiedLines.columns.push(switchingPoint.x);
+      this.reachedRows.push(switchingPoint.y);
+      this.verifiedLines.columns.push(switchingPoint.x);
     }
   }
 
-  private findWaysToColumns(
-    table: Table,
-    independentZeros: Array<SelectedCell>,
-    reachedRows: Array<number>,
-    verifiedLines: TableLineSelections,
-    rowToColumnMarks: RowToColumnMarks,
-  ): boolean {
+  private findWaysToColumns(table: Table, independentZeros: Array<SelectedCell>): boolean {
     let hasFoundWays = false;
-    for (const reachedRow of reachedRows) {
+    for (const reachedRow of this.reachedRows) {
       const row = table[reachedRow];
       const zeroCells = pickBy(row, (cell) => cell === 0);
       const zeroColumns = keys(zeroCells).filter(
         (zeroColumn) =>
           !this.isCellIndependent(independentZeros, reachedRow, +zeroColumn) &&
-          !keys(rowToColumnMarks).some((index) => index === zeroColumn),
+          !keys(this.columnToRowMarks).some((index) => index === zeroColumn),
       );
       for (const zeroColumn of zeroColumns) {
-        rowToColumnMarks[+zeroColumn] = reachedRow;
+        this.columnToRowMarks[+zeroColumn] = reachedRow;
         hasFoundWays = true;
       }
-      verifiedLines.rows.push(reachedRow);
+      this.verifiedLines.rows.push(reachedRow);
     }
-    remove(reachedRows, () => true);
+    this.reachedRows = [];
     return hasFoundWays;
   }
 
@@ -174,13 +163,16 @@ export class KoenigAlgorithmService {
     const independentZeros: Array<SelectedCell> = [];
     let nextIndependentZeros: SelectedCell | null = null;
     do {
-      nextIndependentZeros = KoenigAlgorithmService.getIndependentZero(table, independentZeros);
+      nextIndependentZeros = KoenigAlgorithmService.getIndependentZeroHeuristically(table, independentZeros);
       if (nextIndependentZeros) independentZeros.push(nextIndependentZeros);
     } while (nextIndependentZeros !== null);
     return independentZeros;
   }
 
-  private static getIndependentZero(table: Table, independentZeros: Array<SelectedCell>): SelectedCell | null {
+  private static getIndependentZeroHeuristically(
+    table: Table,
+    independentZeros: Array<SelectedCell>,
+  ): SelectedCell | null {
     for (const [rowIndex, row] of table.entries()) {
       if (independentZeros.some((cell) => cell.y === rowIndex)) continue;
       const possibleIndependentZerosObject = pickBy(
@@ -221,18 +213,12 @@ export class KoenigAlgorithmService {
   private isCellIndependent = (independentZeros: Array<SelectedCell>, rowIndex: number, columnIndex: number) =>
     independentZeros.some((independentZero) => independentZero.x === columnIndex && independentZero.y === rowIndex);
 
-  private fillInitialPoints(
-    n: number,
-    selectedIndependentZeros: Array<SelectedCell>,
-    reachedRows: Array<number>,
-    targetColumns?: Array<number>,
-  ): void {
+  private setStarterReachedRowsAndTargets(n: number, selectedIndependentZeros: Array<SelectedCell>): void {
     for (let index = 0; index < n; index++) {
-      const isTargetColumn =
-        targetColumns && !selectedIndependentZeros.some((selectedZero) => selectedZero.x === index);
+      const isTargetColumn = !selectedIndependentZeros.some((selectedZero) => selectedZero.x === index);
       const isReachedRow = !selectedIndependentZeros.some((selectedZero) => selectedZero.y === index);
-      if (isTargetColumn) targetColumns.push(index);
-      if (isReachedRow) reachedRows.push(index);
+      if (isTargetColumn) this.targetColumns.push(index);
+      if (isReachedRow) this.reachedRows.push(index);
     }
   }
 }
