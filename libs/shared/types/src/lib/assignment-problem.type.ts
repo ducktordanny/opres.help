@@ -1,4 +1,5 @@
-import {SelectedCell} from './problems.type';
+import {Explanation, SelectedCell} from './problems.type';
+import {Table} from './table.type';
 
 export enum ZeroFindingMethod {
   Heuristics = 'heuristics',
@@ -20,6 +21,16 @@ export interface KoenigAlgoStep {
 }
 
 export type KoenigAlgoResponse = Array<KoenigAlgoStep>;
+
+export interface HungarianMethodStep {
+  koenigAlgorithm?: KoenigAlgoResponse;
+  epsilon?: number;
+  transformation?: Table;
+  reduce?: Table;
+  explanation?: Explanation;
+}
+
+export type HungarianMethodResponse = Array<HungarianMethodStep>;
 
 export interface ColumnToRowMarks {
   [columnIndex: number]: number;

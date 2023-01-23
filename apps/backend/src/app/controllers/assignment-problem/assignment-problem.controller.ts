@@ -19,8 +19,7 @@ export class AssignmentProblemController {
     @Body() assignmentTable: Table,
     @Query('zero-finding-method') zeroFindingMethod: ZeroFindingMethod,
   ) {
-    const reducedTable = this.reduceService.calculate(assignmentTable);
-    return this.hungarianMethodService.calculate(reducedTable, zeroFindingMethod || ZeroFindingMethod.Greedy);
+    return this.hungarianMethodService.calculate(assignmentTable, zeroFindingMethod || ZeroFindingMethod.Greedy);
   }
 
   @Post('reduce')

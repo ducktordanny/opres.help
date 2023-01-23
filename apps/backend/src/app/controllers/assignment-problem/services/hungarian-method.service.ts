@@ -1,32 +1,40 @@
 import {Injectable} from '@nestjs/common';
 
-import {Table, TableLineSelections, ZeroFindingMethod} from '@opres/shared/types';
+import {HungarianMethodResponse, Table, TableLineSelections, ZeroFindingMethod} from '@opres/shared/types';
 import {cloneDeep, forEach, last} from 'lodash';
 
 import {KoenigAlgorithmService} from './koenig-algorithm.service';
+import {ReduceService} from './reduce.service';
 
 @Injectable()
 export class HungarianMethodService {
-  constructor(private koenigAlgorithmService: KoenigAlgorithmService) {}
+  constructor(private koenigAlgorithmService: KoenigAlgorithmService, private reduceService: ReduceService) {}
 
-  public calculate(reducedAssignmentTable: Table, zeroFindingMethod: ZeroFindingMethod) {
-    let transformTable = cloneDeep(reducedAssignmentTable);
-    let koenigMethodResponse = this.koenigAlgorithmService.calculate(reducedAssignmentTable, zeroFindingMethod);
+  public calculate(assignmentTable: Table, zeroFindingMethod: ZeroFindingMethod): HungarianMethodResponse {
+    const process: HungarianMethodResponse = [];
+
+    let transformTable = cloneDeep(this.reduceService.calculate(assignmentTable));
+    let koenigMethodResponse = this.koenigAlgorithmService.calculate(transformTable, zeroFindingMethod);
     let strikeThroughs = last(koenigMethodResponse).strikeThroughs;
+
+    process.push(cloneDeep({reduce: transformTable}));
     while (strikeThroughs) {
-      transformTable = this.transformation(transformTable, strikeThroughs);
+      const epsilon = this.getEpsilon(transformTable, strikeThroughs);
+      transformTable = this.transformation(transformTable, strikeThroughs, epsilon);
+      process.push(cloneDeep({epsilon, koenigAlgorithm: koenigMethodResponse, transformation: transformTable}));
       koenigMethodResponse = this.koenigAlgorithmService.calculate(transformTable, zeroFindingMethod);
       strikeThroughs = last(koenigMethodResponse).strikeThroughs;
     }
-    return last(koenigMethodResponse).selectedIndependentZeros;
+
+    process.push(cloneDeep({transformation: assignmentTable, koenigAlgorithm: koenigMethodResponse}));
+    return process;
   }
 
   /*
    * - Where we don't have any strike-throughs we subtract the cell's value with Epsilon
    * - Where we have two strike-throughs (crossing each other) we add Epsilon to the cell's value
    */
-  private transformation(table: Table, strikeThroughs: TableLineSelections) {
-    const epsilon = this.getEpsilon(table, strikeThroughs);
+  private transformation(table: Table, strikeThroughs: TableLineSelections, epsilon: number): Table {
     const transformedTable = cloneDeep(table);
 
     forEach(transformedTable, (row, rowIndex) => {

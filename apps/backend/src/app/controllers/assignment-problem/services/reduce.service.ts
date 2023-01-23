@@ -1,11 +1,12 @@
 import {Injectable} from '@nestjs/common';
 
 import {Table} from '@opres/shared/types';
+import {cloneDeep} from 'lodash';
 
 @Injectable()
 export class ReduceService {
   public calculate(assignmentTable: Table): Table {
-    const table = this.reduceByRows([...assignmentTable]);
+    const table = this.reduceByRows([...cloneDeep(assignmentTable)]);
     return this.reduceByColumns(table);
   }
 
