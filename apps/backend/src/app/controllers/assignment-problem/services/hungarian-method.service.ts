@@ -1,6 +1,12 @@
 import {Injectable} from '@nestjs/common';
 
-import {HungarianMethodResponse, Table, TableLineSelections, ZeroFindingMethod} from '@opres/shared/types';
+import {
+  AssignmentProblemType,
+  HungarianMethodResponse,
+  Table,
+  TableLineSelections,
+  ZeroFindingMethod,
+} from '@opres/shared/types';
 import {cloneDeep, forEach, last} from 'lodash';
 
 import {KoenigAlgorithmService} from './koenig-algorithm.service';
@@ -10,14 +16,18 @@ import {ReduceService} from './reduce.service';
 export class HungarianMethodService {
   constructor(private koenigAlgorithmService: KoenigAlgorithmService, private reduceService: ReduceService) {}
 
-  public calculate(assignmentTable: Table, zeroFindingMethod: ZeroFindingMethod): HungarianMethodResponse {
-    const process: HungarianMethodResponse = [];
+  public calculate(
+    assignmentTable: Table,
+    zeroFindingMethod: ZeroFindingMethod,
+    problemType: AssignmentProblemType,
+  ): HungarianMethodResponse {
+    const reduceResult = this.reduceService.calculate(assignmentTable, problemType);
+    const process: HungarianMethodResponse = [{reduce: reduceResult}];
 
-    let transformTable = cloneDeep(this.reduceService.calculate(assignmentTable));
+    let transformTable = cloneDeep(reduceResult.reduce);
     let koenigMethodResponse = this.koenigAlgorithmService.calculate(transformTable, zeroFindingMethod);
     let strikeThroughs = last(koenigMethodResponse).strikeThroughs;
 
-    process.push(cloneDeep({reduce: transformTable}));
     while (strikeThroughs) {
       const epsilon = this.getEpsilon(transformTable, strikeThroughs);
       transformTable = this.transformation(transformTable, strikeThroughs, epsilon);

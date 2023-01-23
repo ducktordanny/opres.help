@@ -1,9 +1,20 @@
 import {Explanation, SelectedCell} from './problems.type';
 import {Table} from './table.type';
 
+export enum AssignmentProblemType {
+  Max = 'maximum',
+  Min = 'minimum',
+}
+
 export enum ZeroFindingMethod {
   Heuristics = 'heuristics',
   Greedy = 'greedy',
+}
+
+export interface ReduceResponse {
+  maxToMinTransformation?: Table;
+  negativeValuesTransformation?: Table;
+  reduce: Table;
 }
 
 export interface TableLineSelections {
@@ -26,7 +37,7 @@ export interface HungarianMethodStep {
   koenigAlgorithm?: KoenigAlgoResponse;
   epsilon?: number;
   transformation?: Table;
-  reduce?: Table;
+  reduce?: ReduceResponse;
   explanation?: Explanation;
 }
 
