@@ -1,24 +1,49 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Param, Post, Query, UseGuards} from '@nestjs/common';
 
-import {Table} from '@opres/shared/types';
+import {AssignmentProblemType, Table, ZeroFindingMethod} from '@opres/shared/types';
 
-import {FirstPhaseService} from './services/first-phase.service';
-import {SecondPhaseService} from './services/second-phase.service';
+import {AssignmentProblemGuard} from './guards/assignment-problem.guard';
+import {HungarianMethodService} from './services/hungarian-method.service';
+import {KoenigAlgorithmService} from './services/koenig-algorithm.service';
+import {ReduceService} from './services/reduce.service';
 
+@UseGuards(AssignmentProblemGuard)
 @Controller('assignment-problem')
 export class AssignmentProblemController {
   constructor(
-    private firstPhaseService: FirstPhaseService,
-    private secondPhaseService: SecondPhaseService,
+    private reduceService: ReduceService,
+    private koenigAlgoService: KoenigAlgorithmService,
+    private hungarianMethodService: HungarianMethodService,
   ) {}
 
-  @Post('first-phase')
-  public calculateFirstPhase(@Body() assignmentTable: Table): Table {
-    return this.firstPhaseService.calculate(assignmentTable);
+  @Post()
+  public getFullResult(
+    @Body() assignmentTable: Table,
+    @Query('zero-finding-method') zeroFindingMethod: ZeroFindingMethod,
+    @Query('type') problemType: AssignmentProblemType,
+  ) {
+    return this.hungarianMethodService.calculate(
+      assignmentTable,
+      zeroFindingMethod || ZeroFindingMethod.Greedy,
+      problemType || AssignmentProblemType.Min,
+    );
   }
 
-  @Post('second-phase')
-  public calculateSecondPhase(@Body() assignmentTable: Table): Table {
-    return this.secondPhaseService.calculate(assignmentTable);
+  @Post('reduce')
+  public getReducedTable(@Body() assignmentTable: Table, @Query('type') problemType: AssignmentProblemType) {
+    return this.reduceService.calculate(assignmentTable, problemType || AssignmentProblemType.Min);
+  }
+
+  @Post('koenig-algorithm')
+  public getKoenigAlgoResult(
+    @Body() reducedAssignmentTable: Table,
+    @Query('zero-finding-method') zeroFindingMethod: ZeroFindingMethod,
+  ) {
+    return this.koenigAlgoService.calculate(reducedAssignmentTable, zeroFindingMethod || ZeroFindingMethod.Greedy);
+  }
+
+  @Post('independent-zeros/:method')
+  public getIndependentZeros(@Body() reducedAssignmentTable: Table, @Param('method') method: ZeroFindingMethod) {
+    return this.koenigAlgoService.findIndependentZeros[method](reducedAssignmentTable);
   }
 }

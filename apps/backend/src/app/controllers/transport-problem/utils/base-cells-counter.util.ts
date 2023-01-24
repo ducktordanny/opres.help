@@ -1,7 +1,7 @@
 import {TransportTable} from '@opres/shared/types';
 import {countBy} from 'lodash';
 
-import {getColumnUtil} from './get-column.util';
+import {getColumnUtil} from '../../../utils/get-column.util';
 
 export function getBaseCellsInARow(
   transportTable: TransportTable,
@@ -18,5 +18,8 @@ export function getBaseCellsInColumn(
   columnIndex: number,
 ): number {
   const column = getColumnUtil(transportTable, columnIndex);
-  return countBy(column, (cell) => cell.transported !== undefined).true;
+  return countBy(
+    column,
+    (cell) => typeof cell !== 'number' && cell?.transported !== undefined,
+  ).true;
 }

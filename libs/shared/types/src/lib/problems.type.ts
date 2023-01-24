@@ -17,3 +17,9 @@ export interface Epsilon {
   /** This should contain the explanation of the calculation if needed. */
   explanation?: Explanation;
 }
+
+export interface SelectedCell {
+  x: number;
+  y: number;
+  value?: number;
+}

@@ -37,12 +37,10 @@ export class AssignmentProblemPageComponent {
 
   public onCalculate(event: Event): void {
     event.preventDefault();
-    this.result$ = this.assignmentProblemService.calculateFirsPhase(
-      this.assignmentTable.getValue(),
-    );
+    this.result$ = this.assignmentProblemService.calculateFirsPhase(this.assignmentTable.getValue());
   }
 
-  onTableChange(change: Table): void {
+  public onTableChange(change: Table): void {
     this.assignmentTable.next(change);
   }
 }

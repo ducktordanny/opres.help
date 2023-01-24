@@ -15,8 +15,7 @@ describe('SecondPhaseService', () => {
     service = new SecondPhaseService();
   });
 
-  it('should be created', () =>
-    expect(service).toBeInstanceOf(SecondPhaseService));
+  it('should be created', () => expect(service).toBeInstanceOf(SecondPhaseService));
 
   it("should calculate a transport problem's second phase part 1", () => {
     const firstPhaseResult = last(vogelKordaFirstResultMock)?.transportation;

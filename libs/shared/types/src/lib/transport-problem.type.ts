@@ -1,3 +1,4 @@
+import {SelectedCell} from './problems.type';
 import {Table} from './table.type';
 
 export type Stocks = Array<number | null>;
@@ -31,12 +32,6 @@ export interface FirstPhaseStep {
   stocks: Stocks;
   auxiliaryVariables?: AuxiliaryVariables;
   explanation?: string;
-}
-
-export interface SelectedCell {
-  x: number;
-  y: number;
-  value?: number;
 }
 
 export interface SecondPhaseStep {
