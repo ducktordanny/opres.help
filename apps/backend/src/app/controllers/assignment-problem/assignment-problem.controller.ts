@@ -1,11 +1,13 @@
-import {Body, Controller, Param, Post, Query} from '@nestjs/common';
+import {Body, Controller, Param, Post, Query, UseGuards} from '@nestjs/common';
 
 import {AssignmentProblemType, Table, ZeroFindingMethod} from '@opres/shared/types';
 
+import {AssignmentProblemGuard} from './guards/assignment-problem.guard';
 import {HungarianMethodService} from './services/hungarian-method.service';
 import {KoenigAlgorithmService} from './services/koenig-algorithm.service';
 import {ReduceService} from './services/reduce.service';
 
+@UseGuards(AssignmentProblemGuard)
 @Controller('assignment-problem')
 export class AssignmentProblemController {
   constructor(
