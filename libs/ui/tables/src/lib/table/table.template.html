@@ -15,14 +15,12 @@
       <td
         mat-cell
         *matCellDef="let element; let rowIndex = index"
-        [ngClass]="{'main-marked-cell': mainMarkedCell?.x === +header && mainMarkedCell?.y === rowIndex}"
+        [ngClass]="{'main-marked-cell': doesCellHaveMainMark(+header, rowIndex)}"
       >
         <ng-container
           *ngIf="{primary: subs?.badgeSource?.[rowIndex]?.[header], secondary: subs?.secondaryBadgeSource?.[rowIndex]?.[header]} as badgeCells"
         >
-          <span
-            class="marked-cell"
-            *ngIf="getCircleStepNumber(rowIndex, +header) as circleStep"
+          <span class="marked-cell" *ngIf="getCircleStepNumber(rowIndex, +header) as circleStep"
             >{{circleStep}}</span
           >
           <span
@@ -41,23 +39,16 @@
               matBadgeColor="accent"
               >{{element[header] || 0}}</span
             >
-            <ng-template #noSecondaryBadge
-              >{{element[header] || 0}}</ng-template
-            >
+            <ng-template #noSecondaryBadge>{{element[header] || 0}}</ng-template>
           </span>
           <ng-template #badgelessCell>
-            <span
-              [ngClass]="{'hidden-transport': !showZeros && !element[header]}"
-            >
+            <span [ngClass]="{'hidden-transport': !showZeros && !element[header]}">
               {{element[header] || 0}}
             </span>
           </ng-template>
         </ng-container>
       </td>
     </ng-container>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: subs?.tableSource?.[0] | toRowDefinitions"
-    ></tr>
+    <tr mat-row *matRowDef="let row; columns: subs?.tableSource?.[0] | toRowDefinitions"></tr>
   </table>
 </ng-container>

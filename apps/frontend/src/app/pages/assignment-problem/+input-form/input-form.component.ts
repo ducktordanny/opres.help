@@ -6,11 +6,7 @@ import {AssignmentProblemType, Table, ZeroFindingMethod} from '@opres/shared/typ
 import {InputTableService} from '@opres/ui/tables';
 import {BehaviorSubject} from 'rxjs';
 
-export interface AssignmentProblemInputForm {
-  table: Table;
-  zeroFindingMethod?: ZeroFindingMethod;
-  problemType?: AssignmentProblemType;
-}
+import {AssignmentProblemInputForm} from '../assignment-problem.type';
 
 @Component({
   selector: 'app-assignment-problem-input-form',

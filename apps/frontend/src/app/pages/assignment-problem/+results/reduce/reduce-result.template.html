@@ -1,0 +1,17 @@
+<ng-container *ngIf="value">
+  <mat-divider></mat-divider>
+  <section>
+    <article *ngIf="value.negativeValuesTransformation" class="wrapper">
+      <h1>Handle negative values</h1>
+      <opres-table [tableSource]="value.negativeValuesTransformation"></opres-table>
+    </article>
+    <article *ngIf="value.maxToMinTransformation" class="wrapper">
+      <h1>Max to min transformation</h1>
+      <opres-table [tableSource]="value.maxToMinTransformation"></opres-table>
+    </article>
+    <article class="wrapper">
+      <h1>Reduction</h1>
+      <opres-table [tableSource]="value.reduce"></opres-table>
+    </article>
+  </section>
+</ng-container>

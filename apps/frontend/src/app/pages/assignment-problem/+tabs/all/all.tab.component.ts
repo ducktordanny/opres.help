@@ -3,8 +3,8 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {HungarianMethodResponse} from '@opres/shared/types';
 import {Observable} from 'rxjs';
 
-import {AssignmentProblemInputForm} from '../../+input-form/input-form.component';
 import {AssignmentProblemService} from '../../assignment-problem.service';
+import {AssignmentProblemInputForm} from '../../assignment-problem.type';
 
 @Component({
   selector: 'app-all-tab',

@@ -2,4 +2,7 @@
   [needProblemType]="false"
   (formOutput)="onFormOutput($event)"
 ></app-assignment-problem-input-form>
-<pre *ngIf="result | async as _result">{{_result | json}}</pre>
+<app-independent-zeros-result
+  [reducedTable]="reducedTable | async"
+  [independentZeros]="result | async"
+></app-independent-zeros-result>

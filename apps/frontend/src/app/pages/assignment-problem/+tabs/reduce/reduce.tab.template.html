@@ -2,4 +2,4 @@
   [needZeroFindingMethod]="false"
   (formOutput)="onFormOutput($event)"
 ></app-assignment-problem-input-form>
-<pre *ngIf="result | async as _result">{{_result | json}}</pre>
+<app-reduce-result [value]="result | async"></app-reduce-result>
