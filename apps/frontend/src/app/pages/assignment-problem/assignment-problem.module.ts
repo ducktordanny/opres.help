@@ -1,12 +1,8 @@
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
-import {InputTableModule, TableModule} from '@opres/ui/tables';
-import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
 import {ErrorHandlerService} from '@frontend/services/error-handler.service';
 import {TranslateModule} from '@ngx-translate/core';
 
@@ -20,12 +16,7 @@ import {AssignmentProblemService} from './assignment-problem.service';
     AssignmentProblemRouting,
     CommonModule,
     HttpClientModule,
-    InfoCardModule,
-    InputTableModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    TableModule,
+    MatTabsModule,
     TranslateModule,
   ],
   providers: [AssignmentProblemService, ErrorHandlerService],

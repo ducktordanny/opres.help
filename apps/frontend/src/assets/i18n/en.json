@@ -3,21 +3,25 @@
   "PREVIOUS": "Previous",
   "NEXT": "Next",
   "CALCULATE_BUTTON": "Calculate",
+
   "LANGUAGE": {
     "EN": "🇬🇧 English",
     "HU": "🇭🇺 Hungarian"
   },
+
   "THEME": {
     "DARK": "Dark",
     "LIGHT": "Light",
     "AUTO": "Auto"
   },
+
   "SIDEBAR_MENU": {
     "HOME": "Home",
     "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Transportation problem",
     "ASSIGNMENT_PROBLEM": "Assignment problem"
   },
+
   "HOME": {
     "HEADER_TITLE": "Operation Research Helper",
     "SLOGAN": "You need some help with your subject or just want to check your calculations? You are at the best place!",
@@ -44,9 +48,11 @@
       "CONTENT": "If you would like to support my work you can do it via"
     }
   },
+
   "API_DOCS": {
     "INFO": "Under construction! It will be available soon."
   },
+
   "TRANSPORTATION_PROBLEM": {
     "TABS": {
       "ALL": {
@@ -102,12 +108,29 @@
       }
     }
   },
+
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",
-    "PAGE_INFO": {
-      "TITLE": "Under construction",
-      "CONTENT": "Currently only the first phase is available"
+    "ZERO_FINDING": {
+      "LABEL": "Independent zero finding",
+      "OPTIONS": {
+        "GREEDY": "Greedy",
+        "HEURISTICS": "Heuristics"
+      }
     },
-    "RESULT_INFO": "The result of the first phase:"
+    "TABS": {
+      "ALL": {
+        "NAME": "All"
+      },
+      "KOENIG_ALGORITHM": {
+        "NAME": "Koenig algorithm"
+      },
+      "INDEPENDENT_ZEROS": {
+        "NAME": "Independent zeros"
+      },
+      "REDUCE": {
+        "NAME": "Reduce"
+      }
+    }
   }
 }
