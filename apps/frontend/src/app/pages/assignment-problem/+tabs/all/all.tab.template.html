@@ -1,1 +1,4 @@
-<p>all.tab.component.ts works!</p>
+<app-assignment-problem-input-form
+  (formOutput)="onFormOutput($event)"
+></app-assignment-problem-input-form>
+<pre *ngIf="result | async as _result">{{_result | json}}</pre>

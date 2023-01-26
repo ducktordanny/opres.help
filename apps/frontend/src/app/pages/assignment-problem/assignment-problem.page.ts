@@ -5,6 +5,13 @@ import {Tab} from '../../types/routing.type';
 @Component({
   selector: 'assignment-problem-page',
   templateUrl: './assignment-problem.template.html',
+  styles: [
+    `
+      .tab-content-wrapper {
+        padding: 8px calc(env(safe-area-inset-right) + 8px) 8px 8px;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssignmentProblemPageComponent {

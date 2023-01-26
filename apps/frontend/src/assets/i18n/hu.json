@@ -116,6 +116,7 @@
         "HEURISTICS": "Heurosztika"
       }
     },
+    "PROBLEM_TYPE": "Probléma típus",
     "TABS": {
       "ALL": {
         "NAME": "Mind"

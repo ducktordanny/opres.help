@@ -118,6 +118,7 @@
         "HEURISTICS": "Heuristics"
       }
     },
+    "PROBLEM_TYPE": "Problem type",
     "TABS": {
       "ALL": {
         "NAME": "All"
