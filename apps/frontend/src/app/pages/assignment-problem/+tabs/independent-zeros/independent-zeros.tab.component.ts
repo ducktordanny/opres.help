@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
-import {SelectedCell, Table} from '@opres/shared/types';
+import {ProblemTable, SelectedCell} from '@opres/shared/types';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {AssignmentProblemService} from '../../assignment-problem.service';
@@ -12,7 +12,7 @@ import {AssignmentProblemInputForm} from '../../assignment-problem.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IndependentZerosTabComponent {
-  public reducedTable = new BehaviorSubject<Table>([]);
+  public reducedTable = new BehaviorSubject<ProblemTable>([]);
   public result!: Observable<Array<SelectedCell>>;
 
   constructor(private assignmentProblemService: AssignmentProblemService) {}

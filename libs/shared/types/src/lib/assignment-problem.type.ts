@@ -1,5 +1,5 @@
 import {Explanation, SelectedCell} from './problems.type';
-import {Table} from './table.type';
+import {ProblemTable} from './table.type';
 
 export enum AssignmentProblemType {
   Max = 'maximum',
@@ -12,9 +12,9 @@ export enum ZeroFindingMethod {
 }
 
 export interface ReduceResponse {
-  maxToMinTransformation?: Table;
-  negativeValuesTransformation?: Table;
-  reduce: Table;
+  maxToMinTransformation?: ProblemTable;
+  negativeValuesTransformation?: ProblemTable;
+  reduce: ProblemTable;
 }
 
 export interface TableLineSelections {
@@ -36,7 +36,7 @@ export type KoenigAlgoResponse = Array<KoenigAlgoStep>;
 export interface HungarianMethodStep {
   koenigAlgorithm?: KoenigAlgoResponse;
   epsilon?: number;
-  transformation?: Table;
+  transformation?: ProblemTable;
   reduce?: ReduceResponse;
   explanation?: Explanation;
 }

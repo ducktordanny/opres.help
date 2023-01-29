@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {Demands, Stocks, Table, TPData, TPMethods} from '@opres/shared/types';
+import {Demands, ProblemTable, Stocks, TPData, TPMethods} from '@opres/shared/types';
 import {checkSolvability} from '@opres/shared/utils';
 import {LanguageSwitcherService} from '@frontend/components/layout/language-switcher/language-switcher.service';
 import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
@@ -54,7 +54,7 @@ export class AllTabComponent implements OnDestroy {
       .subscribe();
   }
 
-  public onCostChange(costs: Table): void {
+  public onCostChange(costs: ProblemTable): void {
     this.tpData$.next({...this.tpData$.getValue(), costs});
     transportProblemCacheBuster$.next();
     this.formGroup.setErrors(null);

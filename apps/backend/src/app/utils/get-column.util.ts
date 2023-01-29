@@ -1,7 +1,7 @@
-import {Cell, Table, TransportTable} from '@opres/shared/types';
+import {Cell, ProblemTable, TransportTable} from '@opres/shared/types';
 
 export function getColumnUtil(
-  table: TransportTable | Table,
+  table: TransportTable | ProblemTable,
   columnIndex: number,
 ): Array<Cell | number | null> {
   return table.map((row) => row[columnIndex]);

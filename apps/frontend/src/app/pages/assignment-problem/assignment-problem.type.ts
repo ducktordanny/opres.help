@@ -1,7 +1,7 @@
-import {AssignmentProblemType, Table, ZeroFindingMethod} from '@opres/shared/types';
+import {AssignmentProblemType, ProblemTable, ZeroFindingMethod} from '@opres/shared/types';
 
 export interface AssignmentProblemInputForm {
-  table: Table;
+  table: ProblemTable;
   zeroFindingMethod?: ZeroFindingMethod;
   problemType?: AssignmentProblemType;
 }

@@ -5,9 +5,9 @@ import {
   AssignmentProblemType,
   HungarianMethodResponse,
   KoenigAlgoResponse,
+  ProblemTable,
   ReduceResponse,
   SelectedCell,
-  Table,
   ZeroFindingMethod,
 } from '@opres/shared/types';
 import {ErrorHandlerService} from '@frontend/services/error-handler.service';
@@ -22,7 +22,7 @@ export class AssignmentProblemService {
 
   @Cacheable({cacheBusterObserver: assignmentProblemCacheBuster})
   public calculateAll(
-    assignmentTable: Table,
+    assignmentTable: ProblemTable,
     problemType = AssignmentProblemType.Min,
     method = ZeroFindingMethod.Greedy,
   ): Observable<HungarianMethodResponse> {
@@ -35,7 +35,7 @@ export class AssignmentProblemService {
 
   @Cacheable({cacheBusterObserver: assignmentProblemCacheBuster})
   public calculateKoenigAlgorithm(
-    assignmentTable: Table,
+    assignmentTable: ProblemTable,
     method = ZeroFindingMethod.Greedy,
   ): Observable<KoenigAlgoResponse> {
     const url = this.urlPrefix('koenig-algorithm');
@@ -48,7 +48,7 @@ export class AssignmentProblemService {
 
   @Cacheable({cacheBusterObserver: assignmentProblemCacheBuster})
   public calculateIndependentZeros(
-    assignmentTable: Table,
+    assignmentTable: ProblemTable,
     method = ZeroFindingMethod.Greedy,
   ): Observable<Array<SelectedCell>> {
     const url = this.urlPrefix(`independent-zeros/${method}`);
@@ -60,7 +60,7 @@ export class AssignmentProblemService {
 
   @Cacheable({cacheBusterObserver: assignmentProblemCacheBuster})
   public reduce(
-    assignmentTable: Table,
+    assignmentTable: ProblemTable,
     problemType = AssignmentProblemType.Min,
   ): Observable<ReduceResponse> {
     const url = this.urlPrefix('reduce');

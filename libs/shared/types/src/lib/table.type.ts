@@ -1,3 +1,3 @@
-export type Row = Record<string, number | null>;
-export type Table = Array<Row>;
+export type ProblemRow = Record<string, number | null>;
+export type ProblemTable = Array<ProblemRow>;
 export type RowDefs = Array<string>;

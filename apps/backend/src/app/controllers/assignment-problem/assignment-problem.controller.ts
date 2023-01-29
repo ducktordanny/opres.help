@@ -1,6 +1,6 @@
 import {Body, Controller, Param, Post, Query, UseGuards} from '@nestjs/common';
 
-import {AssignmentProblemType, Table, ZeroFindingMethod} from '@opres/shared/types';
+import {AssignmentProblemType, ProblemTable, ZeroFindingMethod} from '@opres/shared/types';
 
 import {AssignmentProblemGuard} from './guards/assignment-problem.guard';
 import {HungarianMethodService} from './services/hungarian-method.service';
@@ -18,7 +18,7 @@ export class AssignmentProblemController {
 
   @Post()
   public getFullResult(
-    @Body() assignmentTable: Table,
+    @Body() assignmentTable: ProblemTable,
     @Query('zero-finding-method') zeroFindingMethod: ZeroFindingMethod,
     @Query('type') problemType: AssignmentProblemType,
   ) {
@@ -30,20 +30,29 @@ export class AssignmentProblemController {
   }
 
   @Post('reduce')
-  public getReducedTable(@Body() assignmentTable: Table, @Query('type') problemType: AssignmentProblemType) {
+  public getReducedTable(
+    @Body() assignmentTable: ProblemTable,
+    @Query('type') problemType: AssignmentProblemType,
+  ) {
     return this.reduceService.calculate(assignmentTable, problemType || AssignmentProblemType.Min);
   }
 
   @Post('koenig-algorithm')
   public getKoenigAlgoResult(
-    @Body() reducedAssignmentTable: Table,
+    @Body() reducedAssignmentTable: ProblemTable,
     @Query('zero-finding-method') zeroFindingMethod: ZeroFindingMethod,
   ) {
-    return this.koenigAlgoService.calculate(reducedAssignmentTable, zeroFindingMethod || ZeroFindingMethod.Greedy);
+    return this.koenigAlgoService.calculate(
+      reducedAssignmentTable,
+      zeroFindingMethod || ZeroFindingMethod.Greedy,
+    );
   }
 
   @Post('independent-zeros/:method')
-  public getIndependentZeros(@Body() reducedAssignmentTable: Table, @Param('method') method: ZeroFindingMethod) {
+  public getIndependentZeros(
+    @Body() reducedAssignmentTable: ProblemTable,
+    @Param('method') method: ZeroFindingMethod,
+  ) {
     return this.koenigAlgoService.findIndependentZeros[method](reducedAssignmentTable);
   }
 }

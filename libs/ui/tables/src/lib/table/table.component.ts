@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {SelectedCell, Table} from '@opres/shared/types';
+import {ProblemTable, SelectedCell} from '@opres/shared/types';
 import {Observable, of} from 'rxjs';
 
 @Component({
@@ -10,26 +10,26 @@ import {Observable, of} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
-  public tableSource$ = new Observable<Table>();
-  public badgeSource$ = new Observable<Table>();
-  public secondaryBadgeSource$ = new Observable<Table>();
+  public tableSource$ = new Observable<ProblemTable>();
+  public badgeSource$ = new Observable<ProblemTable>();
+  public secondaryBadgeSource$ = new Observable<ProblemTable>();
   @Input() public showZeros = true;
   @Input() public mainMarkedCells?: SelectedCell | Array<SelectedCell>;
   @Input() public markedCells?: Array<SelectedCell>;
 
-  @Input() public set tableSource(value: Observable<Table> | Table) {
+  @Input() public set tableSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.tableSource$ = of(value);
     else this.tableSource$ = value;
   }
 
-  @Input() public set badgeSource(value: Observable<Table> | Table) {
+  @Input() public set badgeSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.badgeSource$ = of(value);
     else this.badgeSource$ = value;
   }
 
-  @Input() public set secondaryBadgeSource(value: Observable<Table> | Table) {
+  @Input() public set secondaryBadgeSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.secondaryBadgeSource$ = of(value);
-    else this.secondaryBadgeSource = value;
+    else this.secondaryBadgeSource$ = value;
   }
 
   public doesCellHaveMainMark(columnIndex: number, rowIndex: number): boolean {
