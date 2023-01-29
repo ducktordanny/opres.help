@@ -49,7 +49,7 @@ export class KoenigAlgorithmService {
       );
       if (!hasWayToColumn) {
         const strikeThroughs = this.getStrikeThroughs(N);
-        process.push({selectedIndependentZeros, strikeThroughs});
+        this.snapshotAProcessStep(process, selectedIndependentZeros, strikeThroughs);
         return process;
       }
       const markWithTarget = this.getMarkWithTarget();
@@ -69,6 +69,7 @@ export class KoenigAlgorithmService {
   private snapshotAProcessStep(
     process: KoenigAlgoResponse,
     selectedIndependentZeros: Array<SelectedCell>,
+    strikeThroughs?: TableLineSelections,
   ): void {
     const {reachedRows, targetColumns, verifiedLines, columnToRowMarks} = this;
     const stepSnapshot: KoenigAlgoStep = cloneDeep({
@@ -78,6 +79,7 @@ export class KoenigAlgorithmService {
       verifiedLines,
       columnToRowMarks,
     });
+    if (strikeThroughs) stepSnapshot.strikeThroughs = strikeThroughs;
     process.push(stepSnapshot);
   }
 
