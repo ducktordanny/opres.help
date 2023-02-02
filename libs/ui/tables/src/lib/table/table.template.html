@@ -15,7 +15,11 @@
       <td
         mat-cell
         *matCellDef="let element; let rowIndex = index"
-        [ngClass]="{'main-marked-cell': doesCellHaveMainMark(+header, rowIndex)}"
+        [ngClass]="{
+          'main-marked-cell': doesCellHaveMainMark(+header, rowIndex),
+          'horizontal-strike-through': hasHorizontalStrikeThrough(rowIndex),
+          'vertical-strike-through': hasVerticalStrikeThrough(+header)
+        }"
       >
         <ng-container
           *ngIf="{primary: subs?.badgeSource?.[rowIndex]?.[header], secondary: subs?.secondaryBadgeSource?.[rowIndex]?.[header]} as badgeCells"
@@ -24,7 +28,7 @@
             >{{circleStep}}</span
           >
           <span
-            *ngIf="badgeCells.primary !== undefined && badgeCells !== null; else badgelessCell"
+            *ngIf="badgeCells !== null && badgeCells.primary !== undefined; else badgelessCell"
             [matBadge]="badgeCells.primary ?? ''"
             matBadgePosition="below after"
             matBadgeOverlap="false"

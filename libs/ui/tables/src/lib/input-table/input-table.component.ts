@@ -55,7 +55,7 @@ export class InputTableComponent {
         })),
         map(({rowDefinitions, rows}) => {
           this.rowDefinitions$.next(rowDefinitions);
-          return tableSourceFrom(rows, rowDefinitions);
+          return tableSourceFrom(rows, rowDefinitions) as ProblemTable;
         }),
         tap((tableSource) => this.tableSource$.next(tableSource)),
         untilDestroyed(this),
@@ -66,7 +66,10 @@ export class InputTableComponent {
       .pipe(
         filter(() => this.hasValues$.getValue()),
         filter((keys) => keys.some((key) => key === this.key)),
-        map(() => tableSourceFrom(this.rows$.getValue(), this.rowDefinitions$.getValue())),
+        map(
+          () =>
+            tableSourceFrom(this.rows$.getValue(), this.rowDefinitions$.getValue()) as ProblemTable,
+        ),
         tap((newTableSource) => {
           this.tableSource$.next(newTableSource);
           this.tableChange.emit(newTableSource);

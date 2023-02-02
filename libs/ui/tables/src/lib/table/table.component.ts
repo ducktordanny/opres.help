@@ -16,6 +16,8 @@ export class TableComponent {
   @Input() public showZeros = true;
   @Input() public mainMarkedCells?: SelectedCell | Array<SelectedCell>;
   @Input() public markedCells?: Array<SelectedCell>;
+  @Input() public horizontalStrikeThroughIndexes: Array<number> | undefined;
+  @Input() public verticalStrikeThroughIndexes: Array<number> | undefined;
 
   @Input() public set tableSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.tableSource$ = of(value);
@@ -45,5 +47,13 @@ export class TableComponent {
       (cell) => cell.x === columnIndex && cell.y === rowIndex,
     );
     return index === undefined ? undefined : index + 1;
+  }
+
+  public hasHorizontalStrikeThrough(rowIndex: number): boolean {
+    return !!this.horizontalStrikeThroughIndexes?.some((index) => index === rowIndex);
+  }
+
+  public hasVerticalStrikeThrough(columnIndex: number): boolean {
+    return !!this.verticalStrikeThroughIndexes?.some((index) => index === columnIndex);
   }
 }

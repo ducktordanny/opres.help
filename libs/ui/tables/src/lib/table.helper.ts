@@ -1,9 +1,9 @@
-import {ProblemTable, RowDefs} from '@opres/shared/types';
+import {ProblemTable, RowDefs, SideTable} from '@opres/shared/types';
 
 /** Returns a Table with null values that can be used in the
  * dataSource of angular material table. This function can
  * be used to create dynamically sized tables */
-export function tableSourceFrom(rows: number, rowDefinitions: RowDefs): ProblemTable {
+export function tableSourceFrom(rows: number, rowDefinitions: RowDefs): ProblemTable | SideTable {
   const rowContent = createRowFrom(rowDefinitions);
   // the spreading is necessary to not create reference between rows
   return Array.from({length: rows}, () => ({...rowContent}));

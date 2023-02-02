@@ -2,4 +2,10 @@
   [needProblemType]="false"
   (formOutput)="onFormOutput($event)"
 ></app-assignment-problem-input-form>
-<pre *ngIf="result | async as _result">{{_result | json}}</pre>
+<ng-container *ngIf="{result: result | async, sourceTable: sourceTable | async} as subs">
+  <app-koenig-algorithm-result
+    *ngIf="subs.result && subs.sourceTable"
+    [value]="subs.result"
+    [sourceTable]="subs.sourceTable"
+  ></app-koenig-algorithm-result>
+</ng-container>
