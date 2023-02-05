@@ -124,13 +124,16 @@
         "NAME": "All"
       },
       "KOENIG_ALGORITHM": {
-        "NAME": "Koenig algorithm"
+        "NAME": "Koenig algorithm",
+        "RESULT_TITLE": "Koenig algorithm in {{steps}} steps"
       },
       "INDEPENDENT_ZEROS": {
         "NAME": "Independent zeros"
       },
       "REDUCE": {
-        "NAME": "Reduce"
+        "NAME": "Reduce",
+        "RESULT_TITLE": "Reduce and preparations",
+        "MAX_TO_MIN": "Maximum to minimum problem transformation"
       }
     }
   }

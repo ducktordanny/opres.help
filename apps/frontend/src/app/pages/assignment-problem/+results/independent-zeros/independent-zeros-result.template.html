@@ -1,9 +1,14 @@
 <ng-container *ngIf="reducedTable && independentZeros">
   <mat-divider></mat-divider>
-  <section>
+  <section style="display: block">
     <article class="wrapper">
-      <h1>Independent zeros</h1>
-      <opres-table [tableSource]="reducedTable" [mainMarkedCells]="independentZeros"></opres-table>
+      <h1 class="title">Independent zeros</h1>
+      <div class="table-wrapper">
+        <opres-table
+          [tableSource]="reducedTable"
+          [mainMarkedCells]="independentZeros"
+        ></opres-table>
+      </div>
     </article>
   </section>
 </ng-container>

@@ -17,7 +17,7 @@ export const TABLE_SIGNS = {
 })
 export class KoenigAlgorithmResultComponent implements AfterViewInit {
   @Input() sourceTable!: ProblemTable;
-  @Input() value!: KoenigAlgoResponse;
+  @Input() result!: KoenigAlgoResponse;
   @ViewChild('matTabGroup', {static: true}) public matTabGroup: MatTabGroup | undefined;
 
   public ngAfterViewInit(): void {

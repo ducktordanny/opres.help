@@ -4,6 +4,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {SideTableModule, TableModule} from '@opres/ui/tables';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {IndependentZerosResultComponent} from './independent-zeros/independent-zeros-result.component';
 import {KoenigAlgorithmResultComponent} from './koenig-algorithm/koenig-algorithm-result.component';
@@ -17,7 +18,14 @@ import {ReduceResultComponent} from './reduce/reduce-result.component';
     KoenigTableComponent,
     ReduceResultComponent,
   ],
-  imports: [CommonModule, TableModule, MatDividerModule, MatTabsModule, SideTableModule],
+  imports: [
+    CommonModule,
+    TableModule,
+    TranslateModule,
+    MatDividerModule,
+    MatTabsModule,
+    SideTableModule,
+  ],
   exports: [IndependentZerosResultComponent, KoenigAlgorithmResultComponent, ReduceResultComponent],
 })
 export class ResultsModule {}

@@ -122,13 +122,16 @@
         "NAME": "Mind"
       },
       "KOENIG_ALGORITHM": {
-        "NAME": "König algoritmus"
+        "NAME": "König algoritmus",
+        "RESULT_TITLE": "König algoritmus {{steps}} lépésben"
       },
       "INDEPENDENT_ZEROS": {
         "NAME": "Független nullák"
       },
       "REDUCE": {
-        "NAME": "Redukció"
+        "NAME": "Redukció",
+        "RESULT_TITLE": "Redukció és előkészületek",
+        "MAX_TO_MIN": "Maximum minimum problémává transzformációja"
       }
     }
   }

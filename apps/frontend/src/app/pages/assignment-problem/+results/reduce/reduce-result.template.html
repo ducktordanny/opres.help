@@ -1,17 +1,24 @@
 <ng-container *ngIf="value">
   <mat-divider></mat-divider>
-  <section>
+  <h1 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.REDUCE.RESULT_TITLE' | translate }}</h1>
+  <section style="display: block">
     <article *ngIf="value.negativeValuesTransformation" class="wrapper">
-      <h1>Handle negative values</h1>
-      <opres-table [tableSource]="value.negativeValuesTransformation"></opres-table>
+      <h2 class="title">Handle negative values</h2>
+      <div class="table-wrapper">
+        <opres-table [tableSource]="value.negativeValuesTransformation"></opres-table>
+      </div>
     </article>
     <article *ngIf="value.maxToMinTransformation" class="wrapper">
-      <h1>Max to min transformation</h1>
-      <opres-table [tableSource]="value.maxToMinTransformation"></opres-table>
+      <h2 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.REDUCE.MAX_TO_MIN' | translate }}</h2>
+      <div class="table-wrapper">
+        <opres-table [tableSource]="value.maxToMinTransformation"></opres-table>
+      </div>
     </article>
     <article class="wrapper">
-      <h1>Reduction</h1>
-      <opres-table [tableSource]="value.reduce"></opres-table>
+      <h2 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.REDUCE.NAME' | translate }}</h2>
+      <div class="table-wrapper">
+        <opres-table [tableSource]="value.reduce"></opres-table>
+      </div>
     </article>
   </section>
 </ng-container>

@@ -5,7 +5,7 @@
 <ng-container *ngIf="{result: result | async, sourceTable: sourceTable | async} as subs">
   <app-koenig-algorithm-result
     *ngIf="subs.result && subs.sourceTable"
-    [value]="subs.result"
+    [result]="subs.result"
     [sourceTable]="subs.sourceTable"
   ></app-koenig-algorithm-result>
 </ng-container>
