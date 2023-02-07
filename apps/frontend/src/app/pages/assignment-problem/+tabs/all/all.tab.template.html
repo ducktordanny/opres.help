@@ -1,7 +1,7 @@
 <app-assignment-problem-input-form
   (formOutput)="onFormOutput($event)"
 ></app-assignment-problem-input-form>
-<ng-container *ngIf="{sourceTable: sourceTable | async} as subs">
+<ng-container *ngIf="{originalTable: originalTable | async} as subs">
   <ng-container *ngFor="let step of result | async">
     <app-reduce-result
       *ngIf="step.reduce as reduceResponse"
@@ -12,6 +12,7 @@
       *ngIf="step.koenigAlgorithm as koenigAlgoSteps"
       [result]="koenigAlgoSteps"
       [sourceTable]="step.currentTable || []"
+      [originalTable]="subs.originalTable || []"
     ></app-koenig-algorithm-result>
 
     <section *ngIf="step.transformation">

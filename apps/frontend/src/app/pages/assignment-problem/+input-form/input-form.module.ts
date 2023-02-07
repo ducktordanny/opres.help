@@ -6,6 +6,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 
 import {InputTableModule} from '@opres/ui/tables';
+import {LoadingButtonModule} from '@frontend/components/loading-button/loading-button.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {InputFormComponent} from './input-form.component';
@@ -15,6 +16,7 @@ import {InputFormComponent} from './input-form.component';
   imports: [
     CommonModule,
     InputTableModule,
+    LoadingButtonModule,
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,

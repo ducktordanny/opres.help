@@ -4,6 +4,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {SideTableModule, TableModule} from '@opres/ui/tables';
+import {ObjectSizeModule} from '@frontend/pipes/object-size/object-size.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {HungarianMethodComponent} from './hungarian-method/hungarian-method.component';
@@ -26,6 +27,7 @@ import {ReduceResultComponent} from './reduce/reduce-result.component';
     TranslateModule,
     MatDividerModule,
     MatTabsModule,
+    ObjectSizeModule,
     SideTableModule,
   ],
   exports: [

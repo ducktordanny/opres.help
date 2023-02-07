@@ -35,14 +35,14 @@
       [tableSource]="table | async"
       [rows]="formGroup.get('tableSize')?.value"
       [columns]="formGroup.get('tableSize')?.value"
-      (tableChange)="table.next($event)"
+      (tableChange)="onTableChange($event)"
     ></opres-input-table>
   </section>
 </form>
 <section>
-  <button mat-flat-button color="primary" type="button" (click)="onCalculate()">
-    {{'CALCULATE_BUTTON' | translate}}
-  </button>
+  <loading-button [loading]="isLoading$" [invalid]="formGroup.invalid" (click)="onCalculate()"
+    >{{'CALCULATE_BUTTON' | translate}}</loading-button
+  >
   <button mat-flat-button color="primary" type="button" (click)="onTableClear()">
     {{'TABLE_CLEAR_BUTTON' | translate}}
   </button>

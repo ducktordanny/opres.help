@@ -41,8 +41,8 @@ export interface HungarianMethodTransformation {
 }
 
 export interface HungarianMethodStep {
-  koenigAlgorithm?: KoenigAlgoResponse;
   currentTable: ProblemTable;
+  koenigAlgorithm?: KoenigAlgoResponse;
   transformation?: HungarianMethodTransformation;
   reduce?: ReduceResponse;
   explanation?: Explanation;

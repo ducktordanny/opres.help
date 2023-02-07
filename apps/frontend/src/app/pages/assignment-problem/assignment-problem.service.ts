@@ -14,7 +14,7 @@ import {ErrorHandlerService} from '@frontend/services/error-handler.service';
 import {catchError, Observable, Subject} from 'rxjs';
 import {Cacheable} from 'ts-cacheable';
 
-const assignmentProblemCacheBuster = new Subject<void>();
+export const assignmentProblemCacheBuster = new Subject<void>();
 
 @Injectable()
 export class AssignmentProblemService {

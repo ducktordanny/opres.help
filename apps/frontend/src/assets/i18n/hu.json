@@ -131,7 +131,7 @@
       "REDUCE": {
         "NAME": "Redukció",
         "RESULT_TITLE": "Redukció és előkészületek",
-        "MAX_TO_MIN": "Maximum minimum problémává transzformációja"
+        "MAX_TO_MIN": "Max-min transzformáció"
       }
     }
   }

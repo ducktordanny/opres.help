@@ -1,9 +1,13 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
 
 import {HungarianMethodResponse, ProblemTable} from '@opres/shared/types';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
+import {BehaviorSubject, finalize, Observable} from 'rxjs';
 
-import {AssignmentProblemService} from '../../assignment-problem.service';
+import {
+  assignmentProblemCacheBuster,
+  AssignmentProblemService,
+} from '../../assignment-problem.service';
 import {AssignmentProblemInputForm} from '../../assignment-problem.type';
 
 @Component({
@@ -11,18 +15,24 @@ import {AssignmentProblemInputForm} from '../../assignment-problem.type';
   templateUrl: './all.tab.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AllTabComponent {
-  public sourceTable = new BehaviorSubject<ProblemTable | null>(null);
+export class AllTabComponent implements OnDestroy {
+  public originalTable = new BehaviorSubject<ProblemTable | null>(null);
   public result!: Observable<HungarianMethodResponse>;
 
-  constructor(private assignmentProblemService: AssignmentProblemService) {}
+  constructor(
+    private assignmentProblemService: AssignmentProblemService,
+    private loadingHandler: LoadingHandlerService,
+  ) {}
 
   public onFormOutput(data: AssignmentProblemInputForm): void {
-    this.sourceTable.next(data.table);
-    this.result = this.assignmentProblemService.calculateAll(
-      data.table,
-      data?.problemType,
-      data?.zeroFindingMethod,
-    );
+    this.loadingHandler.start();
+    this.originalTable.next(data.table);
+    this.result = this.assignmentProblemService
+      .calculateAll(data.table, data?.problemType, data?.zeroFindingMethod)
+      .pipe(finalize(() => this.loadingHandler.stop()));
+  }
+
+  public ngOnDestroy(): void {
+    assignmentProblemCacheBuster.next();
   }
 }

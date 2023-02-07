@@ -133,7 +133,7 @@
       "REDUCE": {
         "NAME": "Reduce",
         "RESULT_TITLE": "Reduce and preparations",
-        "MAX_TO_MIN": "Maximum to minimum problem transformation"
+        "MAX_TO_MIN": "Max-min transformation"
       }
     }
   }

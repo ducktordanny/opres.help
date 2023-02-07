@@ -1,9 +1,13 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
 
 import {ReduceResponse} from '@opres/shared/types';
-import {Observable} from 'rxjs';
+import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
+import {finalize, Observable} from 'rxjs';
 
-import {AssignmentProblemService} from '../../assignment-problem.service';
+import {
+  assignmentProblemCacheBuster,
+  AssignmentProblemService,
+} from '../../assignment-problem.service';
 import {AssignmentProblemInputForm} from '../../assignment-problem.type';
 
 @Component({
@@ -12,12 +16,21 @@ import {AssignmentProblemInputForm} from '../../assignment-problem.type';
   styleUrls: ['../tabs.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReduceTabComponent {
+export class ReduceTabComponent implements OnDestroy {
   public result!: Observable<ReduceResponse>;
 
-  constructor(private assignmentProblemService: AssignmentProblemService) {}
+  constructor(
+    private assignmentProblemService: AssignmentProblemService,
+    private loadingHandler: LoadingHandlerService,
+  ) {}
 
   public onFormOutput(data: AssignmentProblemInputForm): void {
-    this.result = this.assignmentProblemService.reduce(data.table, data?.problemType);
+    this.result = this.assignmentProblemService
+      .reduce(data.table, data?.problemType)
+      .pipe(finalize(() => this.loadingHandler.stop()));
+  }
+
+  public ngOnDestroy(): void {
+    assignmentProblemCacheBuster.next();
   }
 }

@@ -27,7 +27,9 @@ export class HungarianMethodService {
     problemType: AssignmentProblemType,
   ): HungarianMethodResponse {
     const reduceResult = this.reduceService.calculate(assignmentTable, problemType);
-    const process: HungarianMethodResponse = [{reduce: reduceResult}];
+    const process: HungarianMethodResponse = [
+      {reduce: reduceResult, currentTable: assignmentTable},
+    ];
 
     let currentTable = cloneDeep(reduceResult.reduce);
     let koenigMethodResponse = this.koenigAlgorithmService.calculate(

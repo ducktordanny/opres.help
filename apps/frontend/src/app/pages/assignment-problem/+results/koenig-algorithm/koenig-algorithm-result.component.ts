@@ -16,6 +16,7 @@ export const TABLE_SIGNS = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KoenigAlgorithmResultComponent implements AfterViewInit {
+  @Input() originalTable!: ProblemTable;
   @Input() sourceTable!: ProblemTable;
   @Input() result!: KoenigAlgoResponse;
   @ViewChild('matTabGroup', {static: true}) public matTabGroup: MatTabGroup | undefined;

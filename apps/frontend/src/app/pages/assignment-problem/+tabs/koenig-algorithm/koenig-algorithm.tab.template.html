@@ -1,4 +1,5 @@
 <app-assignment-problem-input-form
+  [defaultTable]="defaultInputTable"
   [needProblemType]="false"
   (formOutput)="onFormOutput($event)"
 ></app-assignment-problem-input-form>
@@ -7,5 +8,6 @@
     *ngIf="subs.result && subs.sourceTable"
     [result]="subs.result"
     [sourceTable]="subs.sourceTable"
+    [originalTable]="subs.sourceTable"
   ></app-koenig-algorithm-result>
 </ng-container>
