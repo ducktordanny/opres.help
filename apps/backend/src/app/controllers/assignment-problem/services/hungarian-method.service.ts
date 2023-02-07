@@ -3,7 +3,9 @@ import {Injectable} from '@nestjs/common';
 import {
   AssignmentProblemType,
   HungarianMethodResponse,
+  HungarianMethodTransformation,
   ProblemTable,
+  SelectedCell,
   TableLineSelections,
   ZeroFindingMethod,
 } from '@opres/shared/types';
@@ -27,28 +29,33 @@ export class HungarianMethodService {
     const reduceResult = this.reduceService.calculate(assignmentTable, problemType);
     const process: HungarianMethodResponse = [{reduce: reduceResult}];
 
-    let transformTable = cloneDeep(reduceResult.reduce);
+    let currentTable = cloneDeep(reduceResult.reduce);
     let koenigMethodResponse = this.koenigAlgorithmService.calculate(
-      transformTable,
+      currentTable,
       zeroFindingMethod,
     );
     let strikeThroughs = last(koenigMethodResponse).strikeThroughs;
 
     while (strikeThroughs) {
-      const epsilon = this.getEpsilon(transformTable, strikeThroughs);
-      transformTable = this.transformation(transformTable, strikeThroughs, epsilon);
+      const epsilon = this.getEpsilon(currentTable, strikeThroughs);
+      const transformation = this.transformation(currentTable, strikeThroughs, epsilon);
       process.push(
-        cloneDeep({epsilon, koenigAlgorithm: koenigMethodResponse, transformation: transformTable}),
+        cloneDeep({
+          currentTable,
+          koenigAlgorithm: koenigMethodResponse,
+          transformation,
+        }),
       );
-      koenigMethodResponse = this.koenigAlgorithmService.calculate(
-        transformTable,
-        zeroFindingMethod,
-      );
+      currentTable = cloneDeep(transformation.outputTable);
+      koenigMethodResponse = this.koenigAlgorithmService.calculate(currentTable, zeroFindingMethod);
       strikeThroughs = last(koenigMethodResponse).strikeThroughs;
     }
 
     process.push(
-      cloneDeep({transformation: assignmentTable, koenigAlgorithm: koenigMethodResponse}),
+      cloneDeep({
+        currentTable,
+        koenigAlgorithm: koenigMethodResponse,
+      }),
     );
     return process;
   }
@@ -61,21 +68,26 @@ export class HungarianMethodService {
     table: ProblemTable,
     strikeThroughs: TableLineSelections,
     epsilon: number,
-  ): ProblemTable {
-    const transformedTable = cloneDeep(table);
+  ): HungarianMethodTransformation {
+    const outputTable = cloneDeep(table);
+    const transformCells: Array<SelectedCell> = [];
 
-    forEach(transformedTable, (row, rowIndex) => {
+    forEach(outputTable, (row, rowIndex) => {
       forEach(row, (cell, columnIndex) => {
         const hasRowStrikeThrough = this.hasStrikeThrough(strikeThroughs.rows, rowIndex);
         const hasColumnStrikeThrough = this.hasStrikeThrough(strikeThroughs.columns, +columnIndex);
-        if (hasColumnStrikeThrough && hasRowStrikeThrough)
-          transformedTable[rowIndex][columnIndex] = cell + epsilon;
-        if (!hasRowStrikeThrough && !hasColumnStrikeThrough)
-          transformedTable[rowIndex][columnIndex] = cell - epsilon;
+        if (hasColumnStrikeThrough && hasRowStrikeThrough) {
+          outputTable[rowIndex][columnIndex] = cell + epsilon;
+          transformCells.push({x: +columnIndex, y: rowIndex, value: epsilon});
+        }
+        if (!hasRowStrikeThrough && !hasColumnStrikeThrough) {
+          outputTable[rowIndex][columnIndex] = cell - epsilon;
+          transformCells.push({x: +columnIndex, y: rowIndex, value: -epsilon});
+        }
       });
     });
 
-    return transformedTable;
+    return {outputTable, transformCells, strikeThroughs, epsilon};
   }
 
   /*

@@ -2,4 +2,4 @@
   [needZeroFindingMethod]="false"
   (formOutput)="onFormOutput($event)"
 ></app-assignment-problem-input-form>
-<app-reduce-result [value]="result | async"></app-reduce-result>
+<app-reduce-result *ngIf="result | async as _result" [value]="_result"></app-reduce-result>

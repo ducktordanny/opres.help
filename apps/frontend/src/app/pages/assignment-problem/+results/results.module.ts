@@ -6,6 +6,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {SideTableModule, TableModule} from '@opres/ui/tables';
 import {TranslateModule} from '@ngx-translate/core';
 
+import {HungarianMethodComponent} from './hungarian-method/hungarian-method.component';
 import {IndependentZerosResultComponent} from './independent-zeros/independent-zeros-result.component';
 import {KoenigAlgorithmResultComponent} from './koenig-algorithm/koenig-algorithm-result.component';
 import {KoenigTableComponent} from './koenig-algorithm/koenig-table/koenig-table.component';
@@ -13,6 +14,7 @@ import {ReduceResultComponent} from './reduce/reduce-result.component';
 
 @NgModule({
   declarations: [
+    HungarianMethodComponent,
     IndependentZerosResultComponent,
     KoenigAlgorithmResultComponent,
     KoenigTableComponent,
@@ -26,6 +28,12 @@ import {ReduceResultComponent} from './reduce/reduce-result.component';
     MatTabsModule,
     SideTableModule,
   ],
-  exports: [IndependentZerosResultComponent, KoenigAlgorithmResultComponent, ReduceResultComponent],
+  exports: [
+    IndependentZerosResultComponent,
+    KoenigAlgorithmResultComponent,
+    ReduceResultComponent,
+    KoenigTableComponent,
+    HungarianMethodComponent,
+  ],
 })
 export class ResultsModule {}

@@ -35,7 +35,8 @@ export class KoenigTableComponent {
   public columnSideTableValues = new BehaviorSubject<SideTableValuesByIndex | null>(null);
   public strikeThroughs = new BehaviorSubject<TableLineSelections | null>(null);
 
-  @Input() public set result(step: KoenigAlgoStep) {
+  @Input() public set result(step: KoenigAlgoStep | null) {
+    if (!step) return;
     this.independentZeros.next(step.selectedIndependentZeros);
     this.setRowSideTableValues(step);
     this.setColumnSideTableValues(step);

@@ -1,24 +1,25 @@
-<ng-container *ngIf="value">
-  <mat-divider></mat-divider>
-  <h1 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.REDUCE.RESULT_TITLE' | translate }}</h1>
-  <section style="display: block">
-    <article *ngIf="value.negativeValuesTransformation" class="wrapper">
-      <h2 class="title">Handle negative values</h2>
-      <div class="table-wrapper">
-        <opres-table [tableSource]="value.negativeValuesTransformation"></opres-table>
-      </div>
-    </article>
-    <article *ngIf="value.maxToMinTransformation" class="wrapper">
-      <h2 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.REDUCE.MAX_TO_MIN' | translate }}</h2>
-      <div class="table-wrapper">
-        <opres-table [tableSource]="value.maxToMinTransformation"></opres-table>
-      </div>
-    </article>
-    <article class="wrapper">
-      <h2 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.REDUCE.NAME' | translate }}</h2>
-      <div class="table-wrapper">
-        <opres-table [tableSource]="value.reduce"></opres-table>
-      </div>
-    </article>
-  </section>
-</ng-container>
+<mat-divider></mat-divider>
+<h1 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.REDUCE.RESULT_TITLE' | translate }}</h1>
+<mat-tab-group mat-stretch-tabs #matTabGroup (selectedTabChange)="onSelectedTabChange()">
+  <mat-tab label="Handle negative values" *ngIf="value.negativeValuesTransformation">
+    <section class="wrapper">
+      <opres-table
+        class="table-wrapper"
+        [tableSource]="value.negativeValuesTransformation"
+      ></opres-table>
+    </section>
+  </mat-tab>
+  <mat-tab
+    [label]="'ASSIGNMENT_PROBLEM.TABS.REDUCE.MAX_TO_MIN' | translate"
+    *ngIf="value.maxToMinTransformation"
+  >
+    <section class="wrapper">
+      <opres-table class="table-wrapper" [tableSource]="value.maxToMinTransformation"></opres-table>
+    </section>
+  </mat-tab>
+  <mat-tab [label]="'ASSIGNMENT_PROBLEM.TABS.REDUCE.NAME' | translate">
+    <section class="wrapper">
+      <opres-table class="table-wrapper" [tableSource]="value.reduce"></opres-table>
+    </section>
+  </mat-tab>
+</mat-tab-group>

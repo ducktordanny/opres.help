@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 
-import {assignmentProblemRequestBody1} from '@opres/shared/data/mocks';
+import {assignmentProblemRequestBody2} from '@opres/shared/data/mocks';
 import {AssignmentProblemType, ProblemTable, ZeroFindingMethod} from '@opres/shared/types';
 import {InputTableService} from '@opres/ui/tables';
 import {BehaviorSubject} from 'rxjs';
@@ -20,13 +20,13 @@ export class InputFormComponent {
   @Output() public formOutput = new EventEmitter<AssignmentProblemInputForm>();
 
   public formGroup: FormGroup;
-  public table = new BehaviorSubject<ProblemTable>(assignmentProblemRequestBody1);
+  public table = new BehaviorSubject<ProblemTable>(assignmentProblemRequestBody2);
 
   constructor(private inputTableService: InputTableService) {
     this.formGroup = new FormGroup({
       zeroFindingMethod: new FormControl(ZeroFindingMethod.Greedy),
       problemType: new FormControl(AssignmentProblemType.Min),
-      tableSize: new FormControl(assignmentProblemRequestBody1.length),
+      tableSize: new FormControl(assignmentProblemRequestBody2.length),
     });
   }
 

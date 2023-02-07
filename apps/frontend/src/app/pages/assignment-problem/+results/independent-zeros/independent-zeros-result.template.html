@@ -3,12 +3,13 @@
   <section style="display: block">
     <article class="wrapper">
       <h1 class="title">Independent zeros</h1>
-      <div class="table-wrapper">
+      <section class="wrapper">
         <opres-table
+          class="table-wrapper"
           [tableSource]="reducedTable"
           [mainMarkedCells]="independentZeros"
         ></opres-table>
-      </div>
+      </section>
     </article>
   </section>
 </ng-container>

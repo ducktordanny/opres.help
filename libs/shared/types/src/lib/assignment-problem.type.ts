@@ -33,10 +33,17 @@ export interface KoenigAlgoStep {
 
 export type KoenigAlgoResponse = Array<KoenigAlgoStep>;
 
+export interface HungarianMethodTransformation {
+  outputTable: ProblemTable;
+  epsilon: number;
+  strikeThroughs: TableLineSelections;
+  transformCells: Array<SelectedCell>;
+}
+
 export interface HungarianMethodStep {
   koenigAlgorithm?: KoenigAlgoResponse;
-  epsilon?: number;
-  transformation?: ProblemTable;
+  currentTable: ProblemTable;
+  transformation?: HungarianMethodTransformation;
   reduce?: ReduceResponse;
   explanation?: Explanation;
 }

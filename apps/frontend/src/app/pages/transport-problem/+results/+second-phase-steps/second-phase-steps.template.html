@@ -21,7 +21,7 @@
           [badgeSource]="step?.transportation || [] | transportTableToTable: 'cost'"
           [secondaryBadgeSource]="step?.transportation || [] | transportTableToTable: 'reducedCost'"
           [mainMarkedCells]="step?.nextBase"
-          [markedCells]="step?.circle"
+          [markedCells]="step?.circle | emptySelectedValues"
           [showZeros]="false"
         ></opres-table>
         <opres-table

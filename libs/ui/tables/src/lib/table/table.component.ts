@@ -16,8 +16,8 @@ export class TableComponent {
   @Input() public showZeros = true;
   @Input() public mainMarkedCells?: SelectedCell | Array<SelectedCell>;
   @Input() public markedCells?: Array<SelectedCell>;
-  @Input() public horizontalStrikeThroughIndexes: Array<number> | undefined;
-  @Input() public verticalStrikeThroughIndexes: Array<number> | undefined;
+  @Input() public horizontalStrikeThroughIndexes?: Array<number>;
+  @Input() public verticalStrikeThroughIndexes?: Array<number>;
 
   @Input() public set tableSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.tableSource$ = of(value);
@@ -42,11 +42,11 @@ export class TableComponent {
     return false;
   }
 
-  public getCircleStepNumber(rowIndex: number, columnIndex: number): number | undefined {
+  public getMarkedCellValue(rowIndex: number, columnIndex: number): number | undefined {
     const index = this.markedCells?.findIndex(
       (cell) => cell.x === columnIndex && cell.y === rowIndex,
     );
-    return index === undefined ? undefined : index + 1;
+    return index === undefined ? undefined : this.markedCells?.[index]?.value ?? index + 1;
   }
 
   public hasHorizontalStrikeThrough(rowIndex: number): boolean {

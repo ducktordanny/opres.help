@@ -24,8 +24,8 @@
         <ng-container
           *ngIf="{primary: subs?.badgeSource?.[rowIndex]?.[header], secondary: subs?.secondaryBadgeSource?.[rowIndex]?.[header]} as badgeCells"
         >
-          <span class="marked-cell" *ngIf="getCircleStepNumber(rowIndex, +header) as circleStep"
-            >{{circleStep}}</span
+          <span class="marked-cell" *ngIf="getMarkedCellValue(rowIndex, +header) as markedCellValue"
+            >{{markedCellValue}}</span
           >
           <span
             *ngIf="badgeCells !== null && badgeCells.primary !== undefined; else badgelessCell"
