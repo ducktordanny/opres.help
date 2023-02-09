@@ -119,7 +119,12 @@
     "PROBLEM_TYPE": "Probléma típus",
     "TABS": {
       "ALL": {
-        "NAME": "Mind"
+        "NAME": "Mind",
+        "HUNGARIAN_METHOD": {
+          "NAME": "Magyar módszer",
+          "TRANSFORMATION": "Transzformáció",
+          "TRANSFORMED_TABLE": "Transzformált tábla"
+        }
       },
       "KOENIG_ALGORITHM": {
         "NAME": "König algoritmus",
@@ -131,7 +136,8 @@
       "REDUCE": {
         "NAME": "Redukció",
         "RESULT_TITLE": "Redukció és előkészületek",
-        "MAX_TO_MIN": "Max-min transzformáció"
+        "MAX_TO_MIN": "Max-min transzformáció",
+        "HANDLE_NEGATIVE_VALUES": "Negatív érték kezelése"
       }
     }
   }

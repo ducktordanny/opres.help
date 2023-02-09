@@ -121,7 +121,12 @@
     "PROBLEM_TYPE": "Problem type",
     "TABS": {
       "ALL": {
-        "NAME": "All"
+        "NAME": "All",
+        "HUNGARIAN_METHOD": {
+          "NAME": "Hungarian method",
+          "TRANSFORMATION": "Transformation",
+          "TRANSFORMED_TABLE": "Transformed table"
+        }
       },
       "KOENIG_ALGORITHM": {
         "NAME": "Koenig algorithm",
@@ -133,7 +138,8 @@
       "REDUCE": {
         "NAME": "Reduce",
         "RESULT_TITLE": "Reduce and preparations",
-        "MAX_TO_MIN": "Max-min transformation"
+        "MAX_TO_MIN": "Max-min transformation",
+        "HANDLE_NEGATIVE_VALUES": "Handle negative value"
       }
     }
   }

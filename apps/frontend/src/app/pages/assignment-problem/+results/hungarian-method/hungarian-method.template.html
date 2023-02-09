@@ -1,7 +1,7 @@
 <mat-divider></mat-divider>
-<h1 class="title">Hungarian method</h1>
+<h1 class="title">{{ 'ASSIGNMENT_PROBLEM.TABS.ALL.HUNGARIAN_METHOD.NAME' | translate }}</h1>
 <mat-tab-group mat-stretch-tabs #matTabGroup (selectedTabChange)="onSelectedTabChange()">
-  <mat-tab label="Transformation">
+  <mat-tab [label]="'ASSIGNMENT_PROBLEM.TABS.ALL.HUNGARIAN_METHOD.TRANSFORMATION' | translate">
     <section class="wrapper">
       <opres-table
         class="table-wrapper"
@@ -12,7 +12,7 @@
       ></opres-table>
     </section>
   </mat-tab>
-  <mat-tab label="Transformed table">
+  <mat-tab [label]="'ASSIGNMENT_PROBLEM.TABS.ALL.HUNGARIAN_METHOD.TRANSFORMED_TABLE' | translate">
     <section class="wrapper">
       <opres-table class="table-wrapper" [tableSource]="value.outputTable"></opres-table>
     </section>
