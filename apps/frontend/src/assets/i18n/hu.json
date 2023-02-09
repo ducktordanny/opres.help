@@ -35,7 +35,13 @@
         "EPSILON": "Ha csak az epszilon kell",
         "SECOND_PHASE": "Ha csak a második fázis kell"
       },
-      "ASSIGNMENT_PR": "Hozzárendelési probléma",
+      "ASSIGNMENT_PR": {
+        "TITLE": "Hozzárendelési probléma",
+        "ALL": "Minden lépés kell?",
+        "KOENIG_ALGO": "Csak König algoritmus lépései",
+        "INDEPENDENT_ZEROS": "Független nullák?",
+        "REDUCE": "Redukálás redukálás redukálás..."
+      },
       "OTHERS_SOON": "És még több hamarosan..."
     },
     "FEATURE_LIST_TITLE": "Egyéb kisebb funkciók",

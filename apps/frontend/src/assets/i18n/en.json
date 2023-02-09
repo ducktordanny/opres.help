@@ -35,7 +35,13 @@
         "EPSILON": "If only the epsilon is needed",
         "SECOND_PHASE": "If only the second phase is needed"
       },
-      "ASSIGNMENT_PR": "Assignment problem",
+      "ASSIGNMENT_PR": {
+        "TITLE": "Assignment problem",
+        "ALL": "Need every step?",
+        "KOENIG_ALGO": "Only Koenig algorithm steps",
+        "INDEPENDENT_ZEROS": "Independent zeros?",
+        "REDUCE": "Reduce reduce reduce..."
+      },
       "OTHERS_SOON": "And more coming soon..."
     },
     "FEATURE_LIST_TITLE": "Other smaller features",
