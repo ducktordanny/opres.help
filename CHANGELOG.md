@@ -9,6 +9,7 @@
 
 ## [0.7.1] - 2022-11-06
 
+- Show actual version in the footer
 - Use select instead of inputs in transportation problem tabs
 - Fix assignment problem page styles
 - Fix spelling on the home page & and add new example
