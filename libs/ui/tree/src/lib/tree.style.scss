@@ -1,0 +1,28 @@
+@import 'libs/shared/styles/colors';
+
+:host {
+  div {
+    overflow: auto;
+  }
+
+  ::ng-deep svg {
+    path {
+      fill: none;
+      stroke: $primary-text;
+    }
+
+    text {
+      fill: $primary-text;
+    }
+
+    circle {
+      fill: $primary;
+      stroke: $accent;
+      stroke-width: 2px;
+    }
+
+    circle + text {
+      fill: white;
+    }
+  }
+}

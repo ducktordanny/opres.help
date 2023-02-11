@@ -42,6 +42,10 @@ export class LayoutComponent implements OnDestroy {
       path: '/assignment-problem',
       title: 'SIDEBAR_MENU.ASSIGNMENT_PROBLEM',
     },
+    {
+      path: '/tsp',
+      title: 'SIDEBAR_MENU.TSP',
+    },
   ];
   public isLoading = new BehaviorSubject<boolean>(true);
   private readonly _mobileQueryListener: () => void;
@@ -55,9 +59,7 @@ export class LayoutComponent implements OnDestroy {
   ) {
     iconRegistry.addSvgIcon(
       'opres',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        '../../../assets/icons/opres-white.icon.svg',
-      ),
+      sanitizer.bypassSecurityTrustResourceUrl('../../../assets/icons/opres-white.icon.svg'),
     );
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

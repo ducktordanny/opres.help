@@ -19,7 +19,8 @@
     "HOME": "Kezdőlap",
     "API_DOCS": "API dokumentáció",
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
-    "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma"
+    "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma",
+    "TSP": "Utazó ügynök probléma"
   },
 
   "HOME": {
