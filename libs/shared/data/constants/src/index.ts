@@ -1,3 +1,3 @@
 export default {
-  appVersion: '0.7.1',
+  appVersion: '0.8.0',
 };
