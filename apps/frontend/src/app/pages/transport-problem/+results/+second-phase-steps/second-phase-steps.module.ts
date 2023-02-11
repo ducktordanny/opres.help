@@ -6,6 +6,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 import {TableModule} from '@opres/ui/tables';
 import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
+import {EmptySelectedValuesModule} from '@frontend/pipes/empty-selected-values/empty-selected-values.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {TransportProblemPipesModule} from '../../pipes/transport-problem-pipes.module';
@@ -17,6 +18,7 @@ import {SecondPhaseStepsComponent} from './second-phase-steps.component';
   declarations: [SecondPhaseStepsComponent],
   imports: [
     CommonModule,
+    EmptySelectedValuesModule,
     EpsilonResultModule,
     InfoCardModule,
     MatCardModule,

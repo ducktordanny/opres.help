@@ -1,4 +1,4 @@
-import {Table} from '@opres/shared/types';
+import {ProblemTable} from '@opres/shared/types';
 import {TPData, TransportTable} from '@opres/shared/types';
 import {size} from 'lodash';
 
@@ -18,7 +18,7 @@ export function isTransportTableValid(transportTable: TransportTable): boolean {
 }
 
 /** Deeply checks the types of the table.  */
-export function isTableValid(table: Table): boolean {
+export function isTableValid(table: ProblemTable): boolean {
   if (!table) return false;
   if (!Array.isArray(table)) return false;
   for (const row of table) {
@@ -37,7 +37,7 @@ export function checkSolvability(transportProblemData: TPData): boolean {
   return shopDemandSum === storageStockSum && isTableValid(costs);
 }
 
-export function isAssignmentTableSizeValid(assignmentProblem: Table): boolean {
+export function isAssignmentTableSizeValid(assignmentProblem: ProblemTable): boolean {
   const N = assignmentProblem.length;
   for (const row of assignmentProblem) if (size(row) !== N) return false;
   return true;

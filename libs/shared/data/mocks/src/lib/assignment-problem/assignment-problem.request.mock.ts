@@ -1,6 +1,6 @@
-import {Table} from '@opres/shared/types';
+import {ProblemTable} from '@opres/shared/types';
 
-export const assignmentProblemRequestBodyWithNegativeValue: Table = [
+export const assignmentProblemRequestBodyWithNegativeValue: ProblemTable = [
   {'0': 1, '1': 2, '2': 4, '3': 5, '4': 6, '5': 8},
   {'0': 9, '1': 2, '2': 4, '3': 4, '4': 2, '5': 5},
   {'0': 3, '1': 6, '2': 8, '3': 2, '4': 1, '5': 1},
@@ -9,7 +9,7 @@ export const assignmentProblemRequestBodyWithNegativeValue: Table = [
   {'0': 3, '1': 8, '2': 9, '3': 5, '4': 4, '5': 1},
 ];
 
-export const assignmentProblemRequestBody1: Table = [
+export const assignmentProblemRequestBody1: ProblemTable = [
   {'0': 0, '1': 1, '2': 3, '3': 4, '4': 5, '5': 8},
   {'0': 7, '1': 0, '2': 2, '3': 2, '4': 0, '5': 4},
   {'0': 2, '1': 5, '2': 7, '3': 1, '4': 0, '5': 1},
@@ -18,7 +18,7 @@ export const assignmentProblemRequestBody1: Table = [
   {'0': 1, '1': 6, '2': 7, '3': 3, '4': 2, '5': 0},
 ];
 
-export const assignmentProblemRequestBody2: Table = [
+export const assignmentProblemRequestBody2: ProblemTable = [
   {'0': 1, '1': 2, '2': 4, '3': 5, '4': 6, '5': 8},
   {'0': 9, '1': 2, '2': 4, '3': 4, '4': 2, '5': 5},
   {'0': 3, '1': 6, '2': 8, '3': 2, '4': 1, '5': 1},

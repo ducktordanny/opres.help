@@ -1,5 +1,5 @@
 import {SelectedCell} from './problems.type';
-import {Table} from './table.type';
+import {ProblemTable} from './table.type';
 
 export type Stocks = Array<number | null>;
 export type Demands = Array<number | null>;
@@ -7,7 +7,7 @@ export type TPMethods = 'north-west' | 'table-min' | 'vogel-korda';
 
 /** Stands for transportation problem data what contains the costs, the demand of shops and the stock of storages. */
 export interface TPData {
-  costs: Table;
+  costs: ProblemTable;
   shopDemands: Demands;
   storageStocks: Stocks;
 }

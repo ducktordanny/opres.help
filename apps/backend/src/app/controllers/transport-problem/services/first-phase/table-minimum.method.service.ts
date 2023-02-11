@@ -1,6 +1,6 @@
 import {Injectable, NotAcceptableException} from '@nestjs/common';
 
-import {Table} from '@opres/shared/types';
+import {ProblemTable} from '@opres/shared/types';
 import {
   CalculationMode,
   Demands,
@@ -21,10 +21,7 @@ interface SelectedCost {
 
 @Injectable()
 export class TableMinimumMethodService {
-  public calculate(
-    transportProblemData: TPData,
-    mode: CalculationMode,
-  ): Array<FirstPhaseStep> {
+  public calculate(transportProblemData: TPData, mode: CalculationMode): Array<FirstPhaseStep> {
     const {costs, shopDemands, storageStocks} = cloneDeep(transportProblemData);
 
     const process: Array<FirstPhaseStep> = [];
@@ -37,13 +34,7 @@ export class TableMinimumMethodService {
         shopDemands,
         storageStocks,
       );
-      transport(
-        resultTable,
-        shopDemands,
-        storageStocks,
-        demandIndex,
-        stockIndex,
-      );
+      transport(resultTable, shopDemands, storageStocks, demandIndex, stockIndex);
 
       process.push({
         transportation: cloneDeep(resultTable) as TransportTable,
@@ -53,9 +44,7 @@ export class TableMinimumMethodService {
 
       iterationCounter++;
       if (iterationCounter > 30)
-        throw new NotAcceptableException(
-          'Too many iterations during calculation. No result.',
-        );
+        throw new NotAcceptableException('Too many iterations during calculation. No result.');
     }
 
     return process;
@@ -63,7 +52,7 @@ export class TableMinimumMethodService {
 
   /* Here it's important to get the actual demands and stocks in order to get a valid response. */
   private getCurrentMinimumCost(
-    costs: Table,
+    costs: ProblemTable,
     demands: Demands,
     stocks: Stocks,
   ): SelectedCost {

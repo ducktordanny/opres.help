@@ -3,21 +3,25 @@
   "PREVIOUS": "Előző",
   "NEXT": "Következő",
   "CALCULATE_BUTTON": "Kiszámol",
+
   "LANGUAGE": {
     "EN": "🇬🇧 Angol",
     "HU": "🇭🇺 Magyar"
   },
+
   "THEME": {
     "DARK": "Sötét",
     "LIGHT": "Világos",
     "AUTO": "Auto"
   },
+
   "SIDEBAR_MENU": {
     "HOME": "Kezdőlap",
     "API_DOCS": "API dokumentáció",
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
     "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma"
   },
+
   "HOME": {
     "HEADER_TITLE": "Operáció Kutatás Segítő",
     "SLOGAN": "Segítségre lenne szükséged a tárgyaddal kapcsolatban vagy csak leellenőriznéd a számolásaid? A legjobb helyen jársz!",
@@ -31,7 +35,13 @@
         "EPSILON": "Ha csak az epszilon kell",
         "SECOND_PHASE": "Ha csak a második fázis kell"
       },
-      "ASSIGNMENT_PR": "Hozzárendelési probléma",
+      "ASSIGNMENT_PR": {
+        "TITLE": "Hozzárendelési probléma",
+        "ALL": "Minden lépés kell?",
+        "KOENIG_ALGO": "Csak König algoritmus lépései",
+        "INDEPENDENT_ZEROS": "Független nullák?",
+        "REDUCE": "Redukálás redukálás redukálás..."
+      },
       "OTHERS_SOON": "És még több hamarosan..."
     },
     "FEATURE_LIST_TITLE": "Egyéb kisebb funkciók",
@@ -102,12 +112,39 @@
       }
     }
   },
+
   "ASSIGNMENT_PROBLEM": {
-    "TABLE_SIZE_SELECT": "Tábla méret (n*n)",
-    "PAGE_INFO": {
-      "TITLE": "Készítés alatt",
-      "CONTENT": "Jelenleg csak az első fázis elérhető"
+    "TABLE_SIZE_SELECT": "Tábla méret (n * n)",
+    "ZERO_FINDING": {
+      "LABEL": "Független nulla keresés",
+      "OPTIONS": {
+        "GREEDY": "Mohó",
+        "HEURISTICS": "Heurosztika"
+      }
     },
-    "RESULT_INFO": "Az első fázis eredménye:"
+    "PROBLEM_TYPE": "Probléma típus",
+    "TABS": {
+      "ALL": {
+        "NAME": "Mind",
+        "HUNGARIAN_METHOD": {
+          "NAME": "Magyar módszer",
+          "TRANSFORMATION": "Transzformáció",
+          "TRANSFORMED_TABLE": "Transzformált tábla"
+        }
+      },
+      "KOENIG_ALGORITHM": {
+        "NAME": "König algoritmus",
+        "RESULT_TITLE": "König algoritmus {{steps}} lépésben"
+      },
+      "INDEPENDENT_ZEROS": {
+        "NAME": "Független nullák"
+      },
+      "REDUCE": {
+        "NAME": "Redukció",
+        "RESULT_TITLE": "Redukció és előkészületek",
+        "MAX_TO_MIN": "Max-min transzformáció",
+        "HANDLE_NEGATIVE_VALUES": "Negatív érték kezelése"
+      }
+    }
   }
 }

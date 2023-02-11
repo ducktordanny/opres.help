@@ -2,10 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 import {UntilDestroy} from '@ngneat/until-destroy';
 
-export interface Tab {
-  label: string;
-  link: string;
-}
+import {Tab} from '../../types/routing.type';
 
 @UntilDestroy()
 @Component({

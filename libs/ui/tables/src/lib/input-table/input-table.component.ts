@@ -1,12 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
-import {RowDefs, Table} from '@opres/shared/types';
+import {ProblemTable, RowDefs} from '@opres/shared/types';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, combineLatest} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
@@ -24,14 +18,17 @@ import {InputTableService} from './input-table.service';
 })
 export class InputTableComponent {
   @Input() key = '';
-  @Output() tableChange = new EventEmitter<Table>();
+  @Input() inputType = 'number';
+  @Input() min: number | undefined;
+  @Input() max: number | undefined;
+  @Output() tableChange = new EventEmitter<ProblemTable>();
   public readonly rows$ = new BehaviorSubject<number>(1);
   public readonly columns$ = new BehaviorSubject<number>(1);
   public readonly rowDefinitions$ = new BehaviorSubject<RowDefs>([]);
-  public readonly tableSource$ = new BehaviorSubject<Table>([]);
+  public readonly tableSource$ = new BehaviorSubject<ProblemTable>([]);
   private hasValues$ = new BehaviorSubject<boolean>(false);
 
-  @Input() set tableSource(value: Table | null) {
+  @Input() set tableSource(value: ProblemTable | null) {
     if (!value || value.length < 1) return;
     this.rows$.next(value.length);
     this.columns$.next(Object.values(value[0]).length);
@@ -58,7 +55,7 @@ export class InputTableComponent {
         })),
         map(({rowDefinitions, rows}) => {
           this.rowDefinitions$.next(rowDefinitions);
-          return tableSourceFrom(rows, rowDefinitions);
+          return tableSourceFrom(rows, rowDefinitions) as ProblemTable;
         }),
         tap((tableSource) => this.tableSource$.next(tableSource)),
         untilDestroyed(this),
@@ -69,11 +66,9 @@ export class InputTableComponent {
       .pipe(
         filter(() => this.hasValues$.getValue()),
         filter((keys) => keys.some((key) => key === this.key)),
-        map(() =>
-          tableSourceFrom(
-            this.rows$.getValue(),
-            this.rowDefinitions$.getValue(),
-          ),
+        map(
+          () =>
+            tableSourceFrom(this.rows$.getValue(), this.rowDefinitions$.getValue()) as ProblemTable,
         ),
         tap((newTableSource) => {
           this.tableSource$.next(newTableSource);

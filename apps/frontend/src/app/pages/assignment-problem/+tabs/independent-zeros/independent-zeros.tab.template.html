@@ -1,0 +1,9 @@
+<app-assignment-problem-input-form
+  [defaultTable]="defaultInputTable"
+  [needProblemType]="false"
+  (formOutput)="onFormOutput($event)"
+></app-assignment-problem-input-form>
+<app-independent-zeros-result
+  [reducedTable]="reducedTable | async"
+  [independentZeros]="result | async"
+></app-independent-zeros-result>

@@ -3,21 +3,25 @@
   "PREVIOUS": "Previous",
   "NEXT": "Next",
   "CALCULATE_BUTTON": "Calculate",
+
   "LANGUAGE": {
     "EN": "🇬🇧 English",
     "HU": "🇭🇺 Hungarian"
   },
+
   "THEME": {
     "DARK": "Dark",
     "LIGHT": "Light",
     "AUTO": "Auto"
   },
+
   "SIDEBAR_MENU": {
     "HOME": "Home",
     "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Transportation problem",
     "ASSIGNMENT_PROBLEM": "Assignment problem"
   },
+
   "HOME": {
     "HEADER_TITLE": "Operation Research Helper",
     "SLOGAN": "You need some help with your subject or just want to check your calculations? You are at the best place!",
@@ -31,7 +35,13 @@
         "EPSILON": "If only the epsilon is needed",
         "SECOND_PHASE": "If only the second phase is needed"
       },
-      "ASSIGNMENT_PR": "Assignment problem",
+      "ASSIGNMENT_PR": {
+        "TITLE": "Assignment problem",
+        "ALL": "Need every step?",
+        "KOENIG_ALGO": "Only Koenig algorithm steps",
+        "INDEPENDENT_ZEROS": "Independent zeros?",
+        "REDUCE": "Reduce reduce reduce..."
+      },
       "OTHERS_SOON": "And more coming soon..."
     },
     "FEATURE_LIST_TITLE": "Other smaller features",
@@ -44,9 +54,11 @@
       "CONTENT": "If you would like to support my work you can do it via"
     }
   },
+
   "API_DOCS": {
     "INFO": "Under construction! It will be available soon."
   },
+
   "TRANSPORTATION_PROBLEM": {
     "TABS": {
       "ALL": {
@@ -102,12 +114,39 @@
       }
     }
   },
+
   "ASSIGNMENT_PROBLEM": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",
-    "PAGE_INFO": {
-      "TITLE": "Under construction",
-      "CONTENT": "Currently only the first phase is available"
+    "ZERO_FINDING": {
+      "LABEL": "Independent zero finding",
+      "OPTIONS": {
+        "GREEDY": "Greedy",
+        "HEURISTICS": "Heuristics"
+      }
     },
-    "RESULT_INFO": "The result of the first phase:"
+    "PROBLEM_TYPE": "Problem type",
+    "TABS": {
+      "ALL": {
+        "NAME": "All",
+        "HUNGARIAN_METHOD": {
+          "NAME": "Hungarian method",
+          "TRANSFORMATION": "Transformation",
+          "TRANSFORMED_TABLE": "Transformed table"
+        }
+      },
+      "KOENIG_ALGORITHM": {
+        "NAME": "Koenig algorithm",
+        "RESULT_TITLE": "Koenig algorithm in {{steps}} steps"
+      },
+      "INDEPENDENT_ZEROS": {
+        "NAME": "Independent zeros"
+      },
+      "REDUCE": {
+        "NAME": "Reduce",
+        "RESULT_TITLE": "Reduce and preparations",
+        "MAX_TO_MIN": "Max-min transformation",
+        "HANDLE_NEGATIVE_VALUES": "Handle negative value"
+      }
+    }
   }
 }

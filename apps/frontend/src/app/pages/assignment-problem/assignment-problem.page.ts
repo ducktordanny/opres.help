@@ -1,46 +1,27 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
-import {Table} from '@opres/shared/types';
-import {InputTableService} from '@opres/ui/tables';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-
-import {AssignmentProblemService} from './assignment-problem.service';
+import {Tab} from '../../types/routing.type';
 
 @Component({
   selector: 'assignment-problem-page',
   templateUrl: './assignment-problem.template.html',
-  styleUrls: ['./assignment-problem.style.scss'],
+  styles: [
+    `
+      .tab-content-wrapper {
+        padding: 8px calc(env(safe-area-inset-right) + 8px) 8px 8px;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssignmentProblemPageComponent {
-  public result$: Observable<Table | null> = of(null);
-  public readonly mockedAssignment: Table = [
-    {'0': 1, '1': 3, '2': 5, '3': 7, '4': 9, '5': 2},
-    {'0': 2, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0},
-    {'0': 0, '1': 4, '2': 5, '3': 6, '4': 7, '5': 3},
-    {'0': 0, '1': 3, '2': 5, '3': 7, '4': 8, '5': 4},
-    {'0': 0, '1': 3, '2': 4, '3': 5, '4': 9, '5': 2},
-    {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0},
+  public readonly tabs: Array<Tab> = [
+    {label: 'ASSIGNMENT_PROBLEM.TABS.ALL.NAME', link: 'all'},
+    {
+      label: 'ASSIGNMENT_PROBLEM.TABS.KOENIG_ALGORITHM.NAME',
+      link: 'koenig-algorithm',
+    },
+    {label: 'ASSIGNMENT_PROBLEM.TABS.INDEPENDENT_ZEROS.NAME', link: 'independent-zeros'},
+    {label: 'ASSIGNMENT_PROBLEM.TABS.REDUCE.NAME', link: 'reduce'},
   ];
-  private assignmentTable = new BehaviorSubject<Table>([]);
-
-  constructor(
-    private inputTableService: InputTableService,
-    private assignmentProblemService: AssignmentProblemService,
-  ) {}
-
-  public onAssignmentTableClear(): void {
-    this.result$ = of(null);
-    this.assignmentTable.next([]);
-    this.inputTableService.clear('assignment');
-  }
-
-  public onCalculate(event: Event): void {
-    event.preventDefault();
-    this.result$ = this.assignmentProblemService.calculateFirsPhase(this.assignmentTable.getValue());
-  }
-
-  public onTableChange(change: Table): void {
-    this.assignmentTable.next(change);
-  }
 }

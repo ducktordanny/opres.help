@@ -1,0 +1,14 @@
+@import 'libs/shared/styles/tabs';
+
+.title {
+  text-align: center;
+  padding: 16px;
+  margin: 0;
+}
+
+.table-wrapper {
+  display: flex;
+  margin: 0 auto;
+  padding: 8px;
+  overflow-x: auto;
+}

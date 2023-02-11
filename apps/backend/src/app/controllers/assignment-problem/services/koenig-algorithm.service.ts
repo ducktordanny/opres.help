@@ -4,8 +4,8 @@ import {
   ColumnToRowMarks,
   KoenigAlgoResponse,
   KoenigAlgoStep,
+  ProblemTable,
   SelectedCell,
-  Table,
   TableLineSelections,
   ZeroFindingMethod,
 } from '@opres/shared/types';
@@ -18,18 +18,23 @@ import {getColumnUtil} from '../../../utils/get-column.util';
  */
 @Injectable()
 export class KoenigAlgorithmService {
-  public findIndependentZeros: Record<ZeroFindingMethod, (_: Table) => Array<SelectedCell>> = {
-    [ZeroFindingMethod.Greedy]: this.findIndependentZerosWithGreedyMethod,
-    [ZeroFindingMethod.Heuristics]: this.findIndependentZerosWithHeuristics,
-  };
+  public findIndependentZeros: Record<ZeroFindingMethod, (_: ProblemTable) => Array<SelectedCell>> =
+    {
+      [ZeroFindingMethod.Greedy]: this.findIndependentZerosWithGreedyMethod,
+      [ZeroFindingMethod.Heuristics]: this.findIndependentZerosWithHeuristics,
+    };
   private reachedRows: Array<number>;
   private targetColumns: Array<number>;
   private verifiedLines: TableLineSelections;
   private columnToRowMarks: ColumnToRowMarks;
 
-  public calculate(reducedAssignmentTable: Table, zeroFindingMethod: ZeroFindingMethod): KoenigAlgoResponse {
+  public calculate(
+    reducedAssignmentTable: ProblemTable,
+    zeroFindingMethod: ZeroFindingMethod,
+  ): KoenigAlgoResponse {
     const N = reducedAssignmentTable.length;
-    const selectedIndependentZeros = this.findIndependentZeros[zeroFindingMethod](reducedAssignmentTable);
+    const selectedIndependentZeros =
+      this.findIndependentZeros[zeroFindingMethod](reducedAssignmentTable);
     if (selectedIndependentZeros.length === N) return [{selectedIndependentZeros}];
 
     const process: KoenigAlgoResponse = [];
@@ -38,10 +43,13 @@ export class KoenigAlgorithmService {
 
     while (!isEmpty(this.reachedRows)) {
       this.snapshotAProcessStep(process, selectedIndependentZeros);
-      const hasWayToColumn = this.findWaysToColumns(reducedAssignmentTable, selectedIndependentZeros);
+      const hasWayToColumn = this.findWaysToColumns(
+        reducedAssignmentTable,
+        selectedIndependentZeros,
+      );
       if (!hasWayToColumn) {
         const strikeThroughs = this.getStrikeThroughs(N);
-        process.push({selectedIndependentZeros, strikeThroughs});
+        this.snapshotAProcessStep(process, selectedIndependentZeros, strikeThroughs);
         return process;
       }
       const markWithTarget = this.getMarkWithTarget();
@@ -58,7 +66,11 @@ export class KoenigAlgorithmService {
     return process;
   }
 
-  private snapshotAProcessStep(process: KoenigAlgoResponse, selectedIndependentZeros: Array<SelectedCell>): void {
+  private snapshotAProcessStep(
+    process: KoenigAlgoResponse,
+    selectedIndependentZeros: Array<SelectedCell>,
+    strikeThroughs?: TableLineSelections,
+  ): void {
     const {reachedRows, targetColumns, verifiedLines, columnToRowMarks} = this;
     const stepSnapshot: KoenigAlgoStep = cloneDeep({
       selectedIndependentZeros,
@@ -67,6 +79,7 @@ export class KoenigAlgorithmService {
       verifiedLines,
       columnToRowMarks,
     });
+    if (strikeThroughs) stepSnapshot.strikeThroughs = strikeThroughs;
     process.push(stepSnapshot);
   }
 
@@ -87,8 +100,10 @@ export class KoenigAlgorithmService {
   private getStrikeThroughs(n: number): TableLineSelections {
     const strikeThroughs: TableLineSelections = {rows: [], columns: []};
     for (let index = 0; index < n; index++) {
-      if (!this.verifiedLines.rows.some((rowIndex) => rowIndex === index)) strikeThroughs.rows.push(index);
-      if (this.verifiedLines.columns.some((columnIndex) => columnIndex === index)) strikeThroughs.columns.push(index);
+      if (!this.verifiedLines.rows.some((rowIndex) => rowIndex === index))
+        strikeThroughs.rows.push(index);
+      if (this.verifiedLines.columns.some((columnIndex) => columnIndex === index))
+        strikeThroughs.columns.push(index);
     }
     return strikeThroughs;
   }
@@ -100,7 +115,9 @@ export class KoenigAlgorithmService {
 
     do {
       hasIndieZeroInRow = independentZeros.some((indieZero) => indieZero.y === rowIndex);
-      const indexOfCurrentIndieZero = independentZeros.findIndex((indieZero) => indieZero.y === rowIndex);
+      const indexOfCurrentIndieZero = independentZeros.findIndex(
+        (indieZero) => indieZero.y === rowIndex,
+      );
       if (indexOfCurrentIndieZero === -1) {
         independentZeros.push({x: columnIndex, y: rowIndex});
         continue;
@@ -125,7 +142,7 @@ export class KoenigAlgorithmService {
     }
   }
 
-  private findWaysToColumns(table: Table, independentZeros: Array<SelectedCell>): boolean {
+  private findWaysToColumns(table: ProblemTable, independentZeros: Array<SelectedCell>): boolean {
     let hasFoundWays = false;
     for (const reachedRow of this.reachedRows) {
       const row = table[reachedRow];
@@ -145,32 +162,36 @@ export class KoenigAlgorithmService {
     return hasFoundWays;
   }
 
-  private findIndependentZerosWithGreedyMethod(table: Table): Array<SelectedCell> {
+  private findIndependentZerosWithGreedyMethod(table: ProblemTable): Array<SelectedCell> {
     const selectedZeros: Array<SelectedCell> = [];
     const isCellTaken = (rowIndex: number, columnIndex: number) =>
       selectedZeros?.some((selection) => selection.y === rowIndex || selection.x === columnIndex);
 
     forEach(table, (row, rowIndex: number) => {
       forEach(row, (cell, columnKey: string) => {
-        if (cell === 0 && !isCellTaken(rowIndex, +columnKey)) selectedZeros.push({x: +columnKey, y: rowIndex});
+        if (cell === 0 && !isCellTaken(rowIndex, +columnKey))
+          selectedZeros.push({x: +columnKey, y: rowIndex});
       });
     });
 
     return selectedZeros;
   }
 
-  private findIndependentZerosWithHeuristics(table: Table): Array<SelectedCell> {
+  private findIndependentZerosWithHeuristics(table: ProblemTable): Array<SelectedCell> {
     const independentZeros: Array<SelectedCell> = [];
     let nextIndependentZeros: SelectedCell | null = null;
     do {
-      nextIndependentZeros = KoenigAlgorithmService.getIndependentZeroHeuristically(table, independentZeros);
+      nextIndependentZeros = KoenigAlgorithmService.getIndependentZeroHeuristically(
+        table,
+        independentZeros,
+      );
       if (nextIndependentZeros) independentZeros.push(nextIndependentZeros);
     } while (nextIndependentZeros !== null);
     return independentZeros;
   }
 
   private static getIndependentZeroHeuristically(
-    table: Table,
+    table: ProblemTable,
     independentZeros: Array<SelectedCell>,
   ): SelectedCell | null {
     for (const [rowIndex, row] of table.entries()) {
@@ -178,7 +199,12 @@ export class KoenigAlgorithmService {
       const possibleIndependentZerosObject = pickBy(
         row,
         (cell, columnIndex) =>
-          cell === 0 && KoenigAlgorithmService.canCellBeAnIndependentZero(independentZeros, rowIndex, +columnIndex),
+          cell === 0 &&
+          KoenigAlgorithmService.canCellBeAnIndependentZero(
+            independentZeros,
+            rowIndex,
+            +columnIndex,
+          ),
       );
       const possibleIndependentZerosKeys = keys(possibleIndependentZerosObject);
       if (possibleIndependentZerosKeys.length === 1)
@@ -192,7 +218,12 @@ export class KoenigAlgorithmService {
       const possibleIndependentZerosObject = pickBy(
         column,
         (cell, rowIndex) =>
-          cell === 0 && KoenigAlgorithmService.canCellBeAnIndependentZero(independentZeros, +rowIndex, columnIndex),
+          cell === 0 &&
+          KoenigAlgorithmService.canCellBeAnIndependentZero(
+            independentZeros,
+            +rowIndex,
+            columnIndex,
+          ),
       );
       const possibleIndependentZerosKeys = keys(possibleIndependentZerosObject);
       if (possibleIndependentZerosKeys.length === 1)
@@ -210,13 +241,26 @@ export class KoenigAlgorithmService {
     columnIndex: number,
   ): boolean => !independentZeros.some((cell) => cell.x === columnIndex || cell.y === rowIndex);
 
-  private isCellIndependent = (independentZeros: Array<SelectedCell>, rowIndex: number, columnIndex: number) =>
-    independentZeros.some((independentZero) => independentZero.x === columnIndex && independentZero.y === rowIndex);
+  private isCellIndependent = (
+    independentZeros: Array<SelectedCell>,
+    rowIndex: number,
+    columnIndex: number,
+  ) =>
+    independentZeros.some(
+      (independentZero) => independentZero.x === columnIndex && independentZero.y === rowIndex,
+    );
 
-  private setStarterReachedRowsAndTargets(n: number, selectedIndependentZeros: Array<SelectedCell>): void {
+  private setStarterReachedRowsAndTargets(
+    n: number,
+    selectedIndependentZeros: Array<SelectedCell>,
+  ): void {
     for (let index = 0; index < n; index++) {
-      const isTargetColumn = !selectedIndependentZeros.some((selectedZero) => selectedZero.x === index);
-      const isReachedRow = !selectedIndependentZeros.some((selectedZero) => selectedZero.y === index);
+      const isTargetColumn = !selectedIndependentZeros.some(
+        (selectedZero) => selectedZero.x === index,
+      );
+      const isReachedRow = !selectedIndependentZeros.some(
+        (selectedZero) => selectedZero.y === index,
+      );
       if (isTargetColumn) this.targetColumns.push(index);
       if (isReachedRow) this.reachedRows.push(index);
     }

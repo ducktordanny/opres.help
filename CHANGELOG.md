@@ -2,6 +2,11 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.8.0] - 2023-02-11
+
+- Add full UI for assignment problem page
+- Finish API for assignment problem
+
 ## [0.7.1] - 2022-11-06
 
 - Use select instead of inputs in transportation problem tabs

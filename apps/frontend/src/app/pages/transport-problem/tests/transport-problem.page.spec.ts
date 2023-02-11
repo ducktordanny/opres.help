@@ -1,8 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 
+import {Tab} from '../../../types/routing.type';
 import {TransportProblemModule} from '../transport-problem.module';
-import {Tab, TransportProblemPageComponent} from '../transport-problem.page';
+import {TransportProblemPageComponent} from '../transport-problem.page';
 
 describe('TransportProblemPageComponent', () => {
   const tabsMock: Array<Tab> = [
@@ -25,9 +26,7 @@ describe('TransportProblemPageComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should be created', () =>
-    expect(component).toBeInstanceOf(TransportProblemPageComponent));
+  it('should be created', () => expect(component).toBeInstanceOf(TransportProblemPageComponent));
 
-  it('should check tab elements', () =>
-    expect(component.tabs).toEqual(tabsMock));
+  it('should check tab elements', () => expect(component.tabs).toEqual(tabsMock));
 });

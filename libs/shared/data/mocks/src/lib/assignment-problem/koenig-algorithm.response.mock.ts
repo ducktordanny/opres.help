@@ -29,6 +29,10 @@ export const koenigAlgorithmGreedyResponseMock1: KoenigAlgoResponse = [
       {x: 1, y: 1},
       {x: 2, y: 5},
     ],
+    reachedRows: [],
+    targetColumns: [3, 4, 5],
+    verifiedLines: {rows: [2, 3, 4, 0], columns: [0]},
+    columnToRowMarks: {'0': 2},
     strikeThroughs: {rows: [1, 5], columns: [0]},
   },
 ];
@@ -81,6 +85,10 @@ export const koenigAlgorithmGreedyResponseMock2: KoenigAlgoResponse = [
       {x: 2, y: 3},
       {x: 5, y: 4},
     ],
+    reachedRows: [],
+    targetColumns: [3],
+    verifiedLines: {rows: [5, 4, 2], columns: [5, 4]},
+    columnToRowMarks: {'4': 4, '5': 5},
     strikeThroughs: {rows: [0, 1, 3], columns: [4, 5]},
   },
 ];
@@ -207,6 +215,10 @@ export const koenigAlgorithmHeuristicsResponseMock1: KoenigAlgoResponse = [
       {x: 1, y: 1},
       {x: 2, y: 5},
     ],
+    reachedRows: [],
+    targetColumns: [3, 4, 5],
+    verifiedLines: {rows: [2, 3, 4, 0], columns: [0]},
+    columnToRowMarks: {'0': 2},
     strikeThroughs: {rows: [1, 5], columns: [0]},
   },
 ];
@@ -259,6 +271,10 @@ export const koenigAlgorithmHeuristicsResponseMock2: KoenigAlgoResponse = [
       {x: 5, y: 4},
       {x: 2, y: 3},
     ],
+    reachedRows: [],
+    targetColumns: [3],
+    verifiedLines: {rows: [5, 4, 2], columns: [5, 4]},
+    columnToRowMarks: {'4': 4, '5': 5},
     strikeThroughs: {rows: [0, 1, 3], columns: [4, 5]},
   },
 ];

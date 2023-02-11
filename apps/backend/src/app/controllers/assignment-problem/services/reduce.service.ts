@@ -1,11 +1,14 @@
 import {Injectable} from '@nestjs/common';
 
-import {AssignmentProblemType, ReduceResponse, Table} from '@opres/shared/types';
+import {AssignmentProblemType, ProblemTable, ReduceResponse} from '@opres/shared/types';
 import {cloneDeep, forEach} from 'lodash';
 
 @Injectable()
 export class ReduceService {
-  public calculate(assignmentTable: Table, problemType: AssignmentProblemType): ReduceResponse {
+  public calculate(
+    assignmentTable: ProblemTable,
+    problemType: AssignmentProblemType,
+  ): ReduceResponse {
     const negativeValuesTransformation = this.checkAndHandleNegativeValues(assignmentTable);
     const maxToMinTransformation =
       problemType === AssignmentProblemType.Max
@@ -21,7 +24,7 @@ export class ReduceService {
     };
   }
 
-  public checkAndHandleNegativeValues(table: Table): Table {
+  public checkAndHandleNegativeValues(table: ProblemTable): ProblemTable {
     const responseTable = cloneDeep(table);
     let min = Infinity;
 
@@ -41,7 +44,7 @@ export class ReduceService {
     return responseTable;
   }
 
-  public maxToMinProblem(table: Table): Table {
+  public maxToMinProblem(table: ProblemTable): ProblemTable {
     const responseTable = cloneDeep(table);
     let max = -Infinity;
 
@@ -59,17 +62,18 @@ export class ReduceService {
     return responseTable;
   }
 
-  private reduceByRows(table: Table): Table {
+  private reduceByRows(table: ProblemTable): ProblemTable {
     const responseTable = cloneDeep(table);
     for (const [index, row] of responseTable.entries()) {
       const rowElements = Object.values(row) as Array<number>;
       const minimumOfRow = Math.min(...rowElements);
-      for (const [key, value] of Object.entries(row)) responseTable[index][+key] = (value || 0) - minimumOfRow;
+      for (const [key, value] of Object.entries(row))
+        responseTable[index][+key] = (value || 0) - minimumOfRow;
     }
     return responseTable;
   }
 
-  private reduceByColumns(table: Table): Table {
+  private reduceByColumns(table: ProblemTable): ProblemTable {
     for (let index = 0; index < table.length; index++) {
       const columnElements = table.map((value) => value[index] || 0);
       const minimumOfColumn = Math.min(...columnElements);

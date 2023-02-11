@@ -1,0 +1,5 @@
+<app-assignment-problem-input-form
+  [needZeroFindingMethod]="false"
+  (formOutput)="onFormOutput($event)"
+></app-assignment-problem-input-form>
+<app-reduce-result *ngIf="result | async as _result" [value]="_result"></app-reduce-result>

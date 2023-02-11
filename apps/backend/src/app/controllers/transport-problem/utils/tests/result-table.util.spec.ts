@@ -1,10 +1,10 @@
-import {Table} from '@opres/shared/types';
+import {ProblemTable} from '@opres/shared/types';
 import {TransportTable} from '@opres/shared/types';
 
 import {createResultTableFrom} from '../result-table.util';
 
 describe('ResultTableUtil', () => {
-  const baseCostsMock: Table = [
+  const baseCostsMock: ProblemTable = [
     {'0': 12, '1': 22, '2': 9},
     {'0': 2, '1': 10, '2': 11},
   ];

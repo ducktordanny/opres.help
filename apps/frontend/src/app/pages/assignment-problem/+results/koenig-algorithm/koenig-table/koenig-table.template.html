@@ -1,0 +1,24 @@
+<ng-container
+  *ngIf="{columnSideTableValues: columnSideTableValues | async, rowSideTableValues: rowSideTableValues | async, independentZeros: independentZeros | async, strikeThroughs: strikeThroughs | async} as subs"
+>
+  <ng-container
+    *ngIf="sourceTable && subs.independentZeros && subs.columnSideTableValues && subs.rowSideTableValues"
+  >
+    <opres-table
+      [tableSource]="sourceTable"
+      [mainMarkedCells]="subs.independentZeros"
+      [horizontalStrikeThroughIndexes]="subs.strikeThroughs?.rows || []"
+      [verticalStrikeThroughIndexes]="subs.strikeThroughs?.columns || []"
+    ></opres-table>
+    <opres-side-table
+      type="column"
+      [size]="sourceTable.length"
+      [valuesByIndex]="subs.columnSideTableValues"
+    ></opres-side-table>
+    <opres-side-table
+      type="row"
+      [size]="sourceTable.length"
+      [valuesByIndex]="subs.rowSideTableValues"
+    ></opres-side-table>
+  </ng-container>
+</ng-container>

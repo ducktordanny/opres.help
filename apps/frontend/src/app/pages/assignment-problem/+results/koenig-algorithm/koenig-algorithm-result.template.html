@@ -1,0 +1,20 @@
+<mat-divider></mat-divider>
+<h1 class="title">
+  {{ 'ASSIGNMENT_PROBLEM.TABS.KOENIG_ALGORITHM.RESULT_TITLE' | translate: {steps: result.length} }}
+</h1>
+<mat-tab-group mat-stretch-tabs #matTabGroup (selectedTabChange)="onSelectedTabChange()">
+  <mat-tab *ngFor="let step of result; let index = index" [label]="index + 1 + '.'">
+    <section class="wrapper" *ngIf="(step | objectSize) !== 1; else result">
+      <app-koenig-table [result]="step" [sourceTable]="sourceTable"></app-koenig-table>
+    </section>
+    <ng-template #result>
+      <section class="wrapper">
+        <opres-table
+          class="table-wrapper"
+          [tableSource]="originalTable"
+          [mainMarkedCells]="step.selectedIndependentZeros"
+        ></opres-table>
+      </section>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

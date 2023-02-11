@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-import {SelectedCell, Table} from '@opres/shared/types';
+import {ProblemTable, SelectedCell} from '@opres/shared/types';
 import {Observable, of} from 'rxjs';
 
 @Component({
@@ -10,35 +10,50 @@ import {Observable, of} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
-  public tableSource$ = new Observable<Table>();
-  public badgeSource$ = new Observable<Table>();
-  public secondaryBadgeSource$ = new Observable<Table>();
+  public tableSource$ = new Observable<ProblemTable>();
+  public badgeSource$ = new Observable<ProblemTable>();
+  public secondaryBadgeSource$ = new Observable<ProblemTable>();
   @Input() public showZeros = true;
-  @Input() public mainMarkedCell?: SelectedCell;
+  @Input() public mainMarkedCells?: SelectedCell | Array<SelectedCell>;
   @Input() public markedCells?: Array<SelectedCell>;
+  @Input() public horizontalStrikeThroughIndexes?: Array<number>;
+  @Input() public verticalStrikeThroughIndexes?: Array<number>;
 
-  @Input() public set tableSource(value: Observable<Table> | Table) {
+  @Input() public set tableSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.tableSource$ = of(value);
     else this.tableSource$ = value;
   }
 
-  @Input() public set badgeSource(value: Observable<Table> | Table) {
+  @Input() public set badgeSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.badgeSource$ = of(value);
     else this.badgeSource$ = value;
   }
 
-  @Input() public set secondaryBadgeSource(value: Observable<Table> | Table) {
+  @Input() public set secondaryBadgeSource(value: Observable<ProblemTable> | ProblemTable) {
     if (Array.isArray(value)) this.secondaryBadgeSource$ = of(value);
-    else this.secondaryBadgeSource = value;
+    else this.secondaryBadgeSource$ = value;
   }
 
-  public getCircleStepNumber(
-    rowIndex: number,
-    columnIndex: number,
-  ): number | undefined {
+  public doesCellHaveMainMark(columnIndex: number, rowIndex: number): boolean {
+    if (!Array.isArray(this.mainMarkedCells))
+      return this.mainMarkedCells?.x === columnIndex && this.mainMarkedCells?.y === rowIndex;
+    for (const mainMark of this.mainMarkedCells)
+      if (mainMark?.x === columnIndex && mainMark?.y === rowIndex) return true;
+    return false;
+  }
+
+  public getMarkedCellValue(rowIndex: number, columnIndex: number): number | undefined {
     const index = this.markedCells?.findIndex(
       (cell) => cell.x === columnIndex && cell.y === rowIndex,
     );
-    return index === undefined ? undefined : index + 1;
+    return index === undefined ? undefined : this.markedCells?.[index]?.value ?? index + 1;
+  }
+
+  public hasHorizontalStrikeThrough(rowIndex: number): boolean {
+    return !!this.horizontalStrikeThroughIndexes?.some((index) => index === rowIndex);
+  }
+
+  public hasVerticalStrikeThrough(columnIndex: number): boolean {
+    return !!this.verticalStrikeThroughIndexes?.some((index) => index === columnIndex);
   }
 }
