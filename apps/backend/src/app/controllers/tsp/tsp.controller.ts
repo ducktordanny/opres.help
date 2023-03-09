@@ -9,10 +9,16 @@ import {ReduceService} from './services/reduce.service';
 @UseGuards(TspGuard)
 @Controller('tsp')
 export class TspController {
-  constructor(private reduceService: ReduceService, bnbService: BnbService) {}
+  constructor(private reduceService: ReduceService, private bnbService: BnbService) {}
 
   @Post('reduce')
   public reduceTspTable(@Body() tspTable: ProblemTable) {
     return this.reduceService.calculate(tspTable);
+  }
+
+  @Post('bnb')
+  public getPathByBnb(@Body() tspTable: ProblemTable) {
+    const reducedTable = this.reduceService.calculate(tspTable);
+    return this.bnbService.calculate(reducedTable);
   }
 }
