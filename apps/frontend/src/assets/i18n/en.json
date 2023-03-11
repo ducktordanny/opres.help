@@ -19,7 +19,8 @@
     "HOME": "Home",
     "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Transportation problem",
-    "ASSIGNMENT_PROBLEM": "Assignment problem"
+    "ASSIGNMENT_PROBLEM": "Assignment problem",
+    "TSP": "Traveling salesman problem"
   },
 
   "HOME": {
