@@ -1,1 +1,2 @@
 <app-tsp-input-form (formOutput)="onFormOutput($event)"></app-tsp-input-form>
+<pre *ngIf="result | async as _result">{{_result | json}}</pre>

@@ -151,6 +151,7 @@
 
   "TSP": {
     "TABLE_SIZE_SELECT": "Tábla méret (n * n)",
+    "INPUT_TABLE_INFO": "A főátlóban nincsenek számok, mert például az első városból nem utazunk az első városba (hiszen ott vagyunk).",
     "TABS": {
       "BNB-METHOD": {
         "NAME": "B&B módszer"

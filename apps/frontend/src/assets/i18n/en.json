@@ -153,6 +153,7 @@
 
   "TSP": {
     "TABLE_SIZE_SELECT": "Table size (n*n)",
+    "INPUT_TABLE_INFO": "There are no numbers in the main diagonal because, for example, we do not travel from the first city to the first city (because we are there).",
     "TABS": {
       "BNB-METHOD": {
         "NAME": "B&B method"

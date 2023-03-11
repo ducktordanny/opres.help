@@ -7,6 +7,8 @@ import {InputTableService} from '@opres/ui/tables';
 import {LoadingHandlerService} from '@frontend/services/loading-handler.service';
 import {BehaviorSubject} from 'rxjs';
 
+import {tspCacheBuster} from '../tsp.service';
+
 @Component({
   selector: 'app-tsp-input-form',
   templateUrl: './input-form.template.html',
@@ -38,5 +40,6 @@ export class InputFormComponent {
 
   public onTableChange(table: ProblemTable): void {
     this.table.next(table);
+    tspCacheBuster.next();
   }
 }
