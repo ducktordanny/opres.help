@@ -18,13 +18,18 @@ interface LowerEstimate {
 
 @Injectable()
 export class BnbService {
-  private usedFirstDestinations: Array<number> = [];
-  private lowerEstimates: Array<LowerEstimate> = [];
-  private currentBestPath: Array<number> = null;
-  private upperLimit: number = null;
-  private tree = new TspTreeBuilder(0);
+  private usedFirstDestinations: Array<number>;
+  private lowerEstimates: Array<LowerEstimate>;
+  private currentBestPath: Array<number>;
+  private upperLimit: number;
+  private tree: TspTreeBuilder;
 
   public calculate(tspTable: ProblemTable): BnbResult {
+    this.lowerEstimates = [];
+    this.currentBestPath = null;
+    this.upperLimit = null;
+    this.tree = new TspTreeBuilder(0);
+
     const steps: BnbSteps = {};
     let smallestLowerEstimates: LowerEstimate;
 
