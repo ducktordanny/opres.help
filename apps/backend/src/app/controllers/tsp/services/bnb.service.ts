@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 
 import {ProblemRow, ProblemTable} from '@opres/shared/types';
-import {cloneDeep, forEach, last, minBy, size} from 'lodash';
+import {cloneDeep, forEach, isEqual, last, minBy, remove, size} from 'lodash';
 
 import {TreeData, TspTreeBuilder} from './tsp-tree-builder';
 
@@ -43,13 +43,13 @@ export class BnbService {
 
   public calculate(tspTable: ProblemTable): BnbResult {
     const steps: BnbSteps = {};
-    let smallestLowerEstimates;
+    let smallestLowerEstimates: LowerEstimate;
 
     do {
-      smallestLowerEstimates = this.getSmallestLowerEstimate();
       const stepIndex = size(steps);
       steps[stepIndex] = this.getPath(tspTable, smallestLowerEstimates);
-    } while (!smallestLowerEstimates || smallestLowerEstimates < this.upperLimit);
+      smallestLowerEstimates = this.getSmallestLowerEstimate();
+    } while (smallestLowerEstimates?.cost < this.upperLimit);
 
     return {
       steps,
@@ -61,8 +61,9 @@ export class BnbService {
   }
 
   private getSmallestLowerEstimate(): LowerEstimate | undefined {
-    const smallestLowerEstimate = minBy(this.lowerEstimates, (est) => est.cost);
-    return cloneDeep(smallestLowerEstimate);
+    const smallestLowerEstimate = cloneDeep(minBy(this.lowerEstimates, (est) => est.cost));
+    remove(this.lowerEstimates, (est) => isEqual(est, smallestLowerEstimate));
+    return smallestLowerEstimate;
   }
 
   private getPath(table: ProblemTable, lowerEstimate?: LowerEstimate): Array<PathFindingStep> {
