@@ -1,9 +1,10 @@
 import {Injectable} from '@nestjs/common';
 
 import {ProblemRow, ProblemTable} from '@opres/shared/types';
+import {BnbResult, BnbSteps, PathFindingStep} from '@opres/shared/types';
 import {cloneDeep, forEach, isEqual, last, minBy, remove, size} from 'lodash';
 
-import {TreeData, TspTreeBuilder} from './tsp-tree-builder';
+import {TspTreeBuilder} from './tsp-tree-builder';
 
 interface MinimumCost {
   index: number;
@@ -13,24 +14,6 @@ interface MinimumCost {
 interface LowerEstimate {
   path: Array<number>;
   cost: number;
-}
-
-interface PathFindingStep {
-  tree: Array<TreeData>;
-  path: Array<number>;
-  cost: number;
-}
-
-interface BnbSteps {
-  [step: number]: Array<PathFindingStep>;
-}
-
-interface BnbResult {
-  steps: BnbSteps;
-  result: {
-    path: Array<number>;
-    cost: number;
-  };
 }
 
 @Injectable()

@@ -1,12 +1,5 @@
+import {TreeData} from '@opres/shared/types';
 import {cloneDeep} from 'lodash';
-
-export interface TreeData {
-  id: string;
-  parentId: string | null;
-  displayId: number;
-  cost?: number;
-  townId?: number;
-}
 
 export class TspTreeBuilder {
   private graphIdCounter = 1;
