@@ -1,4 +1,6 @@
-export interface TreeData {
+import {ProblemTable} from './table.type';
+
+export interface TspTreeData {
   id: string;
   parentId: string | null;
   displayId: number;
@@ -7,7 +9,7 @@ export interface TreeData {
 }
 
 export interface PathFindingStep {
-  tree: Array<TreeData>;
+  tree: Array<TspTreeData>;
   path: Array<number>;
   cost: number;
 }
@@ -17,6 +19,7 @@ export interface BnbSteps {
 }
 
 export interface BnbResult {
+  reducedTable: ProblemTable;
   steps: BnbSteps;
   result: {
     path: Array<number>;

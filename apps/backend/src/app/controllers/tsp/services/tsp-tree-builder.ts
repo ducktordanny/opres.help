@@ -1,15 +1,15 @@
-import {TreeData} from '@opres/shared/types';
+import {TspTreeData} from '@opres/shared/types';
 import {cloneDeep} from 'lodash';
 
 export class TspTreeBuilder {
   private graphIdCounter = 1;
-  private tree: Array<TreeData> = [];
+  private tree: Array<TspTreeData> = [];
 
   constructor(townId: number) {
     this.addNode(null, townId);
   }
 
-  public getCurrentTree(): Array<TreeData> {
+  public getCurrentTree(): Array<TspTreeData> {
     return cloneDeep(this.tree);
   }
 

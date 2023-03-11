@@ -24,7 +24,7 @@ export class BnbService {
   private upperLimit: number;
   private tree: TspTreeBuilder;
 
-  public calculate(tspTable: ProblemTable): BnbResult {
+  public calculate(reducedTable: ProblemTable): BnbResult {
     this.lowerEstimates = [];
     this.currentBestPath = null;
     this.upperLimit = null;
@@ -35,11 +35,12 @@ export class BnbService {
 
     do {
       const stepIndex = size(steps);
-      steps[stepIndex] = this.getPath(tspTable, smallestLowerEstimates);
+      steps[stepIndex] = this.getPath(reducedTable, smallestLowerEstimates);
       smallestLowerEstimates = this.getSmallestLowerEstimate();
     } while (smallestLowerEstimates?.cost < this.upperLimit);
 
     return {
+      reducedTable,
       steps,
       result: {
         cost: this.upperLimit,
