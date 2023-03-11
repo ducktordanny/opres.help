@@ -1,0 +1,23 @@
+{
+  "projectType": "library",
+  "root": "libs/ui/tree",
+  "sourceRoot": "libs/ui/tree/src",
+  "prefix": "opres.help",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ui/tree"],
+      "options": {
+        "jestConfig": "libs/ui/tree/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ui/tree/src/**/*.ts", "libs/ui/tree/src/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

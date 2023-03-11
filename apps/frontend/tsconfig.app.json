@@ -7,13 +7,12 @@
       "@frontend/components/*": ["src/app/components/*"],
       "@frontend/pipes/*": ["src/app/pipes/*"],
       "@frontend/services/*": ["src/app/services/*"],
-      "@opres/shared/data/constants": [
-        "../../libs/shared/data/constants/src/index.ts"
-      ],
+      "@opres/shared/data/constants": ["../../libs/shared/data/constants/src/index.ts"],
       "@opres/shared/data/mocks": ["../../libs/shared/data/mocks/src/index.ts"],
       "@opres/shared/types": ["../../libs/shared/types/src/index.ts"],
       "@opres/shared/utils": ["../../libs/shared/utils/src/index.ts"],
-      "@opres/ui/tables": ["../../libs/ui/tables/src/index.ts"]
+      "@opres/ui/tables": ["../../libs/ui/tables/src/index.ts"],
+      "@opres/ui/tree": ["../../libs/ui/tree/src/index.ts"]
     },
     "types": [],
     "target": "ES2017"
