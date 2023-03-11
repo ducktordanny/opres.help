@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 
 import {ProblemRow, ProblemTable} from '@opres/shared/types';
-import {cloneDeep, forEach, last} from 'lodash';
+import {cloneDeep, forEach, last, minBy} from 'lodash';
 
 interface MinimumCost {
   index: number;
@@ -21,32 +21,40 @@ export class BnbService {
   private upperLimit: number = null;
 
   public calculate(tspTable: ProblemTable) {
-    // * should iterate until the upper limit could not be reduced
-    // * always should check if the first row has a smaller cost than the upper limit (or should it be the first row?)
-    this.getPath(tspTable);
-    return {message: 'test'};
+    let smallestLowerEstimates;
+    do {
+      smallestLowerEstimates = this.getSmallestLowerEstimate();
+      this.getPath(tspTable, smallestLowerEstimates);
+    } while (!smallestLowerEstimates || smallestLowerEstimates < this.upperLimit);
+    return {
+      bestPath: this.currentBestPath,
+      cost: this.upperLimit,
+    };
   }
 
-  private getPath(table: ProblemTable): void {
-    let cost = 0;
-    let nextDestination: MinimumCost | undefined = {index: 0};
-    this.usedFirstDestinations.push(0);
+  private getSmallestLowerEstimate(): LowerEstimate | undefined {
+    const smallestLowerEstimate = minBy(this.lowerEstimates, (est) => est.cost);
+    return cloneDeep(smallestLowerEstimate);
+  }
+
+  private getPath(table: ProblemTable, lowerEstimate?: LowerEstimate): void {
+    const starterIndex = last(lowerEstimate?.path) ?? 0;
+    let cost = lowerEstimate?.cost ?? 0;
+    let nextDestination: MinimumCost | undefined = {index: starterIndex};
+    this.usedFirstDestinations = lowerEstimate?.path ?? [0];
 
     do {
       const row = table[nextDestination.index];
       nextDestination = this.getMinimumCostOfRow(row);
       this.usedFirstDestinations.push(nextDestination?.index ?? 0);
       this.extendLowerEstimates(row, cost);
-      cost += nextDestination?.value ?? table[last(this.usedFirstDestinations)][0];
+      const penultimateDestination = this.usedFirstDestinations.slice(-2)[0];
+      cost += nextDestination?.value ?? table[penultimateDestination][0];
     } while (nextDestination !== undefined);
 
+    if (this.upperLimit !== null && this.upperLimit < cost) return;
     this.currentBestPath = cloneDeep(this.usedFirstDestinations);
     this.upperLimit = cost;
-    this.usedFirstDestinations = [];
-    console.log('cost', cost);
-    console.log('table', table);
-    console.log('currentBestPath', this.currentBestPath);
-    console.log('lowerEstimates', this.lowerEstimates);
   }
 
   private getMinimumCostOfRow(row: ProblemRow): MinimumCost | undefined {
