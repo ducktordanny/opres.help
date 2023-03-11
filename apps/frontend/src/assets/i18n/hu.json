@@ -147,5 +147,16 @@
         "HANDLE_NEGATIVE_VALUES": "Negatív érték kezelése"
       }
     }
+  },
+
+  "TSP": {
+    "TABS": {
+      "BNB-METHOD": {
+        "NAME": "B&B módszer"
+      },
+      "REDUCE": {
+        "NAME": "Redukció"
+      }
+    }
   }
 }

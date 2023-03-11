@@ -149,5 +149,16 @@
         "HANDLE_NEGATIVE_VALUES": "Handle negative value"
       }
     }
+  },
+
+  "TSP": {
+    "TABS": {
+      "BNB-METHOD": {
+        "NAME": "B&B method"
+      },
+      "REDUCE": {
+        "NAME": "Reduce"
+      }
+    }
   }
 }
