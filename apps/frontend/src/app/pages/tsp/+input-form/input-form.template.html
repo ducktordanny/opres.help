@@ -1,0 +1,31 @@
+<form [formGroup]="formGroup">
+  <section>
+    <article>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'TSP.TABLE_SIZE_SELECT' | translate }}</mat-label>
+        <mat-select formControlName="tableSize">
+          <mat-option [value]="4">4</mat-option>
+          <mat-option [value]="5">5</mat-option>
+          <mat-option [value]="6">6</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </article>
+    <opres-input-table
+      class="table-wrapper"
+      key="tsp"
+      [tableSource]="table | async"
+      [rows]="formGroup.get('tableSize')?.value"
+      [columns]="formGroup.get('tableSize')?.value"
+      [tspTable]="true"
+      (tableChange)="onTableChange($event)"
+    ></opres-input-table>
+  </section>
+</form>
+<section>
+  <loading-button [loading]="isLoading$" [invalid]="formGroup.invalid" (click)="onCalculate()"
+    >{{'CALCULATE_BUTTON' | translate}}</loading-button
+  >
+  <button mat-flat-button color="primary" type="button" (click)="onTableClear()">
+    {{'TABLE_CLEAR_BUTTON' | translate}}
+  </button>
+</section>

@@ -152,6 +152,7 @@
   },
 
   "TSP": {
+    "TABLE_SIZE_SELECT": "Table size (n*n)",
     "TABS": {
       "BNB-METHOD": {
         "NAME": "B&B method"

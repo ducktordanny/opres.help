@@ -2,7 +2,11 @@
   <ng-container *ngFor="let header of rowDefinitions$ | async" [matColumnDef]="header">
     <th mat-header-cell *matHeaderCellDef>{{header}}</th>
     <td mat-cell *matCellDef="let element; let rowIndex = index">
-      <mat-form-field appearance="standard" style="padding: 0 4px; width: 50px">
+      <mat-form-field
+        appearance="standard"
+        style="padding: 0 4px; width: 50px"
+        *ngIf="!tspTable || rowIndex !== +header; else noInput"
+      >
         <input
           matInput
           [type]="inputType"
@@ -13,6 +17,7 @@
           (change)="onTableElementChange($event, +header, rowIndex)"
         />
       </mat-form-field>
+      <ng-template #noInput></ng-template>
     </td>
   </ng-container>
   <tr mat-row *matRowDef="let row; columns: rowDefinitions$ | async"></tr>

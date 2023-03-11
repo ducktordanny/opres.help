@@ -150,6 +150,7 @@
   },
 
   "TSP": {
+    "TABLE_SIZE_SELECT": "Tábla méret (n * n)",
     "TABS": {
       "BNB-METHOD": {
         "NAME": "B&B módszer"
