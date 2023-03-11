@@ -3,6 +3,8 @@ import {Injectable} from '@nestjs/common';
 import {AssignmentProblemType, ProblemTable, ReduceResponse} from '@opres/shared/types';
 import {cloneDeep, forEach} from 'lodash';
 
+import {reduceByColumns, reduceByRows} from '../../../utils/reduce.util';
+
 @Injectable()
 export class ReduceService {
   public calculate(
@@ -14,11 +16,13 @@ export class ReduceService {
       problemType === AssignmentProblemType.Max
         ? this.maxToMinProblem(negativeValuesTransformation || assignmentTable)
         : undefined;
-    const reduceFirstPart = this.reduceByRows(
+    const reduceFirstPart = reduceByRows(
       maxToMinTransformation || negativeValuesTransformation || assignmentTable,
+      this.reducerCallback,
     );
+    const reduce = reduceByColumns(reduceFirstPart, this.reducerCallback);
     return {
-      reduce: this.reduceByColumns(reduceFirstPart),
+      reduce,
       negativeValuesTransformation,
       maxToMinTransformation,
     };
@@ -62,23 +66,5 @@ export class ReduceService {
     return responseTable;
   }
 
-  private reduceByRows(table: ProblemTable): ProblemTable {
-    const responseTable = cloneDeep(table);
-    for (const [index, row] of responseTable.entries()) {
-      const rowElements = Object.values(row) as Array<number>;
-      const minimumOfRow = Math.min(...rowElements);
-      for (const [key, value] of Object.entries(row))
-        responseTable[index][+key] = (value || 0) - minimumOfRow;
-    }
-    return responseTable;
-  }
-
-  private reduceByColumns(table: ProblemTable): ProblemTable {
-    for (let index = 0; index < table.length; index++) {
-      const columnElements = table.map((value) => value[index] || 0);
-      const minimumOfColumn = Math.min(...columnElements);
-      for (const element of table) element[index] = (element[index] || 0) - minimumOfColumn;
-    }
-    return table;
-  }
+  private reducerCallback = (cell: number | null, min: number): number | null => (cell ?? 0) - min;
 }
