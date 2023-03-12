@@ -3,6 +3,10 @@
   "PREVIOUS": "Previous",
   "NEXT": "Next",
   "CALCULATE_BUTTON": "Calculate",
+  "CLOSE": "Close",
+  "TIPS": "Tips",
+  "SCROLL_TIP": "If you can't see the whole tree or table on smaller screen, try to scroll horizontally.",
+  "TROUBLE_TIP": "If you locate any issues or have any recommendations, you can do so on ",
 
   "LANGUAGE": {
     "EN": "🇬🇧 English",
@@ -161,7 +165,13 @@
         "BEST_PATH": "Best path",
         "STATE": "State:",
         "CURRENT_PATH": "Current path: {{path}}",
-        "CURRENT_COST": "Current cost: {{cost}}"
+        "CURRENT_COST": "Current cost: {{cost}}",
+        "VIEW_INFO": {
+          "NAME": "Info of view",
+          "TOWN_ID": "The <b>orange numbers</b> on the edges represent the ID of the <b>towns</b> where we can go.",
+          "COSTS": "The numbers right <b>next to the nodes</b> are the <b>current costs</b> that takes to get there.",
+          "INFO_CARD": "The <b>info card</b> always shows the current state of our travel including the <b>path and cost</b>."
+        }
       },
       "REDUCE": {
         "NAME": "Reduce"

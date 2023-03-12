@@ -3,6 +3,10 @@
   "PREVIOUS": "Előző",
   "NEXT": "Következő",
   "CALCULATE_BUTTON": "Kiszámol",
+  "CLOSE": "Bezár",
+  "TIPS": "Tippek",
+  "SCROLL_TIP": "Ha nem látható az egész fa vagy tábla kisebb kijelzőn, probálja a horizontális scroll-t.",
+  "TROUBLE_TIP": "Ha bármilyen problémával szembesül, vagy lennének javaslatai, meg tudja tenni itt: ",
 
   "LANGUAGE": {
     "EN": "🇬🇧 Angol",
@@ -55,9 +59,11 @@
       "CONTENT": "Ha támogatni szeretnéd a munkámat itt megteheted: "
     }
   },
+
   "API_DOCS": {
     "INFO": "Készítés alatt"
   },
+
   "TRANSPORTATION_PROBLEM": {
     "TABS": {
       "ALL": {
@@ -159,7 +165,13 @@
         "BEST_PATH": "Legjobb körút",
         "STATE": "Állapot:",
         "CURRENT_PATH": "Jelenlegi útvonal: {{path}}",
-        "CURRENT_COST": "Jelenlegi költség: {{cost}}"
+        "CURRENT_COST": "Jelenlegi költség: {{cost}}",
+        "VIEW_INFO": {
+          "NAME": "Infó a nézetről",
+          "TOWN_ID": "A <b>narancs számok</b> az éleken a <b>városok</b> azonosítóját reprezentálják, amerre épp mehetünk.",
+          "COSTS": "A <b>halmazok melletti</b> számok mutatják az odajutáshoz szükséges <b>eddigi költséget</b>.",
+          "INFO_CARD": "Az <b>infó kártya</b> mindig az utazás aktuális állapotát mutatja, beleértve az <b>útvonalat és költséget</b>."
+        }
       },
       "REDUCE": {
         "NAME": "Redukció"
