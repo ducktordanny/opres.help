@@ -16,7 +16,7 @@ import {Tab} from '../../types/routing.type';
 })
 export class TspPageComponent {
   public readonly tabs: Array<Tab> = [
-    {label: 'TSP.TABS.BNB-METHOD.NAME', link: 'bnb-method'},
+    {label: 'TSP.TABS.BNB_METHOD.NAME', link: 'bnb-method'},
     {label: 'TSP.TABS.REDUCE.NAME', link: 'reduce'},
   ];
 }

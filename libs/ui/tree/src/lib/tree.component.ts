@@ -5,13 +5,13 @@ import * as d3 from 'd3';
 import {HierarchyPointLink} from 'd3';
 
 @Component({
-  selector: 'opres-tree[data]',
+  selector: 'opres-tree[treeId][data]',
   templateUrl: './tree.template.html',
   styleUrls: ['./tree.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreeComponent implements AfterViewInit {
-  @Input() public treeId = 'tree';
+  @Input() public treeId!: string;
   @Input() public circleRadius = 16;
   private height!: number;
   private width!: number;
@@ -65,9 +65,13 @@ export class TreeComponent implements AfterViewInit {
 
     connections
       .append('text')
-      .text((data) => (<TspTreeData>data.target.data).townId ?? '')
+      .text((data) => {
+        const {townId} = <TspTreeData>data.target.data || {};
+        return townId === undefined ? '' : (townId + 1).toString();
+      })
       .attr('x', (data) => (data.target.x + data.source.x) / 2 + 10)
-      .attr('y', (data) => (data.target.y + data.source.y) / 2 + 5);
+      .attr('y', (data) => (data.target.y + data.source.y) / 2 + 5)
+      .attr('class', 'cost');
   }
 
   private drawNodes(): void {

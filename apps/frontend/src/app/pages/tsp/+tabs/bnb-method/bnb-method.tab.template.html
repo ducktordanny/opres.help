@@ -1,2 +1,9 @@
 <app-tsp-input-form (formOutput)="onFormOutput($event)"></app-tsp-input-form>
-<pre *ngIf="result | async as _result">{{_result | json}}</pre>
+<ng-container *ngIf="result | async as _result">
+  <app-tsp-reduce-result [table]="_result.reducedTable"></app-tsp-reduce-result>
+  <app-tsp-bnb-method-result
+    [steps]="_result.steps"
+    [result]="_result.result"
+    [originalTable]="(originalTable | async) || []"
+  ></app-tsp-bnb-method-result>
+</ng-container>

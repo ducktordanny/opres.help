@@ -155,8 +155,13 @@
     "TABLE_SIZE_SELECT": "Table size (n*n)",
     "INPUT_TABLE_INFO": "There are no numbers in the main diagonal because, for example, we do not travel from the first city to the first city (because we are there).",
     "TABS": {
-      "BNB-METHOD": {
-        "NAME": "B&B method"
+      "BNB_METHOD": {
+        "NAME": "B&B method",
+        "PATH_TITLE": "B&B method {{step}}. path",
+        "BEST_PATH": "Best path",
+        "STATE": "State:",
+        "CURRENT_PATH": "Current path: {{path}}",
+        "CURRENT_COST": "Current cost: {{cost}}"
       },
       "REDUCE": {
         "NAME": "Reduce"

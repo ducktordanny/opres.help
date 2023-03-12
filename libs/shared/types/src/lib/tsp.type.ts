@@ -18,11 +18,13 @@ export interface BnbSteps {
   [step: number]: Array<PathFindingStep>;
 }
 
+export interface BnbBestPath {
+  path: Array<number>;
+  cost: number;
+}
+
 export interface BnbResult {
   reducedTable: ProblemTable;
   steps: BnbSteps;
-  result: {
-    path: Array<number>;
-    cost: number;
-  };
+  result: BnbBestPath;
 }
