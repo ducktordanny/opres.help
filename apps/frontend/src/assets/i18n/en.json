@@ -47,7 +47,12 @@
         "INDEPENDENT_ZEROS": "Independent zeros?",
         "REDUCE": "Reduce reduce reduce..."
       },
-      "OTHERS_SOON": "And more coming soon..."
+      "TSP": {
+        "TITLE": "Traveling salesman problem",
+        "BNB_METHOD": "B&B method",
+        "REDUCE": "Reduce reduce reduce..."
+      },
+      "OTHERS_SOON": "Need more? Reach out on GitHub..."
     },
     "FEATURE_LIST_TITLE": "Other smaller features",
     "FEATURE_LIST": {

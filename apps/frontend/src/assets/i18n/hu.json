@@ -47,7 +47,12 @@
         "INDEPENDENT_ZEROS": "Független nullák?",
         "REDUCE": "Redukálás redukálás redukálás..."
       },
-      "OTHERS_SOON": "És még több hamarosan..."
+      "TSP": {
+        "TITLE": "Utazó ügynök probléma",
+        "BNB_METHOD": "B&B módszer",
+        "REDUCE": "Redukálás redukálás redukálás..."
+      },
+      "OTHERS_SOON": "Kell több? Lépj kapcsolatba GitHub-on..."
     },
     "FEATURE_LIST_TITLE": "Egyéb kisebb funkciók",
     "FEATURE_LIST": {
