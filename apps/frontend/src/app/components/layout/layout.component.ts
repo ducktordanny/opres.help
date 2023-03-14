@@ -6,6 +6,7 @@ import {
   Input,
   OnDestroy,
 } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import {
@@ -16,6 +17,7 @@ import {
   Router,
 } from '@angular/router';
 
+import {InfoDialogComponent} from '@frontend/components/layout/info-dialog.component';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {filter, map, pluck, tap} from 'rxjs/operators';
@@ -42,6 +44,10 @@ export class LayoutComponent implements OnDestroy {
       path: '/assignment-problem',
       title: 'SIDEBAR_MENU.ASSIGNMENT_PROBLEM',
     },
+    {
+      path: '/tsp',
+      title: 'SIDEBAR_MENU.TSP',
+    },
   ];
   public isLoading = new BehaviorSubject<boolean>(true);
   private readonly _mobileQueryListener: () => void;
@@ -52,12 +58,11 @@ export class LayoutComponent implements OnDestroy {
     private media: MediaMatcher,
     private router: Router,
     private sanitizer: DomSanitizer,
+    private dialog: MatDialog,
   ) {
     iconRegistry.addSvgIcon(
       'opres',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        '../../../assets/icons/opres-white.icon.svg',
-      ),
+      sanitizer.bypassSecurityTrustResourceUrl('../../../assets/icons/opres-white.icon.svg'),
     );
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -91,5 +96,9 @@ export class LayoutComponent implements OnDestroy {
 
   public async onLogoRedirect(): Promise<void> {
     await this.router.navigate(['/home']);
+  }
+
+  public onInfo(): void {
+    this.dialog.open(InfoDialogComponent);
   }
 }

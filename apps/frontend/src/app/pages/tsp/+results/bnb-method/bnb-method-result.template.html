@@ -1,0 +1,44 @@
+<ng-container *ngFor="let step of (steps | keyvalue)">
+  <mat-divider></mat-divider>
+  <h2 class="title">{{'TSP.TABS.BNB_METHOD.PATH_TITLE' | translate: {step: +step.key + 1} }}</h2>
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab *ngFor="let pathFinding of step.value; let index = index" [label]="index + 1 + '.'">
+      <ng-template matTabContent>
+        <opres-tsp-tree
+          [treeId]="'bnb-' + step.key + '-' + index"
+          [data]="pathFinding['tree']"
+        ></opres-tsp-tree>
+        <section class="wrapper">
+          <info-card>
+            <b>{{'TSP.TABS.BNB_METHOD.STATE' | translate}}</b>
+            <ul>
+              <li>
+                {{'TSP.TABS.BNB_METHOD.CURRENT_PATH' | translate: {path: pathFinding['path'] |
+                arrayToPath} }}
+              </li>
+              <li>
+                {{'TSP.TABS.BNB_METHOD.CURRENT_COST' | translate: {cost: pathFinding['cost']} }}
+              </li>
+            </ul>
+            <button mat-stroked-button (click)="onHelp()">
+              {{'TSP.TABS.BNB_METHOD.VIEW_INFO.NAME' | translate}}
+            </button>
+          </info-card>
+        </section>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</ng-container>
+<mat-divider></mat-divider>
+<h2 class="title">{{'TSP.TABS.BNB_METHOD.BEST_PATH' | translate}}</h2>
+<section class="wrapper">
+  <info-card> {{result.path | arrayToPath}}<br /> </info-card>
+</section>
+<section class="wrapper">
+  <opres-table
+    class="table-wrapper"
+    [tableSource]="originalTable"
+    [mainMarkedCells]="result.path | pathToSelectedCells"
+    [showNullAsZero]="false"
+  ></opres-table>
+</section>

@@ -1,0 +1,15 @@
+<nav mat-tab-nav-bar mat-stretch-tabs class="safe-area-right">
+  <a
+    mat-tab-link
+    routerLinkActive
+    #rla="routerLinkActive"
+    *ngFor="let tab of tabs"
+    [active]="rla.isActive"
+    [routerLink]="tab.link"
+  >
+    {{tab.label | translate}}
+  </a>
+</nav>
+<div class="tab-content-wrapper">
+  <router-outlet></router-outlet>
+</div>

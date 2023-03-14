@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
@@ -11,13 +12,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
+import {InfoDialogComponent} from '@frontend/components/layout/info-dialog.component';
 import {LanguageSwitcherModule} from '@frontend/components/layout/language-switcher/language-switcher.module';
 import {LayoutComponent} from '@frontend/components/layout/layout.component';
 import {ThemeSwitcherModule} from '@frontend/components/layout/theme-switcher/theme-switcher.module';
 import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [LayoutComponent],
+  declarations: [InfoDialogComponent, LayoutComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -33,6 +35,7 @@ import {TranslateModule} from '@ngx-translate/core';
     ThemeSwitcherModule,
     TranslateModule,
     MatProgressBarModule,
+    MatDialogModule,
   ],
   exports: [LayoutComponent],
 })

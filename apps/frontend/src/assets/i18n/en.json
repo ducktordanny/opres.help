@@ -3,6 +3,10 @@
   "PREVIOUS": "Previous",
   "NEXT": "Next",
   "CALCULATE_BUTTON": "Calculate",
+  "CLOSE": "Close",
+  "TIPS": "Tips",
+  "SCROLL_TIP": "If you can't see the whole tree or table on smaller screen, try to scroll horizontally.",
+  "TROUBLE_TIP": "If you locate any issues or have any recommendations, you can do so on ",
 
   "LANGUAGE": {
     "EN": "🇬🇧 English",
@@ -19,7 +23,8 @@
     "HOME": "Home",
     "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Transportation problem",
-    "ASSIGNMENT_PROBLEM": "Assignment problem"
+    "ASSIGNMENT_PROBLEM": "Assignment problem",
+    "TSP": "Traveling salesman problem"
   },
 
   "HOME": {
@@ -42,7 +47,12 @@
         "INDEPENDENT_ZEROS": "Independent zeros?",
         "REDUCE": "Reduce reduce reduce..."
       },
-      "OTHERS_SOON": "And more coming soon..."
+      "TSP": {
+        "TITLE": "Traveling salesman problem",
+        "BNB_METHOD": "B&B method",
+        "REDUCE": "Reduce reduce reduce..."
+      },
+      "OTHERS_SOON": "Need more? Reach out on GitHub..."
     },
     "FEATURE_LIST_TITLE": "Other smaller features",
     "FEATURE_LIST": {
@@ -146,6 +156,30 @@
         "RESULT_TITLE": "Reduce and preparations",
         "MAX_TO_MIN": "Max-min transformation",
         "HANDLE_NEGATIVE_VALUES": "Handle negative value"
+      }
+    }
+  },
+
+  "TSP": {
+    "TABLE_SIZE_SELECT": "Table size (n*n)",
+    "INPUT_TABLE_INFO": "There are no numbers in the main diagonal because, for example, we do not travel from the first city to the first city (because we are there).",
+    "TABS": {
+      "BNB_METHOD": {
+        "NAME": "B&B method",
+        "PATH_TITLE": "B&B method {{step}}. path",
+        "BEST_PATH": "Best path",
+        "STATE": "State:",
+        "CURRENT_PATH": "Current path: {{path}}",
+        "CURRENT_COST": "Current cost: {{cost}}",
+        "VIEW_INFO": {
+          "NAME": "Info of view",
+          "TOWN_ID": "The <b>orange numbers</b> on the edges represent the ID of the <b>towns</b> where we can go.",
+          "COSTS": "The numbers right <b>next to the nodes</b> are the <b>current costs</b> that takes to get there.",
+          "INFO_CARD": "The <b>info card</b> always shows the current state of our travel including the <b>path and cost</b>."
+        }
+      },
+      "REDUCE": {
+        "NAME": "Reduce"
       }
     }
   }

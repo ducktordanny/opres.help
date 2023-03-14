@@ -8,16 +8,13 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {
     path: 'home',
-    loadChildren: () =>
-      import('./pages/home/home.module').then((module) => module.HomeModule),
+    loadChildren: () => import('./pages/home/home.module').then((module) => module.HomeModule),
   },
   {
     path: 'public-api-docs',
     pathMatch: 'full',
     loadChildren: () =>
-      import('./pages/api-docs/api-docs.module').then(
-        (module) => module.ApiDocsModule,
-      ),
+      import('./pages/api-docs/api-docs.module').then((module) => module.ApiDocsModule),
   },
   {
     path: 'transport-problem',
@@ -32,6 +29,10 @@ const routes: Routes = [
       import('./pages/assignment-problem/assignment-problem.module').then(
         (module) => module.AssignmentProblemModule,
       ),
+  },
+  {
+    path: 'tsp',
+    loadChildren: () => import('./pages/tsp/tsp.module').then((module) => module.TspModule),
   },
   {path: '404', component: NotFoundPageComponent},
   {path: '**', redirectTo: '404'},

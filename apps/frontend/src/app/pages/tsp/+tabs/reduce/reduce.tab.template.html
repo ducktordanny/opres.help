@@ -1,0 +1,2 @@
+<app-tsp-input-form (formOutput)="onFormOutput($event)"></app-tsp-input-form>
+<app-tsp-reduce-result *ngIf="result | async as _result" [table]="_result"></app-tsp-reduce-result>

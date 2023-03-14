@@ -21,7 +21,9 @@ export class InputTableComponent {
   @Input() inputType = 'number';
   @Input() min: number | undefined;
   @Input() max: number | undefined;
+  @Input() tspTable = false;
   @Output() tableChange = new EventEmitter<ProblemTable>();
+
   public readonly rows$ = new BehaviorSubject<number>(1);
   public readonly columns$ = new BehaviorSubject<number>(1);
   public readonly rowDefinitions$ = new BehaviorSubject<RowDefs>([]);

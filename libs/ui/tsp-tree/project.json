@@ -1,0 +1,23 @@
+{
+  "projectType": "library",
+  "root": "libs/ui/tsp-tree",
+  "sourceRoot": "libs/ui/tsp-tree/src",
+  "prefix": "opres.help",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ui/tsp-tree"],
+      "options": {
+        "jestConfig": "libs/ui/tsp-tree/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ui/tsp-tree/src/**/*.ts", "libs/ui/tsp-tree/src/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

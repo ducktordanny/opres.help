@@ -41,13 +41,15 @@
               matBadgeOverlap="false"
               matBadgeSize="medium"
               matBadgeColor="accent"
-              >{{element[header] || 0}}</span
+              >{{element[header] ?? (showNullAsZero ? 0 : '')}}</span
             >
-            <ng-template #noSecondaryBadge>{{element[header] || 0}}</ng-template>
+            <ng-template #noSecondaryBadge
+              >{{element[header] ?? (showNullAsZero ? 0 : '')}}</ng-template
+            >
           </span>
           <ng-template #badgelessCell>
             <span [ngClass]="{'hidden-transport': !showZeros && !element[header]}">
-              {{element[header] || 0}}
+              {{element[header] ?? (showNullAsZero ? 0 : '')}}
             </span>
           </ng-template>
         </ng-container>

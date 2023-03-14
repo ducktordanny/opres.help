@@ -3,6 +3,10 @@
   "PREVIOUS": "Előző",
   "NEXT": "Következő",
   "CALCULATE_BUTTON": "Kiszámol",
+  "CLOSE": "Bezár",
+  "TIPS": "Tippek",
+  "SCROLL_TIP": "Ha nem látható az egész fa vagy tábla kisebb kijelzőn, probálja a horizontális scroll-t.",
+  "TROUBLE_TIP": "Ha bármilyen problémával szembesül, vagy lennének javaslatai, meg tudja tenni itt: ",
 
   "LANGUAGE": {
     "EN": "🇬🇧 Angol",
@@ -19,7 +23,8 @@
     "HOME": "Kezdőlap",
     "API_DOCS": "API dokumentáció",
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
-    "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma"
+    "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma",
+    "TSP": "Utazó ügynök probléma"
   },
 
   "HOME": {
@@ -42,7 +47,12 @@
         "INDEPENDENT_ZEROS": "Független nullák?",
         "REDUCE": "Redukálás redukálás redukálás..."
       },
-      "OTHERS_SOON": "És még több hamarosan..."
+      "TSP": {
+        "TITLE": "Utazó ügynök probléma",
+        "BNB_METHOD": "B&B módszer",
+        "REDUCE": "Redukálás redukálás redukálás..."
+      },
+      "OTHERS_SOON": "Kell több? Lépj kapcsolatba GitHub-on..."
     },
     "FEATURE_LIST_TITLE": "Egyéb kisebb funkciók",
     "FEATURE_LIST": {
@@ -54,9 +64,11 @@
       "CONTENT": "Ha támogatni szeretnéd a munkámat itt megteheted: "
     }
   },
+
   "API_DOCS": {
     "INFO": "Készítés alatt"
   },
+
   "TRANSPORTATION_PROBLEM": {
     "TABS": {
       "ALL": {
@@ -144,6 +156,30 @@
         "RESULT_TITLE": "Redukció és előkészületek",
         "MAX_TO_MIN": "Max-min transzformáció",
         "HANDLE_NEGATIVE_VALUES": "Negatív érték kezelése"
+      }
+    }
+  },
+
+  "TSP": {
+    "TABLE_SIZE_SELECT": "Tábla méret (n * n)",
+    "INPUT_TABLE_INFO": "A főátlóban nincsenek számok, mert például az első városból nem utazunk az első városba (hiszen ott vagyunk).",
+    "TABS": {
+      "BNB_METHOD": {
+        "NAME": "B&B módszer",
+        "PATH_TITLE": "B&B módszer {{step}}. útvonal",
+        "BEST_PATH": "Legjobb körút",
+        "STATE": "Állapot:",
+        "CURRENT_PATH": "Jelenlegi útvonal: {{path}}",
+        "CURRENT_COST": "Jelenlegi költség: {{cost}}",
+        "VIEW_INFO": {
+          "NAME": "Infó a nézetről",
+          "TOWN_ID": "A <b>narancs számok</b> az éleken a <b>városok</b> azonosítóját reprezentálják, amerre épp mehetünk.",
+          "COSTS": "A <b>halmazok melletti</b> számok mutatják az odajutáshoz szükséges <b>eddigi költséget</b>.",
+          "INFO_CARD": "Az <b>infó kártya</b> mindig az utazás aktuális állapotát mutatja, beleértve az <b>útvonalat és költséget</b>."
+        }
+      },
+      "REDUCE": {
+        "NAME": "Redukció"
       }
     }
   }

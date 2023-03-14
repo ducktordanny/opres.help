@@ -14,6 +14,7 @@ export class TableComponent {
   public badgeSource$ = new Observable<ProblemTable>();
   public secondaryBadgeSource$ = new Observable<ProblemTable>();
   @Input() public showZeros = true;
+  @Input() public showNullAsZero = true;
   @Input() public mainMarkedCells?: SelectedCell | Array<SelectedCell>;
   @Input() public markedCells?: Array<SelectedCell>;
   @Input() public horizontalStrikeThroughIndexes?: Array<number>;

@@ -1,7 +1,4 @@
-<div
-  class="layout-wrapper"
-  *ngIf="{shouldFilterByUrl: shouldFilterByUrl | async} as sub"
->
+<div class="layout-wrapper" *ngIf="{shouldFilterByUrl: shouldFilterByUrl | async} as sub">
   <mat-toolbar color="primary" class="mat-elevation-z8">
     <button
       *ngIf="mobileQuery.matches || sub.shouldFilterByUrl"
@@ -20,6 +17,9 @@
     <span class="toolbar-spacer"></span>
     <theme-switcher></theme-switcher>
     <language-switcher></language-switcher>
+    <button mat-icon-button (click)="onInfo()">
+      <mat-icon>info</mat-icon>
+    </button>
   </mat-toolbar>
   <mat-progress-bar
     *ngIf="isLoading | async"
