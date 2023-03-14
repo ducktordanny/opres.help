@@ -6,7 +6,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {TableModule} from '@opres/ui/tables';
-import {UiTreeModule} from '@opres/ui/tree';
+import {UiTreeModule} from '@opres/ui/tsp-tree';
 import {InfoCardModule} from '@frontend/components/info-card/info-card.module';
 import {TranslateModule} from '@ngx-translate/core';
 

@@ -4,10 +4,10 @@
   <mat-tab-group mat-stretch-tabs>
     <mat-tab *ngFor="let pathFinding of step.value; let index = index" [label]="index + 1 + '.'">
       <ng-template matTabContent>
-        <opres-tree
+        <opres-tsp-tree
           [treeId]="'bnb-' + step.key + '-' + index"
           [data]="pathFinding['tree']"
-        ></opres-tree>
+        ></opres-tsp-tree>
         <section class="wrapper">
           <info-card>
             <b>{{'TSP.TABS.BNB_METHOD.STATE' | translate}}</b>

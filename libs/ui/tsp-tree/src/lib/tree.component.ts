@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 import {HierarchyPointLink} from 'd3';
 
 @Component({
-  selector: 'opres-tree[treeId][data]',
+  selector: 'opres-tsp-tree[treeId][data]',
   templateUrl: './tree.template.html',
   styleUrls: ['./tree.style.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

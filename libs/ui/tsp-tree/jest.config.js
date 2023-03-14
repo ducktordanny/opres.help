@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'ui-tree',
+  displayName: 'ui-tsp-tree',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/ui/tree',
+  coverageDirectory: '../../../coverage/libs/ui/tsp-tree',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
