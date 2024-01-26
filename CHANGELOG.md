@@ -2,6 +2,10 @@
 
 > All notable changes to this project will be documented in this file.
 
+## [0.9.0] - 2024-01-26
+
+- Add TSP API and UI options
+
 ## [0.8.0] - 2023-02-11
 
 - Add full UI for assignment problem page
