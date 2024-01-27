@@ -11,6 +11,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home/home.module').then((module) => module.HomeModule),
   },
   {
+    path: 'changelog',
+    loadChildren: () =>
+      import('./pages/changelog/changelog.module').then((module) => module.ChangelogPageModule),
+  },
+  {
     path: 'public-api-docs',
     pathMatch: 'full',
     loadChildren: () =>

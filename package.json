@@ -39,6 +39,7 @@
     "@nrwl/angular": "13.9.5",
     "d3": "^7.8.2",
     "lodash": "^4.17.21",
+    "marked": "^11.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.5",
     "ts-cacheable": "^1.0.6",

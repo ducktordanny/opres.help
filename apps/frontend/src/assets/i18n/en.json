@@ -21,6 +21,7 @@
 
   "SIDEBAR_MENU": {
     "HOME": "Home",
+    "CHANGELOG": "Changelog",
     "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Transportation problem",
     "ASSIGNMENT_PROBLEM": "Assignment problem",

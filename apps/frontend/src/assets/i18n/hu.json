@@ -21,6 +21,7 @@
 
   "SIDEBAR_MENU": {
     "HOME": "Kezdőlap",
+    "CHANGELOG": "Changelog",
     "API_DOCS": "API dokumentáció",
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
     "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma",

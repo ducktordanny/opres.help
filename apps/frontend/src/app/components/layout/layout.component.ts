@@ -35,6 +35,7 @@ export class LayoutComponent implements OnDestroy {
   public mobileQuery: MediaQueryList;
   public readonly ROUTES = [
     {path: '/home', title: 'SIDEBAR_MENU.HOME'},
+    {path: '/changelog', title: 'SIDEBAR_MENU.CHANGELOG'},
     {path: '/public-api-docs', title: 'SIDEBAR_MENU.API_DOCS'},
     {
       path: '/transport-problem',
