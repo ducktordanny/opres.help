@@ -66,6 +66,10 @@
     }
   },
 
+  "CHANGELOG": {
+    "INFO": "Ez az oldal csak angolul elérhető."
+  },
+
   "API_DOCS": {
     "INFO": "Készítés alatt"
   },

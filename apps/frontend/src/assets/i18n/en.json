@@ -66,6 +66,10 @@
     }
   },
 
+  "CHANGELOG": {
+    "INFO": "This page is only available in English."
+  },
+
   "API_DOCS": {
     "INFO": "Under construction! It will be available soon."
   },
