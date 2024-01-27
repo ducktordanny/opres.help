@@ -18,7 +18,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
 
       - name: Install dependencies
         run: yarn
@@ -37,7 +37,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: Deploy to Vercel
         run: npx vercel --token ${{secrets.VERCEL_TOKEN}} --prod
         env:
@@ -56,7 +56,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
