@@ -21,6 +21,7 @@
 
   "SIDEBAR_MENU": {
     "HOME": "Home",
+    "CHANGELOG": "Changelog",
     "API_DOCS": "API docs",
     "TRANSPORTATION_PROBLEM": "Transportation problem",
     "ASSIGNMENT_PROBLEM": "Assignment problem",
@@ -63,6 +64,10 @@
       "TITLE": "Support",
       "CONTENT": "If you would like to support my work you can do it via"
     }
+  },
+
+  "CHANGELOG": {
+    "INFO": "This page is only available in English."
   },
 
   "API_DOCS": {

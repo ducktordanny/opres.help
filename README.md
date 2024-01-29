@@ -66,7 +66,7 @@ Currently, there are two types of actions in the repo, one for running tests whe
 
 [https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format)
 
-### Changelog: [CHANGELOG.md](https://github.com/ducktordanny/opres.help/blob/master/CHANGELOG.md)
+### Changelog: [CHANGELOG.md](https://github.com/ducktordanny/opres.help/blob/master/apps/backend/src/assets/CHANGELOG.md)
 
 ### Husky:
 

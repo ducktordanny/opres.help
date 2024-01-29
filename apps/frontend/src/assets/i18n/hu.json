@@ -21,6 +21,7 @@
 
   "SIDEBAR_MENU": {
     "HOME": "Kezdőlap",
+    "CHANGELOG": "Changelog",
     "API_DOCS": "API dokumentáció",
     "TRANSPORTATION_PROBLEM": "Szállítási probléma",
     "ASSIGNMENT_PROBLEM": "Hozzárendelési probléma",
@@ -63,6 +64,10 @@
       "TITLE": "Támogatás",
       "CONTENT": "Ha támogatni szeretnéd a munkámat itt megteheted: "
     }
+  },
+
+  "CHANGELOG": {
+    "INFO": "Ez az oldal csak angolul elérhető."
   },
 
   "API_DOCS": {
