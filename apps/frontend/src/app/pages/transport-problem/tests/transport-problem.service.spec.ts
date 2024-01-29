@@ -2,19 +2,14 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TestBed} from '@angular/core/testing';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
-import {
-  tableMinimumFirstResultMock,
-  tpDataFirstMock,
-} from '@opres/shared/data/mocks';
+import {tableMinimumFirstResultMock, tpDataFirstMock} from '@opres/shared/data/mocks';
 import {Epsilon} from '@opres/shared/types';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {last} from 'lodash';
 import {of, throwError} from 'rxjs';
 
 import {ErrorHandlerService} from '../../../services/error-handler.service';
-import {
-  transportProblemCacheBuster$,
-  TransportProblemService,
-} from '../transport-problem.service';
+import {transportProblemCacheBuster$, TransportProblemService} from '../transport-problem.service';
 
 describe('TransportProblemService', () => {
   const epsilonMock: Epsilon = {value: 123};
@@ -26,15 +21,19 @@ describe('TransportProblemService', () => {
   let transportProblemService: TransportProblemService;
   let http: HttpClient;
   let snackbar: MatSnackBar;
+  let translateService: TranslateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule, MatSnackBarModule],
-      providers: [TransportProblemService, HttpClient, ErrorHandlerService],
+      imports: [HttpClientModule, MatSnackBarModule, TranslateModule.forRoot()],
+      providers: [TransportProblemService, TranslateService, HttpClient, ErrorHandlerService],
     });
     transportProblemService = TestBed.inject(TransportProblemService);
     http = TestBed.inject(HttpClient);
     snackbar = TestBed.inject(MatSnackBar);
+    translateService = TestBed.inject(TranslateService);
+
+    jest.spyOn(translateService, 'instant').mockReturnValue('Close');
     transportProblemCacheBuster$.next();
   });
 
@@ -47,12 +46,10 @@ describe('TransportProblemService', () => {
       .spyOn(transportProblemService, 'getEpsilonResult')
       .mockReturnValue(of(epsilonMock));
     const phaseMock = {steps: [], epsilon: epsilonMock};
-    transportProblemService
-      .getFullCalculationResult(tpDataFirstMock)
-      .subscribe((value) => {
-        expect(value.firstPhase).toEqual(phaseMock);
-        expect(value.secondPhase).toEqual(phaseMock);
-      });
+    transportProblemService.getFullCalculationResult(tpDataFirstMock).subscribe((value) => {
+      expect(value.firstPhase).toEqual(phaseMock);
+      expect(value.secondPhase).toEqual(phaseMock);
+    });
     done();
     expect(httpPostSpy).toHaveBeenCalledTimes(2);
     expect(epsilonSpy).toHaveBeenCalledTimes(2);
@@ -72,9 +69,7 @@ describe('TransportProblemService', () => {
   });
 
   it('should check epsilon result', () => {
-    const httpPostSpy = jest
-      .spyOn(http, 'post')
-      .mockReturnValue(of(epsilonMock));
+    const httpPostSpy = jest.spyOn(http, 'post').mockReturnValue(of(epsilonMock));
     transportProblemService
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       .getEpsilonResult(last(tableMinimumFirstResultMock)!.transportation)
