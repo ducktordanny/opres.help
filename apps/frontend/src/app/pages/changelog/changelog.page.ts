@@ -15,6 +15,10 @@ import {ChangelogService} from './changelog.service';
       section {
         padding: 16px;
       }
+
+      mat-spinner {
+        margin: auto;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {MdPreviewModule} from '../../pipes/md-preview/md-preview.module';
@@ -17,6 +18,7 @@ import {ChangelogService} from './changelog.service';
     CommonModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     MdPreviewModule,
   ],
   exports: [],
