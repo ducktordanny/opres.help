@@ -1,5 +1,10 @@
 <section>
-  <p [innerHTML]="changelogContent | async | mdPreview"></p>
+  <div *ngIf="(changelogContent | async) as _changelogContent; else loading">
+    <p [innerHTML]="_changelogContent | mdPreview"></p>
+  </div>
+  <ng-template #loading>
+    <mat-spinner diameter="24"></mat-spinner>
+  </ng-template>
   <a
     href="https://github.com/ducktordanny/opres.help/blob/master/apps/backend/src/assets/CHANGELOG.md"
     >See on GitHub.</a
