@@ -2,6 +2,10 @@
 
 > All notable changes to this project will be documented and versioned here.
 
+## [0.10.0] - 2024-01-29
+
+- New page and endpoint for viewing Changelog in English
+
 ## [0.9.0] - 2024-01-26
 
 - Add TSP API and UI options
