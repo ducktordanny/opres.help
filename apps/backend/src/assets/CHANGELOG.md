@@ -2,6 +2,10 @@
 
 > All notable changes to this project will be documented and versioned here.
 
+## [0.10.2] - 2024-02-08
+
+- Fix: Correct version number on home page and in API
+
 ## [0.10.1] - 2024-01-29
 
 - Fix: Add loading spinner for changelog content
